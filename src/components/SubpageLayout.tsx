@@ -5,8 +5,8 @@ import SubpageFooter from './SubpageFooter';
 import ContactForm from './ContactForm';
 import PricingSection from './PricingSection';
 import FadeIn from './FadeIn';
-import { ReactNode } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ReactNode, useState, useEffect, useCallback } from 'react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface SubpageProps {
   heroTitle: ReactNode;
@@ -154,50 +154,34 @@ export default function SubpageLayout({
             </div>
           </FadeIn>
 
+          {/* Horizontal Videos Carousel */}
           {horizontalVideos.length > 0 && (
-            <>
-              <FadeIn>
-                <h3 className="text-lg font-semibold mb-4">横型動画</h3>
-              </FadeIn>
-              <div className="flex gap-4 overflow-x-auto pb-4 mb-10 snap-x snap-mandatory">
-                {horizontalVideos.map((url, i) => (
-                  <FadeIn key={i} delay={i * 0.1}>
-                    <div className="w-[400px] flex-shrink-0 snap-start aspect-video rounded-xl overflow-hidden bg-gray-100">
-                      <iframe
-                        src={url}
-                        className="w-full h-full"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                        title={`Horizontal video ${i + 1}`}
-                      />
-                    </div>
-                  </FadeIn>
-                ))}
-              </div>
-            </>
+            <FadeIn>
+              <VideoCarousel videos={horizontalVideos} />
+            </FadeIn>
           )}
 
+          {/* Vertical Videos */}
           {verticalVideos.length > 0 && (
-            <>
-              <FadeIn>
-                <h3 className="text-lg font-semibold mb-4">縦型動画</h3>
-              </FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {verticalVideos.map((url, i) => (
-                  <FadeIn key={i} delay={i * 0.1}>
-                    <div className="aspect-[9/16] rounded-xl overflow-hidden bg-gray-100">
-                      <iframe
-                        src={url}
-                        className="w-full h-full"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                        title={`Vertical video ${i + 1}`}
-                      />
+            <FadeIn delay={0.2}>
+              <div className="max-w-5xl mx-auto mt-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {verticalVideos.map((url, i) => (
+                    <div key={i} className="bg-gradient-to-br from-[#e8f0fe] to-[#d0e1fd] rounded-3xl p-6 shadow-xl">
+                      <div className="aspect-[9/16] bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
+                        <iframe
+                          src={url}
+                          className="w-full h-full"
+                          allow="autoplay; fullscreen; picture-in-picture"
+                          allowFullScreen
+                          title={`Vertical video ${i + 1}`}
+                        />
+                      </div>
                     </div>
-                  </FadeIn>
-                ))}
+                  ))}
+                </div>
               </div>
-            </>
+            </FadeIn>
           )}
         </div>
       </section>
@@ -234,5 +218,78 @@ export default function SubpageLayout({
       <ContactForm />
       <SubpageFooter />
     </>
+  );
+}
+
+function VideoCarousel({ videos }: { videos: string[] }) {
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => {
+    setCurrent((c) => (c + 1) % videos.length);
+  }, [videos.length]);
+
+  const prev = useCallback(() => {
+    setCurrent((c) => (c - 1 + videos.length) % videos.length);
+  }, [videos.length]);
+
+  // Autoplay every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
+  return (
+    <div className="max-w-5xl mx-auto mb-8">
+      <div className="relative bg-gradient-to-br from-[#ffd4c4] via-[#ffe4d4] to-[#ffc4b4] rounded-3xl overflow-hidden shadow-2xl p-8 lg:p-12">
+        {/* Navigation arrows */}
+        <button
+          onClick={prev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all"
+        >
+          <ChevronLeft size={24} className="text-gray-700" />
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all"
+        >
+          <ChevronRight size={24} className="text-gray-700" />
+        </button>
+
+        {/* Video slides */}
+        <div className="overflow-hidden rounded-2xl">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${current * 100}%)` }}
+          >
+            {videos.map((url, i) => (
+              <div key={i} className="w-full flex-shrink-0 px-4">
+                <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
+                  <iframe
+                    src={url}
+                    className="w-full h-full"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    title={`Video ${i + 1}`}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {videos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                i === current ? 'bg-primary scale-110' : 'bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
