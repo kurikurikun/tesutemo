@@ -40,6 +40,10 @@ export default function UniversityPage() {
       solutionTitle="テステモは、リアルな声で伝えます"
       solutionSubtitle={<>在学生・卒業生のインタビューを通して<br />大学の&ldquo;本当の魅力&rdquo;を可視化</>}
       solutionPoints={['志願者が「自分に合うか」を判断できるコンテンツ']}
+      videoSectionTitle="リアルな声が、志願者の判断を変える"
+      videoSectionSubtitle="インタビュー動画（横型：90〜120秒 / 縦型：30〜60秒）"
+      videoHorizontalDesc={<>横型は大学サイトや説明会で<span className="text-primary font-bold">「しっかり伝える」</span>ために</>}
+      videoVerticalDesc={<>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>}
       horizontalVideos={[
         `${vimeoBase}1019675789?h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,

@@ -29,6 +29,10 @@ export default function CaseStudyPage() {
       solutionTitle="テステモは、リアルな声で伝えます"
       solutionSubtitle={<>顧客のインタビューを通して<br />商品・サービスの&ldquo;本当の価値&rdquo;を可視化</>}
       solutionPoints={['見込み客が「自分にも合うか」を判断できるコンテンツ']}
+      videoSectionTitle="リアルな声が、購買の判断を変える"
+      videoSectionSubtitle="インタビュー動画（横型：90〜120秒 / 縦型：30〜60秒）"
+      videoHorizontalDesc={<>横型はWebサイトやイベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>}
+      videoVerticalDesc={<>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>}
       horizontalVideos={[
         `${vimeoBase}1019675789?h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,

@@ -19,6 +19,10 @@ interface SubpageProps {
   solutionTitle: string;
   solutionSubtitle: ReactNode;
   solutionPoints: string[];
+  videoSectionTitle: string;
+  videoSectionSubtitle: string;
+  videoHorizontalDesc: ReactNode;
+  videoVerticalDesc: ReactNode;
   horizontalVideos: string[];
   verticalVideos: string[];
   children?: ReactNode;
@@ -35,6 +39,10 @@ export default function SubpageLayout({
   solutionTitle,
   solutionSubtitle,
   solutionPoints,
+  videoSectionTitle,
+  videoSectionSubtitle,
+  videoHorizontalDesc,
+  videoVerticalDesc,
   horizontalVideos,
   verticalVideos,
   children,
@@ -120,12 +128,14 @@ export default function SubpageLayout({
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900">{solutionTitle}</h2>
-            <p className="text-gray-600 mb-8 leading-relaxed text-lg">{solutionSubtitle}</p>
+            <p className="text-gray-600 mb-10 leading-relaxed text-lg">{solutionSubtitle}</p>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {solutionPoints.map((point, i) => (
-                <p key={i} className="text-gray-700">{point}</p>
+                <div key={i} className="bg-primary text-white text-lg font-medium py-5 px-8 rounded-2xl">
+                  {point}
+                </div>
               ))}
             </div>
           </FadeIn>
@@ -136,7 +146,12 @@ export default function SubpageLayout({
       <section id="videos" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h2 className="text-3xl font-bold text-center mb-12">動画プレビュー</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">{videoSectionTitle}</h2>
+            <p className="text-center text-gray-500 mb-4">{videoSectionSubtitle}</p>
+            <div className="text-center space-y-1 mb-12">
+              <p className="text-gray-600">{videoHorizontalDesc}</p>
+              <p className="text-gray-600">{videoVerticalDesc}</p>
+            </div>
           </FadeIn>
 
           {horizontalVideos.length > 0 && (
