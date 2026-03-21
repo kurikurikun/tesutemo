@@ -1,11 +1,15 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
-export const runtime = 'edge';
 export const alt = 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const logoData = await readFile(join(process.cwd(), 'public', 'tesutemo-logo.png'));
+  const logoBase64 = `data:image/png;base64,${logoData.toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -16,7 +20,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #fff5f0 0%, #ffffff 40%, #e8ecf5 100%)',
+          background: 'linear-gradient(135deg, #eef1f8 0%, #ffffff 40%, #e8ecf5 100%)',
           fontFamily: 'sans-serif',
         }}
       >
@@ -28,47 +32,21 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: '8px',
-            background: 'linear-gradient(90deg, #e95228, #ff6b4a, #7e91cf)',
+            background: 'linear-gradient(90deg, #7e91cf, #5a6eb3, #e95228)',
             display: 'flex',
           }}
         />
 
-        {/* Logo mark */}
-        <div
+        {/* Logo image */}
+        <img
+          src={logoBase64}
+          width={360}
+          height={135}
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '24px',
             marginBottom: '32px',
+            objectFit: 'contain',
           }}
-        >
-          <div
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '20px',
-              background: 'linear-gradient(135deg, #e95228, #ff6b4a)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontSize: '40px',
-              fontWeight: 'bold',
-            }}
-          >
-            T
-          </div>
-          <span
-            style={{
-              fontSize: '64px',
-              fontWeight: 'bold',
-              color: '#1a1a1a',
-              display: 'flex',
-            }}
-          >
-            TesuTemo
-          </span>
-        </div>
+        />
 
         {/* Headline */}
         <div
@@ -104,7 +82,7 @@ export default async function Image() {
             marginTop: '40px',
             padding: '16px 48px',
             borderRadius: '12px',
-            background: 'linear-gradient(135deg, #e95228, #ff6b4a)',
+            background: 'linear-gradient(135deg, #7e91cf, #5a6eb3)',
             color: 'white',
             fontSize: '22px',
             fontWeight: 'bold',
