@@ -44,6 +44,11 @@ export default function RecruitmentPage() {
       videoSectionSubtitle="インタビュー動画（横型：90〜120秒 / 縦型：30〜60秒）"
       videoHorizontalDesc={<>横型は採用サイトや説明会・イベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>}
       videoVerticalDesc={<>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>}
+      onlineFeatures={[
+        { title: '日常環境だから', desc: '自身のスマホに向けて話すことで、リラックスした状態でリアルな声を聞くことができる' },
+        { title: '専用ソフトで高品質に収録', desc: 'ログイン・サインアップ不要の専用ソフトで収録することで、音声・映像の品質を保ちながら、現地に撮影に行く必要がなく、コストを抑えて実施できる' },
+        { title: '求職者の情報収集チャネルに最適化', desc: 'ターゲットとなる求職者が日常的に使うSNSに適したコンテンツとして活用できる' },
+      ]}
       horizontalVideos={[
         `${vimeoBase}1019675789?h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,

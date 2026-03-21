@@ -44,6 +44,11 @@ export default function MunicipalityPage() {
       videoSectionSubtitle="インタビュー動画（横型：90〜120秒 / 縦型：30〜60秒）"
       videoHorizontalDesc={<>横型は移住サイトや説明会・イベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>}
       videoVerticalDesc={<>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>}
+      onlineFeatures={[
+        { title: '日常環境だから', desc: '自身のスマホに向けて話すことで、リラックスした状態でリアルな声を聞くことができる' },
+        { title: '専用ソフトで高品質に収録', desc: 'ログイン・サインアップ不要の専用ソフトで収録することで、音声・映像の品質を保ちながら、現地に撮影に行く必要がなく、コストを抑えて実施できる' },
+        { title: '移住検討者の情報収集チャネルに最適化', desc: 'ターゲットとなる移住検討者が日常的に使うSNSに適したコンテンツとして活用できる' },
+      ]}
       horizontalVideos={[
         `${vimeoBase}1010823028?h=680857e13b${params}`,
         `${vimeoBase}1050610140?h=a5b8353977${params}`,

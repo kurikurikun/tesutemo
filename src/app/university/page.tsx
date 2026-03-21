@@ -44,6 +44,11 @@ export default function UniversityPage() {
       videoSectionSubtitle="インタビュー動画（横型：90〜120秒 / 縦型：30〜60秒）"
       videoHorizontalDesc={<>横型は大学サイトや説明会で<span className="text-primary font-bold">「しっかり伝える」</span>ために</>}
       videoVerticalDesc={<>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>}
+      onlineFeatures={[
+        { title: '日常環境だから', desc: '自身のスマホに向けて話すことで、リラックスした状態でリアルな話を聞くことができる' },
+        { title: '専用ソフトで高品質に収録', desc: 'ログイン・サインアップ不要の専用ソフトで収録することで、音声・映像の品質を保ちながら、気軽にインタビューを受けられる' },
+        { title: '学生の情報収集チャネルに最適化', desc: 'ターゲットとなる学生が日常的に使うSNSに適したコンテンツとして活用できる' },
+      ]}
       horizontalVideos={[
         `${vimeoBase}1019675789?h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,

@@ -23,6 +23,7 @@ interface SubpageProps {
   videoSectionSubtitle: string;
   videoHorizontalDesc: ReactNode;
   videoVerticalDesc: ReactNode;
+  onlineFeatures: { title: string; desc: string }[];
   horizontalVideos: string[];
   verticalVideos: string[];
   children?: ReactNode;
@@ -43,6 +44,7 @@ export default function SubpageLayout({
   videoSectionSubtitle,
   videoHorizontalDesc,
   videoVerticalDesc,
+  onlineFeatures,
   horizontalVideos,
   verticalVideos,
   children,
@@ -186,26 +188,23 @@ export default function SubpageLayout({
         </div>
       </section>
 
-      {/* Process */}
+      {/* Online Features */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h2 className="text-3xl font-bold text-center mb-12">ご利用の流れ</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">すべてオンラインで完結だから</h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { num: '①', title: '打ち合わせ', desc: 'お悩み、課題をヒアリングし、最適なプランをご提案します' },
-              { num: '②', title: '候補者選び', desc: '最適な人物像をお伝えし、インタビュー候補者を選んでいただきます' },
-              { num: '③', title: 'できあがり', desc: 'オンラインインタビューを実施し、動画を編集・納品します' },
-            ].map((step, i) => (
-              <FadeIn key={step.num} delay={i * 0.15}>
-                <div className="bg-white rounded-2xl p-8 text-center shadow-sm h-full">
-                  <div className="w-14 h-14 bg-gradient-to-r from-primary to-primary-light rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-                    {step.num}
-                  </div>
-                  <h3 className="text-lg font-bold mb-3">{step.title}</h3>
-                  <p className="text-sm text-gray-600">{step.desc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {onlineFeatures.map((feature, i) => (
+              <FadeIn key={i} delay={i * 0.15}>
+                <div className="bg-white rounded-2xl p-8 shadow-sm h-full flex flex-col">
+                  <span className="text-4xl font-bold text-primary/20 mb-4">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="text-lg font-bold mb-3 text-gray-900">{feature.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{feature.desc}</p>
                 </div>
+                {i < onlineFeatures.length - 1 && (
+                  <div className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 text-gray-300 text-2xl">→</div>
+                )}
               </FadeIn>
             ))}
           </div>
