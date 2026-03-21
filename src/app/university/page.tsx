@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: '大学広報動画 - 学生のリアルな声で入学者を迎える',
@@ -88,6 +89,68 @@ export default function UniversityPage() {
                 <p className="text-gray-600 ml-7 whitespace-pre-line">{item.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 実際のTesuTemo活用事例と、利用者さまの声 */}
+      <section className="py-20 bg-gradient-to-b from-[#d4d9f0] to-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
+              実際のTesuTemo活用事例と、
+            </h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
+              利用者さまの声
+            </h2>
+          </div>
+
+          {/* Video Carousel - green gradient */}
+          <div className="max-w-5xl mx-auto mb-16">
+            <div className="relative bg-gradient-to-br from-[#a8d5ba] via-[#b8dfc8] to-[#98c5aa] rounded-3xl overflow-hidden shadow-2xl p-8 lg:p-12">
+              <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
+                <iframe
+                  src={`${vimeoBase}1077851874?h=4cc1f2e2a6${params}`}
+                  className="w-full h-full"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  title="活用事例動画"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Testimonial */}
+          <div className="max-w-4xl mx-auto">
+            {/* University Logo and Title */}
+            <div className="flex items-center justify-center gap-6 mb-12">
+              <Image src="/logo-kansai.png" alt="関西大学" width={80} height={80} className="h-20 w-auto" />
+              <div className="text-left border-l-2 border-gray-300 pl-6">
+                <p className="text-lg text-gray-600 mb-1">学部・大学院事務グループ</p>
+                <p className="text-2xl font-semibold text-gray-900">大淵さん</p>
+              </div>
+            </div>
+
+            {/* Testimonial Quotes */}
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl p-8 border-l-4 border-primary shadow-sm">
+                <p className="text-gray-700 leading-relaxed">
+                  年間何度も実施している併設校や受験生向けの学部説明会の際に、毎回学生に10分ほどのプレゼンのために来てもらうのは大変なので、このTesuTemo動画を活用させてもらっています。前後に先生のプレゼンもあるので、ゼミの説明や学部留学プログラムの概要はそちらで紹介し、途中で学生の声を挟んで<span className="text-primary font-semibold">説明会にメリハリ</span>をつけています。
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl p-8 border-l-4 border-primary shadow-sm">
+                <p className="text-gray-700 leading-relaxed">
+                  また、春に向けて制作している学部パンフレットの中で、ゼミ活動の紹介のページや学部留学プログラムのページに<span className="text-primary font-semibold">QRコードを掲載</span>して、TesuTemo動画を学部のHPにアップロードさせていただき、そのページにとぶように準備をしています。
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl p-8 border-l-4 border-primary shadow-sm">
+                <p className="text-gray-700 leading-relaxed">
+                  既存のHPや学部パンフレットや学部説明会などのスライドにTesuTemo動画を受けとることで、わざわざ学生の手配をしていた<span className="text-primary font-semibold">手間やコストも減らせる</span>ことができるので、私たちはとても重宝しています。
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
