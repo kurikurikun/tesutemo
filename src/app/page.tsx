@@ -6,7 +6,7 @@ import ContactForm from '@/components/ContactForm';
 import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Video, Users, Shield, Sparkles, ArrowRight, Play, AlertCircle, ClipboardCheck, MessageSquare, UserPlus, TrendingUp, GraduationCap, MapPin } from 'lucide-react';
 
 function HeroCarousel() {
