@@ -102,7 +102,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          tesutemo.vercel.app
+          www.tesutemo.co
         </div>
       </div>
     ),

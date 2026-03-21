@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tesutemo.vercel.app'),
+  metadataBase: new URL('https://www.tesutemo.co'),
   title: {
     default: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
     template: '%s | TesuTemo',
@@ -44,8 +44,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'TesuTemo',
-  url: 'https://tesutemo.vercel.app',
-  logo: 'https://tesutemo.vercel.app/tesutemo-logo.png',
+  url: 'https://www.tesutemo.co',
+  logo: 'https://www.tesutemo.co/tesutemo-logo.png',
   description:
     'リアルな声を動画で届け、人と組織をつなぐインタビューサービス。採用、集客、移住促進に。',
 };
