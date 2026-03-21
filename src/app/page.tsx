@@ -11,11 +11,11 @@ import { Video, Users, Shield, Sparkles, ArrowRight, Play, AlertCircle, Clipboar
 
 function HeroCarousel() {
   const images = [
-    'https://picsum.photos/seed/tst1/400/533',
-    'https://picsum.photos/seed/tst2/400/533',
-    'https://picsum.photos/seed/tst3/400/533',
-    'https://picsum.photos/seed/tst4/400/533',
-    'https://picsum.photos/seed/tst5/400/533',
+    '/hero-1.png',
+    '/hero-2.png',
+    '/hero-3.png',
+    '/hero-4.png',
+    '/hero-5.png',
   ];
   const scrollRef = useRef<HTMLDivElement>(null);
 
