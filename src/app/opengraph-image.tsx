@@ -6,7 +6,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const logoUrl = new URL('/tesutemo-logo.png', 'https://www.tesutemo.co').toString();
+  const logoUrl = new URL('/tesutemo-logo.png', 'https://tesutemo.vercel.app').toString();
 
   return new ImageResponse(
     (
