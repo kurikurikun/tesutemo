@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: '採用動画 - 社員のリアルな声で仲間を集める',
@@ -60,6 +61,93 @@ export default function RecruitmentPage() {
         `${vimeoBase}1049144140${params}`,
         `${vimeoBase}1169470823?h=af1c20547e${params}`,
       ]}
-    />
+    >
+      {/* 採用現場でのTesuTemo動画活用イメージ */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-[#e8e5f5] to-[#f0eef8] rounded-2xl py-8 px-6 mb-12 text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
+              採用現場での<br />TesuTemo動画活用イメージ
+            </h2>
+          </div>
+
+          <div className="space-y-8">
+            {[
+              {
+                num: '①',
+                title: 'SNS',
+                points: [
+                  'SNSから情報を手に入れているターゲット層と繋がります。',
+                  '広範囲なエンゲージメントを得られる強力な手段。',
+                  'インタビュー動画は視聴の魅力でシェアされやすく、SNSでの拡散を促進します。',
+                ],
+              },
+              {
+                num: '②',
+                title: '採用説明会',
+                points: [
+                  '企業の雰囲気や文化、職場環境を視覚的に伝え、求職者に印象を与えしもらいます',
+                  '他の企業との差別化します',
+                  '短時間で、求職者の関心を引きつけます',
+                  '求職者はその企業で働くイメージを具体的に持ちやすくなります',
+                ],
+              },
+              {
+                num: '③',
+                title: '企業の採用ページ',
+                points: [
+                  '企業のリアルな雰囲気と文化を伝え、求職者の信頼を得ると共に、応募意欲を高めます',
+                  '企業の雇用ブランディングを強化します',
+                  '職場環境や社員の表情、熱意などを直感伝えられます',
+                ],
+              },
+              {
+                num: '④',
+                title: '採用サイト',
+                points: [
+                  '応募する際の意思決定を後押しする効果になります',
+                  '多様な職種を効率よく比較できます',
+                  'マイナビなど、採用サイトも縦動画のショートムービーを導入しています',
+                ],
+              },
+            ].map((item) => (
+              <div key={item.num} className="bg-white rounded-2xl p-8 shadow-sm">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-lg">{item.num}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-primary mt-1">{item.title}</h3>
+                </div>
+                <ul className="space-y-3 ml-14">
+                  {item.points.map((point, j) => (
+                    <li key={j} className="flex items-start gap-3">
+                      <span className="text-gray-700">•</span>
+                      <p className="text-gray-700 leading-relaxed">{point}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            {/* マイナビスクリーンショット */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg">
+              <div className="text-center mb-6">
+                <p className="text-lg text-gray-700 font-semibold">マイナビさま</p>
+                <p className="text-sm text-gray-500 mt-1">※弊社実績ではなくイメージです</p>
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/mynavi-screenshot.png"
+                  alt="マイナビ ショートムービーギャラリー"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </SubpageLayout>
   );
 }
