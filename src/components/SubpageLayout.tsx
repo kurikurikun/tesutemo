@@ -43,7 +43,7 @@ export default function SubpageLayout({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeIn direction="left">
               <div>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-snug lg:leading-[1.3]">
                   {heroTitle}
                 </h1>
                 <div className="text-xl text-gray-600 mb-8 leading-relaxed">
