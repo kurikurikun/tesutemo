@@ -58,6 +58,37 @@ export default function MunicipalityPage() {
         `${vimeoBase}1013400453?h=89cb5fd807${params}`,
         `${vimeoBase}1050617850?h=2e4031d8bd${params}`,
       ]}
-    />
+    >
+      {/* TesuTemoの導入により変わるプロモーションの現場 */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+              TesuTemoの導入により変わるプロモーションの現場
+            </h2>
+            <p className="text-lg text-gray-600">導入することで、自治体の広報・移住促進はこう変わります</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { title: '動画素材がすぐ使える', desc: 'SNSや移住相談会・イベントで使用するために適した\n縦型・横型の動画素材が手に入る' },
+              { title: '制作の手間が減る', desc: '制作の手間が大幅に減ることで\n担当者の負担が減る' },
+              { title: '共感されるコンテンツ', desc: 'Z世代 / α世代にとって信頼性のあるリアルな声は共感を生む' },
+              { title: '稟議が通しやすい', desc: '低予算で豊富なプランにより稟議を通しやすい' },
+              { title: '現地に行かず実施できる', desc: '現地に撮影に行く必要がなく、\n距離に関係なく低コストで実施できる' },
+              { title: '移住促進の導線を強化', desc: 'パンフレットや移住サイトに動画を組み込むことで、\n相談・来訪につながる導線をつくる' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-4 h-4 bg-primary rounded-full flex-shrink-0 mt-1" />
+                  <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
+                </div>
+                <p className="text-gray-600 ml-7 whitespace-pre-line">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </SubpageLayout>
   );
 }
