@@ -6,10 +6,11 @@ import ContactForm from './ContactForm';
 import PricingSection from './PricingSection';
 import FadeIn from './FadeIn';
 import { ReactNode } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 interface SubpageProps {
-  heroTitle: string;
-  heroSubtitle: string;
+  heroTitle: ReactNode;
+  heroSubtitle: ReactNode;
   heroVideoUrl: string;
   problems: string[];
   problemIntro: string;
@@ -37,33 +38,37 @@ export default function SubpageLayout({
       <SubpageHeader />
 
       {/* Hero */}
-      <section className="bg-accent text-white py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <section className="pt-32 pb-24 lg:pt-40 lg:pb-32 bg-gradient-to-b from-gray-50 to-white" style={{ backgroundColor: '#c5cee8' }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeIn direction="left">
               <div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                   {heroTitle}
                 </h1>
-                <p className="text-white/80 mb-8">{heroSubtitle}</p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href="#contact"
-                    className="bg-gradient-to-r from-primary to-primary-light text-white px-8 py-3 rounded-full font-medium text-center hover:opacity-90 transition-opacity"
-                  >
-                    お問い合わせ
-                  </a>
+                <div className="text-xl text-gray-600 mb-8 leading-relaxed">
+                  {heroSubtitle}
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
                   <a
                     href="#videos"
-                    className="border border-white/40 text-white px-8 py-3 rounded-full font-medium text-center hover:bg-white/10 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-primary text-primary rounded-xl font-medium hover:bg-primary hover:text-white transition-all duration-300"
                   >
-                    動画を見る
+                    導入事例を見る
+                    <ArrowRight size={20} />
+                  </a>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-medium hover:bg-[#c74320] transition-all duration-300"
+                  >
+                    はじめる
+                    <ArrowRight size={20} />
                   </a>
                 </div>
               </div>
             </FadeIn>
             <FadeIn direction="right">
-              <div className="aspect-video rounded-xl overflow-hidden bg-black/20">
+              <div className="aspect-video bg-gradient-to-br from-[#7e91cf] to-[#5a6eb3] rounded-3xl overflow-hidden shadow-2xl">
                 <iframe
                   src={heroVideoUrl}
                   className="w-full h-full"

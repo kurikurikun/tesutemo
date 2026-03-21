@@ -4,26 +4,24 @@ import Link from 'next/link';
 
 export default function SubpageHeader() {
   return (
-    <header className="bg-accent text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold">
-            TesuTemo
+    <header className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={{ backgroundColor: '#7e91cf' }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
+        <Link href="/" className="text-2xl font-bold text-white">
+          TesuTemo
+        </Link>
+        <div className="flex items-center gap-6">
+          <Link
+            href="/"
+            className="text-white hover:text-gray-200 transition-colors"
+          >
+            トップ
           </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/10 transition-colors"
-            >
-              トップ
-            </Link>
-            <Link
-              href="#contact"
-              className="text-sm bg-white text-gray-900 px-5 py-1.5 rounded-full font-medium hover:bg-gray-100 transition-colors"
-            >
-              はじめる
-            </Link>
-          </div>
+          <a
+            href="#contact"
+            className="px-6 py-2.5 bg-primary text-white rounded-xl font-medium hover:bg-[#c74320] transition-all duration-300"
+          >
+            はじめる
+          </a>
         </div>
       </div>
     </header>

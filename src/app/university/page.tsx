@@ -3,32 +3,45 @@
 import SubpageLayout from '@/components/SubpageLayout';
 
 const vimeoBase = 'https://player.vimeo.com/video/';
-const params = '?title=0&byline=0&portrait=0';
+const params = '?badge=0&autopause=0&player_id=0&app_id=58479';
 
 export default function UniversityPage() {
   return (
     <SubpageLayout
-      heroTitle="大学の「ファン」である在学生の声で、次の学生を迎える"
-      heroSubtitle="リアルな在学生インタビューで、大学の本当の魅力を高校生に届ける"
-      heroVideoUrl={`${vimeoBase}1019675789?h=8ca81d7847${params}`}
-      problemIntro="大学の学生募集における課題"
+      heroTitle={
+        <>
+          大学の<span className="text-primary">「ファン」</span>である学生の声で、
+          <br />次の入学者を迎える
+        </>
+      }
+      heroSubtitle={
+        <>
+          <span className="text-primary font-semibold">リアルな声</span>でターゲットとなる学生の共感を生み
+          <br />
+          <span className="text-primary font-semibold">安価</span>で手に入る大学の動画プロモーション
+        </>
+      }
+      heroVideoUrl={`${vimeoBase}1017754838?h=2df374323e${params}`}
+      problemIntro="大学広報における課題"
       problems={[
-        'オープンキャンパスだけでは大学の魅力が十分に伝わらない',
-        '高校生が入学後の生活をイメージできない',
-        '他大学との差別化が難しく志願者が減少している',
-        'パンフレットの情報と実際のキャンパスライフにギャップがある',
-        '地方の高校生にリーチする手段が限られている',
+        'パンフレットやWebサイトだけでは大学の魅力が伝わらない',
+        'オープンキャンパスに来られない学生にリーチできない',
+        '学部ごとの特色や雰囲気を具体的に伝えられない',
+        '留学生向けの情報発信が不足している',
+        '志願者数の減少に歯止めがかからない',
       ]}
-      solutionTitle="在学生のリアルな声が、次の学生を引き寄せる"
-      solutionDesc="実際に通っている在学生のインタビュー動画を通じて、パンフレットでは伝わらないキャンパスライフの実感や学びの魅力をリアルに届けます。等身大の先輩の声が、受験生の不安を解消し入学への一歩を後押しします。"
+      solutionTitle="在学生のリアルな声が、次の入学者を引き寄せる"
+      solutionDesc="実際に通っている学生のインタビュー動画を通じて、パンフレットでは伝わらないキャンパスライフや学びの魅力をリアルに届けます。等身大の声が、志願者の共感を生みます。"
       horizontalVideos={[
         `${vimeoBase}1019675789?h=8ca81d7847${params}`,
-        `${vimeoBase}1014779536?h=2c4b22d316${params}`,
+        `${vimeoBase}1082523091${params}`,
+        `${vimeoBase}1049154514${params}`,
+        `${vimeoBase}1019649377${params}`,
       ]}
       verticalVideos={[
-        `${vimeoBase}1020046986${params}`,
-        `${vimeoBase}1049144140${params}`,
-        `${vimeoBase}1015054920${params}`,
+        `${vimeoBase}1077851874?h=4cc1f2e2a6${params}`,
+        `${vimeoBase}1077854511?h=4e8398acf7${params}`,
+        `${vimeoBase}1077853072?h=82e17e407b${params}`,
       ]}
     />
   );
