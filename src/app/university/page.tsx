@@ -1,6 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+
+export const metadata: Metadata = {
+  title: '大学広報動画 - 学生のリアルな声で入学者を迎える',
+  description:
+    '在学生インタビュー動画で志願者の共感を生み、大学の魅力をリアルに届ける広報動画サービス。キャンパスライフや学びの魅力を等身大の声で伝えます。',
+};
 
 const vimeoBase = 'https://player.vimeo.com/video/';
 const params = '?badge=0&autopause=0&player_id=0&app_id=58479';

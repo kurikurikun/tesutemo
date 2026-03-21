@@ -1,6 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+
+export const metadata: Metadata = {
+  title: '導入事例動画 - 顧客のリアルな声で次の顧客を動かす',
+  description:
+    '顧客インタビュー動画で見込み客の不安を解消し、購買を後押しする導入事例動画サービス。信頼できる第三者の声で商品・サービスの本当の価値を届けます。',
+};
 
 const vimeoBase = 'https://player.vimeo.com/video/';
 const params = '?title=0&byline=0&portrait=0';

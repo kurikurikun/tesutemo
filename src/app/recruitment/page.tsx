@@ -1,6 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+
+export const metadata: Metadata = {
+  title: '採用動画 - 社員のリアルな声で仲間を集める',
+  description:
+    '社員インタビュー動画で求職者の共感を生み、ミスマッチのない採用を実現。リアルな声で職場の雰囲気や働きがいを伝える採用プロモーション動画サービス。',
+};
 
 const vimeoBase = 'https://player.vimeo.com/video/';
 const params = '?badge=0&autopause=0&player_id=0&app_id=58479';

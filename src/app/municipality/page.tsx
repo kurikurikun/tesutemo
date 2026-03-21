@@ -1,6 +1,11 @@
-'use client';
-
+import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+
+export const metadata: Metadata = {
+  title: '自治体移住促進動画 - 移住者のリアルな声で次の移住者を迎える',
+  description:
+    '先輩移住者のインタビュー動画で移住検討者の共感を生み、地域の魅力をリアルに届ける移住促進動画サービス。限られた予算で効果的なプロモーションを実現します。',
+};
 
 const vimeoBase = 'https://player.vimeo.com/video/';
 const params = '?badge=0&autopause=0&player_id=0&app_id=58479';
