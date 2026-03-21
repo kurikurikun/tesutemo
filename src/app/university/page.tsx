@@ -112,7 +112,8 @@ export default function UniversityPage() {
                 <iframe
                   src={`${vimeoBase}1077851874?h=4cc1f2e2a6${params}`}
                   className="w-full h-full"
-                  allow="autoplay; fullscreen; picture-in-picture"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                   title="活用事例動画"
                 />

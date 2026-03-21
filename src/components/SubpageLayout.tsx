@@ -88,7 +88,8 @@ export default function SubpageLayout({
                 <iframe
                   src={heroVideoUrl}
                   className="w-full h-full"
-                  allow="autoplay; fullscreen; picture-in-picture"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                   title="Hero video"
                 />
@@ -174,7 +175,8 @@ export default function SubpageLayout({
                         <iframe
                           src={url}
                           className="w-full h-full"
-                          allow="autoplay; fullscreen; picture-in-picture"
+                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
                           allowFullScreen
                           title={`Vertical video ${i + 1}`}
                         />
@@ -266,7 +268,8 @@ function VideoCarousel({ videos }: { videos: string[] }) {
                   <iframe
                     src={url}
                     className="w-full h-full"
-                    allow="autoplay; fullscreen; picture-in-picture"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
                     title={`Video ${i + 1}`}
                   />
