@@ -16,7 +16,8 @@ export default function CaseStudyPage() {
       heroTitle="自社の「ファン」の声で、次の顧客を動かす"
       heroSubtitle="リアルな顧客インタビューで、商品・サービスの本当の価値を届ける"
       heroVideoUrl={`${vimeoBase}1017754838?h=2df374323e${params}`}
-      problemIntro="顧客獲得における課題"
+      problemHeading="発信しているのに、選ばれない"
+      problemSubheading={<>企業として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
         '商品・サービスの魅力が伝わりきらない',
         'レビューサイトの口コミだけでは信頼が不十分',
@@ -24,8 +25,10 @@ export default function CaseStudyPage() {
         'コンバージョン率が伸び悩んでいる',
         '既存顧客の満足度を新規獲得に活かせていない',
       ]}
-      solutionTitle="顧客のリアルな声が、次の顧客を動かす"
-      solutionDesc="実際に利用している顧客のインタビュー動画を通じて、テキストレビューでは伝わらない使用感や満足度をリアルに届けます。信頼できる第三者の声が、見込み客の不安を解消し購買への一歩を後押しします。"
+      problemConclusion={<>結果として、<br />商品・サービスの本当の価値が伝わらず、顧客獲得の機会を逃している。</>}
+      solutionTitle="テステモは、リアルな声で伝えます"
+      solutionSubtitle={<>顧客のインタビューを通して<br />商品・サービスの&ldquo;本当の価値&rdquo;を可視化</>}
+      solutionPoints={['見込み客が「自分にも合うか」を判断できるコンテンツ']}
       horizontalVideos={[
         `${vimeoBase}1019675789?h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,
