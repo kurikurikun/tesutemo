@@ -27,7 +27,7 @@ export default function UniversityPage() {
           <span className="text-primary font-semibold">安価</span>で手に入る大学の動画プロモーション
         </>
       }
-      heroVideoUrl={`${vimeoBase}1017754838?h=2df374323e${params}`}
+      heroVideoUrl={`${vimeoBase}1017754838&h=2df374323e${params}`}
       problemHeading="発信しているのに、選ばれない"
       problemSubheading={<>大学として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -51,15 +51,15 @@ export default function UniversityPage() {
         { title: '学生の情報収集チャネルに最適化', desc: 'ターゲットとなる学生が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        `${vimeoBase}1019675789?h=8ca81d7847${params}`,
+        `${vimeoBase}1019675789&h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,
         `${vimeoBase}1049154514${params}`,
         `${vimeoBase}1019649377${params}`,
       ]}
       verticalVideos={[
-        `${vimeoBase}1077851874?h=4cc1f2e2a6${params}`,
-        `${vimeoBase}1077854511?h=4e8398acf7${params}`,
-        `${vimeoBase}1077853072?h=82e17e407b${params}`,
+        `${vimeoBase}1077851874&h=4cc1f2e2a6${params}`,
+        `${vimeoBase}1077854511&h=4e8398acf7${params}`,
+        `${vimeoBase}1077853072&h=82e17e407b${params}`,
       ]}
     >
       {/* TesuTemoの導入により変わるプロモーションの現場 */}
@@ -110,7 +110,7 @@ export default function UniversityPage() {
             <div className="relative bg-gradient-to-br from-[#a8d5ba] via-[#b8dfc8] to-[#98c5aa] rounded-3xl overflow-hidden shadow-2xl p-8 lg:p-12">
               <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
                 <iframe
-                  src={`${vimeoBase}1077851874?h=4cc1f2e2a6${params}`}
+                  src={`${vimeoBase}1077851874&h=4cc1f2e2a6${params}`}
                   className="w-full h-full"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"

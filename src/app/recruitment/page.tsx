@@ -27,7 +27,7 @@ export default function RecruitmentPage() {
           <span className="text-primary font-semibold">安価</span>で手に入る採用の動画プロモーション
         </>
       }
-      heroVideoUrl={`${vimeoBase}1017754838?h=2df374323e${params}`}
+      heroVideoUrl={`${vimeoBase}1017754838&h=2df374323e${params}`}
       problemHeading="発信しているのに、応募が来ない"
       problemSubheading={<>企業として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -51,15 +51,15 @@ export default function RecruitmentPage() {
         { title: '求職者の情報収集チャネルに最適化', desc: 'ターゲットとなる求職者が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        `${vimeoBase}1019675789?h=8ca81d7847${params}`,
+        `${vimeoBase}1019675789&h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,
         `${vimeoBase}1049154514${params}`,
         `${vimeoBase}1019649377${params}`,
       ]}
       verticalVideos={[
-        `${vimeoBase}1020046986?h=83e6b0fedd${params}`,
+        `${vimeoBase}1020046986&h=83e6b0fedd${params}`,
         `${vimeoBase}1049144140${params}`,
-        `${vimeoBase}1169470823?h=af1c20547e${params}`,
+        `${vimeoBase}1169470823&h=af1c20547e${params}`,
       ]}
     >
       {/* 採用現場でのTesuTemo動画活用イメージ */}

@@ -15,7 +15,7 @@ export default function CaseStudyPage() {
     <SubpageLayout
       heroTitle="自社の「ファン」の声で、次の顧客を動かす"
       heroSubtitle="リアルな顧客インタビューで、商品・サービスの本当の価値を届ける"
-      heroVideoUrl={`${vimeoBase}1017754838?h=2df374323e${params}`}
+      heroVideoUrl={`${vimeoBase}1017754838&h=2df374323e${params}`}
       problemHeading="発信しているのに、選ばれない"
       problemSubheading={<>企業として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -39,7 +39,7 @@ export default function CaseStudyPage() {
         { title: '顧客の情報収集チャネルに最適化', desc: 'ターゲットとなる顧客が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        `${vimeoBase}1019675789?h=8ca81d7847${params}`,
+        `${vimeoBase}1019675789&h=8ca81d7847${params}`,
         `${vimeoBase}1082523091${params}`,
         `${vimeoBase}1049154514${params}`,
         `${vimeoBase}1019649377${params}`,

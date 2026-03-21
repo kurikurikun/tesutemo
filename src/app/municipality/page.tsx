@@ -26,7 +26,7 @@ export default function MunicipalityPage() {
           <span className="text-primary font-semibold">安価</span>で手に入る移住の動画プロモーション
         </>
       }
-      heroVideoUrl={`${vimeoBase}1010426949?h=34d0ad59fb${params}`}
+      heroVideoUrl={`${vimeoBase}1010426949&h=34d0ad59fb${params}`}
       problemHeading="発信しているのに、選ばれない"
       problemSubheading={<>自治体として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -50,13 +50,13 @@ export default function MunicipalityPage() {
         { title: '移住検討者の情報収集チャネルに最適化', desc: 'ターゲットとなる移住検討者が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        `${vimeoBase}1010823028?h=680857e13b${params}`,
-        `${vimeoBase}1050610140?h=a5b8353977${params}`,
+        `${vimeoBase}1010823028&h=680857e13b${params}`,
+        `${vimeoBase}1050610140&h=a5b8353977${params}`,
       ]}
       verticalVideos={[
-        `${vimeoBase}1015054920?h=aa8a72196a${params}`,
-        `${vimeoBase}1013400453?h=89cb5fd807${params}`,
-        `${vimeoBase}1050617850?h=2e4031d8bd${params}`,
+        `${vimeoBase}1015054920&h=aa8a72196a${params}`,
+        `${vimeoBase}1013400453&h=89cb5fd807${params}`,
+        `${vimeoBase}1050617850&h=2e4031d8bd${params}`,
       ]}
     >
       {/* TesuTemoの導入により変わるプロモーションの現場 */}
