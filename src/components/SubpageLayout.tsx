@@ -118,7 +118,7 @@ export default function SubpageLayout({
             </div>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <div className="border-l-4 border-primary pl-6 py-2">
+            <div className="bg-gray-50 rounded-2xl p-8 border-l-4 border-primary shadow-sm">
               <p className="text-gray-800 font-medium text-center leading-relaxed">{problemConclusion}</p>
             </div>
           </FadeIn>
