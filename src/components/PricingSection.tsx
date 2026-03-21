@@ -1,87 +1,149 @@
 'use client';
 
+import { CheckCircle2 } from 'lucide-react';
 import FadeIn from './FadeIn';
 
 export default function PricingSection() {
-  const plans = [
-    {
-      name: 'SNS',
-      price: '¥120,000',
-      description: 'SNS向け縦型動画パッケージ',
-      features: ['インタビュー動画 1本', 'SNS最適化編集', '縦型フォーマット', '納品まで2週間'],
-      highlighted: false,
-    },
-    {
-      name: 'SNS+上映',
-      price: '¥180,000',
-      description: 'SNS + イベント上映用動画',
-      features: ['インタビュー動画 1本', 'SNS最適化編集', '横型フォーマット追加', 'イベント上映対応', '納品まで3週間'],
-      highlighted: true,
-      badge: 'Best Value',
-    },
-    {
-      name: 'オプション',
-      price: '¥30,000',
-      description: '追加インタビュー・編集',
-      features: ['追加インタビュー 1名分', '既存動画への追加編集', 'テロップ追加', '個別対応'],
-      highlighted: false,
-    },
-  ];
-
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <FadeIn>
-          <h2 className="text-3xl font-bold text-center mb-2">料金プラン</h2>
-          <p className="text-center text-gray-500 mb-12">Pricing</p>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-16">
+            TesuTemoの料金プラン
+          </h2>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {plans.map((plan, i) => (
-            <FadeIn key={plan.name} delay={i * 0.1}>
-              <div
-                className={`rounded-2xl p-8 h-full flex flex-col ${
-                  plan.highlighted
-                    ? 'bg-gradient-to-br from-primary to-primary-light text-white ring-2 ring-primary shadow-xl scale-105'
-                    : 'bg-gray-50 text-gray-900 border border-gray-200'
-                }`}
-              >
-                {plan.badge && (
-                  <span className="inline-block self-start bg-white text-primary text-xs font-bold px-3 py-1 rounded-full mb-4">
-                    {plan.badge}
-                  </span>
-                )}
-                <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-                <p className={`text-sm mb-4 ${plan.highlighted ? 'text-white/80' : 'text-gray-500'}`}>
-                  {plan.description}
-                </p>
-                <p className="text-3xl font-bold mb-6">
-                  {plan.price}
-                  <span className={`text-sm font-normal ${plan.highlighted ? 'text-white/70' : 'text-gray-400'}`}>
-                    {' '}/ 本
-                  </span>
-                </p>
-                <ul className="space-y-3 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm">
-                      <span className={`mt-0.5 ${plan.highlighted ? 'text-white' : 'text-primary'}`}>&#10003;</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  className={`mt-8 block text-center py-2.5 rounded-full font-medium text-sm transition-colors ${
-                    plan.highlighted
-                      ? 'bg-white text-primary hover:bg-gray-100'
-                      : 'bg-gray-900 text-white hover:bg-gray-800'
-                  }`}
-                >
-                  お問い合わせ
-                </a>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          {/* SNS Plan */}
+          <FadeIn>
+            <div className="bg-gray-50 rounded-3xl p-8 lg:p-10 h-full flex flex-col">
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold text-gray-700 mb-6">SNSプラン</h3>
+                <div className="text-5xl font-bold text-gray-900 mb-8">
+                  120,000<span className="text-3xl">円</span>
+                </div>
               </div>
-            </FadeIn>
-          ))}
+
+              <div className="space-y-4 mb-8 flex-grow">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
+                  <p className="text-gray-700">インタビュー 1人</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
+                  <p className="text-gray-700">
+                    縦型動画 4本
+                    <br />
+                    <span className="text-sm text-gray-500">30秒前後、SNS投稿用</span>
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-gray-300">
+                  <p className="text-sm font-medium mb-1" style={{ color: '#7e91cf' }}>※ 最低催行人数3人</p>
+                  <p className="text-sm font-medium" style={{ color: '#7e91cf' }}>※ 4人以上は一人当たり15%割引となります</p>
+                </div>
+              </div>
+
+              <a
+                href="#contact"
+                className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-[#c74320] transition-all duration-300 text-center block"
+              >
+                コンタクト
+              </a>
+            </div>
+          </FadeIn>
+
+          {/* SNS + Screening Plan (Featured) */}
+          <FadeIn delay={0.1}>
+            <div className="bg-gradient-to-br from-[#fff5f0] to-[#ffe8dd] rounded-3xl p-8 lg:p-10 border-2 border-primary relative h-full flex flex-col shadow-xl lg:scale-105">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span className="px-6 py-2 rounded-full text-sm font-semibold text-white" style={{ backgroundColor: '#7e91cf' }}>
+                  Best Value
+                </span>
+              </div>
+
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold text-gray-900 mb-6">SNS+上映プラン</h3>
+                <div className="text-5xl font-bold text-gray-900 mb-8">
+                  180,000<span className="text-3xl">円</span>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-8 flex-grow">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
+                  <p className="text-gray-700">
+                    縦型動画 4本
+                    <br />
+                    <span className="text-sm text-gray-500">30秒前後、SNS投稿用</span>
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
+                  <p className="text-gray-700">
+                    横型動画 2本
+                    <br />
+                    <span className="text-sm text-gray-500">90秒前後、YOUTUBE、イベント上映など</span>
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-primary/30">
+                  <p className="text-sm font-medium mb-1" style={{ color: '#7e91cf' }}>※ 最低催行人数3人</p>
+                  <p className="text-sm font-medium" style={{ color: '#7e91cf' }}>※ 4人以上は一人当たり15%割引となります</p>
+                </div>
+              </div>
+
+              <a
+                href="#contact"
+                className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-[#c74320] transition-all duration-300 shadow-lg text-center block"
+              >
+                コンタクト
+              </a>
+            </div>
+          </FadeIn>
+
+          {/* Option Plan */}
+          <FadeIn delay={0.2}>
+            <div className="bg-gray-50 rounded-3xl p-8 lg:p-10 h-full flex flex-col">
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold text-gray-700 mb-6">オプション</h3>
+                <div className="text-5xl font-bold text-gray-900 mb-8">
+                  30,000<span className="text-3xl">円</span>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-8 flex-grow">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xs font-bold text-white">1</span>
+                  </div>
+                  <p className="text-gray-700">
+                    インタビュー記事
+                    <br />
+                    <span className="text-sm text-gray-500">配布や友方のサイトに記載用</span>
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-xs font-bold text-white">2</span>
+                  </div>
+                  <p className="text-gray-700">
+                    フルインタビュー動画
+                    <br />
+                    <span className="text-sm text-gray-500">質問をタイトルとして構入たが動画未編集</span>
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-gray-300">
+                  <p className="text-sm font-medium" style={{ color: '#7e91cf' }}>※各オプション1、2の価格となります</p>
+                </div>
+              </div>
+
+              <a
+                href="#contact"
+                className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-[#c74320] transition-all duration-300 text-center block"
+              >
+                コンタクト
+              </a>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>
