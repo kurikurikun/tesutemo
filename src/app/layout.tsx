@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL('https://tesutemo.vercel.app'),
   title: {
-    default: 'TesuTemo - リアルな声で意思決定を支える',
+    default: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
     template: '%s | TesuTemo',
   },
   description:
-    'リアルな声を動画で届け、人と組織をつなぐインタビューサービス。採用、集客、移住促進に。',
+    'TesuTemoは、リアルな声をインタビュー動画で届け、人と組織をつなぐサービスです。採用プロモーション、大学広報、自治体の移住促進に最適。社員・学生・移住者のリアルな体験談が、次の意思決定者の共感を生みます。',
   keywords: [
     'インタビュー動画',
     '採用動画',
@@ -28,24 +28,15 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     type: 'website',
     siteName: 'TesuTemo',
-    title: 'TesuTemo - リアルな声で意思決定を支える',
+    title: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
     description:
-      'リアルな声を動画で届け、人と組織をつなぐインタビューサービス。採用、集客、移住促進に。',
-    images: [
-      {
-        url: '/tesutemo-logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'TesuTemo',
-      },
-    ],
+      'TesuTemoは、リアルな声をインタビュー動画で届け、人と組織をつなぐサービスです。採用プロモーション、大学広報、自治体の移住促進に最適。社員・学生・移住者のリアルな体験談が、次の意思決定者の共感を生みます。',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TesuTemo - リアルな声で意思決定を支える',
+    title: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
     description:
-      'リアルな声を動画で届け、人と組織をつなぐインタビューサービス。採用、集客、移住促進に。',
-    images: ['/tesutemo-logo.png'],
+      'TesuTemoは、リアルな声をインタビュー動画で届け、人と組織をつなぐサービスです。採用プロモーション、大学広報、自治体の移住促進に最適。社員・学生・移住者のリアルな体験談が、次の意思決定者の共感を生みます。',
   },
 };
 
