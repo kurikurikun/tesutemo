@@ -1,14 +1,12 @@
 import { ImageResponse } from 'next/og';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
 
+export const runtime = 'edge';
 export const alt = 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const logoData = await readFile(join(process.cwd(), 'public', 'tesutemo-logo.png'));
-  const logoBase64 = `data:image/png;base64,${logoData.toString('base64')}`;
+  const logoUrl = new URL('/tesutemo-logo.png', 'https://www.tesutemo.co').toString();
 
   return new ImageResponse(
     (
@@ -37,9 +35,9 @@ export default async function Image() {
           }}
         />
 
-        {/* Logo image */}
+        {/* Logo */}
         <img
-          src={logoBase64}
+          src={logoUrl}
           width={360}
           height={135}
           style={{
@@ -92,7 +90,7 @@ export default async function Image() {
           詳しくはこちら →
         </div>
 
-        {/* Bottom accent */}
+        {/* Bottom URL */}
         <div
           style={{
             position: 'absolute',
