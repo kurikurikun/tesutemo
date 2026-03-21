@@ -8,8 +8,8 @@ export const metadata: Metadata = {
     '社員インタビュー動画で求職者の共感を生み、ミスマッチのない採用を実現。リアルな声で職場の雰囲気や働きがいを伝える採用プロモーション動画サービス。',
 };
 
-const vimeoBase = 'https://player.vimeo.com/video/';
-const params = '?badge=0&autopause=0&player_id=0&app_id=58479';
+const v = (id: string, h?: string) =>
+  `https://player.vimeo.com/video/${id}?${h ? `h=${h}&` : ''}badge=0&autopause=0&player_id=0&app_id=58479`;
 
 export default function RecruitmentPage() {
   return (
@@ -27,7 +27,7 @@ export default function RecruitmentPage() {
           <span className="text-primary font-semibold">安価</span>で手に入る採用の動画プロモーション
         </>
       }
-      heroVideoUrl={`${vimeoBase}1017754838&h=2df374323e${params}`}
+      heroVideoUrl={v('1017754838', '2df374323e')}
       problemHeading="発信しているのに、応募が来ない"
       problemSubheading={<>企業として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -51,15 +51,15 @@ export default function RecruitmentPage() {
         { title: '求職者の情報収集チャネルに最適化', desc: 'ターゲットとなる求職者が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        `${vimeoBase}1019675789&h=8ca81d7847${params}`,
-        `${vimeoBase}1082523091${params}`,
-        `${vimeoBase}1049154514${params}`,
-        `${vimeoBase}1019649377${params}`,
+        v('1019675789', '8ca81d7847'),
+        v('1082523091'),
+        v('1049154514'),
+        v('1019649377'),
       ]}
       verticalVideos={[
-        `${vimeoBase}1020046986&h=83e6b0fedd${params}`,
-        `${vimeoBase}1049144140${params}`,
-        `${vimeoBase}1169470823&h=af1c20547e${params}`,
+        v('1020046986', '83e6b0fedd'),
+        v('1049144140'),
+        v('1169470823', 'af1c20547e'),
       ]}
     >
       {/* 採用現場でのTesuTemo動画活用イメージ */}

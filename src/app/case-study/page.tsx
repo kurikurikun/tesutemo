@@ -7,15 +7,15 @@ export const metadata: Metadata = {
     '顧客インタビュー動画で見込み客の不安を解消し、購買を後押しする導入事例動画サービス。信頼できる第三者の声で商品・サービスの本当の価値を届けます。',
 };
 
-const vimeoBase = 'https://player.vimeo.com/video/';
-const params = '?title=0&byline=0&portrait=0';
+const v = (id: string, h?: string) =>
+  `https://player.vimeo.com/video/${id}?${h ? `h=${h}&` : ''}badge=0&autopause=0&player_id=0&app_id=58479`;
 
 export default function CaseStudyPage() {
   return (
     <SubpageLayout
       heroTitle="自社の「ファン」の声で、次の顧客を動かす"
       heroSubtitle="リアルな顧客インタビューで、商品・サービスの本当の価値を届ける"
-      heroVideoUrl={`${vimeoBase}1017754838&h=2df374323e${params}`}
+      heroVideoUrl={v('1017754838', '2df374323e')}
       problemHeading="発信しているのに、選ばれない"
       problemSubheading={<>企業として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -39,15 +39,15 @@ export default function CaseStudyPage() {
         { title: '顧客の情報収集チャネルに最適化', desc: 'ターゲットとなる顧客が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        `${vimeoBase}1019675789&h=8ca81d7847${params}`,
-        `${vimeoBase}1082523091${params}`,
-        `${vimeoBase}1049154514${params}`,
-        `${vimeoBase}1019649377${params}`,
+        v('1019675789', '8ca81d7847'),
+        v('1082523091'),
+        v('1049154514'),
+        v('1019649377'),
       ]}
       verticalVideos={[
-        `${vimeoBase}1020046986${params}`,
-        `${vimeoBase}1049144140${params}`,
-        `${vimeoBase}1169470823${params}`,
+        v('1020046986'),
+        v('1049144140'),
+        v('1169470823'),
       ]}
     />
   );
