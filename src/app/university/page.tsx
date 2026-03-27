@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+import VideoCarousel from '@/components/VideoCarousel';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -57,10 +58,12 @@ export default function UniversityPage() {
         v('1019649377'),
       ]}
       verticalVideos={[
-        v('1077851874', '4cc1f2e2a6'),
-        v('1077854511', '4e8398acf7'),
-        v('1077853072', '82e17e407b'),
+        v('1020046986', '83e6b0fedd'),
+        v('1049144140'),
+        v('1169470823', 'af1c20547e'),
       ]}
+      companyLabel="大学名"
+      companyPlaceholder="大学"
     >
       {/* TesuTemoの導入により変わるプロモーションの現場 */}
       <section className="py-20 bg-gray-50">
@@ -105,20 +108,16 @@ export default function UniversityPage() {
             </h2>
           </div>
 
-          {/* Video Carousel - green gradient */}
-          <div className="max-w-5xl mx-auto mb-16">
-            <div className="relative bg-gradient-to-br from-[#a8d5ba] via-[#b8dfc8] to-[#98c5aa] rounded-3xl overflow-hidden shadow-2xl p-8 lg:p-12">
-              <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
-                <iframe
-                  src={v('1077851874', '4cc1f2e2a6')}
-                  className="w-full h-full"
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  title="活用事例動画"
-                />
-              </div>
-            </div>
+          {/* 活用事例動画 - green gradient carousel */}
+          <div className="mb-16">
+            <VideoCarousel
+              videos={[
+                v('1077851874', '4cc1f2e2a6'),
+                v('1077854511', '4e8398acf7'),
+                v('1077853072', '82e17e407b'),
+              ]}
+              gradient="from-[#a8d5ba] via-[#b8dfc8] to-[#98c5aa]"
+            />
           </div>
 
           {/* Testimonial */}

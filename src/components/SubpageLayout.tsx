@@ -1,12 +1,13 @@
 'use client';
 
 import SubpageHeader from './SubpageHeader';
-import SubpageFooter from './SubpageFooter';
+import Footer from './Footer';
 import ContactForm from './ContactForm';
 import PricingSection from './PricingSection';
 import FadeIn from './FadeIn';
-import { ReactNode, useState, useEffect, useCallback } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ReactNode } from 'react';
+import { ArrowRight } from 'lucide-react';
+import VideoCarousel from './VideoCarousel';
 
 interface SubpageProps {
   heroTitle: ReactNode;
@@ -26,6 +27,8 @@ interface SubpageProps {
   onlineFeatures: { title: string; desc: string }[];
   horizontalVideos: string[];
   verticalVideos: string[];
+  companyLabel?: string;
+  companyPlaceholder?: string;
   children?: ReactNode;
 }
 
@@ -47,6 +50,8 @@ export default function SubpageLayout({
   onlineFeatures,
   horizontalVideos,
   verticalVideos,
+  companyLabel,
+  companyPlaceholder,
   children,
 }: SubpageProps) {
   return (
@@ -54,7 +59,7 @@ export default function SubpageLayout({
       <SubpageHeader />
 
       {/* Hero */}
-      <section className="pt-32 pb-24 lg:pt-40 lg:pb-32 bg-gradient-to-b from-gray-50 to-white" style={{ backgroundColor: '#c5cee8' }}>
+      <section className="pt-32 pb-24 lg:pt-40 lg:pb-32 bg-gradient-to-b from-accent/10 to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeIn direction="left">
@@ -88,8 +93,7 @@ export default function SubpageLayout({
                 <iframe
                   src={heroVideoUrl}
                   className="w-full h-full"
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
+                  allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                   title="Hero video"
                 />
@@ -175,8 +179,7 @@ export default function SubpageLayout({
                         <iframe
                           src={url}
                           className="w-full h-full"
-                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
+                          allow="autoplay; fullscreen; picture-in-picture"
                           allowFullScreen
                           title={`Vertical video ${i + 1}`}
                         />
@@ -216,82 +219,9 @@ export default function SubpageLayout({
       {children}
 
       <PricingSection />
-      <ContactForm />
-      <SubpageFooter />
+      <ContactForm companyLabel={companyLabel} companyPlaceholder={companyPlaceholder} />
+      <Footer />
     </>
   );
 }
 
-function VideoCarousel({ videos }: { videos: string[] }) {
-  const [current, setCurrent] = useState(0);
-
-  const next = useCallback(() => {
-    setCurrent((c) => (c + 1) % videos.length);
-  }, [videos.length]);
-
-  const prev = useCallback(() => {
-    setCurrent((c) => (c - 1 + videos.length) % videos.length);
-  }, [videos.length]);
-
-  // Autoplay every 5 seconds
-  useEffect(() => {
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [next]);
-
-  return (
-    <div className="max-w-5xl mx-auto mb-8">
-      <div className="relative bg-gradient-to-br from-[#ffd4c4] via-[#ffe4d4] to-[#ffc4b4] rounded-3xl overflow-hidden shadow-2xl p-8 lg:p-12">
-        {/* Navigation arrows */}
-        <button
-          onClick={prev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all"
-        >
-          <ChevronLeft size={24} className="text-gray-700" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all"
-        >
-          <ChevronRight size={24} className="text-gray-700" />
-        </button>
-
-        {/* Video slides */}
-        <div className="overflow-hidden rounded-2xl">
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${current * 100}%)` }}
-          >
-            {videos.map((url, i) => (
-              <div key={i} className="w-full flex-shrink-0 px-4">
-                <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
-                  <iframe
-                    src={url}
-                    className="w-full h-full"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    title={`Video ${i + 1}`}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Dots */}
-        <div className="flex justify-center gap-2 mt-6">
-          {videos.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                i === current ? 'bg-primary scale-110' : 'bg-white/60'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}

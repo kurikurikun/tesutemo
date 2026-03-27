@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
+import { DM_Serif_Display } from "next/font/google";
+
+const dmSerifDisplay = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.tesutemo.co'),
@@ -56,7 +66,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={dmSerifDisplay.variable}>
+      <head>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-QLB1WVNCKP" strategy="afterInteractive" />
+        <Script id="ga4-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-QLB1WVNCKP');
+        `}</Script>
+      </head>
       <body className="antialiased">
         <script
           type="application/ld+json"

@@ -38,8 +38,8 @@ export default function PricingSection() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-gray-300">
-                  <p className="text-sm font-medium mb-1" style={{ color: '#7e91cf' }}>※ 最低催行人数3人</p>
-                  <p className="text-sm font-medium" style={{ color: '#7e91cf' }}>※ 4人以上は一人当たり15%割引となります</p>
+                  <p className="text-sm font-medium mb-1 text-accent">※ 最低催行人数3人</p>
+                  <p className="text-sm font-medium text-accent">※ 4人以上は一人当たり15%割引となります</p>
                 </div>
               </div>
 
@@ -56,7 +56,7 @@ export default function PricingSection() {
           <FadeIn delay={0.1}>
             <div className="bg-gradient-to-br from-[#fff5f0] to-[#ffe8dd] rounded-3xl p-8 lg:p-10 border-2 border-primary relative h-full flex flex-col shadow-xl lg:scale-105">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="px-6 py-2 rounded-full text-sm font-semibold text-white" style={{ backgroundColor: '#7e91cf' }}>
+                <span className="px-6 py-2 rounded-full text-sm font-semibold text-white bg-accent">
                   Best Value
                 </span>
               </div>
@@ -86,8 +86,8 @@ export default function PricingSection() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-primary/30">
-                  <p className="text-sm font-medium mb-1" style={{ color: '#7e91cf' }}>※ 最低催行人数3人</p>
-                  <p className="text-sm font-medium" style={{ color: '#7e91cf' }}>※ 4人以上は一人当たり15%割引となります</p>
+                  <p className="text-sm font-medium mb-1 text-accent">※ 最低催行人数3人</p>
+                  <p className="text-sm font-medium text-accent">※ 4人以上は一人当たり15%割引となります</p>
                 </div>
               </div>
 
@@ -132,7 +132,7 @@ export default function PricingSection() {
                   </p>
                 </div>
                 <div className="pt-4 border-t border-gray-300">
-                  <p className="text-sm font-medium" style={{ color: '#7e91cf' }}>※各オプション1、2の価格となります</p>
+                  <p className="text-sm font-medium text-accent">※各オプション1、2の価格となります</p>
                 </div>
               </div>
 

@@ -58,6 +58,8 @@ export default function MunicipalityPage() {
         v('1013400453', '89cb5fd807'),
         v('1050617850', '2e4031d8bd'),
       ]}
+      companyLabel="自治体名"
+      companyPlaceholder="テステモ町"
     >
       {/* TesuTemoの導入により変わるプロモーションの現場 */}
       <section className="py-20 bg-gray-50">

@@ -27,7 +27,7 @@ export default function RecruitmentPage() {
           <span className="text-primary font-semibold">安価</span>で手に入る採用の動画プロモーション
         </>
       }
-      heroVideoUrl={v('1017754838', '2df374323e')}
+      heroVideoUrl={v('1177652915', 'be43651176')}
       problemHeading="発信しているのに、応募が来ない"
       problemSubheading={<>企業として情報発信はしているものの、<br />実際にはこんな課題を感じていませんか？</>}
       problems={[
@@ -51,15 +51,12 @@ export default function RecruitmentPage() {
         { title: '求職者の情報収集チャネルに最適化', desc: 'ターゲットとなる求職者が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        v('1019675789', '8ca81d7847'),
-        v('1082523091'),
-        v('1049154514'),
-        v('1019649377'),
+        v('1177653343', 'ddc7b19cbb'),
       ]}
       verticalVideos={[
-        v('1020046986', '83e6b0fedd'),
-        v('1049144140'),
-        v('1169470823', 'af1c20547e'),
+        v('1177647609', 'fb5b66c157'),
+        v('1177647513', 'd517b6f9ed'),
+        v('1177647574', 'c1311764fd'),
       ]}
     >
       {/* 採用現場でのTesuTemo動画活用イメージ */}

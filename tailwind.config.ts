@@ -15,6 +15,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        display: ['"DM Serif Display"', 'Georgia', 'serif'],
+      },
     },
   },
   plugins: [],

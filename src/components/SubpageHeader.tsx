@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SubpageHeader() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={{ backgroundColor: '#7e91cf' }}>
+    <header className="fixed top-0 left-0 right-0 z-50 shadow-sm bg-accent">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-white">
           TesuTemo

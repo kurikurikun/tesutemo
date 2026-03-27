@@ -109,8 +109,7 @@ export default function RssFeed() {
               href="https://note.com/chris_moore"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full transition-all border-2 bg-white hover:bg-gray-50"
-              style={{ borderColor: '#7e91cf', color: '#7e91cf' }}
+              className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full transition-all border-2 border-accent text-accent bg-white hover:bg-gray-50"
             >
               View all articles
               <ExternalLink size={20} />

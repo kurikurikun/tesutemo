@@ -4,7 +4,12 @@ import { useState, FormEvent } from 'react';
 import { Mail, User, Building, Send, CheckCircle } from 'lucide-react';
 import FadeIn from './FadeIn';
 
-export default function ContactForm() {
+interface ContactFormProps {
+  companyLabel?: string;
+  companyPlaceholder?: string;
+}
+
+export default function ContactForm({ companyLabel, companyPlaceholder }: ContactFormProps = {}) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -144,7 +149,7 @@ export default function ContactForm() {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      会社名・組織名 <span className="text-gray-400 font-normal">（任意）</span>
+                      {companyLabel || '会社名・組織名'} <span className="text-gray-400 font-normal">（任意）</span>
                     </label>
                     <div className="relative">
                       <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -154,7 +159,7 @@ export default function ContactForm() {
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="株式会社テステモ"
+                        placeholder={companyPlaceholder || '株式会社テステモ'}
                         className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
                       />
                     </div>

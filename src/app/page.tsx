@@ -71,51 +71,51 @@ function HeroCarousel() {
 
 function HeroSection() {
   return (
-    <section className="pt-28 pb-16 bg-white">
+    <section className="pt-28 pb-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+          <div className="inline-block mb-5 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5">
+            <p className="text-xs sm:text-sm font-medium tracking-wide text-accent">
+              人は、広告よりも「人の声」で意思決定する
+            </p>
+          </div>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl tracking-tight text-gray-900">
             Real Voices.
             <br />
-            <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+            <span className="text-primary italic">
               Better Decisions.
             </span>
           </h1>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-5 text-lg text-gray-500 tracking-wide">
             リアルな声で、人生の意思決定を支える
           </p>
-          <div className="mt-4 inline-block px-6 py-2 rounded-full border border-[#7e91cf]/30 bg-[#7e91cf]/5">
-            <p className="text-base sm:text-lg font-bold" style={{ color: '#7e91cf' }}>
-              人は、広告よりも「人の声」で意思決定する
-            </p>
-          </div>
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <div className="mt-8 mb-8">
+          <div className="mt-10 mb-10">
             <HeroCarousel />
           </div>
         </FadeIn>
 
         <FadeIn delay={0.3}>
-          <div className="inline-block bg-orange-50 text-primary text-sm px-6 py-2 rounded-full mb-8">
+          <p className="text-sm text-gray-400 mb-8">
             リアルな声を動画で届け、人と組織をつなぐインタビューサービス
-          </div>
+          </p>
         </FadeIn>
 
         <FadeIn delay={0.4}>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/case-study"
-              className="bg-gradient-to-r from-primary to-primary-light text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-opacity"
+              className="bg-primary text-white px-8 py-3.5 rounded-full font-medium hover:bg-primary/90 transition-colors"
             >
               導入事例を見る
             </Link>
             <a
               href="#contact"
-              className="border border-gray-300 text-gray-700 px-8 py-3 rounded-full font-medium hover:bg-gray-50 transition-colors"
+              className="border border-gray-200 text-gray-600 px-8 py-3.5 rounded-full font-medium hover:border-gray-300 hover:bg-gray-50 transition-all"
             >
               お問い合わせ
             </a>
@@ -383,14 +383,14 @@ function UseCasesSection() {
       title: '人材を採用する',
       description: '社員のリアルな声で、人材と出会う',
       href: '/recruitment',
-      image: 'https://picsum.photos/seed/recruit1/600/400',
+      vimeo: 'https://player.vimeo.com/video/1177652915?h=be43651176&badge=0&autopause=0&player_id=0&app_id=58479',
     },
     {
       icon: TrendingUp,
       title: '顧客を増やす',
       description: 'お客様のリアルな声で、次の顧客と出会う',
       href: '/case-study',
-      image: 'https://picsum.photos/seed/customer1/600/400',
+      image: '/usecase-customer.png',
     },
     {
       icon: GraduationCap,
