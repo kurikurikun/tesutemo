@@ -170,7 +170,7 @@ function ContextSection() {
                       bold: true,
                     },
                     {
-                      text: 'しかし、重要な意思決定ほど「信頼できる声」が届いていない。',
+                      text: '重要な意思決定ほど「信頼できる声」が届いていない。',
                       bold: false,
                     },
                   ].map((item, i) => (
@@ -379,7 +379,7 @@ function ContextSection() {
 
 function ProcessSection() {
   const steps = [
-    { num: '①', title: '打ち合わせ', desc: 'お悩み、課題に対して、TesuTemoを活用した、オーダーメイドの解決方法をお話合します', icon: ClipboardCheck },
+    { num: '①', title: '打ち合わせ', desc: '課題をヒアリングし、最適な活用プランをご提案します', icon: ClipboardCheck },
     { num: '②', title: '候補者選び', desc: '最適な人物像のイメージまでをお伝えし、それに合わせて、候補者を選んで頂きます', icon: MessageSquare },
     { num: '③', title: 'できあがり', desc: 'あとはTesuTemoにお任せください。動画が完成すれば、発信するだけです', icon: Play },
   ];
