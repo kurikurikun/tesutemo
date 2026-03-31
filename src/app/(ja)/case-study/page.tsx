@@ -14,6 +14,7 @@ const v = (id: string, h?: string) =>
 export default function CaseStudyPage() {
   return (
     <SubpageLayout
+      currentPath="/case-study"
       heroTitle={
         <>
           顧客のリアルな声が、最強の営業ツールになる。

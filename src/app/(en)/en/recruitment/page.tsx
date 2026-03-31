@@ -19,6 +19,7 @@ export default function RecruitmentPage() {
   return (
     <SubpageLayout
       locale="en"
+      currentPath="/en/recruitment"
       heroTitle={
         <>
           Transform hiring with real employee voices.

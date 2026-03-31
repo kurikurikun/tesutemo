@@ -18,6 +18,7 @@ export default function MunicipalityPage() {
   return (
     <SubpageLayout
       locale="en"
+      currentPath="/en/municipality"
       heroTitle={
         <>
           Become the chosen destination with real migrant voices.

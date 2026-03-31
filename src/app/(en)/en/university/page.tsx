@@ -20,6 +20,7 @@ export default function UniversityPage() {
   return (
     <SubpageLayout
       locale="en"
+      currentPath="/en/university"
       heroTitle={
         <>
           Attract more applicants with real student voices.

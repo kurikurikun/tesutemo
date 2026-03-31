@@ -14,6 +14,7 @@ const v = (id: string, h?: string) =>
 export default function MunicipalityPage() {
   return (
     <SubpageLayout
+      currentPath="/municipality"
       heroTitle={
         <>
           移住者のリアルな声で、選ばれる地域へ。

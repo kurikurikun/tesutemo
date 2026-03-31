@@ -18,6 +18,7 @@ export default function CaseStudyPage() {
   return (
     <SubpageLayout
       locale="en"
+      currentPath="/en/case-study"
       heroTitle={
         <>
           Real customer voices become your strongest sales tool.

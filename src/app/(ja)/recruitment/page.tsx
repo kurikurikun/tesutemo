@@ -15,6 +15,7 @@ const v = (id: string, h?: string) =>
 export default function RecruitmentPage() {
   return (
     <SubpageLayout
+      currentPath="/recruitment"
       heroTitle={
         <>
           社員のリアルな声で、採用を変える。

@@ -16,6 +16,7 @@ const v = (id: string, h?: string) =>
 export default function UniversityPage() {
   return (
     <SubpageLayout
+      currentPath="/university"
       heroTitle={
         <>
           学生のリアルな声で志願者を増やす。
