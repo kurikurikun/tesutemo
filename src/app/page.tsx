@@ -7,7 +7,7 @@ import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import { Video, Users, Shield, Sparkles, ArrowRight, Play, AlertCircle, ClipboardCheck, MessageSquare, UserPlus, TrendingUp, GraduationCap, MapPin } from 'lucide-react';
+import { Video, Users, Shield, Sparkles, ArrowRight, Play, ClipboardCheck, MessageSquare, UserPlus, TrendingUp, GraduationCap, MapPin } from 'lucide-react';
 
 function HeroCarousel() {
   const images = [
@@ -74,23 +74,19 @@ function HeroSection() {
     <section className="pt-28 pb-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn>
-          <div className="inline-block mb-5 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5">
-            <p className="text-xs sm:text-sm font-medium tracking-wide text-accent">
-              人は、広告よりも「人の声」で意思決定する
-            </p>
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl tracking-tight text-gray-900">
+          <p className="font-display text-5xl sm:text-6xl lg:text-7xl tracking-tight text-gray-900" aria-hidden="true">
             Real Voices.
             <br />
             <span className="text-primary italic">
               Better Decisions.
             </span>
-          </h1>
+          </p>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <p className="mt-5 text-lg text-gray-500 tracking-wide">
-            リアルな声で、人生の意思決定を支える
-          </p>
+          <h1 className="mt-5 text-lg text-gray-500 tracking-wide leading-relaxed">
+            人は、広告よりも「人の声」で意思決定する。<br />
+            テステモは、採用・学生生活・移住・顧客の声をオンライン完結で収録し、<br className="hidden sm:inline" />判断につながる動画コンテンツを届けるサービスです。
+          </h1>
         </FadeIn>
 
         <FadeIn delay={0.2}>
@@ -99,20 +95,14 @@ function HeroSection() {
           </div>
         </FadeIn>
 
-        <FadeIn delay={0.3}>
-          <p className="text-sm text-gray-400 mb-8">
-            リアルな声を動画で届け、人と組織をつなぐインタビューサービス
-          </p>
-        </FadeIn>
-
         <FadeIn delay={0.4}>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/case-study"
+            <a
+              href="#usecases"
               className="bg-primary text-white px-8 py-3.5 rounded-full font-medium hover:bg-primary/90 transition-colors"
             >
               導入事例を見る
-            </Link>
+            </a>
             <a
               href="#contact"
               className="border border-gray-200 text-gray-600 px-8 py-3.5 rounded-full font-medium hover:border-gray-300 hover:bg-gray-50 transition-all"
@@ -128,122 +118,212 @@ function HeroSection() {
 
 function ContextSection() {
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-gray-200/50 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+    <section className="py-24 lg:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+      {/* Dot grid background */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)',
+        backgroundSize: '36px 36px'
+      }} />
+      {/* Ambient glows */}
+      <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[140px] -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[#7e91cf]/8 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        {/* Problem Badge */}
+
+        {/* Label */}
         <FadeIn>
-          <div className="text-center mb-12">
-            <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full">
-              <span className="text-sm uppercase tracking-wider text-white font-semibold">Problem → Solution</span>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-gray-200 bg-white shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" style={{boxShadow: '0 0 8px #e95228'}} />
+              <span className="text-[10px] uppercase tracking-[0.35em] text-gray-400 font-semibold">Problem → Solution</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" style={{boxShadow: '0 0 8px #e95228'}} />
             </div>
           </div>
         </FadeIn>
 
-        {/* Problem → Bridge → Solution Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-12 mb-24 max-w-6xl mx-auto items-center">
-          {/* Problem Section (Left) */}
-          <FadeIn direction="left">
-            <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-xl border-2 border-gray-200 hover:border-gray-300 transition-all">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-400 to-gray-500 flex items-center justify-center flex-shrink-0">
-                  <AlertCircle className="w-6 h-6 text-white" strokeWidth={2} />
-                </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900">
-                  情報は発信しているのに、<br />伝わらない。
-                </h3>
-              </div>
-
-              <p className="text-base text-gray-700 mb-6 leading-relaxed">
-                Webサイトやパンフレット、SNSなどで情報発信はしているものの、
-              </p>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-1">✕</span>
-                  <p className="text-sm text-gray-600">本当の魅力が伝わっていない</p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-1">✕</span>
-                  <p className="text-sm text-gray-600">他社・他校・他地域との差別化ができない</p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-1">✕</span>
-                  <p className="text-sm text-gray-600">応募・集客につながらない</p>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-base font-semibold text-gray-800">
-                  結果として、<br />ミスマッチや機会損失が起きている。
-                </p>
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* Bridge/Arrow Section (Center) */}
+        {/* ===== PROBLEM 1: 人の声で決める時代 ===== */}
+        <div className="max-w-5xl mx-auto mb-8">
           <FadeIn>
-            <div className="flex flex-col items-center justify-center lg:px-4">
-              <div className="hidden lg:flex flex-col items-center gap-4">
-                <ArrowRight className="w-12 h-12 text-primary" strokeWidth={2.5} />
-                <div className="text-center max-w-[200px]">
-                  <p className="text-sm font-medium text-gray-700 leading-snug">
-                    本当に必要なのは、<br />
-                    <span className="text-primary font-bold">「実際に選んだ人の<br />リアルな声」</span>
-                  </p>
-                </div>
-                <ArrowRight className="w-12 h-12 text-primary" strokeWidth={2.5} />
-              </div>
+            <div className="relative rounded-3xl p-8 lg:p-12 border border-gray-200 bg-white shadow-lg overflow-hidden">
+              <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-gray-200 rounded-tl-3xl" />
 
-              {/* Mobile version */}
-              <div className="lg:hidden flex items-center justify-center gap-3 py-6">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
-                <div className="text-center px-4">
-                  <p className="text-sm font-medium text-gray-700 leading-snug mb-2">
-                    本当に必要なのは、
-                  </p>
-                  <p className="text-sm text-primary font-bold">
-                    「第三者の<br />リアルな声」
-                  </p>
-                </div>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* Solution Section (Right) */}
-          <FadeIn direction="right">
-            <div className="bg-gradient-to-br from-primary via-primary-light to-primary rounded-3xl p-8 lg:p-10 shadow-2xl relative overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-2xl" />
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-6 h-6 text-white" strokeWidth={2} />
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white">
-                    テステモは、<br />リアルな声で伝えます
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 items-center">
+                {/* Left: Headline */}
+                <div>
+                  <span className="inline-block text-sm uppercase tracking-[0.4em] text-gray-300 font-semibold mb-5">Problem 01</span>
+                  <h3 className="text-4xl lg:text-[3rem] font-bold text-gray-900 leading-[1.25]">
+                    人は、広告より<br />
+                    「<span className="text-primary">人の声</span>」で<br />
+                    決める。
                   </h3>
                 </div>
 
-                <p className="text-base text-white/95 mb-6 leading-relaxed">
-                  実際にその企業・大学・地域を選んだ人へのインタビューを通して、
-                </p>
+                {/* Right: Points */}
+                <div className="space-y-6">
+                  {[
+                    {
+                      text: 'Amazonのレビュー、Googleの口コミ、先に体験した人の声を信頼して判断する時代。',
+                      bold: false,
+                    },
+                    {
+                      text: 'でも、進学・就職・移住・サービス導入には、信頼できる「レビュー」がない。',
+                      bold: true,
+                    },
+                    {
+                      text: 'しかし、重要な意思決定ほど「信頼できる声」が届いていない。',
+                      bold: false,
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-2 w-2.5 h-2.5 rounded-full bg-primary" />
+                      <p className={`text-base lg:text-lg leading-relaxed ${item.bold ? 'font-bold text-gray-900' : 'text-gray-600'}`}>
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
 
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-6">
-                  <p className="text-lg font-bold text-white text-center">
-                    判断につながる<br className="sm:hidden" />リアルな情報を<br className="sm:hidden" />動画で届ける
-                  </p>
+        {/* Plus sign between problems */}
+        <FadeIn>
+          <div className="flex justify-center mb-8">
+            <div className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center shadow-sm">
+              <span className="text-lg font-bold text-gray-400 leading-none">+</span>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* ===== PROBLEM 2: 情報は発信しているのに伝わらない ===== */}
+        <div className="max-w-5xl mx-auto mb-8">
+          <FadeIn>
+            <div className="relative rounded-3xl p-8 lg:p-12 border border-gray-200 bg-white shadow-lg overflow-hidden">
+              <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-gray-200 rounded-tl-3xl" />
+
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 items-center">
+                {/* Left: Headline */}
+                <div>
+                  <span className="inline-block text-sm uppercase tracking-[0.4em] text-gray-300 font-semibold mb-5">Problem 02</span>
+                  <h3 className="text-4xl lg:text-[3rem] font-bold text-gray-900 leading-[1.25]">
+                    情報は発信して<br />いるのに、<br />
+                    <span className="text-gray-400">伝わらない。</span>
+                  </h3>
                 </div>
 
-                <div className="flex items-center gap-2 text-white/90">
-                  <Video className="w-5 h-5" />
-                  <p className="text-sm font-medium">インタビュー動画で意思決定を支援</p>
+                {/* Right: Points */}
+                <div className="space-y-6">
+                  {[
+                    {
+                      text: 'Webサイトやパンフレット、SNSなどで情報発信はしているものの、',
+                      bold: false,
+                    },
+                    {
+                      text: '本当の魅力が伝わらず、他社・他校・他地域との差別化ができない。',
+                      bold: true,
+                    },
+                    {
+                      text: '応募・集客につながらない。',
+                      bold: false,
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-2 w-2.5 h-2.5 rounded-full bg-primary" />
+                      <p className={`text-base lg:text-lg leading-relaxed ${item.bold ? 'font-bold text-gray-900' : 'text-gray-600'}`}>
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Result callout after both problems */}
+        <FadeIn>
+          <div className="flex justify-center mb-8">
+            <div className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center shadow-sm">
+              <ArrowRight className="w-4 h-4 text-gray-400 rotate-90" strokeWidth={2.5} />
+            </div>
+          </div>
+          <div className="max-w-5xl mx-auto mb-8">
+            <div className="rounded-xl px-6 py-5 bg-red-50 border border-red-100">
+              <p className="text-base lg:text-lg text-red-500 font-semibold text-center">
+                結果 → ミスマッチが起き、双方に機会損失が生まれる。
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Down arrow */}
+        <FadeIn>
+          <div className="flex justify-center mb-8">
+            <div className="w-10 h-10 rounded-full border border-primary/30 bg-primary/10 flex items-center justify-center shadow-sm">
+              <ArrowRight className="w-4 h-4 text-primary rotate-90" strokeWidth={2.5} />
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* ===== BRIDGE ===== */}
+        <div className="max-w-5xl mx-auto mb-8">
+          <FadeIn>
+            <div className="text-center py-8">
+              <div className="inline-block px-8 py-6 rounded-2xl border border-primary/20 bg-white shadow-md">
+                <p className="text-base text-gray-500 leading-snug mb-2">本当に必要なのは、</p>
+                <p className="text-xl text-primary font-bold leading-snug">「実際に選んだ人のリアルな声」</p>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Down arrow */}
+        <FadeIn>
+          <div className="flex justify-center mb-8">
+            <div className="w-10 h-10 rounded-full border border-primary/30 bg-primary/10 flex items-center justify-center shadow-sm">
+              <ArrowRight className="w-4 h-4 text-primary rotate-90" strokeWidth={2.5} />
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* ===== SOLUTION ===== */}
+        <div className="max-w-5xl mx-auto mb-20">
+          <FadeIn>
+            <div className="relative rounded-3xl p-8 lg:p-12 overflow-hidden"
+              style={{background: 'linear-gradient(145deg, #e95228 0%, #f06030 40%, #d94820 100%)'}}>
+              <div className="absolute top-0 right-0 w-48 h-48 rounded-full"
+                style={{background: 'radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)'}} />
+              <div className="absolute inset-0 opacity-10" style={{
+                backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+                backgroundSize: '20px 20px'
+              }} />
+              <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-white/25 rounded-br-3xl" />
+
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+                <div>
+                  <span className="inline-block text-sm uppercase tracking-[0.4em] text-white/50 font-semibold mb-5">Solution</span>
+                  <h3 className="text-4xl lg:text-5xl font-bold text-white leading-[1.2]">
+                    テステモは、<br />リアルな声で<br />
+                    <span className="text-white/85">伝えます</span>
+                  </h3>
+                </div>
+
+                <div>
+                  <p className="text-base lg:text-lg text-white/85 mb-7 leading-relaxed">
+                    実際にその企業・大学・地域を選んだ人へのインタビューを通して、
+                  </p>
+
+                  <div className="rounded-2xl p-6 mb-7 border border-white/25 bg-white/15 backdrop-blur-sm">
+                    <p className="text-lg font-bold text-white text-center leading-snug">
+                      判断につながる<br />リアルな情報を<br />動画で届ける
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-white/85">
+                    <Video className="w-5 h-5 flex-shrink-0" />
+                    <p className="text-base lg:text-lg font-medium">インタビュー動画で意思決定を支援</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -253,19 +333,22 @@ function ContextSection() {
         {/* Value Section */}
         <FadeIn>
           <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 lg:p-12 shadow-xl border-2 border-gray-200">
-              <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-3">Value</h3>
-              <p className="text-center text-gray-600 mb-8">文字や写真では伝わらない</p>
+            <div className="rounded-3xl p-8 lg:p-12 border border-gray-200 bg-white shadow-lg">
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center mb-10">
+                <span className="inline-block text-[9px] uppercase tracking-[0.4em] text-primary font-semibold mb-4">Value</span>
+                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">文字や写真では伝わらない</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                 {[
-                  { label: '表情', emoji: '😊', vimeo: 'https://player.vimeo.com/video/1020065025?h=c786d2097a&title=0&byline=0&portrait=0' },
-                  { label: '温度感', emoji: '🔥', vimeo: 'https://player.vimeo.com/video/1014779536?h=2c4b22d316&title=0&byline=0&portrait=0' },
-                  { label: '本音', emoji: '💬', vimeo: 'https://player.vimeo.com/video/1173147932?h=22cefed8a7&title=0&byline=0&portrait=0' },
+                  { label: '表情', vimeo: 'https://player.vimeo.com/video/1020065025?h=c786d2097a&title=0&byline=0&portrait=0' },
+                  { label: '温度感', vimeo: 'https://player.vimeo.com/video/1014779536?h=2c4b22d316&title=0&byline=0&portrait=0' },
+                  { label: '本音', vimeo: 'https://player.vimeo.com/video/1173147932?h=22cefed8a7&title=0&byline=0&portrait=0' },
                 ].map((item) => (
-                  <div key={item.label} className="bg-white rounded-2xl p-4 shadow-md border border-primary/20 text-center overflow-hidden">
-                    <div className="mb-3 mx-auto max-w-[180px]">
-                      <div className="relative w-full rounded-lg overflow-hidden shadow-sm" style={{ paddingBottom: '177.78%' }}>
+                  <div key={item.label} className="rounded-2xl p-4 text-center overflow-hidden border border-primary/15 bg-gray-50">
+                    <div className="mb-4 mx-auto max-w-[180px]">
+                      <div className="relative w-full rounded-xl overflow-hidden shadow-sm" style={{ paddingBottom: '177.78%' }}>
                         <iframe
                           src={item.vimeo}
                           className="absolute top-0 left-0 w-full h-full"
@@ -275,15 +358,15 @@ function ContextSection() {
                         />
                       </div>
                     </div>
-                    <p className="text-xl font-bold text-primary">{item.label}</p>
+                    <p className="text-base font-bold text-primary">{item.label}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="text-center bg-white rounded-2xl p-6 shadow-md">
-                <p className="text-lg lg:text-xl text-gray-900 font-semibold leading-relaxed">
-                  まで含めて伝えることで、<br className="sm:hidden" />
-                  <span className="text-primary">信頼できる判断材料</span>を提供します
+              <div className="text-center rounded-2xl p-6 border border-primary/20 bg-primary/5">
+                <p className="text-base lg:text-lg text-gray-700 font-medium leading-relaxed">
+                  <span className="text-primary font-bold">表情、温度感、本音</span>まで含めて伝えることで、{' '}
+                  <span className="text-primary font-bold">信頼できる判断材料</span>を提供します
                 </p>
               </div>
             </div>
