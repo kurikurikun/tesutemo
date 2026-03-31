@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
 
 export const metadata: Metadata = {
-  title: '自治体移住促進動画 - 移住者のリアルな声で次の移住者を迎える',
+  title: '移住促進動画・移住者インタビュー動画の制作｜TesuTemo',
   description:
     '先輩移住者のインタビュー動画で移住検討者の共感を生み、地域の魅力をリアルに届ける移住促進動画サービス。限られた予算で効果的なプロモーションを実現します。',
+  alternates: { canonical: 'https://www.tesutemo.co/municipality' },
 };
 
 const v = (id: string, h?: string) =>
@@ -15,8 +16,8 @@ export default function MunicipalityPage() {
     <SubpageLayout
       heroTitle={
         <>
-          地域の<span className="text-primary">「ファン」</span>である先輩移住者の声で、
-          <br />次の移住者を迎える
+          移住者のリアルな声で、選ばれる地域へ。
+          <br /><span className="text-primary">移住促進インタビュー動画</span>サービス
         </>
       }
       heroSubtitle={

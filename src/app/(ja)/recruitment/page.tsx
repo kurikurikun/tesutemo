@@ -3,9 +3,10 @@ import SubpageLayout from '@/components/SubpageLayout';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: '採用動画 - 社員のリアルな声で仲間を集める',
+  title: '社員インタビュー動画で採用を強化｜TesuTemo',
   description:
     '社員インタビュー動画で求職者の共感を生み、ミスマッチのない採用を実現。リアルな声で職場の雰囲気や働きがいを伝える採用プロモーション動画サービス。',
+  alternates: { canonical: 'https://www.tesutemo.co/recruitment' },
 };
 
 const v = (id: string, h?: string) =>
@@ -16,8 +17,8 @@ export default function RecruitmentPage() {
     <SubpageLayout
       heroTitle={
         <>
-          会社の<span className="text-primary">「ファン」</span>である社員の声で、
-          <br />次の仲間を迎える
+          社員のリアルな声で、採用を変える。
+          <br /><span className="text-primary">社員インタビュー動画</span>サービス
         </>
       }
       heroSubtitle={

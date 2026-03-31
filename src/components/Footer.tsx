@@ -3,7 +3,9 @@
 import Link from 'next/link';
 import { Instagram, Youtube } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ locale = 'ja' }: { locale?: 'ja' | 'en' } = {}) {
+  const isEn = locale === 'en';
+  const prefix = isEn ? '/en' : '';
   return (
     <footer className="bg-gray-100 py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -22,10 +24,10 @@ export default function Footer() {
             <h4 className="font-bold mb-4 text-lg text-accent">Company</h4>
             <ul className="space-y-2 text-gray-700 text-sm">
               <li>TesuTemo</li>
-              <li>株式会社move-ment</li>
-              <li>本社　東京都品川区東五反田1-18-5-503</li>
-              <li>支店　広島市東区牛田南1-13-4</li>
-              <li>代表取締役　クリス・モア</li>
+              <li>{isEn ? 'move-ment Inc.' : '株式会社move-ment'}</li>
+              <li>{isEn ? 'HQ: 1-18-5-503 Higashi-Gotanda, Shinagawa, Tokyo' : '本社　東京都品川区東五反田1-18-5-503'}</li>
+              <li>{isEn ? 'Branch: 1-13-4 Ushita-Minami, Higashi-ku, Hiroshima' : '支店　広島市東区牛田南1-13-4'}</li>
+              <li>{isEn ? 'CEO: Chris Moore' : '代表取締役　クリス・モア'}</li>
             </ul>
           </div>
 
@@ -34,18 +36,18 @@ export default function Footer() {
             <h4 className="font-bold mb-4 text-lg text-accent">Testimonial videos for</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/recruitment" className="underline hover:opacity-70 transition-opacity text-accent">
-                  企業採用 companies
+                <Link href={`${prefix}/recruitment`} className="underline hover:opacity-70 transition-opacity text-accent">
+                  {isEn ? 'Recruitment' : '企業採用 companies'}
                 </Link>
               </li>
               <li>
-                <Link href="/municipality" className="underline hover:opacity-70 transition-opacity text-accent">
-                  自治体 regional towns
+                <Link href={`${prefix}/municipality`} className="underline hover:opacity-70 transition-opacity text-accent">
+                  {isEn ? 'Municipalities' : '自治体 regional towns'}
                 </Link>
               </li>
               <li>
-                <Link href="/university" className="underline hover:opacity-70 transition-opacity text-accent">
-                  大学 universities
+                <Link href={`${prefix}/university`} className="underline hover:opacity-70 transition-opacity text-accent">
+                  {isEn ? 'Universities' : '大学 universities'}
                 </Link>
               </li>
             </ul>

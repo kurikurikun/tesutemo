@@ -3,13 +3,14 @@
 import { CheckCircle2 } from 'lucide-react';
 import FadeIn from './FadeIn';
 
-export default function PricingSection() {
+export default function PricingSection({ locale = 'ja' }: { locale?: 'ja' | 'en' } = {}) {
+  const isEn = locale === 'en';
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <FadeIn>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-16">
-            TesuTemoの料金プラン
+            {isEn ? 'TesuTemo Pricing Plans' : 'TesuTemoの料金プラン'}
           </h2>
         </FadeIn>
 
@@ -18,28 +19,28 @@ export default function PricingSection() {
           <FadeIn>
             <div className="bg-gray-50 rounded-3xl p-8 lg:p-10 h-full flex flex-col">
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold text-gray-700 mb-6">SNSプラン</h3>
+                <h3 className="text-xl font-semibold text-gray-700 mb-6">{isEn ? 'SNS Plan' : 'SNSプラン'}</h3>
                 <div className="text-5xl font-bold text-gray-900 mb-8">
-                  120,000<span className="text-3xl">円</span>
+                  {isEn ? <>&#165;120,000</> : <>120,000<span className="text-3xl">円</span></>}
                 </div>
               </div>
 
               <div className="space-y-4 mb-8 flex-grow">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
-                  <p className="text-gray-700">インタビュー 1人</p>
+                  <p className="text-gray-700">{isEn ? '1 Interview' : 'インタビュー 1人'}</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
                   <p className="text-gray-700">
-                    縦型動画 4本
+                    {isEn ? '4 Vertical Videos' : '縦型動画 4本'}
                     <br />
-                    <span className="text-sm text-gray-500">30秒前後、SNS投稿用</span>
+                    <span className="text-sm text-gray-500">{isEn ? '~30 seconds, for social media' : '30秒前後、SNS投稿用'}</span>
                   </p>
                 </div>
                 <div className="pt-4 border-t border-gray-300">
-                  <p className="text-sm font-medium mb-1 text-accent">※ 最低催行人数3人</p>
-                  <p className="text-sm font-medium text-accent">※ 4人以上は一人当たり15%割引となります</p>
+                  <p className="text-sm font-medium mb-1 text-accent">{isEn ? '* Minimum 3 interviewees' : '※ 最低催行人数3人'}</p>
+                  <p className="text-sm font-medium text-accent">{isEn ? '* 15% discount per person for 4+' : '※ 4人以上は一人当たり15%割引となります'}</p>
                 </div>
               </div>
 
@@ -47,7 +48,7 @@ export default function PricingSection() {
                 href="#contact"
                 className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-[#c74320] transition-all duration-300 text-center block"
               >
-                コンタクト
+                {isEn ? 'Contact' : 'コンタクト'}
               </a>
             </div>
           </FadeIn>
@@ -62,9 +63,9 @@ export default function PricingSection() {
               </div>
 
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">SNS+上映プラン</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-6">{isEn ? 'SNS + Screening Plan' : 'SNS+上映プラン'}</h3>
                 <div className="text-5xl font-bold text-gray-900 mb-8">
-                  180,000<span className="text-3xl">円</span>
+                  {isEn ? <>&#165;180,000</> : <>180,000<span className="text-3xl">円</span></>}
                 </div>
               </div>
 
@@ -72,22 +73,22 @@ export default function PricingSection() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
                   <p className="text-gray-700">
-                    縦型動画 4本
+                    {isEn ? '4 Vertical Videos' : '縦型動画 4本'}
                     <br />
-                    <span className="text-sm text-gray-500">30秒前後、SNS投稿用</span>
+                    <span className="text-sm text-gray-500">{isEn ? '~30 seconds, for social media' : '30秒前後、SNS投稿用'}</span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
                   <p className="text-gray-700">
-                    横型動画 2本
+                    {isEn ? '2 Horizontal Videos' : '横型動画 2本'}
                     <br />
-                    <span className="text-sm text-gray-500">90秒前後、YOUTUBE、イベント上映など</span>
+                    <span className="text-sm text-gray-500">{isEn ? '~90 seconds, for YouTube, events, etc.' : '90秒前後、YOUTUBE、イベント上映など'}</span>
                   </p>
                 </div>
                 <div className="pt-4 border-t border-primary/30">
-                  <p className="text-sm font-medium mb-1 text-accent">※ 最低催行人数3人</p>
-                  <p className="text-sm font-medium text-accent">※ 4人以上は一人当たり15%割引となります</p>
+                  <p className="text-sm font-medium mb-1 text-accent">{isEn ? '* Minimum 3 interviewees' : '※ 最低催行人数3人'}</p>
+                  <p className="text-sm font-medium text-accent">{isEn ? '* 15% discount per person for 4+' : '※ 4人以上は一人当たり15%割引となります'}</p>
                 </div>
               </div>
 
@@ -95,7 +96,7 @@ export default function PricingSection() {
                 href="#contact"
                 className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-[#c74320] transition-all duration-300 shadow-lg text-center block"
               >
-                コンタクト
+                {isEn ? 'Contact' : 'コンタクト'}
               </a>
             </div>
           </FadeIn>
@@ -104,9 +105,9 @@ export default function PricingSection() {
           <FadeIn delay={0.2}>
             <div className="bg-gray-50 rounded-3xl p-8 lg:p-10 h-full flex flex-col">
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold text-gray-700 mb-6">オプション</h3>
+                <h3 className="text-xl font-semibold text-gray-700 mb-6">{isEn ? 'Options' : 'オプション'}</h3>
                 <div className="text-5xl font-bold text-gray-900 mb-8">
-                  30,000<span className="text-3xl">円</span>
+                  {isEn ? <>&#165;30,000</> : <>30,000<span className="text-3xl">円</span></>}
                 </div>
               </div>
 
@@ -116,9 +117,9 @@ export default function PricingSection() {
                     <span className="text-xs font-bold text-white">1</span>
                   </div>
                   <p className="text-gray-700">
-                    インタビュー記事
+                    {isEn ? 'Interview Article' : 'インタビュー記事'}
                     <br />
-                    <span className="text-sm text-gray-500">配布や友方のサイトに記載用</span>
+                    <span className="text-sm text-gray-500">{isEn ? 'For distribution or posting on partner sites' : '配布や友方のサイトに記載用'}</span>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -126,13 +127,13 @@ export default function PricingSection() {
                     <span className="text-xs font-bold text-white">2</span>
                   </div>
                   <p className="text-gray-700">
-                    フルインタビュー動画
+                    {isEn ? 'Full Interview Video' : 'フルインタビュー動画'}
                     <br />
-                    <span className="text-sm text-gray-500">質問をタイトルとして構入たが動画未編集</span>
+                    <span className="text-sm text-gray-500">{isEn ? 'Unedited video with questions as titles' : '質問をタイトルとして構入たが動画未編集'}</span>
                   </p>
                 </div>
                 <div className="pt-4 border-t border-gray-300">
-                  <p className="text-sm font-medium text-accent">※各オプション1、2の価格となります</p>
+                  <p className="text-sm font-medium text-accent">{isEn ? '* Price for each option' : '※各オプション1、2の価格となります'}</p>
                 </div>
               </div>
 
@@ -140,7 +141,7 @@ export default function PricingSection() {
                 href="#contact"
                 className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-[#c74320] transition-all duration-300 text-center block"
               >
-                コンタクト
+                {isEn ? 'Contact' : 'コンタクト'}
               </a>
             </div>
           </FadeIn>

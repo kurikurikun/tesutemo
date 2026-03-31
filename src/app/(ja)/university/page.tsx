@@ -4,9 +4,10 @@ import VideoCarousel from '@/components/VideoCarousel';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: '大学広報動画 - 学生のリアルな声で入学者を迎える',
+  title: '大学広報動画・学生インタビュー動画の制作｜TesuTemo',
   description:
     '在学生インタビュー動画で志願者の共感を生み、大学の魅力をリアルに届ける広報動画サービス。キャンパスライフや学びの魅力を等身大の声で伝えます。',
+  alternates: { canonical: 'https://www.tesutemo.co/university' },
 };
 
 const v = (id: string, h?: string) =>
@@ -17,8 +18,8 @@ export default function UniversityPage() {
     <SubpageLayout
       heroTitle={
         <>
-          大学の<span className="text-primary">「ファン」</span>である学生の声で、
-          <br />次の入学者を迎える
+          学生のリアルな声で志願者を増やす。
+          <br /><span className="text-primary">大学広報インタビュー動画</span>サービス
         </>
       }
       heroSubtitle={

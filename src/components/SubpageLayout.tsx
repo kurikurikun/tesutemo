@@ -29,6 +29,7 @@ interface SubpageProps {
   verticalVideos: string[];
   companyLabel?: string;
   companyPlaceholder?: string;
+  locale?: 'ja' | 'en';
   children?: ReactNode;
 }
 
@@ -52,11 +53,13 @@ export default function SubpageLayout({
   verticalVideos,
   companyLabel,
   companyPlaceholder,
+  locale = 'ja',
   children,
 }: SubpageProps) {
+  const isEn = locale === 'en';
   return (
     <>
-      <SubpageHeader />
+      <SubpageHeader locale={locale} />
 
       {/* Hero */}
       <section className="pt-32 pb-24 lg:pt-40 lg:pb-32 bg-gradient-to-b from-accent/10 to-white">
@@ -72,17 +75,17 @@ export default function SubpageLayout({
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
-                    href="#videos"
+                    href={isEn ? '/en/case-study' : '#videos'}
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-primary text-primary rounded-xl font-medium hover:bg-primary hover:text-white transition-all duration-300"
                   >
-                    導入事例を見る
+                    {isEn ? 'View Case Studies' : '導入事例を見る'}
                     <ArrowRight size={20} />
                   </a>
                   <a
                     href="#contact"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-medium hover:bg-[#c74320] transition-all duration-300"
                   >
-                    はじめる
+                    {isEn ? 'Get Started' : 'はじめる'}
                     <ArrowRight size={20} />
                   </a>
                 </div>
@@ -197,7 +200,7 @@ export default function SubpageLayout({
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">すべてオンラインで完結だから</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">{isEn ? 'Everything done online' : 'すべてオンラインで完結だから'}</h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {onlineFeatures.map((feature, i) => (
@@ -218,9 +221,9 @@ export default function SubpageLayout({
 
       {children}
 
-      <PricingSection />
-      <ContactForm companyLabel={companyLabel} companyPlaceholder={companyPlaceholder} />
-      <Footer />
+      <PricingSection locale={locale} />
+      <ContactForm companyLabel={companyLabel} companyPlaceholder={companyPlaceholder} locale={locale} />
+      <Footer locale={locale} />
     </>
   );
 }

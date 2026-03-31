@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
 
 export const metadata: Metadata = {
-  title: '導入事例動画 - 顧客のリアルな声で次の顧客を動かす',
+  title: '導入事例動画・顧客インタビュー動画の制作｜TesuTemo',
   description:
     '顧客インタビュー動画で見込み客の不安を解消し、購買を後押しする導入事例動画サービス。信頼できる第三者の声で商品・サービスの本当の価値を届けます。',
+  alternates: { canonical: 'https://www.tesutemo.co/case-study' },
 };
 
 const v = (id: string, h?: string) =>
@@ -13,7 +14,12 @@ const v = (id: string, h?: string) =>
 export default function CaseStudyPage() {
   return (
     <SubpageLayout
-      heroTitle="自社の「ファン」の声で、次の顧客を動かす"
+      heroTitle={
+        <>
+          顧客のリアルな声が、最強の営業ツールになる。
+          <br /><span className="text-primary">導入事例インタビュー動画</span>サービス
+        </>
+      }
       heroSubtitle="リアルな顧客インタビューで、商品・サービスの本当の価値を届ける"
       heroVideoUrl={v('1017754838', '2df374323e')}
       problemHeading="発信しているのに、選ばれない"

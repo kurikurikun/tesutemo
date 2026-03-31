@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import "./globals.css";
+import "../globals.css";
 import { DM_Serif_Display } from "next/font/google";
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -13,6 +13,13 @@ const dmSerifDisplay = DM_Serif_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.tesutemo.co'),
+  alternates: {
+    canonical: 'https://www.tesutemo.co',
+    languages: {
+      'ja': 'https://www.tesutemo.co',
+      'en': 'https://www.tesutemo.co/en',
+    },
+  },
   title: {
     default: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
     template: '%s | TesuTemo',

@@ -7,9 +7,11 @@ import FadeIn from './FadeIn';
 interface ContactFormProps {
   companyLabel?: string;
   companyPlaceholder?: string;
+  locale?: 'ja' | 'en';
 }
 
-export default function ContactForm({ companyLabel, companyPlaceholder }: ContactFormProps = {}) {
+export default function ContactForm({ companyLabel, companyPlaceholder, locale = 'ja' }: ContactFormProps = {}) {
+  const isEn = locale === 'en';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,14 +55,15 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
               </div>
 
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                お問い合わせ
+                {isEn ? 'Contact Us' : 'お問い合わせ'}
                 <br />
-                <span className="text-3xl lg:text-4xl">Get in Touch</span>
+                <span className="text-3xl lg:text-4xl">{isEn ? '' : 'Get in Touch'}</span>
               </h2>
 
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                テステモについてのご質問や、導入に関するご相談など、
-                お気軽にお問い合わせください。
+                {isEn
+                  ? "Have questions about TesuTemo? We'd love to hear from you."
+                  : 'テステモについてのご質問や、導入に関するご相談など、お気軽にお問い合わせください。'}
               </p>
 
               <div className="space-y-6">
@@ -69,8 +72,8 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                   <img src="/chris-moore.png" alt="Chris Moore" className="w-16 h-16 rounded-full object-cover shadow-md flex-shrink-0" />
                   <div>
                     <div className="group relative h-6 mb-1">
-                      <p className="font-semibold text-gray-900 transition-opacity duration-300 group-hover:opacity-0">Chris Moore</p>
-                      <p className="font-semibold text-gray-900 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">クリス・モア</p>
+                      <p className="font-semibold text-gray-900 transition-opacity duration-300 group-hover:opacity-0">{isEn ? 'Chris Moore' : 'Chris Moore'}</p>
+                      <p className="font-semibold text-gray-900 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">{isEn ? 'Chris Moore' : 'クリス・モア'}</p>
                     </div>
                     <a href="mailto:chris@move-ment.co" className="text-sm text-primary hover:underline block">
                       chris@move-ment.co
@@ -82,8 +85,8 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                   <img src="/kinoshita.png" alt="Yosuke Kinoshita" className="w-16 h-16 rounded-full object-cover shadow-md flex-shrink-0" />
                   <div>
                     <div className="group relative h-6 mb-1">
-                      <p className="font-semibold text-gray-900 transition-opacity duration-300 group-hover:opacity-0">Yosuke Kinoshita</p>
-                      <p className="font-semibold text-gray-900 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 whitespace-nowrap">木下陽介</p>
+                      <p className="font-semibold text-gray-900 transition-opacity duration-300 group-hover:opacity-0">{isEn ? 'Yosuke Kinoshita' : 'Yosuke Kinoshita'}</p>
+                      <p className="font-semibold text-gray-900 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 whitespace-nowrap">{isEn ? 'Yosuke Kinoshita' : '木下陽介'}</p>
                     </div>
                     <a href="mailto:kinoshita@move-ment.co" className="text-sm text-primary hover:underline block">
                       kinoshita@move-ment.co
@@ -102,18 +105,18 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle size={32} className="text-green-600" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">送信完了</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{isEn ? 'Sent Successfully' : '送信完了'}</h3>
                   <p className="text-gray-600">
-                    お問い合わせありがとうございます。
+                    {isEn ? 'Thank you for your inquiry.' : 'お問い合わせありがとうございます。'}
                     <br />
-                    担当者より2営業日以内にご連絡いたします。
+                    {isEn ? "We'll get back to you within 2 business days." : '担当者より2営業日以内にご連絡いたします。'}
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      お名前 <span className="text-primary">*</span>
+                      {isEn ? 'Name' : 'お名前'} <span className="text-primary">*</span>
                     </label>
                     <div className="relative">
                       <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -124,14 +127,14 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="山田 太郎"
+                        placeholder={isEn ? 'John Smith' : '山田 太郎'}
                         className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
                       />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      メールアドレス <span className="text-primary">*</span>
+                      {isEn ? 'Email Address' : 'メールアドレス'} <span className="text-primary">*</span>
                     </label>
                     <div className="relative">
                       <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -149,7 +152,7 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      {companyLabel || '会社名・組織名'} <span className="text-gray-400 font-normal">（任意）</span>
+                      {companyLabel || (isEn ? 'Company / Organization' : '会社名・組織名')} <span className="text-gray-400 font-normal">{isEn ? '(optional)' : '（任意）'}</span>
                     </label>
                     <div className="relative">
                       <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -159,32 +162,36 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder={companyPlaceholder || '株式会社テステモ'}
+                        placeholder={companyPlaceholder || (isEn ? 'TesuTemo Inc.' : '株式会社テステモ')}
                         className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
                       />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      お問い合わせ内容 <span className="text-primary">*</span>
+                      {isEn ? 'Message' : 'お問い合わせ内容'} <span className="text-primary">*</span>
                     </label>
                     <textarea
                       required
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="お問い合わせ内容をご記入ください"
+                      placeholder={isEn ? 'Please enter your message' : 'お問い合わせ内容をご記入ください'}
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all resize-none"
                     />
                   </div>
                   <div className="bg-gray-50 rounded-xl p-4">
                     <p className="text-sm text-gray-600">
-                      <span className="text-primary">プライバシーポリシー</span>に同意の上、送信してください。お預かりした個人情報は、お問い合わせへの対応のみに使用いたします。
+                      {isEn ? (
+                        <>By submitting, you agree to our <span className="text-primary">privacy policy</span>. Your information will only be used to respond to your inquiry.</>
+                      ) : (
+                        <><span className="text-primary">プライバシーポリシー</span>に同意の上、送信してください。お預かりした個人情報は、お問い合わせへの対応のみに使用いたします。</>
+                      )}
                     </p>
                   </div>
                   {status === 'error' && (
                     <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                      <p className="text-sm text-red-600">送信に失敗しました。もう一度お試しください。</p>
+                      <p className="text-sm text-red-600">{isEn ? 'Submission failed. Please try again.' : '送信に失敗しました。もう一度お試しください。'}</p>
                     </div>
                   )}
                   <button
@@ -195,11 +202,11 @@ export default function ContactForm({ companyLabel, companyPlaceholder }: Contac
                     {status === 'sending' ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        送信中...
+                        {isEn ? 'Sending...' : '送信中...'}
                       </>
                     ) : (
                       <>
-                        送信する
+                        {isEn ? 'Send' : '送信する'}
                         <Send size={20} />
                       </>
                     )}
