@@ -74,19 +74,19 @@ function HeroSection() {
     <section className="pt-28 pb-16 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn>
-          <p className="font-display text-5xl sm:text-6xl lg:text-7xl tracking-tight text-gray-900" aria-hidden="true">
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl tracking-tight text-gray-900">
             Real Voices.
             <br />
             <span className="text-primary italic">
               Better Decisions.
             </span>
-          </p>
+          </h1>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <h1 className="mt-5 text-lg text-gray-500 tracking-wide leading-relaxed">
+          <p className="mt-5 text-lg text-gray-500 tracking-wide leading-relaxed">
             People trust real voices over advertising.<br />
             TesuTemo captures interviews with employees, students, residents, and customers — all online —<br className="hidden sm:inline" /> delivering video content that drives better decisions.
-          </h1>
+          </p>
         </FadeIn>
 
         <FadeIn delay={0.2}>

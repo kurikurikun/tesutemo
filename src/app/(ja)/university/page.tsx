@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   title: '大学広報動画・学生インタビュー動画の制作｜TesuTemo',
   description:
     '在学生インタビュー動画で志願者の共感を生み、大学の魅力をリアルに届ける広報動画サービス。キャンパスライフや学びの魅力を等身大の声で伝えます。',
-  alternates: { canonical: 'https://www.tesutemo.co/university' },
+  alternates: {
+    canonical: 'https://www.tesutemo.co/university',
+    languages: { en: 'https://www.tesutemo.co/en/university' },
+  },
 };
 
 const v = (id: string, h?: string) =>

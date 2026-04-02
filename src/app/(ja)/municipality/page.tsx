@@ -5,7 +5,10 @@ export const metadata: Metadata = {
   title: '移住促進動画・移住者インタビュー動画の制作｜TesuTemo',
   description:
     '先輩移住者のインタビュー動画で移住検討者の共感を生み、地域の魅力をリアルに届ける移住促進動画サービス。限られた予算で効果的なプロモーションを実現します。',
-  alternates: { canonical: 'https://www.tesutemo.co/municipality' },
+  alternates: {
+    canonical: 'https://www.tesutemo.co/municipality',
+    languages: { en: 'https://www.tesutemo.co/en/municipality' },
+  },
 };
 
 const v = (id: string, h?: string) =>

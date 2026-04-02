@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス';
+export const alt = 'TesuTemo - Real voices that drive better decisions';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -71,7 +71,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          リアルな声で意思決定を支える
+          Real Voices. Better Decisions.
         </div>
 
         {/* Description */}
@@ -85,7 +85,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          インタビュー動画で採用・大学広報・移住促進をサポート
+          Interview videos for recruitment, universities, and migration promotion
         </div>
 
         {/* CTA */}
@@ -101,7 +101,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          詳しくはこちら →
+          Learn More →
         </div>
 
         {/* Bottom URL */}
@@ -114,7 +114,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          www.tesutemo.co
+          www.tesutemo.co/en
         </div>
       </div>
     ),

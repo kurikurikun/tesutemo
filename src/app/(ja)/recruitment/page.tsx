@@ -6,7 +6,10 @@ export const metadata: Metadata = {
   title: '社員インタビュー動画で採用を強化｜TesuTemo',
   description:
     '社員インタビュー動画で求職者の共感を生み、ミスマッチのない採用を実現。リアルな声で職場の雰囲気や働きがいを伝える採用プロモーション動画サービス。',
-  alternates: { canonical: 'https://www.tesutemo.co/recruitment' },
+  alternates: {
+    canonical: 'https://www.tesutemo.co/recruitment',
+    languages: { en: 'https://www.tesutemo.co/en/recruitment' },
+  },
 };
 
 const v = (id: string, h?: string) =>
