@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { TESUTEMO_LOGO_T } from '@/app/og-logo';
 
 export const runtime = 'edge';
 export const alt = 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス';
@@ -42,21 +43,10 @@ export default async function Image() {
             marginBottom: '24px',
             display: 'flex',
             alignItems: 'center',
-            gap: '16px',
+            gap: '12px',
           }}
         >
-          <div style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '14px',
-            background: '#7e91cf',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: '32px',
-            fontWeight: 'bold',
-          }}>T</div>
+          <img src={TESUTEMO_LOGO_T} width={64} height={64} style={{ objectFit: 'contain' }} />
           TesuTemo
         </div>
 
