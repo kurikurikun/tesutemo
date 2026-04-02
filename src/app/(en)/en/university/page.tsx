@@ -21,41 +21,39 @@ export default function UniversityPage() {
     <SubpageLayout
       locale="en"
       currentPath="/en/university"
-      heroTitle={
-        <>
-          Attract more applicants with real student voices.
-          <br /><span className="text-primary">University Promotion Interview Video</span> Service
-        </>
-      }
+      heroTitle={<>Attract more of the applicants you want with <span className="text-primary">real student voices.</span></>}
       heroSubtitle={
         <>
-          <span className="text-primary font-semibold">Authentic voices</span> that resonate with prospective students
-          <br />
-          <span className="text-primary font-semibold">Affordable</span> video promotion for universities
+          <p className="italic text-gray-800 font-semibold mb-3">
+            Let the students who chose you, convince the students considering you.
+          </p>
+          <p>
+            <span className="text-primary font-semibold">Authentic</span>, <span className="text-primary font-semibold">affordable</span> promotion videos that resonate with the students you want to reach.
+          </p>
         </>
       }
       heroVideoUrl={v('1017754838', '2df374323e')}
-      problemHeading="Promoting your university, but not being chosen"
-      problemSubheading={<>Your university is putting information out there,<br />but are you experiencing these challenges?</>}
+      problemHeading={<>Your message is out there.<br />But where are the students?</>}
+      problemSubheading="Do any of these sound familiar?"
       problems={[
-        'You want to share diverse student voices, but your budget is limited',
-        'You built a department website, but prospective students never find it',
-        'You know social media matters, but you lack compelling content',
-        'Professors want to convey the appeal of their courses, but cannot find the time',
-        'People see your pamphlets, but you want to drive them online',
+        "You'd love more quality student testimonials, but the budget just isn't there",
+        'You have a department website, but prospective students never seem to find it',
+        'You know you need to be on social media, but you never have content worth posting',
+        "Faculty want to promote their programs, but they're too busy to make it happen",
+        'Your pamphlets reach people, but you want to turn that into online engagement',
       ]}
-      problemConclusion={<>As a result,<br />your university&rsquo;s appeal is not fully communicated, leading to mismatches with prospective students.</>}
-      solutionTitle="TesuTemo communicates through real voices"
-      solutionSubtitle={<>Through interviews with current and former students,<br />we make your university&rsquo;s true appeal visible</>}
-      solutionPoints={['Content that helps prospective students decide if your university is the right fit']}
-      videoSectionTitle="Real voices change applicant decisions"
-      videoSectionSubtitle="Interview Videos (Horizontal: 90-120 sec / Vertical: 30-60 sec)"
-      videoHorizontalDesc={<>Horizontal videos are for <span className="text-primary font-bold">&ldquo;telling your story in depth&rdquo;</span> on university websites and at open days</>}
-      videoVerticalDesc={<>Vertical videos are for <span className="text-primary font-bold">&ldquo;getting discovered&rdquo;</span> on social media</>}
+      problemConclusion={<>The result? Your university&rsquo;s best qualities go unseen — and the right students end up choosing somewhere else.</>}
+      solutionTitle="TesuTemo lets real students do the talking"
+      solutionSubtitle={<>We interview your current and former students and turn their genuine experiences<br />into content that actually moves prospective students to act</>}
+      solutionPoints={['Content that gives prospective students a real feel for campus life — and helps them decide your university is the right fit']}
+      videoSectionTitle="When students speak, applicants listen"
+      videoSectionSubtitle="Interview Videos (Horizontal: 90–120 sec / Vertical: 30–60 sec)"
+      videoHorizontalDesc={<>Horizontal videos go deep — perfect for your university website and <span className="text-primary font-bold">open day presentations</span></>}
+      videoVerticalDesc={<>Vertical videos get you <span className="text-primary font-bold">discovered on social media</span></>}
       onlineFeatures={[
-        { title: 'Filmed in their own environment', desc: 'By speaking into their own smartphone, students are relaxed and share genuinely authentic stories' },
-        { title: 'High-quality recording via dedicated software', desc: 'Our proprietary software requires no login or sign-up, maintaining audio and video quality while making it easy for students to participate' },
-        { title: 'Optimized for student channels', desc: 'Content tailored for the social media platforms that prospective students use every day' },
+        { title: 'Students film from wherever they are', desc: 'No studio, no stress. Students speak to us on their own phone, in their own space — and the authenticity shows.' },
+        { title: 'Pro-quality video, no crew required', desc: 'One free app, no login — students just tap the call link we send. The tech handles audio and video quality automatically.' },
+        { title: 'Built for the platforms students actually use', desc: 'Every video is cut and formatted for the feeds where prospective students actually spend their time — ready to post, ready to perform.' },
       ]}
       horizontalVideos={[
         v('1019675789', '8ca81d7847'),
@@ -76,26 +74,26 @@ export default function UniversityPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              How TesuTemo Transforms Your Promotion Efforts
+              The TesuTemo Effect. Here&rsquo;s What Changes.
             </h2>
-            <p className="text-lg text-gray-600">Here is how adopting TesuTemo changes your outreach and student recruitment</p>
+            <p className="text-lg text-gray-600">Here&rsquo;s how TesuTemo transforms your outreach and student recruitment</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: 'Ready-to-use video assets', desc: 'Get vertical and horizontal video assets\nperfect for social media and open day events' },
-              { title: 'Reduced production effort', desc: 'Dramatically reduce production workload,\nlightening the burden on your team' },
-              { title: 'Content that resonates', desc: 'Authentic voices are trusted by Gen Z and Gen Alpha, generating genuine engagement' },
-              { title: 'Easy budget approval', desc: 'Affordable pricing and flexible plans make it easy to get internal approval' },
-              { title: 'More efficient info sessions', desc: 'No need to bring multiple students to school events;\nTesuTemo videos do the talking' },
-              { title: 'Stronger online pathways', desc: 'Add QR codes to pamphlets linking to student voice videos\nto drive prospective students online' },
+              { title: 'Ready-to-use video assets', desc: 'Receive vertical and horizontal videos ready to publish —\nperfect for social media and open day presentations' },
+              { title: 'Less work for your team', desc: 'Dramatically cut the time and energy your team spends\non content production' },
+              { title: 'Content that actually resonates', desc: 'Gen Z and Gen Alpha trust authentic peer voices far more\nthan polished institutional content' },
+              { title: 'Easy to get budget sign-off', desc: 'Transparent, affordable pricing makes internal approval\nstraightforward' },
+              { title: 'Streamline your info sessions', desc: 'No need to arrange student speakers for every event —\nTesuTemo videos handle it' },
+              { title: 'Turn print into digital engagement', desc: 'Add QR codes to pamphlets that link straight to student\nvoice videos and drive prospective students online' },
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 shadow-sm">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-4 h-4 bg-primary rounded-full flex-shrink-0 mt-1" />
                   <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
                 </div>
-                <p className="text-gray-600 ml-7 whitespace-pre-line">{item.desc}</p>
+                <p className="text-gray-600 ml-7">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -106,11 +104,8 @@ export default function UniversityPage() {
       <section className="py-20 bg-gradient-to-b from-[#d4d9f0] to-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
-              Real TesuTemo Case Studies
-            </h2>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
-              and Client Testimonials
+              Real Results from Real Clients
             </h2>
           </div>
 
@@ -132,8 +127,8 @@ export default function UniversityPage() {
             <div className="flex items-center justify-center gap-6 mb-12">
               <Image src="/logo-kansai.png" alt="Kansai University" width={80} height={80} className="h-20 w-auto" />
               <div className="text-left border-l-2 border-gray-300 pl-6">
-                <p className="text-lg text-gray-600 mb-1">Faculty & Graduate School Administrative Group</p>
-                <p className="text-2xl font-semibold text-gray-900">Obuchi-san (Kansai University)</p>
+                <p className="text-lg text-gray-600 mb-1">Kansai University Undergraduate & Graduate School Division</p>
+                <p className="text-2xl font-semibold text-gray-900">OBUCHI Yuko</p>
               </div>
             </div>
 

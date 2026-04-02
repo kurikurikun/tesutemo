@@ -9,7 +9,6 @@ interface SubpageHeaderProps {
 
 export default function SubpageHeader({ locale = 'ja', currentPath = '/' }: SubpageHeaderProps) {
   const isEN = locale === 'en';
-  const toggleLabel = isEN ? 'JP' : 'EN';
   const toggleHref = isEN
     ? currentPath.replace(/^\/en/, '') || '/'
     : `/en${currentPath === '/' ? '' : currentPath}`;
@@ -21,17 +20,9 @@ export default function SubpageHeader({ locale = 'ja', currentPath = '/' }: Subp
           TesuTemo
         </Link>
         <div className="flex items-center gap-6">
-          <Link
-            href={isEN ? '/en' : '/'}
-            className="text-white hover:text-gray-200 transition-colors"
-          >
-            {isEN ? 'Home' : 'トップ'}
-          </Link>
-          <a
-            href={toggleHref}
-            className="text-white/70 hover:text-white transition-colors text-sm font-medium"
-          >
-            {toggleLabel}
+          <a href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-white/30 bg-white/10 p-0.5 text-xs font-semibold">
+            <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-white/60 hover:text-white'}`}>EN</span>
+            <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-white/60 hover:text-white'}`}>JP</span>
           </a>
           <a
             href="#contact"

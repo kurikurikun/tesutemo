@@ -29,7 +29,6 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
   const ctaLabel = isEN ? 'Get Started' : 'はじめる';
   const ctaHref = isEN ? '#contact' : '#contact';
 
-  const toggleLabel = isEN ? 'JP' : 'EN';
   const toggleHref = isEN
     ? currentPath.replace(/^\/en/, '') || '/'
     : `/en${currentPath === '/' ? '' : currentPath}`;
@@ -53,11 +52,9 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
                 {item.label}
               </Link>
             ))}
-            <a
-              href={toggleHref}
-              className="text-sm font-medium text-gray-500 hover:text-accent transition-colors"
-            >
-              {toggleLabel}
+            <a href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
+              <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>EN</span>
+              <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>JP</span>
             </a>
             <Link
               href={ctaHref}
@@ -67,13 +64,19 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
             </Link>
           </nav>
 
-          <button
-            className="md:hidden p-2 text-gray-700"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            <a href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
+              <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400'}`}>EN</span>
+              <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400'}`}>JP</span>
+            </a>
+            <button
+              className="p-2 text-gray-700"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -89,13 +92,6 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
               {item.label}
             </Link>
           ))}
-          <a
-            href={toggleHref}
-            className="block text-sm font-medium text-gray-500"
-            onClick={() => setMobileOpen(false)}
-          >
-            {toggleLabel}
-          </a>
           <Link
             href={ctaHref}
             className="inline-block bg-primary text-white text-sm px-5 py-2.5 rounded-full font-medium"

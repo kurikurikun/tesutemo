@@ -20,16 +20,13 @@ export default function PricingSection({ locale = 'ja' }: { locale?: 'ja' | 'en'
             <div className="bg-gray-50 rounded-3xl p-8 lg:p-10 h-full flex flex-col">
               <div className="text-center mb-8">
                 <h3 className="text-xl font-semibold text-gray-700 mb-6">{isEn ? 'SNS Plan' : 'SNSプラン'}</h3>
-                <div className="text-5xl font-bold text-gray-900 mb-8">
+                <div className="text-5xl font-bold text-gray-900 mb-2">
                   {isEn ? <>&#165;120,000</> : <>120,000<span className="text-3xl">円</span></>}
                 </div>
+                <p className="text-sm text-gray-500 mb-8">{isEn ? 'per interviewee' : '1人につき'}</p>
               </div>
 
               <div className="space-y-4 mb-8 flex-grow">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
-                  <p className="text-gray-700">{isEn ? '1 Interview' : 'インタビュー 1人'}</p>
-                </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={20} className="text-primary flex-shrink-0 mt-1" />
                   <p className="text-gray-700">
@@ -64,9 +61,10 @@ export default function PricingSection({ locale = 'ja' }: { locale?: 'ja' | 'en'
 
               <div className="text-center mb-8">
                 <h3 className="text-xl font-semibold text-gray-900 mb-6">{isEn ? 'SNS + Screening Plan' : 'SNS+上映プラン'}</h3>
-                <div className="text-5xl font-bold text-gray-900 mb-8">
+                <div className="text-5xl font-bold text-gray-900 mb-2">
                   {isEn ? <>&#165;180,000</> : <>180,000<span className="text-3xl">円</span></>}
                 </div>
+                <p className="text-sm text-gray-500 mb-8">{isEn ? 'per interviewee' : '1人につき'}</p>
               </div>
 
               <div className="space-y-4 mb-8 flex-grow">
@@ -129,7 +127,7 @@ export default function PricingSection({ locale = 'ja' }: { locale?: 'ja' | 'en'
                   <p className="text-gray-700">
                     {isEn ? 'Full Interview Video' : 'フルインタビュー動画'}
                     <br />
-                    <span className="text-sm text-gray-500">{isEn ? 'Unedited video with questions as titles' : '質問をタイトルとして構入たが動画未編集'}</span>
+                    <span className="text-sm text-gray-500">{isEn ? 'Unedited video with questions as titles' : '質問をタイトルとして挿入した未編集動画'}</span>
                   </p>
                 </div>
                 <div className="pt-4 border-t border-gray-300">

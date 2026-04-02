@@ -13,7 +13,7 @@ interface SubpageProps {
   heroTitle: ReactNode;
   heroSubtitle: ReactNode;
   heroVideoUrl: string;
-  problemHeading: string;
+  problemHeading: ReactNode;
   problemSubheading: ReactNode;
   problems: string[];
   problemConclusion: ReactNode;
@@ -69,7 +69,7 @@ export default function SubpageLayout({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeIn direction="left">
               <div>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight lg:leading-[1.4]">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight lg:leading-[1.4] break-keep">
                   {heroTitle}
                 </h1>
                 <div className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -108,15 +108,17 @@ export default function SubpageLayout({
         </div>
       </section>
 
-      {/* Problem */}
+      {/* Problem + Solution flow */}
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900">{problemHeading}</h2>
             <p className="text-center text-gray-500 mb-12 leading-relaxed">{problemSubheading}</p>
           </FadeIn>
+
+          {/* Problems */}
           <FadeIn delay={0.1}>
-            <div className="bg-gray-50 rounded-2xl p-8 mb-10">
+            <div className="bg-gray-50 rounded-2xl p-8 mb-6">
               <ul className="space-y-5">
                 {problems.map((p, i) => (
                   <li key={i} className="flex items-start gap-3">
@@ -127,28 +129,50 @@ export default function SubpageLayout({
               </ul>
             </div>
           </FadeIn>
+
+          {/* Arrow */}
+          <FadeIn delay={0.15}>
+            <div className="flex justify-center mb-6">
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-0.5 h-8 bg-gray-300" />
+                <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-300" />
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Consequence */}
           <FadeIn delay={0.2}>
-            <div className="bg-gray-50 rounded-2xl p-8 border-l-4 border-primary shadow-sm">
+            <div className="bg-red-50 rounded-2xl p-8 border-l-4 border-red-400 mb-6">
               <p className="text-gray-800 font-medium text-center leading-relaxed">{problemConclusion}</p>
             </div>
           </FadeIn>
-        </div>
-      </section>
 
-      {/* Solution */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900">{solutionTitle}</h2>
-            <p className="text-gray-600 mb-10 leading-relaxed text-lg">{solutionSubtitle}</p>
+          {/* Arrow + label */}
+          <FadeIn delay={0.25}>
+            <div className="flex justify-center mb-6">
+              <div className="flex flex-col items-center gap-1">
+                <div className="w-0.5 h-4 bg-primary/40" />
+                <span className="text-xs font-semibold text-primary tracking-widest uppercase px-3 py-1 bg-primary/10 rounded-full">
+                  {isEn ? 'TesuTemo solves this' : 'テステモが解決します'}
+                </span>
+                <div className="w-0.5 h-4 bg-primary/40" />
+                <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-primary/40" />
+              </div>
+            </div>
           </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="space-y-4">
-              {solutionPoints.map((point, i) => (
-                <div key={i} className="bg-primary text-white text-lg font-medium py-5 px-8 rounded-2xl">
-                  {point}
-                </div>
-              ))}
+
+          {/* Solution */}
+          <FadeIn delay={0.3}>
+            <div className="bg-primary rounded-2xl p-8 text-center text-white">
+              <h3 className="text-2xl font-bold mb-3">{solutionTitle}</h3>
+              <p className="text-white/80 mb-6 leading-relaxed">{solutionSubtitle}</p>
+              <div className="space-y-3">
+                {solutionPoints.map((point, i) => (
+                  <div key={i} className="bg-white/15 rounded-xl py-4 px-6 font-medium">
+                    {point}
+                  </div>
+                ))}
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -158,7 +182,9 @@ export default function SubpageLayout({
       <section id="videos" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">{videoSectionTitle}</h2>
+            <div className="inline-flex w-full justify-center mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-center px-8 py-4 rounded-2xl bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/15">{videoSectionTitle}</h2>
+            </div>
             <p className="text-center text-gray-500 mb-4">{videoSectionSubtitle}</p>
             <div className="text-center space-y-1 mb-12">
               <p className="text-gray-600">{videoHorizontalDesc}</p>
@@ -202,7 +228,7 @@ export default function SubpageLayout({
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">{isEn ? 'Everything done online' : 'すべてオンラインで完結だから'}</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">{isEn ? 'All online. All done for you.' : 'すべてオンラインで完結だから'}</h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {onlineFeatures.map((feature, i) => (

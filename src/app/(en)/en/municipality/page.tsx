@@ -19,41 +19,39 @@ export default function MunicipalityPage() {
     <SubpageLayout
       locale="en"
       currentPath="/en/municipality"
-      heroTitle={
-        <>
-          Become the chosen destination with real migrant voices.
-          <br /><span className="text-primary">Migration Promotion Interview Video</span> Service
-        </>
-      }
+      heroTitle={<>Attract more of the relocators you want with <span className="text-primary">real migrant voices.</span></>}
       heroSubtitle={
         <>
-          <span className="text-primary font-semibold">Authentic voices</span> that resonate with potential relocators
-          <br />
-          <span className="text-primary font-semibold">Affordable</span> video promotion for migration
+          <p className="italic text-gray-800 font-semibold mb-3">
+            Let the residents who chose your region, convince the people considering it.
+          </p>
+          <p>
+            <span className="text-primary font-semibold">Authentic</span>, <span className="text-primary font-semibold">affordable</span> migration promotion videos that resonate with the people you want to welcome.
+          </p>
         </>
       }
       heroVideoUrl={v('1010426949', '34d0ad59fb')}
-      problemHeading="Promoting your region, but not being chosen"
-      problemSubheading={<>Your municipality is putting information out there,<br />but are you experiencing these challenges?</>}
+      problemHeading={<>Your message is out there.<br />But where are the migrants?</>}
+      problemSubheading="Do any of these sound familiar?"
       problems={[
-        'You want to share real migrant voices, but your budget is limited',
-        'You built a migration website, but people never find it',
-        'You know social media matters, but you lack compelling content',
-        'With limited staff, consistent content creation is difficult',
-        'People see your pamphlets, but you want to drive them online',
+        "You'd love more quality migrant testimonials, but the budget just isn't there",
+        'You have a migration website, but people never seem to find it',
+        'You know you need to be on social media, but you never have content worth posting',
+        "Your team is stretched thin, and consistent content creation just doesn't happen",
+        'Your pamphlets reach people, but you want to turn that into online engagement',
       ]}
-      problemConclusion={<>As a result,<br />your region&rsquo;s appeal is not fully communicated, leading to post-migration mismatches.</>}
-      solutionTitle="TesuTemo communicates through real voices"
-      solutionSubtitle={<>Through interviews with migrants and community members,<br />we make your region&rsquo;s true appeal visible</>}
-      solutionPoints={['Content that helps potential relocators vividly picture life after moving']}
-      videoSectionTitle="Real voices change migration decisions"
-      videoSectionSubtitle="Interview Videos (Horizontal: 90-120 sec / Vertical: 30-60 sec)"
-      videoHorizontalDesc={<>Horizontal videos are for <span className="text-primary font-bold">&ldquo;telling your story in depth&rdquo;</span> on migration websites and at events</>}
-      videoVerticalDesc={<>Vertical videos are for <span className="text-primary font-bold">&ldquo;getting discovered&rdquo;</span> on social media</>}
+      problemConclusion={<>The result? Your region&rsquo;s true appeal goes unseen — and people who would have loved it end up moving somewhere else.</>}
+      solutionTitle="TesuTemo lets real residents do the talking"
+      solutionSubtitle={<>We interview migrants and community members and turn their genuine stories<br />into content that helps people picture themselves living in your region</>}
+      solutionPoints={['Content that gives potential relocators a real feel for life in your community — and helps the right ones decide to make the move']}
+      videoSectionTitle="When residents speak, people listen."
+      videoSectionSubtitle="Interview Videos (Horizontal: 90–120 sec / Vertical: 30–60 sec)"
+      videoHorizontalDesc={<>Horizontal videos go deep — perfect for your <span className="text-primary font-bold">migration website and relocation events</span></>}
+      videoVerticalDesc={<>Vertical videos get you <span className="text-primary font-bold">discovered on social media</span></>}
       onlineFeatures={[
-        { title: 'Filmed in their own environment', desc: 'By speaking into their own smartphone, interviewees are relaxed and share genuinely authentic stories' },
-        { title: 'High-quality recording via dedicated software', desc: 'Our proprietary software requires no login or sign-up, maintaining audio and video quality while eliminating the need for on-site filming and keeping costs low' },
-        { title: 'Optimized for relocator channels', desc: 'Content tailored for the social media platforms that potential relocators use every day' },
+        { title: 'Residents film from wherever they are', desc: 'No studio, no stress. Residents speak to us on their own phone, in their own space — and the authenticity shows.' },
+        { title: 'Pro-quality video, no crew required', desc: 'One free app, no login — residents just tap the call link we send. The tech handles audio and video quality automatically.' },
+        { title: 'Built for the platforms relocators actually use', desc: 'Every video is cut and formatted for the feeds where potential new residents actually spend their time — ready to post, ready to perform.' },
       ]}
       horizontalVideos={[
         v('1010823028', '680857e13b'),
@@ -72,26 +70,26 @@ export default function MunicipalityPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              How TesuTemo Transforms Your Promotion Efforts
+              The TesuTemo Effect. Here&rsquo;s What Changes.
             </h2>
-            <p className="text-lg text-gray-600">Here is how adopting TesuTemo changes your outreach and migration promotion</p>
+            <p className="text-lg text-gray-600">Here&rsquo;s how TesuTemo transforms your outreach and migration promotion</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: 'Ready-to-use video assets', desc: 'Get vertical and horizontal video assets\nperfect for social media, migration fairs, and events' },
-              { title: 'Reduced production effort', desc: 'Dramatically reduce production workload,\nlightening the burden on your team' },
-              { title: 'Content that resonates', desc: 'Authentic voices are trusted by Gen Z and Gen Alpha, generating genuine engagement' },
-              { title: 'Easy budget approval', desc: 'Affordable pricing and flexible plans make it easy to get internal approval' },
-              { title: 'No on-site filming needed', desc: 'No need to travel for filming;\nimplemented at low cost regardless of distance' },
-              { title: 'Stronger migration pathways', desc: 'Embed videos in pamphlets and migration websites\nto create pathways that lead to consultations and visits' },
+              { title: 'Ready-to-use video assets', desc: 'Receive vertical and horizontal videos ready to publish —\nperfect for social media, migration fairs, and events' },
+              { title: 'Less work for your team', desc: 'Cut the time and energy your team spends\non content production — dramatically' },
+              { title: 'Content that actually resonates', desc: 'Gen Z and Gen Alpha trust authentic peer voices far more\nthan polished promotional content' },
+              { title: 'Easy to get budget sign-off', desc: 'Transparent, affordable pricing makes internal approval\nstraightforward' },
+              { title: 'No travel, no on-site filming', desc: 'Everything is done remotely — keeping costs low\nregardless of where your residents live' },
+              { title: 'Turn print into digital engagement', desc: 'Embed QR codes in pamphlets linking to resident voice videos\nto drive people toward consultations and visits' },
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 shadow-sm">
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-4 h-4 bg-primary rounded-full flex-shrink-0 mt-1" />
                   <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
                 </div>
-                <p className="text-gray-600 ml-7 whitespace-pre-line">{item.desc}</p>
+                <p className="text-gray-600 ml-7">{item.desc}</p>
               </div>
             ))}
           </div>

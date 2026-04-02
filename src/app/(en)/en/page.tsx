@@ -7,7 +7,7 @@ import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import { Video, Users, Shield, Sparkles, ArrowRight, Play, ClipboardCheck, MessageSquare, UserPlus, TrendingUp, GraduationCap, MapPin } from 'lucide-react';
+import { Video, Users, Sparkles, ArrowRight, Play, ClipboardCheck, MessageSquare, UserPlus, TrendingUp, GraduationCap, MapPin } from 'lucide-react';
 
 function HeroCarousel() {
   const images = [
@@ -152,10 +152,7 @@ function ContextSection() {
                 <div>
                   <span className="inline-block text-sm uppercase tracking-[0.4em] text-gray-300 font-semibold mb-5">Problem 01</span>
                   <h3 className="text-4xl lg:text-[3rem] font-bold text-gray-900 leading-[1.25]">
-                    People decide<br />
-                    based on<br />
-                    &ldquo;<span className="text-primary">real voices</span>,&rdquo;<br />
-                    not ads.
+                    <span className="text-primary">Real voices</span>, not ads, drive decisions.
                   </h3>
                 </div>
 
@@ -163,15 +160,15 @@ function ContextSection() {
                 <div className="space-y-6">
                   {[
                     {
-                      text: 'Amazon reviews, Google ratings — we live in an era where people trust the voices of those who came before.',
+                      text: 'Amazon reviews, Google ratings — people trust the voices of those who have been there, bought that.',
                       bold: false,
                     },
                     {
-                      text: 'Yet for education, careers, relocation, and service adoption, there are no trusted "reviews."',
+                      text: "Yet for important life decisions like education, careers, relocation, and service adoption, trusted 'reviews' are hard to find.",
                       bold: true,
                     },
                     {
-                      text: 'The more important the decision, the less trustworthy voices reach people.',
+                      text: 'The more important the life decision, the more important it is to hear trusted reviews.',
                       bold: false,
                     },
                   ].map((item, i) => (
@@ -208,8 +205,7 @@ function ContextSection() {
                 <div>
                   <span className="inline-block text-sm uppercase tracking-[0.4em] text-gray-300 font-semibold mb-5">Problem 02</span>
                   <h3 className="text-4xl lg:text-[3rem] font-bold text-gray-900 leading-[1.25]">
-                    You&apos;re sharing<br />information, but<br />
-                    <span className="text-gray-400">it&apos;s not getting through.</span>
+                    Pushing out content isn&apos;t the same as building trust.
                   </h3>
                 </div>
 
@@ -217,15 +213,15 @@ function ContextSection() {
                 <div className="space-y-6">
                   {[
                     {
-                      text: 'Despite publishing on websites, brochures, and social media...',
+                      text: 'Websites, brochures, and social media — they\'re your words, not theirs.',
                       bold: false,
                     },
                     {
-                      text: 'Your true value isn\'t coming across, and you can\'t differentiate from competitors.',
+                      text: 'One-sided messaging can\'t build the trust that drives real decisions.',
                       bold: true,
                     },
                     {
-                      text: 'It\'s not leading to applications or customers.',
+                      text: 'Without authentic voices, interest doesn\'t convert.',
                       bold: false,
                     },
                   ].map((item, i) => (
@@ -252,7 +248,7 @@ function ContextSection() {
           <div className="max-w-5xl mx-auto mb-8">
             <div className="rounded-xl px-6 py-5 bg-red-50 border border-red-100">
               <p className="text-base lg:text-lg text-red-500 font-semibold text-center">
-                Result → Mismatches occur, and both sides lose opportunities.
+                Bad fit. Missed opportunity. For both sides.
               </p>
             </div>
           </div>
@@ -272,8 +268,8 @@ function ContextSection() {
           <FadeIn>
             <div className="text-center py-8">
               <div className="inline-block px-8 py-6 rounded-2xl border border-primary/20 bg-white shadow-md">
-                <p className="text-base text-gray-500 leading-snug mb-2">What&apos;s truly needed is</p>
-                <p className="text-xl text-primary font-bold leading-snug">&ldquo;Real voices from people who chose you&rdquo;</p>
+                <p className="text-base text-gray-500 leading-snug mb-2">You already have fans. It&apos;s time to let them talk.</p>
+                <p className="text-xl text-primary font-bold leading-snug">Let the people who chose you, convince the people considering you.</p>
               </div>
             </div>
           </FadeIn>
@@ -305,25 +301,24 @@ function ContextSection() {
                 <div>
                   <span className="inline-block text-sm uppercase tracking-[0.4em] text-white/50 font-semibold mb-5">Solution</span>
                   <h3 className="text-4xl lg:text-5xl font-bold text-white leading-[1.2]">
-                    TesuTemo<br />delivers through<br />
-                    <span className="text-white/85">real voices</span>
+                    Let your people<br />do the talking.
                   </h3>
                 </div>
 
                 <div>
                   <p className="text-base lg:text-lg text-white/85 mb-7 leading-relaxed">
-                    Through interviews with people who chose your company, university, or region,
+                    Real voices of people who chose your company, university, region.
                   </p>
 
                   <div className="rounded-2xl p-6 mb-7 border border-white/25 bg-white/15 backdrop-blur-sm">
                     <p className="text-lg font-bold text-white text-center leading-snug">
-                      Delivering real<br />information through<br />video that drives decisions
+                      Building connection and trust to enable authentic decision making.
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2 text-white/85">
                     <Video className="w-5 h-5 flex-shrink-0" />
-                    <p className="text-base lg:text-lg font-medium">Interview videos that support decision-making</p>
+                    <p className="text-base lg:text-lg font-medium">All online, all done for you, testimonial video</p>
                   </div>
                 </div>
               </div>
@@ -338,7 +333,7 @@ function ContextSection() {
 
               <div className="text-center mb-10">
                 <span className="inline-block text-[9px] uppercase tracking-[0.4em] text-primary font-semibold mb-4">Value</span>
-                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">What text and photos can&apos;t convey</h3>
+                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">Real voices. Real faces. Real trust.</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
@@ -359,15 +354,13 @@ function ContextSection() {
                         />
                       </div>
                     </div>
-                    <p className="text-base font-bold text-primary">{item.label}</p>
                   </div>
                 ))}
               </div>
 
               <div className="text-center rounded-2xl p-6 border border-primary/20 bg-primary/5">
                 <p className="text-base lg:text-lg text-gray-700 font-medium leading-relaxed">
-                  By conveying <span className="text-primary font-bold">expression, warmth, and true feelings</span>,{' '}
-                  we provide <span className="text-primary font-bold">trustworthy information for decision-making</span>
+                  Words and expressions that build trust — impossible to fake, impossible to ignore.
                 </p>
               </div>
             </div>
@@ -380,9 +373,9 @@ function ContextSection() {
 
 function ProcessSection() {
   const steps = [
-    { num: '①', title: 'Consultation', desc: "We'll discuss your challenges and propose the best plan using TesuTemo", icon: ClipboardCheck },
-    { num: '②', title: 'Select Interviewees', desc: 'Share the ideal interviewee profile, and we\'ll help you select candidates', icon: MessageSquare },
-    { num: '③', title: 'Delivery', desc: 'Leave the rest to TesuTemo. Once the videos are ready, just publish them', icon: Play },
+    { num: '①', title: 'Your Challenge', desc: "We'll discuss your goals and work out exactly how TesuTemo can best help solve them.", icon: ClipboardCheck },
+    { num: '②', title: 'Your Voice', desc: 'Share the profile of your ideal interviewee. We\'ll take it from there.', icon: MessageSquare },
+    { num: '③', title: 'Your TesuTemo', desc: 'Once your videos are done, they\'re ready to go — straight to your website, social media, and beyond.', icon: Play },
   ];
 
   return (
@@ -399,13 +392,10 @@ function ProcessSection() {
               <span className="text-sm uppercase tracking-wider text-white font-semibold">Process</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Just <span className="text-primary">3</span> Steps
+              <span className="text-primary">3</span> steps to voices that work for you.
             </h2>
-            <p className="text-base lg:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto mb-2">
-              Everything is done online, so compared to traditional on-site filming,
-            </p>
             <p className="text-base lg:text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              significantly less back-and-forth — reduced burden on both your team and interviewees
+              No crew. No travel. No hassle. Just real voices, delivered.
             </p>
           </div>
         </FadeIn>
@@ -422,19 +412,19 @@ function ProcessSection() {
 
                 <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-primary/30">
                   {/* Icon */}
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center shadow-lg">
+                  <div className="w-20 h-20 mb-6 rounded-2xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center shadow-lg">
                     <step.icon className="w-10 h-10 text-white" strokeWidth={2} />
                   </div>
 
                   {/* Step number and title */}
-                  <div className="text-center mb-4">
+                  <div className="text-left mb-4">
                     <h3 className="text-2xl font-bold text-gray-900">
                       <span className="text-primary">{step.num}</span> {step.title}
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-600 leading-relaxed text-center">
+                  <p className="text-sm text-gray-600 leading-relaxed text-left">
                     {step.desc}
                   </p>
 
@@ -449,10 +439,6 @@ function ProcessSection() {
         {/* Bottom badge */}
         <FadeIn>
           <div className="text-center mt-16">
-            <div className="inline-flex items-center gap-3 px-6 py-4 bg-white rounded-full shadow-md border-2 border-primary/20">
-              <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm text-gray-700 font-medium">A simple, fast process</span>
-            </div>
           </div>
         </FadeIn>
       </div>
@@ -560,10 +546,9 @@ function UseCasesSection() {
 
 function FeaturesSection() {
   const features = [
-    { icon: Video, title: 'Real Decision-Making Material', desc: 'Because it comes from people who actually experienced it, you can tell if it\'s right for you' },
-    { icon: Users, title: 'See the True Feelings', desc: 'Conveys facial expressions and the warmth of words that text alone can\'t capture' },
-    { icon: Shield, title: 'Prevent Mismatches', desc: 'Knowing the reality in advance reduces misaligned choices' },
-    { icon: Sparkles, title: 'Fully Online', desc: 'From interviews to delivery, everything is done online and fast' },
+    { icon: Video, title: 'Heard it from someone who\'s been there.', desc: 'Not a marketing pitch. Real experiences from real people — the kind that actually move decisions.' },
+    { icon: Users, title: 'The things words alone can\'t say.', desc: 'Tone, expression, warmth — the human signals that build genuine trust.' },
+    { icon: Sparkles, title: 'Done for you, start to finish.', desc: 'From first conversation to final video, everything happens online. Fast, simple, no disruption.' },
   ];
 
   return (
@@ -574,14 +559,14 @@ function FeaturesSection() {
             <div className="inline-block mb-4 px-4 py-1.5 bg-gradient-to-r from-primary to-primary-light rounded-full">
               <span className="text-sm uppercase tracking-wider text-white font-semibold">Features</span>
             </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">Why TesuTemo?</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">What makes it work.</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              The &ldquo;true feelings&rdquo; that other information can&apos;t reveal — delivered through video.
+              Information informs. Real voices convince.
             </p>
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {features.map((f, i) => (
             <FadeIn key={f.title} delay={i * 0.1}>
               <div className="group">

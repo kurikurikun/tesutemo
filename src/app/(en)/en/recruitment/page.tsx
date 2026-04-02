@@ -20,41 +20,39 @@ export default function RecruitmentPage() {
     <SubpageLayout
       locale="en"
       currentPath="/en/recruitment"
-      heroTitle={
-        <>
-          Transform hiring with real employee voices.
-          <br /><span className="text-primary">Employee Interview Video</span> Service
-        </>
-      }
+      heroTitle={<>Attract more of the candidates you want with <span className="text-primary">real employee voices.</span></>}
       heroSubtitle={
         <>
-          <span className="text-primary font-semibold">Authentic voices</span> that resonate with job seekers
-          <br />
-          <span className="text-primary font-semibold">Affordable</span> video promotion for recruitment
+          <p className="italic text-gray-800 font-semibold mb-3">
+            Let the employees who chose you, convince the candidates considering you.
+          </p>
+          <p>
+            <span className="text-primary font-semibold">Authentic</span>, <span className="text-primary font-semibold">affordable</span> recruitment videos that resonate with the candidates you want to hire.
+          </p>
         </>
       }
       heroVideoUrl={v('1177652915', 'be43651176')}
-      problemHeading="Posting jobs, but not getting applicants"
-      problemSubheading={<>Your company is putting information out there,<br />but are you experiencing these challenges?</>}
+      problemHeading={<>You&rsquo;re hiring.<br />But the right candidates aren&rsquo;t applying.</>}
+      problemSubheading="Do any of these sound familiar?"
       problems={[
-        'You want to share real employee voices, but your budget is limited',
-        'You built a careers site, but candidates never find it',
-        'You know social media matters, but you lack compelling content',
-        'With limited staff, consistent content creation is difficult',
-        'You need content fast, but traditional video production takes too long',
+        "You'd love more quality employee testimonials, but the budget just isn't there",
+        'You have a careers site, but candidates never seem to find it',
+        'You know you need to be on social media, but you never have content worth posting',
+        "Your team is stretched thin, and consistent content creation just doesn't happen",
+        'You need content fast, but traditional video production takes weeks',
       ]}
-      problemConclusion={<>As a result,<br />you are not attracting the right number and type of applicants, leading to hiring mismatches.</>}
-      solutionTitle="TesuTemo communicates through real voices"
-      solutionSubtitle={<>Through employee interviews,<br />we make your company&rsquo;s true appeal visible</>}
-      solutionPoints={['Content that helps candidates vividly picture what it is like to work at your company']}
-      videoSectionTitle="Real voices change hiring decisions"
-      videoSectionSubtitle="Interview Videos (Horizontal: 90-120 sec / Vertical: 30-60 sec)"
-      videoHorizontalDesc={<>Horizontal videos are for <span className="text-primary font-bold">&ldquo;telling your story in depth&rdquo;</span> on career sites and at recruitment events</>}
-      videoVerticalDesc={<>Vertical videos are for <span className="text-primary font-bold">&ldquo;getting discovered&rdquo;</span> on social media</>}
+      problemConclusion={<>The result? You&rsquo;re not getting the right applicants — and the ones you do hire aren&rsquo;t always the right fit.</>}
+      solutionTitle="TesuTemo lets real employees do the talking"
+      solutionSubtitle={<>We interview your employees and turn their genuine stories<br />into content that attracts the candidates you actually want</>}
+      solutionPoints={['Content that gives candidates a real feel for your culture — and helps the right ones decide to apply']}
+      videoSectionTitle="When employees speak, candidates listen."
+      videoSectionSubtitle="Interview Videos (Horizontal: 90–120 sec / Vertical: 30–60 sec)"
+      videoHorizontalDesc={<>Horizontal videos go deep — perfect for your <span className="text-primary font-bold">careers page and recruitment events</span></>}
+      videoVerticalDesc={<>Vertical videos get you <span className="text-primary font-bold">discovered on social media</span></>}
       onlineFeatures={[
-        { title: 'Filmed in their own environment', desc: 'By speaking into their own smartphone, interviewees are relaxed and share genuinely authentic stories' },
-        { title: 'High-quality recording via dedicated software', desc: 'Our proprietary software requires no login or sign-up, maintaining audio and video quality while eliminating the need for on-site filming and keeping costs low' },
-        { title: 'Optimized for candidate channels', desc: 'Content tailored for the social media platforms that your target job seekers use every day' },
+        { title: 'Employees film from wherever they are', desc: 'No studio, no stress. Employees speak to us on their own phone, in their own space — and the authenticity shows.' },
+        { title: 'Pro-quality video, no crew required', desc: 'One free app, no login — employees just tap the call link we send. The tech handles audio and video quality automatically.' },
+        { title: 'Built for the platforms candidates actually use', desc: 'Every video is cut and formatted for the feeds where your target candidates actually spend their time — ready to post, ready to perform.' },
       ]}
       horizontalVideos={[
         v('1177653343', 'ddc7b19cbb'),
@@ -68,10 +66,11 @@ export default function RecruitmentPage() {
       {/* How TesuTemo videos are used in recruitment */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#e8e5f5] to-[#f0eef8] rounded-2xl py-8 px-6 mb-12 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-              How TesuTemo Videos<br />Are Used in Recruitment
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+              The TesuTemo Effect. Here&rsquo;s What Changes.
             </h2>
+            <p className="text-lg text-gray-600">Here&rsquo;s how TesuTemo transforms your recruitment strategy</p>
           </div>
 
           <div className="space-y-8">
