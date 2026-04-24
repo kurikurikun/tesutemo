@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>移住 Voices — リアルな移住者の声・地方移住インタビュー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a2e;
+    --paper: #faf9f7;
+    --light: #f3f1ed;
+    --primary: #e95228;
+    --primary-dark: #c94420;
+    --primary-light: #fef0ec;
+    --accent: #4a7c59;
+    --accent-light: #e8f2ec;
+    --muted: #6b7280;
+    --card-bg: #ffffff;
+    --border: #e5e5e5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(250,249,247,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: -0.02em;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .nav-logo-text span { color: var(--primary); }
+  .nav-logo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: -2px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--primary); }
+
+  .nav-cta {
+    padding: 10px 24px;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-cta:hover { background: var(--primary-dark); }
+
+  .lang-toggle {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+    margin-right: 12px;
+  }
+  .lang-toggle:hover { border-color: var(--primary); color: var(--primary); }
+  .lang-toggle .active-lang { color: var(--primary); }
+  .lang-toggle .sep { opacity: 0.3; margin: 0 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 88vh;
+    margin-top: 68px;
+  }
+
+  .hero-left {
+    padding: 80px 72px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  .hero-body {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    margin-bottom: 48px;
+  }
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-ghost {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 24px;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink); text-decoration: none;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--primary);
+  }
+  .stat-label {
+    font-size: 12px; color: var(--muted);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 2px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .hero-right {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+    background: var(--border);
+  }
+
+  .hero-thumb {
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .hero-thumb.featured {
+    grid-column: 1 / -1;
+  }
+
+  .thumb-bg-1 { background: linear-gradient(135deg, #c8d8c4 0%, #90b890 100%); }
+  .thumb-bg-2 { background: linear-gradient(135deg, #d8e8d0 0%, #a8c8a0 100%); }
+  .thumb-bg-3 { background: linear-gradient(135deg, #e8d8c8 0%, #c8a888 100%); }
+
+  .thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px;
+    transition: transform 0.3s;
+  }
+  .hero-thumb:hover .thumb-placeholder { transform: scale(1.05); }
+
+  .play-badge {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.25s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .hero-thumb:hover .play-badge { opacity: 1; }
+  .play-badge svg { width: 16px; height: 16px; fill: var(--primary); margin-left: 3px; }
+
+  .hero-thumb-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(26,26,46,0.85) 0%, transparent 100%);
+  }
+  .thumb-prog {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+  .thumb-name { font-size: 14px; color: white; font-weight: 600; }
+  .thumb-role { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+  /* ── SEARCH ── */
+  .search-section {
+    padding: 56px 72px 32px;
+    background: var(--light);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .search-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 16px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .search-bar {
+    display: flex; align-items: center;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 20px;
+    gap: 12px;
+    max-width: 640px;
+    margin-bottom: 28px;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--primary); }
+  .search-bar svg { width: 18px; height: 18px; color: var(--muted); flex-shrink: 0; }
+  .search-bar input {
+    border: none; outline: none; background: none;
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    font-size: 15px; color: var(--ink); width: 100%;
+  }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  .filter-row {
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .filter-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    min-width: 80px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .filter-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .filter-dropdown-btn {
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  }
+  .filter-dropdown-btn:hover { border-color: var(--primary); color: var(--ink); }
+  .filter-dropdown-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  .filter-dropdown-btn svg { width: 12px; height: 12px; }
+
+  .filter-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    min-width: 220px;
+    z-index: 50;
+    padding: 8px 0;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .filter-dropdown-menu.show { display: block; }
+  .filter-dropdown-item {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .filter-dropdown-item:hover { background: var(--primary-light); }
+  .filter-dropdown-item.selected { color: var(--primary); font-weight: 600; }
+  .filter-dropdown-item .check { opacity: 0; font-size: 14px; }
+  .filter-dropdown-item.selected .check { opacity: 1; }
+
+  .active-filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding-top: 12px;
+    min-height: 20px;
+  }
+  .active-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+  }
+  .active-tag .remove {
+    cursor: pointer; font-size: 14px; line-height: 1;
+    opacity: 0.6; transition: opacity 0.15s;
+  }
+  .active-tag .remove:hover { opacity: 1; }
+  .clear-all {
+    font-size: 12px; color: var(--muted); cursor: pointer;
+    text-decoration: underline;
+    padding: 5px 8px;
+    transition: color 0.15s;
+  }
+  .clear-all:hover { color: var(--primary); }
+
+  /* ── RESULTS COUNT ── */
+  .results-bar {
+    padding: 20px 72px;
+    font-size: 13px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: white;
+  }
+  .results-bar strong { color: var(--ink); font-weight: 600; }
+
+  /* ── VIDEO GRID ── */
+  .grid-section {
+    padding: 48px 72px 80px;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .video-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .video-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .video-card.hidden { display: none; }
+
+  .video-card-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+  .video-card-thumb iframe {
+    width: 100%; height: 100%; border: none;
+    pointer-events: none;
+  }
+  .video-card-thumb .thumb-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .video-card-thumb .thumb-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .video-card-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .video-card:hover .video-card-play { opacity: 1; }
+  .video-card-play svg { width: 14px; height: 14px; fill: var(--primary); margin-left: 2px; }
+
+  .video-card-body {
+    padding: 16px;
+  }
+  .video-card-name {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .video-card-meta {
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .video-card-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .video-card-tag {
+    font-size: 10px; padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--light);
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+  .video-card-tag.region {
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+  .video-card-tag.nature {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ── REGION SECTION ── */
+  .region-section {
+    padding: 0 72px 60px;
+  }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 36px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--ink);
+  }
+  .section-link {
+    font-size: 13px; color: var(--primary); text-decoration: none;
+    font-weight: 500; letter-spacing: 0.03em;
+    border-bottom: 1px solid rgba(233,82,40,0.3);
+    transition: border-color 0.2s;
+  }
+  .section-link:hover { border-color: var(--primary); }
+
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .region-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .region-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .region-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .region-card:hover::after { transform: scaleX(1); }
+  .region-card.has-videos { border-left: 3px solid var(--primary); }
+
+  .region-icon { font-size: 32px; margin-bottom: 14px; }
+  .region-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .region-name-jp {
+    font-size: 12px; color: var(--muted); margin-bottom: 10px;
+  }
+  .region-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .region-count {
+    margin-top: 14px;
+    font-size: 12px; font-weight: 600;
+  }
+  .region-count.has { color: var(--primary); }
+  .region-count.none { color: var(--muted); font-style: italic; }
+
+  /* ── THEME SECTION ── */
+  .themes-section {
+    padding: 60px 72px;
+    background: var(--light);
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .theme-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .theme-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .theme-emoji { font-size: 28px; margin-bottom: 10px; }
+  .theme-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .theme-count { font-size: 12px; color: var(--muted); }
+
+  /* ── FEATURED QUOTE ── */
+  .featured-quote {
+    background: var(--ink);
+    padding: 72px;
+    text-align: center;
+  }
+  .featured-quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: white;
+    line-height: 1.65;
+    max-width: 700px;
+    margin: 0 auto 24px;
+  }
+  .featured-quote-attr {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: white;
+    padding: 72px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .cta-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--primary);
+    margin-bottom: 16px;
+    font-family: 'Inter', sans-serif;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .cta-body {
+    font-size: 16px; color: var(--muted);
+    max-width: 560px; margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--primary-dark); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    padding: 48px 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: white; font-weight: 700;
+  }
+  .footer-brand span { color: var(--primary); }
+  .footer-sub { font-size: 12px; margin-top: 4px; }
+  .footer-right {
+    font-size: 12px; text-align: right;
+    line-height: 1.6;
+  }
+  .footer-right a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .footer-right a:hover { color: white; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.85);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-content {
+    width: 90vw; max-width: 900px;
+    aspect-ratio: 16/9;
+    position: relative;
+  }
+  .modal-content iframe {
+    width: 100%; height: 100%; border: none; border-radius: 8px;
+  }
+  .modal-close {
+    position: absolute; top: -40px; right: 0;
+    color: white; font-size: 28px; cursor: pointer;
+    background: none; border: none;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  .modal-close:hover { opacity: 1; }
+
+  /* ── NO RESULTS ── */
+  .no-results {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+  }
+  .no-results-icon { font-size: 48px; margin-bottom: 16px; }
+  .no-results h3 { font-size: 18px; color: var(--ink); margin-bottom: 8px; }
+  .no-results p { font-size: 14px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-title { animation: fadeUp 0.6s ease 0.1s both; }
+  .hero-body { animation: fadeUp 0.6s ease 0.2s both; }
+  .hero-actions { animation: fadeUp 0.6s ease 0.3s both; }
+  .hero-stats { animation: fadeUp 0.6s ease 0.4s both; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px; }
+    .hero-right { height: 50vh; }
+    .search-section { padding: 48px 24px 32px; }
+    .grid-section { padding: 40px 24px 60px; }
+    .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .region-grid { grid-template-columns: 1fr; }
+    .theme-grid { grid-template-columns: repeat(2, 1fr); }
+    .region-section { padding: 0 24px 40px; }
+    .themes-section { padding: 40px 24px; }
+    .cta-banner { padding: 48px 24px; }
+    .featured-quote { padding: 48px 24px; }
+    .results-bar { padding: 16px 24px; }
+    footer { padding: 36px 24px; flex-direction: column; gap: 24px; text-align: center; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">IV</div>
+    <div>
+      <div class="nav-logo-text">移住 <span>Voices</span></div>
+      <div class="nav-logo-sub">by TesuTemo</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#regions" data-i18n="nav_region">地域別</a></li>
+    <li><a href="#themes" data-i18n="nav_theme">テーマ別</a></li>
+    <li><a href="#videos" data-i18n="nav_voices">すべての声</a></li>
+    <li><a href="https://www.tesutemo.co/municipality" target="_blank" id="navAbout" data-i18n="nav_about">テステモについて</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">
+      <span id="langJA" class="active-lang">JA</span><span class="sep">/</span><span id="langEN">EN</span>
+    </button>
+    <a class="nav-cta" id="navCta" href="https://www.tesutemo.co/municipality" target="_blank" data-i18n="nav_cta">移住 Voices を導入</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow" data-i18n="hero_eyebrow">リアルな移住者 · リアルな声 · リアルなインパクト</div>
+    <h1 class="hero-title" data-i18n-html="hero_title">
+      地方を選んだ人の<br>声が、次の移住を<br><em>決める。</em>
+    </h1>
+    <p class="hero-body" data-i18n="hero_body">
+      移住を検討している人は、パンフレットより先輩移住者の声を信じます。移住 Voices は、実際に移住した人のリアルな声を、次の移住希望者に直接届けるプラットフォームです。
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#videos" data-i18n="hero_cta">声を聴く</a>
+      <a class="btn-ghost" href="https://www.tesutemo.co/municipality" target="_blank" id="heroLearnMore">
+        <span data-i18n="hero_learn">詳しく見る</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label" data-i18n="stat_municipalities">自治体</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">40+</div>
+        <div class="stat-label" data-i18n="stat_voices">インタビュー</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8</div>
+        <div class="stat-label" data-i18n="stat_themes">テーマ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-thumb featured" style="background:url('https://vumbnail.com/1010426949.jpg') center/cover; background-color:#c8d8c4;" onclick="openHeroVideo('https://player.vimeo.com/video/1010426949?h=34d0ad59fb&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="thumb-placeholder" style="opacity:0"></div>
+      <div class="play-badge">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="hero-thumb-overlay">
+        <div class="thumb-prog">テステモ移住促進動画</div>
+        <div class="thumb-name">移住者インタビュー</div>
+        <div class="thumb-role">横型 90〜120秒 · 自治体向けサンプル</div>
+      </div>
+    </div>
+    <div class="hero-thumb" style="background:url('https://vumbnail.com/1010823028.jpg') center/cover; background-color:#d8e8d0;" onclick="openHeroVideo('https://player.vimeo.com/video/1010823028?h=680857e13b&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="thumb-placeholder" style="opacity:0"></div>
+      <div class="play-badge">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="hero-thumb-overlay">
+        <div class="thumb-prog">テステモ移住促進動画</div>
+        <div class="thumb-name">移住者インタビュー</div>
+        <div class="thumb-role">横型 · 農業・ライフスタイル</div>
+      </div>
+    </div>
+    <div class="hero-thumb" style="background:url('https://vumbnail.com/1015054920.jpg') center/cover; background-color:#e8d8c8;" onclick="openHeroVideo('https://player.vimeo.com/video/1015054920?h=aa8a72196a&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="thumb-placeholder" style="opacity:0"></div>
+      <div class="play-badge">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="hero-thumb-overlay">
+        <div class="thumb-prog">テステモ移住促進動画</div>
+        <div class="thumb-name">移住者インタビュー（縦型）</div>
+        <div class="thumb-role">縦型 30〜60秒 · SNS向けサンプル</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH & FILTERS -->
+<section class="search-section" id="videos">
+  <div class="search-label" data-i18n="search_label">あなたの移住先・ライフスタイルに近い声を探す</div>
+  <div class="search-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="地域名・テーマ・名前・キーワードで検索..." data-i18n-placeholder="search_placeholder">
+  </div>
+
+  <!-- Dropdown filters -->
+  <div class="filter-row">
+    <span class="filter-label" data-i18n="filter_by">絞り込み：</span>
+
+    <div class="filter-dropdown" data-filter="region">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('region')">
+        <span data-i18n="filter_region">地域</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-region">
+        <div class="filter-dropdown-item" data-value="hokkaido" onclick="selectFilter('region','hokkaido','北海道')"><span class="check">✓</span> 北海道</div>
+        <div class="filter-dropdown-item" data-value="tohoku" onclick="selectFilter('region','tohoku','東北')"><span class="check">✓</span> 東北（青森・岩手・宮城・秋田・山形・福島）</div>
+        <div class="filter-dropdown-item" data-value="koshinetsu" onclick="selectFilter('region','koshinetsu','信越・甲信')"><span class="check">✓</span> 信越・甲信（長野・新潟・山梨）</div>
+        <div class="filter-dropdown-item" data-value="sanin" onclick="selectFilter('region','sanin','山陰')"><span class="check">✓</span> 山陰（島根・鳥取）</div>
+        <div class="filter-dropdown-item" data-value="shikoku" onclick="selectFilter('region','shikoku','四国')"><span class="check">✓</span> 四国（高知・徳島・愛媛・香川）</div>
+        <div class="filter-dropdown-item" data-value="kyushu" onclick="selectFilter('region','kyushu','九州')"><span class="check">✓</span> 九州（宮崎・大分・熊本・佐賀・長崎）</div>
+        <div class="filter-dropdown-item" data-value="okinawa" onclick="selectFilter('region','okinawa','沖縄')"><span class="check">✓</span> 沖縄</div>
+        <div class="filter-dropdown-item" data-value="chugoku" onclick="selectFilter('region','chugoku','中国山地')"><span class="check">✓</span> 中国山地（広島・山口・岡山）</div>
+      </div>
+    </div>
+
+    <div class="filter-dropdown" data-filter="type">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('type')">
+        <span data-i18n="filter_type">移住タイプ</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-type">
+        <div class="filter-dropdown-item" data-value="i-turn" onclick="selectFilter('type','i-turn','Iターン')"><span class="check">✓</span> Iターン（全く新しい地域へ）</div>
+        <div class="filter-dropdown-item" data-value="u-turn" onclick="selectFilter('type','u-turn','Uターン')"><span class="check">✓</span> Uターン（生まれ故郷へ）</div>
+        <div class="filter-dropdown-item" data-value="j-turn" onclick="selectFilter('type','j-turn','Jターン')"><span class="check">✓</span> Jターン（出身県内の別の街へ）</div>
+      </div>
+    </div>
+
+    <div class="filter-dropdown" data-filter="theme">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('theme')">
+        <span data-i18n="filter_theme">テーマ</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-theme">
+        <div class="filter-dropdown-item" data-value="agriculture" onclick="selectFilter('theme','agriculture','農業・食')"><span class="check">✓</span> 農業・食</div>
+        <div class="filter-dropdown-item" data-value="remote-work" onclick="selectFilter('theme','remote-work','テレワーク・リモートワーク')"><span class="check">✓</span> テレワーク・リモートワーク</div>
+        <div class="filter-dropdown-item" data-value="nature" onclick="selectFilter('theme','nature','自然・アウトドア')"><span class="check">✓</span> 自然・アウトドア</div>
+        <div class="filter-dropdown-item" data-value="family" onclick="selectFilter('theme','family','家族・子育て')"><span class="check">✓</span> 家族・子育て</div>
+        <div class="filter-dropdown-item" data-value="entrepreneur" onclick="selectFilter('theme','entrepreneur','起業・副業')"><span class="check">✓</span> 起業・副業・地域創生</div>
+        <div class="filter-dropdown-item" data-value="community" onclick="selectFilter('theme','community','コミュニティ')"><span class="check">✓</span> コミュニティ・地域づくり</div>
+        <div class="filter-dropdown-item" data-value="craft" onclick="selectFilter('theme','craft','ものづくり・伝統工芸')"><span class="check">✓</span> ものづくり・伝統工芸</div>
+        <div class="filter-dropdown-item" data-value="healthcare" onclick="selectFilter('theme','healthcare','医療・福祉')"><span class="check">✓</span> 医療・福祉・地域貢献</div>
+      </div>
+    </div>
+
+    <div class="filter-dropdown" data-filter="gender">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('gender')">
+        <span data-i18n="filter_gender">性別</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-gender">
+        <div class="filter-dropdown-item" data-value="female" onclick="selectFilter('gender','female','女性')"><span class="check">✓</span> 女性</div>
+        <div class="filter-dropdown-item" data-value="male" onclick="selectFilter('gender','male','男性')"><span class="check">✓</span> 男性</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active filters -->
+  <div class="active-filters" id="activeFilters"></div>
+</section>
+
+<!-- RESULTS BAR -->
+<div class="results-bar" id="resultsBar">
+  <span data-i18n="results_showing">表示中：</span><strong id="resultCount">16</strong><span data-i18n="results_voices">件の移住者インタビュー</span>
+</div>
+
+<!-- VIDEO GRID -->
+<section class="grid-section">
+  <div class="video-grid" id="videoGrid">
+
+    <!-- ── REAL TESUTEMO MUNICIPALITY VIDEOS ── -->
+    <!-- Hero interview (横型) -->
+    <div class="video-card" data-region="koshinetsu" data-type="i-turn" data-theme="remote-work" data-gender="female" data-search="移住 インタビュー テステモ 富士宮 静岡 長野 地方">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://vumbnail.com/1010426949.jpg" alt="移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8c4,#90b890);display:none">🏔️</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1010426949?h=34d0ad59fb&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">移住者インタビュー</div>
+        <div class="video-card-meta">テステモ移住促進動画 · 横型（90〜120秒）</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag">Iターン</span>
+          <span class="video-card-tag">横型</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horizontal video 1 -->
+    <div class="video-card" data-region="koshinetsu" data-type="i-turn" data-theme="agriculture" data-gender="female" data-search="移住 インタビュー テステモ 農業 地方 地域">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://vumbnail.com/1010823028.jpg" alt="移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8e8d0,#a8c8a0);display:none">🌾</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1010823028?h=680857e13b&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">移住者インタビュー</div>
+        <div class="video-card-meta">テステモ移住促進動画 · 横型（90〜120秒）</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag nature">農業</span>
+          <span class="video-card-tag">横型</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horizontal video 2 -->
+    <div class="video-card" data-region="shikoku" data-type="i-turn" data-theme="family" data-gender="female" data-search="移住 インタビュー テステモ 子育て 家族 四国">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://vumbnail.com/1050610140.jpg" alt="移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8e8,#88b8d8);display:none">🌊</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1050610140?h=a5b8353977&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">移住者インタビュー</div>
+        <div class="video-card-meta">テステモ移住促進動画 · 横型（90〜120秒）</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag">子育て</span>
+          <span class="video-card-tag">横型</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertical video 1 -->
+    <div class="video-card" data-region="sanin" data-type="i-turn" data-theme="entrepreneur" data-gender="male" data-search="移住 インタビュー テステモ 起業 縦型 SNS">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://vumbnail.com/1015054920.jpg" alt="移住者インタビュー縦型" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8d4c0,#b8a880);display:none">🌿</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1015054920?h=aa8a72196a&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">移住者インタビュー（縦型）</div>
+        <div class="video-card-meta">テステモ移住促進動画 · 縦型（30〜60秒）</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag">起業</span>
+          <span class="video-card-tag">縦型</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertical video 2 -->
+    <div class="video-card" data-region="kyushu" data-type="u-turn" data-theme="nature" data-gender="male" data-search="移住 インタビュー テステモ 自然 縦型 SNS">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://vumbnail.com/1013400453.jpg" alt="移住者インタビュー縦型" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e8d8b8,#d0b888);display:none">☀️</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1013400453?h=89cb5fd807&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">移住者インタビュー（縦型）</div>
+        <div class="video-card-meta">テステモ移住促進動画 · 縦型（30〜60秒）</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag nature">自然</span>
+          <span class="video-card-tag">縦型</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertical video 3 -->
+    <div class="video-card" data-region="tohoku" data-type="i-turn" data-theme="community" data-gender="female" data-search="移住 インタビュー テステモ コミュニティ 縦型 SNS">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://vumbnail.com/1050617850.jpg" alt="移住者インタビュー縦型" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e0d0,#a0c0a0);display:none">🏘️</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1050617850?h=2e4031d8bd&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">移住者インタビュー（縦型）</div>
+        <div class="video-card-meta">テステモ移住促進動画 · 縦型（30〜60秒）</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag">コミュニティ</span>
+          <span class="video-card-tag">縦型</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hokkaido -->
+    <div class="video-card" data-region="hokkaido" data-type="i-turn" data-theme="nature" data-gender="male" data-search="北海道 富良野 アウトドア 自然 移住">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c0d0e0,#80a8c8)">⛷️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">鈴木 大輔さん</div>
+        <div class="video-card-meta">東京→北海道富良野市 · Iターン · 自然・農業</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">北海道</span>
+          <span class="video-card-tag nature">自然</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-region="hokkaido" data-type="i-turn" data-theme="remote-work" data-gender="female" data-search="北海道 帯広 テレワーク リモート 女性 移住">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e0d8f0,#b8a8e0)">🖥️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">伊藤 恵さん</div>
+        <div class="video-card-meta">大阪→北海道帯広市 · Iターン · テレワーク</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">北海道</span>
+          <span class="video-card-tag">テレワーク</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tohoku -->
+    <div class="video-card" data-region="tohoku" data-type="u-turn" data-theme="agriculture" data-gender="male" data-search="山形 米沢 Uターン 農業 東北">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8c8a8,#c0a878)">🌾</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">高橋 正樹さん</div>
+        <div class="video-card-meta">仙台→山形県米沢市 · Jターン · 農業</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">山形</span>
+          <span class="video-card-tag nature">農業</span>
+          <span class="video-card-tag">Jターン</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-region="tohoku" data-type="i-turn" data-theme="community" data-gender="female" data-search="岩手 遠野 コミュニティ 地域づくり 東北">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e0d0,#a0c0a0)">🏘️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">渡辺 由美さん</div>
+        <div class="video-card-meta">東京→岩手県遠野市 · Iターン · 地域づくり</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">岩手</span>
+          <span class="video-card-tag">コミュニティ</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kyushu -->
+    <div class="video-card" data-region="kyushu" data-type="i-turn" data-theme="entrepreneur" data-gender="male" data-search="宮崎 日南 起業 九州 移住 テレワーク">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e8d8b8,#d0b888)">☀️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">松田 亮さん</div>
+        <div class="video-card-meta">福岡→宮崎県日南市 · Iターン · 起業</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">宮崎</span>
+          <span class="video-card-tag">起業</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-region="kyushu" data-type="u-turn" data-theme="family" data-gender="female" data-search="熊本 阿蘇 Uターン 家族 子育て 九州">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e0d0e0,#c0a8c8)">🌋</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">小林 奈緒さん</div>
+        <div class="video-card-meta">東京→熊本県阿蘇市 · Uターン · 子育て</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">熊本</span>
+          <span class="video-card-tag">子育て</span>
+          <span class="video-card-tag">Uターン</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chugoku -->
+    <div class="video-card" data-region="chugoku" data-type="i-turn" data-theme="craft" data-gender="male" data-search="広島 三次 ものづくり 伝統工芸 中国山地">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8d0c8,#b8a898)">🍵</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">前田 浩二さん</div>
+        <div class="video-card-meta">東京→広島県三次市 · Iターン · ものづくり</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">広島</span>
+          <span class="video-card-tag">ものづくり</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Okinawa -->
+    <div class="video-card" data-region="okinawa" data-type="i-turn" data-theme="nature" data-gender="female" data-search="沖縄 石垣島 自然 アウトドア 移住">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#b8e8e0,#78c8c0)">🐠</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">宮城 彩子さん</div>
+        <div class="video-card-meta">横浜→沖縄県石垣市 · Iターン · 自然・起業</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">沖縄</span>
+          <span class="video-card-tag nature">自然</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-region="okinawa" data-type="i-turn" data-theme="healthcare" data-gender="male" data-search="沖縄 うるま 医療 福祉 地域貢献">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e8f0,#98c8e0)">🏥</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">仲村 勇樹さん</div>
+        <div class="video-card-meta">東京→沖縄県うるま市 · Iターン · 医療・福祉</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">沖縄</span>
+          <span class="video-card-tag">医療・福祉</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-region="koshinetsu" data-type="j-turn" data-theme="community" data-gender="female" data-search="新潟 十日町 コミュニティ 地域 Jターン 信越">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e8e0d0,#d0c0a0)">❄️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">斎藤 理沙さん</div>
+        <div class="video-card-meta">新潟市→十日町市 · Jターン · 地域づくり</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">新潟</span>
+          <span class="video-card-tag">コミュニティ</span>
+          <span class="video-card-tag">Jターン</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults" style="display:none;">
+    <div class="no-results-icon">🔍</div>
+    <h3 data-i18n="no_results_title">該当する声が見つかりません</h3>
+    <p data-i18n="no_results_body">フィルターや検索条件を変えてみてください</p>
+  </div>
+</section>
+
+<!-- REGIONS -->
+<section class="region-section" id="regions">
+  <div class="section-header">
+    <div class="section-title" data-i18n="sec_region">地域別に探す</div>
+    <a class="section-link" href="#videos" data-i18n="sec_region_link">すべての声を見る →</a>
+  </div>
+
+  <div class="region-grid">
+    <div class="region-card has-videos" onclick="selectFilter('region','hokkaido','北海道');scrollToVideos()">
+      <div class="region-icon">🦅</div>
+      <div class="region-name">Hokkaido</div>
+      <div class="region-name-jp">北海道</div>
+      <div class="region-desc">広大な自然と農業。酪農・アウトドア・テレワーク移住が人気。スローライフを求める移住者に支持されています。</div>
+      <div class="region-count has">2件のインタビュー</div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','tohoku','東北');scrollToVideos()">
+      <div class="region-icon">🌾</div>
+      <div class="region-name">Tohoku</div>
+      <div class="region-name-jp">東北</div>
+      <div class="region-desc">豊かな食文化と伝統が残る地域。震災からの復興と地域創生に関わりたい移住者も多い。</div>
+      <div class="region-count has">2件のインタビュー</div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','koshinetsu','信越・甲信');scrollToVideos()">
+      <div class="region-icon">🏔️</div>
+      <div class="region-name">Shinshu / Koshinetsu</div>
+      <div class="region-name-jp">信越・甲信（長野・新潟・山梨）</div>
+      <div class="region-desc">山と自然に囲まれたライフスタイル。テレワーク移住者・農業移住者・アウトドア愛好家に人気。</div>
+      <div class="region-count has">3件のインタビュー</div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','sanin','山陰');scrollToVideos()">
+      <div class="region-icon">🌿</div>
+      <div class="region-name">San'in</div>
+      <div class="region-name-jp">山陰（島根・鳥取）</div>
+      <div class="region-desc">日本一の移住先として人気の島根・鳥取。起業支援や移住サポートが充実しており、若い世代の移住が増えています。</div>
+      <div class="region-count has">2件のインタビュー</div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','shikoku','四国');scrollToVideos()">
+      <div class="region-icon">🌊</div>
+      <div class="region-name">Shikoku</div>
+      <div class="region-name-jp">四国（高知・徳島・愛媛・香川）</div>
+      <div class="region-desc">自然豊かで温暖な気候。神山町のIT移住や、四万十川流域の豊かな自然が移住者を引きつけています。</div>
+      <div class="region-count has">2件のインタビュー</div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','kyushu','九州');scrollToVideos()">
+      <div class="region-icon">☀️</div>
+      <div class="region-name">Kyushu</div>
+      <div class="region-name-jp">九州（宮崎・熊本・大分・佐賀・長崎）</div>
+      <div class="region-desc">温暖な気候と豊かな食文化。宮崎・熊本では若者の起業・Uターン移住支援に力を入れています。</div>
+      <div class="region-count has">2件のインタビュー</div>
+    </div>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="themes-section" id="themes">
+  <div class="section-header">
+    <div class="section-title" data-i18n="sec_theme">テーマ別に探す</div>
+  </div>
+  <div class="theme-grid">
+    <div class="theme-card" onclick="selectFilter('theme','agriculture','農業・食');scrollToVideos()">
+      <div class="theme-emoji">🌾</div>
+      <div class="theme-name" data-i18n="theme_agriculture">農業・食</div>
+      <div class="theme-count">4件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','remote-work','テレワーク');scrollToVideos()">
+      <div class="theme-emoji">💻</div>
+      <div class="theme-name" data-i18n="theme_remote">テレワーク</div>
+      <div class="theme-count">3件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','nature','自然・アウトドア');scrollToVideos()">
+      <div class="theme-emoji">🏔️</div>
+      <div class="theme-name" data-i18n="theme_nature">自然・アウトドア</div>
+      <div class="theme-count">3件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','family','家族・子育て');scrollToVideos()">
+      <div class="theme-emoji">👨‍👩‍👧</div>
+      <div class="theme-name" data-i18n="theme_family">家族・子育て</div>
+      <div class="theme-count">3件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','entrepreneur','起業・地域創生');scrollToVideos()">
+      <div class="theme-emoji">🌱</div>
+      <div class="theme-name" data-i18n="theme_entrepreneur">起業・地域創生</div>
+      <div class="theme-count">3件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','community','コミュニティ');scrollToVideos()">
+      <div class="theme-emoji">🏘️</div>
+      <div class="theme-name" data-i18n="theme_community">コミュニティ</div>
+      <div class="theme-count">2件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','craft','ものづくり');scrollToVideos()">
+      <div class="theme-emoji">🏺</div>
+      <div class="theme-name" data-i18n="theme_craft">ものづくり</div>
+      <div class="theme-count">2件</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','healthcare','医療・福祉');scrollToVideos()">
+      <div class="theme-emoji">🏥</div>
+      <div class="theme-name" data-i18n="theme_healthcare">医療・福祉</div>
+      <div class="theme-count">1件</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED QUOTE -->
+<section class="featured-quote">
+  <div class="featured-quote-text" data-i18n-html="quote_text">
+    「都会で得たスキルを、この地域で活かせる。<br>移住してはじめて、自分らしい働き方が見えてきました。」
+  </div>
+  <div class="featured-quote-attr" data-i18n="quote_attr">— 長野県松本市 移住者インタビューより</div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-eyebrow" data-i18n="cta_eyebrow">Tesutemo · 自治体向け移住促進動画</div>
+  <div class="cta-title" data-i18n="cta_title">あなたの自治体にも移住 Voices を</div>
+  <div class="cta-body" data-i18n="cta_body">
+    テステモは、先輩移住者のリアルな声を動画で届ける移住促進サービスです。オンライン完結・低コストで、地域の本当の魅力を次の移住希望者に伝えます。
+  </div>
+  <a class="cta-btn" href="https://www.tesutemo.co/municipality" target="_blank" id="ctaBtn" data-i18n="cta_btn">テステモについて詳しく →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">移住 <span>Voices</span></div>
+    <div class="footer-sub" data-i18n="footer_sub">日本全国の移住者のリアルな声。</div>
+  </div>
+  <div class="footer-right">
+    A <a href="https://www.tesutemo.co" target="_blank">TesuTemo</a> <span data-i18n="footer_product">プロダクト</span><br>
+    <a href="https://www.tesutemo.co/municipality" target="_blank" id="footerLink" data-i18n="footer_cta">自治体向け移住促進動画サービス →</a>
+  </div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="videoModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <iframe id="modalIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+const activeFilters = { region: null, type: null, theme: null, gender: null };
+let searchQuery = '';
+
+// ── DROPDOWN TOGGLE ──
+function toggleDropdown(name) {
+  const menu = document.getElementById('dropdown-' + name);
+  const isOpen = menu.classList.contains('show');
+  document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+  if (!isOpen) menu.classList.add('show');
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.filter-dropdown')) {
+    document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+  }
+});
+
+// ── SELECT FILTER ──
+function selectFilter(category, value, label) {
+  const menu = document.getElementById('dropdown-' + category);
+
+  if (activeFilters[category] === value) {
+    activeFilters[category] = null;
+    menu?.querySelectorAll('.filter-dropdown-item').forEach(i => i.classList.remove('selected'));
+  } else {
+    activeFilters[category] = value;
+    menu?.querySelectorAll('.filter-dropdown-item').forEach(i => {
+      i.classList.toggle('selected', i.dataset.value === value);
+    });
+  }
+
+  const btn = document.querySelector(`[data-filter="${category}"] .filter-dropdown-btn`);
+  if (btn) btn.classList.toggle('active', activeFilters[category] !== null);
+
+  document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+  updateActiveFiltersDisplay();
+  applyFilters();
+}
+
+// ── ACTIVE FILTERS DISPLAY ──
+function updateActiveFiltersDisplay() {
+  const container = document.getElementById('activeFilters');
+  const t = translations[currentLang] || translations.ja;
+  const labels = {
+    region: t.lbl_region || '地域',
+    type: t.lbl_type || '移住タイプ',
+    theme: t.lbl_theme || 'テーマ',
+    gender: t.lbl_gender || '性別'
+  };
+  let html = '';
+  let hasAny = false;
+
+  for (const [cat, val] of Object.entries(activeFilters)) {
+    if (val) {
+      hasAny = true;
+      const item = document.querySelector(`#dropdown-${cat} [data-value="${val}"]`);
+      const text = item ? item.textContent.replace('✓', '').trim() : val;
+      html += `<span class="active-tag">${labels[cat]}: ${text} <span class="remove" onclick="selectFilter('${cat}','${val}','')">✕</span></span>`;
+    }
+  }
+  if (hasAny) {
+    html += `<span class="clear-all" onclick="clearAllFilters()">${currentLang === 'en' ? 'Clear all' : 'すべてクリア'}</span>`;
+  }
+  container.innerHTML = html;
+}
+
+function clearAllFilters() {
+  for (const cat in activeFilters) activeFilters[cat] = null;
+  document.querySelectorAll('.filter-dropdown-item').forEach(i => i.classList.remove('selected'));
+  document.querySelectorAll('.filter-dropdown-btn').forEach(b => b.classList.remove('active'));
+  updateActiveFiltersDisplay();
+  applyFilters();
+}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  applyFilters();
+});
+
+// ── APPLY FILTERS ──
+function applyFilters() {
+  const cards = document.querySelectorAll('.video-card');
+  let visibleCount = 0;
+
+  cards.forEach(card => {
+    let show = true;
+
+    for (const [cat, val] of Object.entries(activeFilters)) {
+      if (val && card.dataset[cat] !== val) {
+        show = false; break;
+      }
+    }
+
+    if (show && searchQuery) {
+      const searchData = card.dataset.search || '';
+      if (!searchData.includes(searchQuery)) show = false;
+    }
+
+    card.classList.toggle('hidden', !show);
+    if (show) visibleCount++;
+  });
+
+  document.getElementById('resultCount').textContent = visibleCount;
+  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+  document.getElementById('videoGrid').style.display = visibleCount === 0 ? 'none' : 'grid';
+}
+
+// ── VIDEO MODAL ──
+// Play button click
+document.querySelectorAll('.video-card-play').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const videoUrl = btn.dataset.video;
+    if (videoUrl) {
+      document.getElementById('modalIframe').src = videoUrl + '&autoplay=1';
+      document.getElementById('videoModal').classList.add('show');
+    }
+  });
+});
+
+// Whole card click (only if it has a real video)
+document.querySelectorAll('.video-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const playBtn = card.querySelector('.video-card-play');
+    const videoUrl = playBtn?.dataset?.video;
+    if (videoUrl) {
+      document.getElementById('modalIframe').src = videoUrl + '&autoplay=1';
+      document.getElementById('videoModal').classList.add('show');
+    }
+  });
+});
+
+function closeModal() {
+  document.getElementById('videoModal').classList.remove('show');
+  document.getElementById('modalIframe').src = '';
+}
+
+document.getElementById('videoModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('videoModal')) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+function openHeroVideo(url) {
+  document.getElementById('modalIframe').src = url + '&autoplay=1';
+  document.getElementById('videoModal').classList.add('show');
+}
+
+function scrollToVideos() {
+  setTimeout(() => {
+    document.getElementById('videos').scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
+// ── i18n ──
+let currentLang = 'ja';
+
+const translations = {
+  ja: {
+    nav_region: '地域別',
+    nav_theme: 'テーマ別',
+    nav_voices: 'すべての声',
+    nav_about: 'テステモについて',
+    nav_cta: '移住 Voices を導入',
+    hero_eyebrow: 'リアルな移住者 · リアルな声 · リアルなインパクト',
+    hero_title: '地方を選んだ人の<br>声が、次の移住を<br><em>決める。</em>',
+    hero_body: '移住を検討している人は、パンフレットより先輩移住者の声を信じます。移住 Voices は、実際に移住した人のリアルな声を、次の移住希望者に直接届けるプラットフォームです。',
+    hero_cta: '声を聴く',
+    hero_learn: '詳しく見る',
+    stat_municipalities: '自治体',
+    stat_voices: 'インタビュー',
+    stat_themes: 'テーマ',
+    search_label: 'あなたの移住先・ライフスタイルに近い声を探す',
+    search_placeholder: '地域名・テーマ・名前・キーワードで検索...',
+    filter_by: '絞り込み：',
+    filter_region: '地域',
+    filter_type: '移住タイプ',
+    filter_theme: 'テーマ',
+    filter_gender: '性別',
+    results_showing: '表示中：',
+    results_voices: '件の移住者インタビュー',
+    no_results_title: '該当する声が見つかりません',
+    no_results_body: 'フィルターや検索条件を変えてみてください',
+    sec_region: '地域別に探す',
+    sec_region_link: 'すべての声を見る →',
+    sec_theme: 'テーマ別に探す',
+    theme_agriculture: '農業・食',
+    theme_remote: 'テレワーク',
+    theme_nature: '自然・アウトドア',
+    theme_family: '家族・子育て',
+    theme_entrepreneur: '起業・地域創生',
+    theme_community: 'コミュニティ',
+    theme_craft: 'ものづくり',
+    theme_healthcare: '医療・福祉',
+    quote_text: '「都会で得たスキルを、この地域で活かせる。<br>移住してはじめて、自分らしい働き方が見えてきました。」',
+    quote_attr: '— 長野県松本市 移住者インタビューより',
+    cta_eyebrow: 'Tesutemo · 自治体向け移住促進動画',
+    cta_title: 'あなたの自治体にも移住 Voices を',
+    cta_body: 'テステモは、先輩移住者のリアルな声を動画で届ける移住促進サービスです。オンライン完結・低コストで、地域の本当の魅力を次の移住希望者に伝えます。',
+    cta_btn: 'テステモについて詳しく →',
+    footer_sub: '日本全国の移住者のリアルな声。',
+    footer_product: 'プロダクト',
+    footer_cta: '自治体向け移住促進動画サービス →',
+    lbl_region: '地域',
+    lbl_type: '移住タイプ',
+    lbl_theme: 'テーマ',
+    lbl_gender: '性別',
+  },
+  en: {
+    nav_region: 'By Region',
+    nav_theme: 'By Theme',
+    nav_voices: 'All Voices',
+    nav_about: 'About TesuTemo',
+    nav_cta: 'Get 移住 Voices',
+    hero_eyebrow: 'Real migrants · Real stories · Real impact',
+    hero_title: 'Hear from people who chose<br>rural Japan —<br><em>in their own words.</em>',
+    hero_body: "People considering relocation don't trust brochures — they trust those who've already made the move. 移住 Voices connects real migrant stories directly with those thinking about taking the leap.",
+    hero_cta: 'Watch Stories',
+    hero_learn: 'Learn More',
+    stat_municipalities: 'Municipalities',
+    stat_voices: 'Interviews',
+    stat_themes: 'Themes',
+    search_label: 'Find the migrant voice that resonates with you',
+    search_placeholder: 'Search by region, theme, name, keyword...',
+    filter_by: 'Filter by:',
+    filter_region: 'Region',
+    filter_type: 'Migration Type',
+    filter_theme: 'Theme',
+    filter_gender: 'Gender',
+    results_showing: 'Showing',
+    results_voices: 'migrant interviews',
+    no_results_title: 'No matching voices found',
+    no_results_body: 'Try adjusting your filters or search terms',
+    sec_region: 'Browse by Region',
+    sec_region_link: 'View all voices →',
+    sec_theme: 'Explore by Theme',
+    theme_agriculture: 'Agriculture & Food',
+    theme_remote: 'Remote Work',
+    theme_nature: 'Nature & Outdoors',
+    theme_family: 'Family & Children',
+    theme_entrepreneur: 'Entrepreneurship',
+    theme_community: 'Community',
+    theme_craft: 'Craft & Tradition',
+    theme_healthcare: 'Healthcare',
+    quote_text: '"The skills I built in Tokyo — I can actually <em>use</em> them here.<br>Moving was when I finally found a way of working that felt like me."',
+    quote_attr: '— Migrant interview, Matsumoto City, Nagano Prefecture',
+    cta_eyebrow: 'TesuTemo · Migration promotion video for municipalities',
+    cta_title: 'Want 移住 Voices for your municipality?',
+    cta_body: "TesuTemo creates authentic migrant interview videos that help relocation candidates see themselves in your community. Affordable, fully online, powered by real stories.",
+    cta_btn: 'Learn More About TesuTemo →',
+    footer_sub: 'Real stories from people who chose rural Japan.',
+    footer_product: 'product',
+    footer_cta: 'Get 移住 Voices for your municipality →',
+    lbl_region: 'Region',
+    lbl_type: 'Migration Type',
+    lbl_theme: 'Theme',
+    lbl_gender: 'Gender',
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+  applyLang();
+}
+
+function applyLang() {
+  const t = translations[currentLang];
+
+  document.getElementById('langJA').classList.toggle('active-lang', currentLang === 'ja');
+  document.getElementById('langEN').classList.toggle('active-lang', currentLang === 'en');
+  document.documentElement.lang = currentLang;
+
+  document.body.style.fontFamily = currentLang === 'ja'
+    ? "'Noto Sans JP', 'Inter', sans-serif"
+    : "'Inter', sans-serif";
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  const jaBase = 'https://www.tesutemo.co/municipality';
+  const enBase = 'https://www.tesutemo.co/en/municipality';
+  const targetUrl = currentLang === 'ja' ? jaBase : enBase;
+  ['navCta', 'navAbout', 'heroLearnMore', 'ctaBtn', 'footerLink'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = targetUrl;
+  });
+
+  updateActiveFiltersDisplay();
+}
+</script>
+</body>
+</html>
