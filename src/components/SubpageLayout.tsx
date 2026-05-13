@@ -2,8 +2,7 @@
 
 import SubpageHeader from './SubpageHeader';
 import Footer from './Footer';
-import ContactForm from './ContactForm';
-import PricingSection from './PricingSection';
+import EnquiryForm from './EnquiryForm';
 import FadeIn from './FadeIn';
 import { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
@@ -27,10 +26,10 @@ interface SubpageProps {
   onlineFeatures: { title: string; desc: string }[];
   horizontalVideos: string[];
   verticalVideos: string[];
-  companyLabel?: string;
-  companyPlaceholder?: string;
+  defaultUseCase?: string;
   locale?: 'ja' | 'en';
   currentPath?: string;
+  planConfig?: Record<string, unknown>;
   children?: ReactNode;
 }
 
@@ -52,10 +51,10 @@ export default function SubpageLayout({
   onlineFeatures,
   horizontalVideos,
   verticalVideos,
-  companyLabel,
-  companyPlaceholder,
+  defaultUseCase = '',
   locale = 'ja',
   currentPath = '/',
+  planConfig,
   children,
 }: SubpageProps) {
   const isEn = locale === 'en';
@@ -69,7 +68,7 @@ export default function SubpageLayout({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <FadeIn direction="left">
               <div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight lg:leading-[1.4] break-keep">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight lg:leading-[1.4]">
                   {heroTitle}
                 </h1>
                 <div className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -212,6 +211,7 @@ export default function SubpageLayout({
                           className="w-full h-full"
                           allow="autoplay; fullscreen; picture-in-picture"
                           allowFullScreen
+                          loading="lazy"
                           title={`Vertical video ${i + 1}`}
                         />
                       </div>
@@ -249,8 +249,7 @@ export default function SubpageLayout({
 
       {children}
 
-      <PricingSection locale={locale} />
-      <ContactForm companyLabel={companyLabel} companyPlaceholder={companyPlaceholder} locale={locale} />
+      <EnquiryForm locale={locale} defaultUseCase={defaultUseCase} {...(planConfig ? { planConfig: planConfig as never } : {})} />
       <Footer locale={locale} />
     </>
   );
