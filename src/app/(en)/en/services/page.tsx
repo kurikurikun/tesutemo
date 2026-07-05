@@ -2,6 +2,18 @@ import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FadeIn from '@/components/FadeIn';
+import ServiceFlowDiagram, {
+  type FlowNode,
+  iconLink,
+  iconWave,
+  iconShortlist,
+  iconCalendar,
+  iconVideoCall,
+  iconBox,
+  iconPhoneTripod,
+  iconBrowserRecord,
+  iconOutput,
+} from '@/components/ServiceFlowDiagram';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -11,12 +23,28 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const services = [
+const services: {
+  key: string;
+  name: string;
+  start: string;
+  desc: string;
+  nodes: [FlowNode, FlowNode, FlowNode];
+  steps: string[];
+  tags: string[];
+  cta: string;
+  href: string;
+  ctaStyle: 'filled' | 'outline';
+}[] = [
   {
     key: 'sagashi',
     name: 'TesuTemo Voice Scout',
     start: 'Which person to interview?',
     desc: 'Collect quick responses from a wide group, then identify the people worth sitting down with for a full interview. Free to try.',
+    nodes: [
+      { caption: 'Send link', icon: iconLink },
+      { caption: 'They reply', icon: iconWave },
+      { caption: 'We shortlist', icon: iconShortlist },
+    ],
     steps: [
       'Send a link along with your usual survey. Respondents reply by video or voice, no app needed',
       'They record on their smartphone, freely and at their own pace',
@@ -32,6 +60,11 @@ const services = [
     name: 'TesuTemo Full Service',
     start: 'You know who — and want it handled',
     desc: 'A professional interviewer draws out honest, candid answers online. You receive ready-to-use videos for social media and beyond.',
+    nodes: [
+      { caption: 'Schedule', icon: iconCalendar },
+      { caption: 'Interview online', icon: iconVideoCall },
+      { caption: 'Edit & deliver', icon: iconOutput },
+    ],
     steps: [
       'We coordinate scheduling and align on interview topics',
       'A professional interviewer conducts the session online',
@@ -47,6 +80,11 @@ const services = [
     name: 'TesuTemo On-Location',
     start: "You're already visiting — bring us remotely",
     desc: "When you're heading out for a written interview and photos, we join remotely and direct the shoot on your smartphone. No film crew travel costs. Just one visit, and you leave with both written content and interview videos.",
+    nodes: [
+      { caption: 'Ship kit', icon: iconBox },
+      { caption: 'Direct remotely', icon: iconPhoneTripod },
+      { caption: 'Edit & deliver', icon: iconOutput },
+    ],
     steps: [
       'We ship a smartphone and stand to you before your customer visit',
       'Set it up on-site — we direct the shoot remotely',
@@ -62,6 +100,11 @@ const services = [
     name: 'TesuTemo Self-Record',
     start: 'You want to collect video comments',
     desc: 'No app download needed. Staff, students, customers, or residents record directly in the browser. Share a link and we edit everything into social-ready content.',
+    nodes: [
+      { caption: 'Send link', icon: iconLink },
+      { caption: 'Record in browser', icon: iconBrowserRecord },
+      { caption: 'Edit & deliver', icon: iconOutput },
+    ],
     steps: [
       'Send a recording link to staff, students, or customers',
       'They record in the browser — no app needed',
@@ -82,57 +125,70 @@ export default function ServicesEnPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
 
           <FadeIn>
-            <div className="mb-12">
-              <p className="text-xs font-medium tracking-[0.14em] uppercase text-primary mb-5">Services</p>
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <div className="mb-14 max-w-3xl">
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-5">Services</p>
+              <h1 className="text-4xl lg:text-[3.25rem] font-black text-gray-900 leading-[1.16] mb-5">
                 Choose your TesuTemo style
               </h1>
-              <p className="text-gray-500 text-lg">
+              <p className="text-gray-500 text-lg leading-[1.75]">
                 <span className="font-medium text-gray-700">Recruitment, customers, universities, municipalities</span> — choose from these styles.
               </p>
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {services.map((s, i) => (
-              <FadeIn key={s.key} delay={i * 0.08}>
+          <FadeIn delay={0.1}>
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 gap-px rounded-3xl overflow-hidden"
+              style={{ backgroundColor: '#E4DCCF', border: '1px solid #E4DCCF' }}
+            >
+              {services.map((s) => (
                 <div
-                  className="rounded-2xl p-8 h-full flex flex-col"
-                  style={{ backgroundColor: '#FBF8F2', border: '1px solid #E4DCCF' }}
+                  key={s.key}
+                  className="p-8 md:p-12 lg:p-[52px] flex flex-col gap-6"
+                  style={{ backgroundColor: '#FBF8F2' }}
                 >
-                  <p className="text-sm font-semibold text-primary mb-3">{s.name}</p>
+                  <div className="flex flex-col gap-2.5">
+                    <span className="text-[13px] font-bold text-primary tracking-[0.06em]">{s.name}</span>
+                    <h2 className="text-[28px] font-black text-gray-900 leading-[1.35]">{s.start}</h2>
+                  </div>
 
-                  <h2 className="text-2xl font-bold text-gray-900 leading-snug mb-4">{s.start}</h2>
+                  <p className="text-[15px] leading-[1.95]" style={{ color: '#6E655B' }}>
+                    {s.desc}
+                  </p>
 
-                  <p className="text-gray-600 text-sm leading-relaxed mb-5">{s.desc}</p>
+                  <ServiceFlowDiagram nodes={s.nodes} />
 
-                  <ul className="space-y-2.5 mb-6 flex-grow">
+                  <ul className="flex flex-col gap-3.5">
                     {s.steps.map((step, n) => (
-                      <li key={n} className="flex items-start gap-2.5 text-sm text-gray-600">
-                        <span className="text-primary mt-1 flex-shrink-0">•</span>
+                      <li key={n} className="flex items-start gap-3.5 text-[15px] leading-[1.7]" style={{ color: '#3A342E' }}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-none mt-[9px]" />
                         <span>{step}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <p className="text-xs text-gray-400 mb-5">{s.tags.join(' · ')}</p>
-
-                  <Link
-                    href={s.href}
-                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all self-start ${
-                      s.ctaStyle === 'filled'
-                        ? 'bg-primary text-white hover:bg-[#c74320]'
-                        : 'border border-gray-300 text-gray-700 hover:border-gray-400 bg-white'
-                    }`}
-                  >
-                    {s.cta} <ArrowRight size={14} />
-                  </Link>
+                  <div className="flex items-center justify-between flex-wrap gap-4 mt-auto pt-1">
+                    <span className="text-[13.5px] font-medium tracking-[0.04em]" style={{ color: '#9A9086' }}>
+                      {s.tags.join(' · ')}
+                    </span>
+                    <Link
+                      href={s.href}
+                      className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-bold transition-all ${
+                        s.ctaStyle === 'filled'
+                          ? 'bg-primary text-white hover:brightness-95 shadow-[0_14px_24px_-12px_rgba(233,83,31,0.55)]'
+                          : 'bg-white text-gray-900 border-[1.5px] hover:bg-[#FBF8F2]'
+                      }`}
+                      style={s.ctaStyle === 'outline' ? { borderColor: '#E0D8CB' } : undefined}
+                    >
+                      {s.cta} <ArrowRight size={16} />
+                    </Link>
+                  </div>
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+              ))}
+            </div>
+          </FadeIn>
 
-          <FadeIn delay={0.35}>
+          <FadeIn delay={0.2}>
             <p className="text-sm text-gray-400 mt-10 text-center">
               You can mix and match. Scout first, self-record broadly, then go full-service for the interviews that matter most.
             </p>
