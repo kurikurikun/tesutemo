@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TesuTemo — Redesign Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange: #e95228;
+  --purple: #7e91cf;
+  --ink: #111111;
+  --mid: #555555;
+  --quiet: #888888;
+  --rule: #e0e0e0;
+  --bg: #ffffff;
+  --off: #f7f6f4;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  height: 56px;
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid var(--rule);
+  backdrop-filter: blur(8px);
+}
+.logo img { height: 30px; width: auto; display: block; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--purple); text-decoration: none;
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.lang-toggle {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--quiet); cursor: pointer;
+  background: var(--off); border: 1px solid var(--rule);
+  border-radius: 100px; padding: 4px 2px;
+  display: flex; align-items: center;
+}
+.lang-toggle span { padding: 3px 10px; border-radius: 100px; }
+.lang-toggle .active { background: white; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.nav-cta {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  color: white; background: var(--orange);
+  border-radius: 100px; padding: 8px 20px;
+  text-decoration: none;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 120px 40px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block; width: 24px; height: 1px; background: var(--orange);
+}
+h1 {
+  font-size: clamp(44px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+h1 .orange { color: var(--orange); }
+.hero-sub {
+  font-size: 15px; line-height: 1.8; color: var(--mid);
+  max-width: 440px;
+  margin-bottom: 40px;
+}
+.hero-actions { display: flex; gap: 12px; align-items: center; }
+.btn-primary {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+  color: white; background: var(--orange);
+  border-radius: 100px; padding: 13px 28px;
+  text-decoration: none; display: inline-block;
+}
+.btn-ghost {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+  color: var(--mid);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid var(--rule); padding-bottom: 1px;
+}
+.btn-ghost svg { width: 14px; height: 14px; }
+
+/* ── VARIANT LABELS ── */
+.variant-label {
+  text-align: center; padding: 32px 0 12px;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--quiet); font-weight: 600;
+  margin: 0 40px;
+}
+.variant-divider { border: none; border-top: 1px solid var(--rule); margin: 0 40px; }
+
+/* ══ GRID OPTIONS ══ */
+
+/* Shared image cell */
+.gcell {
+  overflow: hidden; background: var(--off); flex-shrink: 0;
+}
+.gcell img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Grid A — 2-col asymmetric: tall left + stacked right */
+.grid-a {
+  display: flex; gap: 6px;
+  height: 400px; width: 380px; flex-shrink: 0;
+}
+.grid-a-main {
+  flex: 3; border-radius: 14px;
+}
+.grid-a-side {
+  flex: 2; display: flex; flex-direction: column; gap: 6px;
+}
+.grid-a-side .gcell {
+  flex: 1; border-radius: 14px;
+}
+.grid-a-stat {
+  flex: 1; border-radius: 14px;
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: white;
+}
+.grid-a-stat-num { font-size: 36px; font-weight: 700; line-height: 1; }
+.grid-a-stat-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; opacity: 0.6; }
+
+/* Grid B — bento: big top-left + 3 small cells */
+.grid-b {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  width: 380px; height: 400px; flex-shrink: 0;
+}
+.grid-b-main {
+  grid-row: span 2;
+  border-radius: 14px;
+}
+.grid-b-sm {
+  border-radius: 14px;
+}
+.grid-b-accent {
+  border-radius: 14px;
+  background: var(--orange);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: white;
+}
+.grid-b-accent-num { font-size: 32px; font-weight: 700; line-height: 1; }
+.grid-b-accent-lbl { font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; opacity: 0.85; }
+
+/* Grid C — 3 equal portrait columns, staggered */
+.grid-c {
+  display: flex; gap: 8px;
+  height: 400px; width: 380px; flex-shrink: 0;
+  align-items: center;
+  overflow: hidden;
+}
+.grid-c-col {
+  flex: 1; display: flex; flex-direction: column; gap: 8px;
+}
+.grid-c-col.mid { margin-top: -40px; }
+.grid-c-cell {
+  border-radius: 12px; overflow: hidden;
+  background: var(--off); flex-shrink: 0;
+}
+.grid-c-cell img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ══ OPTION 1: VIDEO CALL GRID ══ */
+.vgrid-wrap {
+  background: #16161e;
+  border-radius: 18px;
+  padding: 12px;
+  width: 340px;
+  flex-shrink: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+}
+.vgrid-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4px 10px;
+}
+.vgrid-dots { display: flex; gap: 5px; }
+.vgrid-dot { width: 7px; height: 7px; border-radius: 50%; }
+.vgrid-rec {
+  font-size: 9px; color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; gap: 5px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.vgrid-rec-dot { width: 6px; height: 6px; border-radius: 50%; background: #e95228; animation: blink 1.8s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.vgrid-tiles {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+}
+.vgrid-tile {
+  border-radius: 10px; overflow: hidden;
+  position: relative; aspect-ratio: 3/4; background: #2a2a38;
+}
+.vgrid-tile img { width:100%; height:100%; object-fit:cover; display:block; }
+.vgrid-tile-bar {
+  position: absolute; bottom:0; left:0; right:0;
+  height: 32px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  display: flex; align-items: flex-end; padding: 0 8px 6px;
+}
+.vgrid-mic {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+}
+.vgrid-mic svg { width: 8px; height: 8px; fill: white; }
+/* featured tile spans 2 rows */
+.vgrid-tile-main {
+  border-radius: 10px; overflow: hidden;
+  position: relative; background: #2a2a38;
+  grid-column: span 2; aspect-ratio: 16/9;
+}
+.vgrid-tile-main img { width:100%; height:100%; object-fit:cover; display:block; object-position: top center; }
+
+/* ══ OPTION 2: MAGAZINE SPLIT ══ */
+.mag-wrap {
+  display: flex; gap: 5px;
+  height: 420px; width: 380px;
+  flex-shrink: 0;
+  border-radius: 16px; overflow: hidden;
+}
+.mag-main { flex: 5; background: var(--off); overflow: hidden; }
+.mag-main img { width:100%; height:100%; object-fit:cover; display:block; }
+.mag-side { flex: 3; display: flex; flex-direction: column; gap: 5px; }
+.mag-thumb { flex: 1; background: var(--off); overflow: hidden; border-radius: 0; }
+.mag-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.mag-count {
+  flex: 1; background: var(--orange);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  color: white;
+}
+.mag-count-num { font-size: 38px; font-weight: 700; line-height: 1; }
+.mag-count-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 5px; opacity: 0.85; }
+.mag-count-sub { font-size: 8.5px; opacity: 0.65; margin-top: 3px; }
+
+/* ══ OPTION 3: PHONE MOCKUP ══ */
+.phone-wrap {
+  position: relative;
+  width: 360px; height: 440px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.phone-frame {
+  position: relative; z-index: 3;
+  width: 188px; height: 370px;
+  background: #111;
+  border-radius: 36px;
+  padding: 11px;
+  box-shadow: 0 28px 64px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.08);
+}
+.phone-screen {
+  width:100%; height:100%;
+  border-radius: 27px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+.phone-screen img { width:100%; height:100%; object-fit:contain; object-position: top center; display:block; }
+.phone-notch {
+  position: absolute; top:12px; left:50%; transform:translateX(-50%);
+  width:52px; height:5px;
+  background: #111; border-radius:100px; z-index:4;
+}
+.phone-overlay {
+  position: absolute; bottom:0; left:0; right:0;
+  padding: 20px 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
+}
+.phone-overlay-role { font-size:9px; color:rgba(255,255,255,0.7); letter-spacing:0.06em; text-transform:uppercase; }
+.phone-overlay-play {
+  width:32px; height:32px; border-radius:50%;
+  background: rgba(255,255,255,0.2); backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center;
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+}
+.phone-overlay-play svg { width:11px; height:11px; fill:white; margin-left:2px; }
+
+/* Side thumbnail cards */
+.phone-side {
+  position: absolute;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--off);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.18);
+}
+.phone-side img { width:100%; height:100%; object-fit:cover; display:block; }
+.phone-side-1 { width:100px; height:142px; left:10px; top:60px; transform:rotate(-4deg); z-index:1; }
+.phone-side-2 { width:100px; height:142px; right:10px; top:80px; transform:rotate(4deg); z-index:1; }
+.phone-side-3 { width:88px; height:124px; right:16px; bottom:48px; transform:rotate(-3deg); z-index:2; }
+
+
+/* ══ OPTION 3B: TWO PHONES ══ */
+.dual-wrap {
+  position: relative;
+  width: 380px; height: 440px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.phone-frame-sm {
+  position: relative;
+  width: 158px; height: 312px;
+  background: #111;
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.07);
+}
+.phone-notch-sm {
+  position: absolute; top:10px; left:50%; transform:translateX(-50%);
+  width:42px; height:4px;
+  background: #111; border-radius:100px; z-index:4;
+}
+.dual-phone-a {
+  position: absolute; z-index: 2;
+  left: 16px; top: 24px;
+  transform: rotate(-6deg);
+}
+.dual-phone-b {
+  position: absolute; z-index: 3;
+  left: 160px; top: 32px;
+  transform: rotate(5deg);
+}
+.dual-phone-c {
+  position: absolute; z-index: 1;
+  left: 88px; top: 10px;
+  transform: rotate(-1deg);
+}
+
+/* ══ OPTION 3C: TILTED SINGLE PHONE ══ */
+.tilt-wrap {
+  position: relative;
+  width: 360px; height: 440px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.phone-frame-lg {
+  position: relative; z-index: 2;
+  width: 200px; height: 368px;
+  background: #111;
+  border-radius: 36px;
+  padding: 10px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.30), 0 0 0 1px rgba(255,255,255,0.08);
+  transform: rotate(-8deg);
+}
+.phone-notch-lg {
+  position: absolute; top:14px; left:50%; transform:translateX(-50%);
+  width:58px; height:5px;
+  background: #111; border-radius:100px; z-index:4;
+}
+.tilt-strip {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 110px;
+  display: flex; flex-direction: column; gap: 6px;
+  justify-content: center;
+  z-index: 1;
+}
+.tilt-thumb {
+  border-radius: 12px; overflow: hidden;
+  background: var(--off);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+  flex-shrink: 0;
+}
+.tilt-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ─── CONTEXT / PROBLEM → SOLUTION ─── */
+.context {
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--quiet); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: block; width: 24px; height: 1px; background: var(--quiet);
+}
+
+.problem-block {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border-top: 1px solid var(--rule);
+  padding: 48px 0;
+}
+.problem-block + .problem-block { border-top: 1px solid var(--rule); }
+.problem-num {
+  font-size: 72px; font-weight: 700; line-height: 1;
+  color: var(--rule); letter-spacing: -0.04em;
+  padding-top: 4px;
+}
+.problem-heading {
+  font-size: 28px; font-weight: 700; line-height: 1.3;
+  color: var(--ink); margin-bottom: 20px;
+}
+.problem-heading strong { color: var(--orange); font-weight: 700; }
+.problem-heading .dim { color: var(--mid); }
+.problem-points { display: flex; flex-direction: column; gap: 12px; }
+.problem-point {
+  font-size: 14px; line-height: 1.7; color: var(--mid);
+  padding-left: 16px;
+  border-left: 2px solid var(--rule);
+}
+.problem-point.bold { color: var(--ink); font-weight: 500; border-left-color: var(--orange); }
+
+.consequence {
+  margin: 32px 0;
+  padding: 20px 24px;
+  background: #fff5f5;
+  border-left: 3px solid #ef4444;
+  border-radius: 0 8px 8px 0;
+}
+.consequence p {
+  font-size: 14px; font-weight: 600; color: #dc2626;
+}
+
+.bridge {
+  padding: 40px 0;
+  display: flex; align-items: center; gap: 24px;
+}
+.bridge-line { flex: 1; height: 1px; background: var(--rule); }
+.bridge-text {
+  font-size: 13px; color: var(--mid); letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.bridge-text strong { color: var(--orange); }
+
+/* Solution block */
+.solution-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.solution-left {
+  background: var(--ink);
+  padding: 56px 48px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.solution-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 24px;
+}
+.solution-heading {
+  font-size: 36px; font-weight: 700; line-height: 1.25;
+  color: white; letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+.solution-heading .accent { color: var(--orange); }
+.solution-tagline {
+  font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6;
+}
+.solution-right {
+  background: white;
+  padding: 56px 48px;
+}
+.solution-feature {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 16px;
+}
+.solution-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--orange);
+  flex-shrink: 0; margin-top: 7px;
+}
+.solution-feature p { font-size: 14px; color: var(--ink); line-height: 1.6; }
+
+/* ─── VALUE (video) ─── */
+.value-section {
+  background: var(--off);
+  padding: 100px 40px;
+}
+.value-inner {
+  max-width: 1200px; margin: 0 auto;
+}
+.value-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 48px;
+}
+.value-header h2 {
+  font-size: 36px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.value-header p { font-size: 14px; color: var(--mid); line-height: 1.7; max-width: 280px; text-align: right; }
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.value-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.video-thumb {
+  aspect-ratio: 9/16;
+  background: #ddd;
+  position: relative; overflow: hidden;
+}
+.video-thumb iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border: none;
+}
+.value-card-label {
+  padding: 16px 20px;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  display: flex; align-items: center; gap: 8px;
+}
+.value-card-label::before {
+  content: '';
+  display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex-shrink: 0;
+}
+
+/* ─── PROCESS ─── */
+.process-section {
+  padding: 100px 40px;
+  max-width: 1200px; margin: 0 auto;
+}
+.process-header { margin-bottom: 64px; }
+.process-header h2 {
+  font-size: 36px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+}
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.process-step {
+  background: white;
+  padding: 40px 36px;
+}
+.step-num {
+  font-size: 48px; font-weight: 700; color: var(--rule); letter-spacing: -0.04em;
+  line-height: 1; margin-bottom: 20px;
+}
+.step-title {
+  font-size: 18px; font-weight: 700; color: var(--ink);
+  margin-bottom: 12px;
+}
+.step-desc {
+  font-size: 14px; color: var(--mid); line-height: 1.7;
+}
+.process-note {
+  margin-top: 24px;
+  display: flex; align-items: center; gap: 20px;
+  padding: 24px 32px;
+  background: var(--off);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+.process-note-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: 50%; background: white;
+  border: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+}
+.process-note-icon svg { width: 16px; height: 16px; color: var(--orange); }
+.process-note p {
+  font-size: 14px; color: var(--mid); line-height: 1.65;
+}
+.process-note strong { color: var(--ink); font-weight: 600; }
+
+/* ─── USE CASES ─── */
+.usecases {
+  background: var(--off);
+  padding: 100px 40px;
+}
+.usecases-inner { max-width: 1200px; margin: 0 auto; }
+.usecases-header { margin-bottom: 48px; }
+.usecases-header h2 {
+  font-size: 36px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.usecases-header p { font-size: 15px; color: var(--mid); }
+.usecases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.usecase-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.usecase-video {
+  aspect-ratio: 16/9;
+  background: #eee;
+  position: relative;
+}
+.usecase-video iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+}
+.usecase-video .placeholder-label {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--quiet); font-weight: 500;
+}
+.usecase-body {
+  padding: 28px 32px 32px;
+  flex: 1; display: flex; flex-direction: column;
+}
+.usecase-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 10px;
+}
+.usecase-body h3 {
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  margin-bottom: 8px;
+}
+.usecase-body p { font-size: 14px; color: var(--mid); line-height: 1.6; flex: 1; margin-bottom: 24px; }
+.usecase-link {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+  align-self: flex-start;
+}
+
+/* ─── FEATURES ─── */
+.features {
+  padding: 100px 40px;
+  max-width: 1200px; margin: 0 auto;
+}
+.features-header { margin-bottom: 56px; }
+.features-header h2 {
+  font-size: 36px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.features-header p { font-size: 15px; color: var(--mid); }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.feature-cell {
+  background: white;
+  padding: 36px 32px;
+}
+.feature-icon {
+  width: 32px; height: 32px; margin-bottom: 20px;
+  color: var(--orange);
+}
+.feature-cell h3 {
+  font-size: 15px; font-weight: 700; color: var(--ink);
+  margin-bottom: 10px;
+}
+.feature-cell p { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+/* ─── CLIENTS ─── */
+.clients {
+  background: var(--off);
+  padding: 80px 40px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.clients-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start;
+}
+.clients-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--quiet); margin-bottom: 16px;
+}
+.clients-heading {
+  font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.3;
+  margin-bottom: 8px;
+}
+.clients-sub { font-size: 13px; color: var(--mid); line-height: 1.6; }
+.logos-row {
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  margin-bottom: 48px;
+}
+.logo-chip {
+  background: white; border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px 20px;
+  height: 52px; display: flex; align-items: center; justify-content: center;
+}
+.logo-chip img { height: 28px; width: auto; }
+.testimonial {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 32px;
+}
+.testimonial blockquote {
+  font-size: 15px; line-height: 1.8; color: var(--ink);
+  margin-bottom: 24px;
+}
+.testimonial-source { font-size: 12px; color: var(--quiet); }
+.testimonial-source strong { color: var(--ink); }
+
+/* ─── CONTACT BANNER ─── */
+.contact-banner {
+  background: var(--ink);
+  padding: 80px 40px;
+}
+.contact-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.contact-copy h2 {
+  font-size: 32px; font-weight: 700; color: white; letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.contact-copy p { font-size: 14px; color: rgba(255,255,255,0.5); }
+.contact-btn {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--ink); background: white;
+  border-radius: 100px; padding: 16px 36px;
+  text-decoration: none; white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── MOCKUP BADGE ─── */
+.mockup-badge {
+  position: fixed; bottom: 16px; right: 16px; z-index: 999;
+  background: var(--ink); color: white;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  padding: 8px 14px; border-radius: 100px;
+  opacity: 0.8;
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — redesign concept</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img src="/tesutemo-logo.png" alt="TesuTemo" onerror="this.style.display='none';this.nextSibling.style.display='block'">
+    <span style="display:none;font-size:18px;font-weight:700;letter-spacing:-.01em">TesuTemo</span>
+  </a>
+  <div class="nav-links">
+    <a href="#">採用促進 for 企業</a>
+    <a href="#">for 自治体</a>
+    <a href="#">for 大学</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <span>EN</span>
+      <span class="active">JP</span>
+    </div>
+    <a href="#" class="nav-cta">はじめる</a>
+  </div>
+</nav>
+
+<!-- ══ GRID A: Tall left + stacked right ══ -->
+<div class="variant-label" style="border-top:none;padding-top:16px;">Grid A — Tall + stack</div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Testimonial Interview Video</div>
+      <h1>Real Voices.<br><span class="orange">Better Decisions.</span></h1>
+      <p class="hero-sub">人は、広告よりも「人の声」で意思決定する。テステモは、採用・学生生活・移住・顧客の声をオンライン完結で収録し、判断につながる動画コンテンツを届けるサービスです。</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">導入事例を見る</a>
+        <a href="#" class="btn-ghost">お問い合わせ <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="grid-a">
+      <div class="gcell grid-a-main">
+        <img src="/hero-20.jpg" alt="" onerror="this.parentNode.style.background='#ddd'">
+      </div>
+      <div class="grid-a-side">
+        <div class="gcell">
+          <img src="/hero-1.png" alt="" onerror="this.parentNode.style.background='#ccc'">
+        </div>
+        <div class="gcell">
+          <img src="/hero-3.png" alt="" onerror="this.parentNode.style.background='#bbb'">
+        </div>
+        <div class="grid-a-stat">
+          <div class="grid-a-stat-num">200+</div>
+          <div class="grid-a-stat-lbl">Interviews</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GRID B: Bento ══ -->
+<div class="variant-divider"></div>
+<div class="variant-label">Grid B — Bento</div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Testimonial Interview Video</div>
+      <h1>Real Voices.<br><span class="orange">Better Decisions.</span></h1>
+      <p class="hero-sub">人は、広告よりも「人の声」で意思決定する。テステモは、採用・学生生活・移住・顧客の声をオンライン完結で収録し、判断につながる動画コンテンツを届けるサービスです。</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">導入事例を見る</a>
+        <a href="#" class="btn-ghost">お問い合わせ <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="grid-b">
+      <div class="gcell grid-b-main">
+        <img src="/hero-20.jpg" alt="" onerror="this.parentNode.style.background='#ddd'">
+      </div>
+      <div class="gcell grid-b-sm">
+        <img src="/hero-1.png" alt="" onerror="this.parentNode.style.background='#ccc'">
+      </div>
+      <div class="gcell grid-b-sm">
+        <img src="/hero-3.png" alt="" onerror="this.parentNode.style.background='#bbb'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GRID C: 3-column staggered ══ -->
+<div class="variant-divider"></div>
+<div class="variant-label">Grid C — 3-column stagger</div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Testimonial Interview Video</div>
+      <h1>Real Voices.<br><span class="orange">Better Decisions.</span></h1>
+      <p class="hero-sub">人は、広告よりも「人の声」で意思決定する。テステモは、採用・学生生活・移住・顧客の声をオンライン完結で収録し、判断につながる動画コンテンツを届けるサービスです。</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">導入事例を見る</a>
+        <a href="#" class="btn-ghost">お問い合わせ <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="grid-c">
+      <div class="grid-c-col">
+        <div class="grid-c-cell" style="height:220px"><img src="/hero-20.jpg" alt="" onerror="this.parentNode.style.background='#ddd'"></div>
+        <div class="grid-c-cell" style="height:160px"><img src="/hero-5.png" alt="" onerror="this.parentNode.style.background='#d8d5d0'"></div>
+      </div>
+      <div class="grid-c-col mid">
+        <div class="grid-c-cell" style="height:190px"><img src="/hero-1.png" alt="" onerror="this.parentNode.style.background='#e8e5e0'"></div>
+        <div class="grid-c-cell" style="height:190px"><img src="/hero-21.png" alt="" onerror="this.parentNode.style.background='#dcd9d4'"></div>
+      </div>
+      <div class="grid-c-col">
+        <div class="grid-c-cell" style="height:160px"><img src="/hero-3.png" alt="" onerror="this.parentNode.style.background='#d4d0cc'"></div>
+        <div class="grid-c-cell" style="height:220px"><img src="/hero-4.png" alt="" onerror="this.parentNode.style.background='#e0ddd8'"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT: PROBLEM → SOLUTION -->
+<section class="context">
+
+  <div class="section-eyebrow">Problem → Solution</div>
+
+  <div class="problem-block">
+    <div class="problem-num">01</div>
+    <div class="problem-content">
+      <h2 class="problem-heading">人は、広告より<br>「<strong>人の声</strong>」で決める。</h2>
+      <div class="problem-points">
+        <div class="problem-point">Amazonのレビュー、Googleの口コミ、先に体験した人の声を信頼して判断する時代。</div>
+        <div class="problem-point bold">でも、進学・就職・移住・サービス導入には、信頼できる「レビュー」がない。</div>
+        <div class="problem-point">重要な意思決定ほど「信頼できる声」が届いていない。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="problem-block">
+    <div class="problem-num">02</div>
+    <div class="problem-content">
+      <h2 class="problem-heading">情報は発信しているのに、<br><span class="dim">伝わらない。</span></h2>
+      <div class="problem-points">
+        <div class="problem-point">Webサイトやパンフレット、SNSなどで情報発信はしているものの、</div>
+        <div class="problem-point bold">本当の魅力が伝わらず、他社・他校・他地域との差別化ができない。</div>
+        <div class="problem-point">応募・集客につながらない。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="consequence">
+    <p>結果 → ミスマッチが起き、双方に機会損失が生まれる。</p>
+  </div>
+
+  <div class="bridge">
+    <div class="bridge-line"></div>
+    <div class="bridge-text">本当に必要なのは、<strong>「実際に選んだ人のリアルな声」</strong></div>
+    <div class="bridge-line"></div>
+  </div>
+
+  <div class="solution-block">
+    <div class="solution-left">
+      <div>
+        <div class="solution-label">Solution</div>
+        <div class="solution-heading">
+          テステモは、<br>リアルな声で<br><span class="accent">伝えます</span>
+        </div>
+      </div>
+      <div class="solution-tagline">実際にその企業・大学・地域を選んだ人へのインタビューを通して、判断につながる情報を動画で届ける</div>
+    </div>
+    <div class="solution-right">
+      <div class="solution-feature">
+        <div class="solution-dot"></div>
+        <p>表情、温度感、本音まで含めて伝えることができる</p>
+      </div>
+      <div class="solution-feature">
+        <div class="solution-dot"></div>
+        <p>オンライン完結で、従来の現地撮影より担当者の負担がはるかに少ない</p>
+      </div>
+      <div class="solution-feature">
+        <div class="solution-dot"></div>
+        <p>信頼できる判断材料として、意思決定を後押しする</p>
+      </div>
+      <div class="solution-feature">
+        <div class="solution-dot"></div>
+        <p>SNS・採用サイト・大学ページへの掲載まで、すぐに使える素材として納品</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- VALUE (VIDEOS) -->
+<section class="value-section">
+  <div class="value-inner">
+    <div class="value-header">
+      <h2>文字や写真では<br>伝わらない</h2>
+      <p>表情、温度感、本音まで含めて伝えることで、信頼できる判断材料を提供します</p>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="video-thumb">
+          <iframe src="https://player.vimeo.com/video/1020065025?h=c786d2097a&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="value-card-label">表情</div>
+      </div>
+      <div class="value-card">
+        <div class="video-thumb">
+          <iframe src="https://player.vimeo.com/video/1014779536?h=2c4b22d316&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="value-card-label">温度感</div>
+      </div>
+      <div class="value-card">
+        <div class="video-thumb">
+          <iframe src="https://player.vimeo.com/video/1173147932?h=22cefed8a7&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="value-card-label">本音</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="process-header">
+    <div class="section-eyebrow">Process</div>
+    <h2>たった<span style="color:var(--orange)">3</span>ステップ</h2>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">打ち合わせ</div>
+      <div class="step-desc">課題をヒアリングし、最適な活用プランをご提案します</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">候補者選び</div>
+      <div class="step-desc">最適な人物像のイメージまでをお伝えし、それに合わせて、候補者を選んで頂きます</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">できあがり</div>
+      <div class="step-desc">あとはTesuTemoにお任せください。動画が完成すれば、発信するだけです</div>
+    </div>
+  </div>
+
+  <div class="process-note">
+    <div class="process-note-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 5v5l3 3"/>
+      </svg>
+    </div>
+    <p>全てオンラインで行うので、従来の現地での撮影と比べ、<strong>やり取りの時間が大幅に減り</strong>、担当者さま・被写体さまの負担がはるかに少ない</p>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases">
+  <div class="usecases-inner">
+    <div class="usecases-header">
+      <div class="section-eyebrow">Use Cases</div>
+      <h2>リアルな声が意思決定を加速</h2>
+      <p>採用強化、集客改善、信頼構築、移住促進。目的に合ったカテゴリを選んでください</p>
+    </div>
+
+    <div class="usecases-grid">
+      <div class="usecase-card">
+        <div class="usecase-video">
+          <iframe src="https://player.vimeo.com/video/1177652915?h=be43651176&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="usecase-body">
+          <div class="usecase-tag">for 企業</div>
+          <h3>人材を採用する</h3>
+          <p>社員のリアルな声で、人材と出会う</p>
+          <a href="#" class="usecase-link">もっとみる →</a>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="usecase-video">
+          <div class="placeholder-label">顧客インタビュー</div>
+        </div>
+        <div class="usecase-body">
+          <div class="usecase-tag">for 企業</div>
+          <h3>顧客を増やす</h3>
+          <p>お客様のリアルな声で、次の顧客と出会う</p>
+          <a href="#" class="usecase-link">もっとみる →</a>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="usecase-video">
+          <iframe src="https://player.vimeo.com/video/1019675789?h=8ca81d7847&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="usecase-body">
+          <div class="usecase-tag">for 大学</div>
+          <h3>学生と出会う</h3>
+          <p>在学生のリアルな声で、未来の学生と出会う</p>
+          <a href="#" class="usecase-link">もっとみる →</a>
+        </div>
+      </div>
+
+      <div class="usecase-card">
+        <div class="usecase-video">
+          <iframe src="https://player.vimeo.com/video/1010822965?h=430839385f&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="usecase-body">
+          <div class="usecase-tag">for 自治体</div>
+          <h3>移住者を増やす</h3>
+          <p>移住者のリアルな声で、新しい住民と出会う</p>
+          <a href="#" class="usecase-link">もっとみる →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-header">
+    <div class="section-eyebrow">Why TesuTemo</div>
+    <h2>テステモが選ばれる理由</h2>
+    <p>他の情報では分からない「本音」を、動画で。</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.89L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+      </svg>
+      <h3>リアルな判断材料</h3>
+      <p>実際に経験した人の声だから、自分に合うかどうかが具体的にわかる</p>
+    </div>
+    <div class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      <h3>本音が見える</h3>
+      <p>文章では見えない、表情や言葉の温度感まで伝わる</p>
+    </div>
+    <div class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      </svg>
+      <h3>ミスマッチを防ぐ</h3>
+      <p>事前にリアルを知ることで、選択のズレを減らす</p>
+    </div>
+    <div class="feature-cell">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      <h3>オンラインで完結</h3>
+      <p>インタビューから納品まで、すべてオンラインでスピーディに</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients">
+  <div class="clients-inner">
+    <div>
+      <div class="clients-label">Trusted By</div>
+      <div class="clients-heading">導入実績</div>
+      <div class="clients-sub">すでに、リアルな声の価値に気づいた企業・団体が活用を始めています</div>
+    </div>
+    <div>
+      <div class="logos-row">
+        <div class="logo-chip"><img src="/logo-fujinomiya.png" alt="富士宮市" onerror="this.parentNode.innerHTML='富士宮市'"></div>
+        <div class="logo-chip"><img src="/logo-otsuki.png" alt="大月町" onerror="this.parentNode.innerHTML='大月町'"></div>
+        <div class="logo-chip"><img src="/logo-kansai.png" alt="関西大学" onerror="this.parentNode.innerHTML='関西大学'"></div>
+        <div class="logo-chip"><img src="/logo-waseda.png" alt="早稲田大学" onerror="this.parentNode.innerHTML='早稲田大学'"></div>
+      </div>
+      <div class="testimonial">
+        <blockquote>「学生の人柄や授業のインパクトなど、AI生成では出せない生のインタビューのリアルさや親近感がこのテステモの価値だなと改めて感じました！」</blockquote>
+        <div class="testimonial-source"><strong>関西大学</strong> — 学部・大学院事務グループ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BANNER -->
+<div class="contact-banner">
+  <div class="contact-inner">
+    <div class="contact-copy">
+      <h2>まずは、お気軽にご相談ください</h2>
+      <p>採用・集客・移住促進など、どんなご相談もお受けします</p>
+    </div>
+    <a href="#" class="contact-btn">お問い合わせ →</a>
+  </div>
+</div>
+
+</body>
+</html>

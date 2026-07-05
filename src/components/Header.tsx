@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
@@ -38,8 +39,7 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href={isEN ? '/en' : '/'} className="flex-shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/tesutemo-logo.png" alt="TesuTemo" className="h-9" />
+            <Image src="/tesutemo-logo.png" alt="TesuTemo" width={96} height={36} className="h-9 w-auto" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -52,10 +52,18 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
                 {item.label}
               </Link>
             ))}
-            <a href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
+            {!isEN && (
+              <Link
+                href="/lite/signup"
+                className="text-sm font-medium text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                無料で試す
+              </Link>
+            )}
+            <Link href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
               <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>EN</span>
               <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>JP</span>
-            </a>
+            </Link>
             <Link
               href={ctaHref}
               className="bg-primary text-white text-sm px-5 py-2 rounded-full font-medium hover:bg-primary/90 transition-colors"
@@ -65,10 +73,10 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
           </nav>
 
           <div className="md:hidden flex items-center gap-3">
-            <a href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
+            <Link href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
               <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400'}`}>EN</span>
               <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400'}`}>JP</span>
-            </a>
+            </Link>
             <button
               className="p-2 text-gray-700"
               onClick={() => setMobileOpen(!mobileOpen)}

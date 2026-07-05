@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Kurisu Town — More than chestnuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --light: #f5f5f3;
+  --rule: #d0d0ce;
+  --muted: #999999;
+  --orange: #e95228;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 56px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 15px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--ink); text-decoration: none;
+  display: flex; align-items: baseline; gap: 10px;
+}
+.nav-logo em { color: var(--orange); font-style: normal; }
+.nav-logo-by { font-size: 10px; color: #ccc; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 0.08em; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.lang-toggle {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--muted);
+  cursor: pointer; border: none; background: none; font-family: 'Inter', sans-serif;
+}
+.lang-toggle .on { color: var(--ink); font-weight: 600; }
+.nav-cta {
+  font-size: 11px; letter-spacing: 0.06em; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: all 0.15s;
+}
+.nav-cta:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+/* ── HERO ── */
+.hero {
+  display: grid; grid-template-columns: 1fr 1fr;
+  height: 70vh; min-height: 480px;
+  margin-top: 56px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* LEFT */
+.hero-left {
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 48px 56px 36px;
+  border-right: 1px solid var(--rule);
+  position: relative; overflow: hidden;
+}
+/* 栗栖 ghost behind content */
+.hero-kv {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 320px; font-weight: 800; line-height: 1;
+  color: #eae7e0;
+  letter-spacing: 0.04em;
+  position: absolute; bottom: -40px; right: -16px;
+  user-select: none; pointer-events: none; z-index: 0;
+  white-space: nowrap;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+}
+.hero-main { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.hero-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 46px; line-height: 1.14; font-weight: 700;
+  color: var(--ink); margin-bottom: 24px;
+}
+.hero-title em {
+  display: block; font-size: 18px; font-weight: 400; font-style: normal;
+  color: var(--muted); margin-top: 8px; letter-spacing: 0.02em;
+  font-family: 'Inter', sans-serif;
+}
+.hero-rule { width: 36px; height: 1px; background: var(--orange); margin-bottom: 20px; }
+.hero-body { font-size: 12.5px; color: #444; line-height: 1.85; max-width: 360px; }
+.hero-footer {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding-top: 32px; position: relative; z-index: 1;
+}
+.hero-scroll {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  text-decoration: none;
+}
+.hero-scroll-line { width: 36px; height: 1px; background: var(--rule); }
+.hero-credit { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-align: right; line-height: 1.7; }
+
+/* RIGHT */
+.hero-right {
+  display: flex; align-items: stretch;
+  background: var(--light); padding: 20px;
+}
+
+/* CAROUSEL */
+.reel-carousel {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.reel-track {
+  flex: 1; aspect-ratio: 9 / 16; width: auto; max-width: 100%;
+  position: relative; overflow: hidden;
+}
+.hero-reel {
+  position: absolute; inset: 0; cursor: pointer;
+  opacity: 0; transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+.hero-reel.active { opacity: 1; pointer-events: auto; }
+.reel-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+}
+.reel-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 18px 18px;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+}
+.reel-series {
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); margin-bottom: 5px; font-weight: 500;
+}
+.reel-ep { font-size: 15px; font-weight: 500; color: white; }
+.reel-play {
+  position: absolute; top: 14px; right: 14px; width: 32px; height: 32px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+}
+.reel-play svg { width: 10px; height: 10px; fill: white; margin-left: 2px; }
+.reel-dots { display: flex; gap: 8px; margin-top: 16px; }
+.reel-dot {
+  width: 28px; height: 3px; background: var(--rule); cursor: pointer;
+  transition: background 0.3s;
+  /* larger tap target */
+  padding: 10px 0; background-clip: content-box;
+  box-sizing: content-box;
+}
+.reel-dot.active { background: var(--ink); background-clip: content-box; }
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  padding: 0 48px; height: 56px;
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: stretch;
+  background: var(--light);
+}
+/* Filter icon prefix */
+.filter-icon-wrap {
+  display: flex; align-items: center;
+  padding-right: 20px; margin-right: 20px;
+  border-right: 1px solid var(--rule);
+  color: var(--muted); flex-shrink: 0;
+}
+.filter-icon-wrap svg { width: 14px; height: 14px; }
+.fg {
+  display: flex; align-items: center;
+  border-right: 1px solid var(--rule);
+  padding-right: 20px; margin-right: 20px;
+}
+.fg-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink); margin-right: 14px; flex-shrink: 0; white-space: nowrap;
+}
+.ftabs { display: flex; align-items: stretch; gap: 2px; }
+.ftab {
+  font-size: 12px; font-weight: 500; color: var(--muted);
+  padding: 0 12px; cursor: pointer; height: 56px;
+  display: flex; align-items: center; white-space: nowrap;
+  transition: all 0.15s; border-radius: 0;
+}
+.ftab:hover { color: var(--ink); background: rgba(0,0,0,0.04); }
+.ftab.active {
+  color: var(--ink); font-weight: 600;
+  background: var(--paper);
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+.ep-fg {
+  display: none; align-items: center;
+  border-right: 1px solid var(--rule);
+  padding-right: 20px; margin-right: 20px;
+}
+.ep-fg.visible { display: flex; }
+.ep-fg .fg-label { color: var(--orange); }
+.ep-fg .ftab.active { box-shadow: inset 0 -2px 0 var(--orange); color: var(--orange); }
+.search-wrap {
+  display: flex; align-items: center; gap: 10px; margin-left: auto;
+}
+.search-wrap svg { width: 14px; height: 14px; color: var(--muted); flex-shrink: 0; }
+.search-wrap input {
+  border: none; outline: none; font-size: 12px; color: var(--ink);
+  font-family: 'Inter', sans-serif; width: 180px; background: none;
+}
+.search-wrap input::placeholder { color: var(--muted); }
+
+/* ── RESULTS ── */
+.results-line {
+  padding: 14px 48px; font-size: 11px; color: var(--muted);
+  border-bottom: 1px solid var(--rule); letter-spacing: 0.04em;
+}
+.results-line strong { color: var(--ink); }
+
+/* ── VIDEO GRID ── */
+.grid-section { padding: 48px 48px 80px; }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+}
+@media (max-width: 1200px) { .video-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 900px)  { .video-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px)  { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── VIDEO CARD (borderless editorial) ── */
+.video-card { cursor: pointer; position: relative; }
+.video-card.hidden { display: none; }
+.video-card-thumb { position: relative; aspect-ratio: 9 / 16; overflow: hidden; }
+.thumb-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform 0.4s ease;
+}
+.video-card:hover .thumb-bg { transform: scale(1.04); }
+.card-label {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 600; color: rgba(255,255,255,0.75); z-index: 1;
+}
+.play-indicator {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+  background: rgba(0,0,0,0.14);
+}
+.video-card:hover .play-indicator { opacity: 1; }
+.play-triangle {
+  width: 0; height: 0;
+  border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+  border-left: 20px solid rgba(255,255,255,0.9); margin-left: 4px;
+}
+.video-card-body { padding: 10px 0 0; }
+.card-ep { font-size: 12px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-vol { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* no-results */
+.no-results { text-align: center; padding: 80px 20px; color: var(--muted); }
+.no-results h3 { font-size: 16px; color: var(--ink); margin-top: 16px; }
+
+/* ── CTA ── */
+.contact-section {
+  border-top: 1px solid var(--rule);
+  padding: 80px 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.contact-eyebrow {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 20px;
+}
+.contact-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 34px; font-weight: 700; line-height: 1.28; color: var(--ink); margin-bottom: 20px;
+}
+.contact-title em { color: var(--orange); font-style: normal; }
+.contact-body { font-size: 13px; color: var(--muted); line-height: 1.9; }
+.contact-link {
+  display: inline-block; margin-top: 28px;
+  font-size: 12px; letter-spacing: 0.06em; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: 2px; transition: all 0.15s;
+}
+.contact-link:hover { color: var(--orange); border-bottom-color: var(--orange); }
+.contact-detail { padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.contact-detail:first-child { border-top: 1px solid var(--rule); }
+.contact-detail-label {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+}
+.contact-detail-value { font-size: 14px; color: var(--ink); font-family: 'Shippori Mincho', serif; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Shippori Mincho', serif; font-size: 14px; font-weight: 700;
+  color: var(--ink); letter-spacing: 0.06em;
+}
+.footer-logo em { color: var(--orange); font-style: normal; }
+.footer-copy { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
+.footer-links { font-size: 10px; color: var(--muted); text-align: right; line-height: 2; }
+.footer-links a { color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--ink); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  /* NAV */
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-logo-by { display: none; }
+
+  /* HERO — stack vertically */
+  .hero {
+    grid-template-columns: 1fr;
+    height: auto; min-height: 0;
+  }
+  .hero-left {
+    padding: 40px 24px 32px;
+    min-height: 0;
+  }
+  .hero-kv { font-size: 220px; bottom: -20px; right: -10px; }
+  .hero-title { font-size: 38px; }
+  .hero-title em { font-size: 15px; }
+  .hero-body { font-size: 12px; }
+  .hero-footer { padding-top: 24px; }
+
+  /* Hero right: fixed height, centered carousel */
+  .hero-right {
+    height: auto;
+    padding: 24px 20px;
+    justify-content: center;
+    border-top: 1px solid var(--rule);
+  }
+  .reel-carousel {
+    flex: none;
+    width: 58%;
+  }
+  .reel-track {
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+  }
+
+  /* FILTER BAR — stack rows */
+  .filter-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0 20px;
+  }
+  .filter-icon-wrap { display: none; }
+  .fg {
+    width: 100%; height: 48px;
+    border-right: none; margin-right: 0; padding-right: 0;
+    border-bottom: 1px solid var(--rule);
+    overflow-x: auto;
+  }
+  .ep-fg {
+    width: 100%; height: 48px;
+    border-right: none; margin-right: 0; padding-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ep-fg.visible { display: flex; }
+  .ftab { height: 48px; padding: 0 10px; font-size: 11px; }
+  .search-wrap {
+    width: 100%; height: 44px;
+    padding: 0 4px;
+    border-top: none;
+  }
+  .search-wrap input { width: 100%; }
+
+  /* RESULTS + GRID */
+  .results-line { padding: 12px 20px; }
+  .grid-section { padding: 24px 20px 60px; }
+  .video-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .card-ep { font-size: 11px; }
+  .card-vol { font-size: 9px; }
+
+  /* CONTACT */
+  .contact-section { padding: 48px 20px; grid-template-columns: 1fr; gap: 36px; }
+  .contact-title { font-size: 26px; }
+
+  /* FOOTER */
+  footer { padding: 24px 20px; flex-direction: column; gap: 12px; text-align: center; }
+  .footer-links { text-align: center; }
+}
+
+@media (max-width: 500px) {
+  .video-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-title { font-size: 32px; }
+  .reel-carousel { width: 65%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    Tese<em>Temo</em>
+    <span class="nav-logo-by">by move-ment</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#videos" data-i18n="nav_videos">All Videos</a></li>
+    <li><a href="https://www.tesutemo.co/municipality" target="_blank" data-i18n="nav_about">About TesuTemo</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-toggle" onclick="toggleLang()">
+      <span id="langEN" class="on">EN</span> / <span id="langJA">JA</span>
+    </button>
+    <a class="nav-cta" href="https://www.tesutemo.co/municipality" target="_blank" data-i18n="nav_cta">Bring this to your city</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kv">栗栖</div>
+    <div class="hero-eyebrow" data-i18n="hero_eyebrow" style="position:relative;z-index:1;">Tourism Content Portal · Demo</div>
+    <div class="hero-main">
+      <h1 class="hero-title" data-i18n-html="hero_title">Kurisu Town.<br><em>More than chestnuts.</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-body" data-i18n="hero_body">A fictional Japanese town, powered by real flavors and real filmmaking. This portal shows what short-form inbound tourism content — and the platform to display it — can look like for your municipality.</p>
+    </div>
+    <div class="hero-footer">
+      <a class="hero-scroll" href="#videos">
+        <span class="hero-scroll-line"></span>
+        <span data-i18n="scroll_label">Scroll to browse</span>
+      </a>
+      <div class="hero-credit">
+        <span data-i18n="hero_credit_stats">3 series · 7 episodes · 20 videos</span><br>
+        <span style="color:#ccc;" data-i18n="hero_credit_by">produced by move-ment</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="reel-carousel">
+      <div class="reel-track">
+        <div class="hero-reel active" data-id="1136312126" data-hash="136b9cd3e3">
+          <div class="reel-bg" style="background:linear-gradient(160deg,#f5d0e8 0%,#c870b0 100%)"></div>
+          <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="reel-overlay">
+            <div class="reel-series">Shibuyummy</div>
+            <div class="reel-ep" data-reel-ep="wagashi">Wagashi</div>
+          </div>
+        </div>
+        <div class="hero-reel" data-id="1069061807" data-hash="34f212a71a">
+          <div class="reel-bg" style="background:linear-gradient(160deg,#fdf0b0 0%,#e0b810 100%)"></div>
+          <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="reel-overlay">
+            <div class="reel-series">Currypedia</div>
+            <div class="reel-ep" data-reel-ep="ginza">Ginza Curry</div>
+          </div>
+        </div>
+        <div class="hero-reel" data-id="1030964766" data-hash="89413e0077">
+          <div class="reel-bg" style="background:linear-gradient(160deg,#fdecc8 0%,#d8a840 100%)"></div>
+          <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="reel-overlay">
+            <div class="reel-series" data-i18n="badge_single">Single</div>
+            <div class="reel-ep" data-reel-ep="omusubi">Omusubi</div>
+          </div>
+        </div>
+      </div>
+      <div class="reel-dots">
+        <div class="reel-dot active" onclick="goReel(0)"></div>
+        <div class="reel-dot" onclick="goReel(1)"></div>
+        <div class="reel-dot" onclick="goReel(2)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="videos">
+  <div class="filter-icon-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+  </div>
+  <div class="fg">
+    <span class="fg-label" data-i18n="lbl_series">Series</span>
+    <div class="ftabs" id="seriesTabs">
+      <span class="ftab active" data-series="" onclick="selectSeries('')" data-i18n="filter_all">All</span>
+      <span class="ftab" data-series="shibuyummy" onclick="selectSeries('shibuyummy')">Shibuyummy</span>
+      <span class="ftab" data-series="currypedia" onclick="selectSeries('currypedia')">Currypedia</span>
+      <span class="ftab" data-series="single" onclick="selectSeries('single')" data-i18n="label_omusubi">Omusubi</span>
+    </div>
+  </div>
+  <div class="ep-fg" id="epGroup">
+    <span class="fg-label" data-i18n="lbl_episode">Episode</span>
+    <div class="ftabs" id="episodeTabs"></div>
+  </div>
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Search..." data-i18n-placeholder="search_placeholder">
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-line">
+  <span id="resultsPrefix" data-i18n="results_prefix">Showing </span><strong id="resultCount">20</strong><span id="resultsSuffix" data-i18n="results_suffix"> videos</span>
+</div>
+
+<!-- VIDEO GRID -->
+<section class="grid-section">
+  <div class="video-grid" id="videoGrid">
+
+    <!-- SHIBUYUMMY — Okinawan Food -->
+    <div class="video-card" data-series="shibuyummy" data-episode="okinawan" data-search="shibuyummy okinawan food 沖縄 料理" data-id="1132002664" data-hash="bba6e786f1">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#b2ede3 0%,#4ecdb4 100%)"></div>
+        <div class="card-label">Shibuyummy · Okinawan Food</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_okinawan">Okinawan Food</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="shibuyummy" data-episode="okinawan" data-search="shibuyummy okinawan food 沖縄 料理" data-id="1132002714" data-hash="346e9385b3">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#a0e8da 0%,#38c4a4 100%)"></div>
+        <div class="card-label">Shibuyummy · Okinawan Food</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_okinawan">Okinawan Food</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+
+    <!-- SHIBUYUMMY — Wagashi -->
+    <div class="video-card" data-series="shibuyummy" data-episode="wagashi" data-search="shibuyummy wagashi japanese sweets 和菓子" data-id="1136312126" data-hash="136b9cd3e3">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f5d0e8 0%,#d990c0 100%)"></div>
+        <div class="card-label">Shibuyummy · Wagashi</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_wagashi">Wagashi</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="shibuyummy" data-episode="wagashi" data-search="shibuyummy wagashi japanese sweets 和菓子" data-id="1136312382" data-hash="354cae623c">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f0c8e4 0%,#cf80b8 100%)"></div>
+        <div class="card-label">Shibuyummy · Wagashi</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_wagashi">Wagashi</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="shibuyummy" data-episode="wagashi" data-search="shibuyummy wagashi japanese sweets 和菓子" data-id="1136312805" data-hash="30b3f0bee6">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#ecc0e0 0%,#c870b0 100%)"></div>
+        <div class="card-label">Shibuyummy · Wagashi</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_wagashi">Wagashi</div>
+        <div class="card-vol">Vol. 3</div>
+      </div>
+    </div>
+
+    <!-- SHIBUYUMMY — Parfait -->
+    <div class="video-card" data-series="shibuyummy" data-episode="parfait" data-search="shibuyummy parfait dessert パフェ" data-id="1116054766" data-hash="48a5d55bb1">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fce0f4 0%,#f0a0d8 100%)"></div>
+        <div class="card-label">Shibuyummy · Parfait</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_parfait">Parfait</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="shibuyummy" data-episode="parfait" data-search="shibuyummy parfait dessert パフェ" data-id="1116054620" data-hash="be03fcd769">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fad8f0 0%,#e894cc 100%)"></div>
+        <div class="card-label">Shibuyummy · Parfait</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_parfait">Parfait</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="shibuyummy" data-episode="parfait" data-search="shibuyummy parfait dessert パフェ" data-id="1116054357" data-hash="32612f33c1">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f8d0ec 0%,#e088c4 100%)"></div>
+        <div class="card-label">Shibuyummy · Parfait</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_parfait">Parfait</div>
+        <div class="card-vol">Vol. 3</div>
+      </div>
+    </div>
+
+    <!-- CURRYPEDIA — Ginza Curry -->
+    <div class="video-card" data-series="currypedia" data-episode="ginza" data-search="currypedia ginza curry tokyo 銀座 カレー" data-id="1069061807" data-hash="34f212a71a">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fdf0b0 0%,#f0cc30 100%)"></div>
+        <div class="card-label">Currypedia · Ginza Curry</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_ginza">Ginza Curry</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="currypedia" data-episode="ginza" data-search="currypedia ginza curry tokyo 銀座 カレー" data-id="1069061889" data-hash="4cc2478588">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fbeaa0 0%,#e8c020 100%)"></div>
+        <div class="card-label">Currypedia · Ginza Curry</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_ginza">Ginza Curry</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="currypedia" data-episode="ginza" data-search="currypedia ginza curry tokyo 銀座 カレー" data-id="1068750978" data-hash="46fe6ad02c">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f9e490 0%,#e0b810 100%)"></div>
+        <div class="card-label">Currypedia · Ginza Curry</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_ginza">Ginza Curry</div>
+        <div class="card-vol">Vol. 3</div>
+      </div>
+    </div>
+
+    <!-- CURRYPEDIA — Curry Pan -->
+    <div class="video-card" data-series="currypedia" data-episode="currypan" data-search="currypedia curry pan bread カレーパン" data-id="1064213346" data-hash="a4160ac5e8">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f5d8a8 0%,#d89840 100%)"></div>
+        <div class="card-label">Currypedia · Curry Pan</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_currypan">Curry Pan</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="currypedia" data-episode="currypan" data-search="currypedia curry pan bread カレーパン" data-id="1064213449" data-hash="cc18d36ecd">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f0d0a0 0%,#cc9038 100%)"></div>
+        <div class="card-label">Currypedia · Curry Pan</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_currypan">Curry Pan</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="currypedia" data-episode="currypan" data-search="currypedia curry pan bread カレーパン" data-id="1064213395" data-hash="71a95e0cec">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#ecc898 0%,#c08830 100%)"></div>
+        <div class="card-label">Currypedia · Curry Pan</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_currypan">Curry Pan</div>
+        <div class="card-vol">Vol. 3</div>
+      </div>
+    </div>
+
+    <!-- CURRYPEDIA — Koenji Curry -->
+    <div class="video-card" data-series="currypedia" data-episode="koenji" data-search="currypedia koenji curry tokyo 高円寺 カレー" data-id="1056672097" data-hash="b42904fc1b">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fcc0a0 0%,#e86840 100%)"></div>
+        <div class="card-label">Currypedia · Koenji Curry</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_koenji">Koenji Curry</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="currypedia" data-episode="koenji" data-search="currypedia koenji curry tokyo 高円寺 カレー" data-id="1056672123" data-hash="e2093b34bd">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f8b898 0%,#e06038 100%)"></div>
+        <div class="card-label">Currypedia · Koenji Curry</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_koenji">Koenji Curry</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="currypedia" data-episode="koenji" data-search="currypedia koenji curry tokyo 高円寺 カレー" data-id="1056672055" data-hash="a690395731">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f4b090 0%,#d85830 100%)"></div>
+        <div class="card-label">Currypedia · Koenji Curry</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_koenji">Koenji Curry</div>
+        <div class="card-vol">Vol. 3</div>
+      </div>
+    </div>
+
+    <!-- SINGLE — Omusubi -->
+    <div class="video-card" data-series="single" data-episode="omusubi" data-search="omusubi rice ball onigiri おむすび おにぎり" data-id="1030964766" data-hash="89413e0077">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fdecc8 0%,#e8c060 100%)"></div>
+        <div class="card-label">Omusubi</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_omusubi">Omusubi</div>
+        <div class="card-vol">Vol. 1</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="single" data-episode="omusubi" data-search="omusubi rice ball onigiri おむすび おにぎり" data-id="1030964803" data-hash="587a005217">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#fbe8c0 0%,#e0b850 100%)"></div>
+        <div class="card-label">Omusubi</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_omusubi">Omusubi</div>
+        <div class="card-vol">Vol. 2</div>
+      </div>
+    </div>
+    <div class="video-card" data-series="single" data-episode="omusubi" data-search="omusubi rice ball onigiri おむすび おにぎり" data-id="1030964788" data-hash="d23ef73be1">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(160deg,#f8e4b8 0%,#d8b040 100%)"></div>
+        <div class="card-label">Omusubi</div>
+        <div class="play-indicator"><div class="play-triangle"></div></div>
+      </div>
+      <div class="video-card-body">
+        <div class="card-ep" data-ep-key="ep_omusubi">Omusubi</div>
+        <div class="card-vol">Vol. 3</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="no-results" id="noResults" style="display:none;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <h3 data-i18n="no_results">No videos found</h3>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="contact-section">
+  <div>
+    <div class="contact-eyebrow" data-i18n="cta_eyebrow">For Municipalities &amp; Tourism Boards</div>
+    <h2 class="contact-title" data-i18n-html="cta_title">Want content like this<br>for <em>your city?</em></h2>
+    <p class="contact-body" data-i18n="cta_body">We handle everything — filming, editing, and building the portal that showcases it. Short-form vertical video content, inbound-ready, delivered as a complete package.</p>
+    <a class="contact-link" href="https://www.tesutemo.co/municipality" target="_blank" data-i18n="cta_link">Learn more about TesuTemo →</a>
+  </div>
+  <div>
+    <div class="contact-detail">
+      <div class="contact-detail-label" data-i18n="detail_service_label">Service</div>
+      <div class="contact-detail-value" data-i18n="detail_service_val">TesuTemo — Tourism Edition</div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label" data-i18n="detail_format_label">Format</div>
+      <div class="contact-detail-value" data-i18n="detail_format_val">Vertical short-form video (9:16)</div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label" data-i18n="detail_by_label">Produced by</div>
+      <div class="contact-detail-value">move-ment</div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label" data-i18n="detail_note_label">Note</div>
+      <div class="contact-detail-value" data-i18n="detail_note_val">Kurisu Town is a fictional place, created for demonstration.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Tese<em>Temo</em></div>
+  <div class="footer-copy" data-i18n="footer_copy">A fictional town, powered by real content.</div>
+  <div class="footer-links">
+    <a href="https://www.tesutemo.co" target="_blank">tesutemo.co</a><br>
+    <a href="https://www.move-ment.co" target="_blank">move-ment.co</a>
+  </div>
+</footer>
+
+<script>
+// ── i18n ──
+let currentLang = 'en';
+
+const T = {
+  en: {
+    nav_videos: 'All Videos',
+    nav_about: 'About TesuTemo',
+    nav_cta: 'Bring this to your city',
+    hero_eyebrow: 'Tourism Content Portal · Demo',
+    hero_title: 'Kurisu Town.<br><em>More than chestnuts.</em>',
+    hero_body: 'A fictional Japanese town, powered by real flavors and real filmmaking. This portal shows what short-form inbound tourism content — and the platform to display it — can look like for your municipality.',
+    hero_credit_stats: '3 series · 7 episodes · 20 videos',
+    hero_credit_by: 'produced by move-ment',
+    scroll_label: 'Scroll to browse',
+    badge_single: 'Single',
+    label_omusubi: 'Omusubi',
+    lbl_series: 'Series',
+    lbl_episode: 'Episode',
+    filter_all: 'All',
+    search_placeholder: 'Search...',
+    results_prefix: 'Showing ',
+    results_suffix: ' videos',
+    no_results: 'No videos found',
+    ep_okinawan: 'Okinawan Food',
+    ep_wagashi: 'Wagashi',
+    ep_parfait: 'Parfait',
+    ep_ginza: 'Ginza Curry',
+    ep_currypan: 'Curry Pan',
+    ep_koenji: 'Koenji Curry',
+    ep_omusubi: 'Omusubi',
+    cta_eyebrow: 'For Municipalities & Tourism Boards',
+    cta_title: 'Want content like this<br>for <em>your city?</em>',
+    cta_body: 'We handle everything — filming, editing, and building the portal that showcases it. Short-form vertical video content, inbound-ready, delivered as a complete package.',
+    cta_link: 'Learn more about TesuTemo →',
+    detail_service_label: 'Service',
+    detail_service_val: 'TesuTemo — Tourism Edition',
+    detail_format_label: 'Format',
+    detail_format_val: 'Vertical short-form video (9:16)',
+    detail_by_label: 'Produced by',
+    detail_note_label: 'Note',
+    detail_note_val: 'Kurisu Town is a fictional place, created for demonstration.',
+    footer_copy: 'A fictional town, powered by real content.',
+  },
+  ja: {
+    nav_videos: '全動画',
+    nav_about: 'テステモについて',
+    nav_cta: 'あなたの自治体に導入する',
+    hero_eyebrow: 'インバウンド観光コンテンツ · デモポータル',
+    hero_title: '栗栖町<br><em>栗だけではない。</em>',
+    hero_body: '架空の日本の町、リアルな食と映像で描く。このポータルは、自治体向けのインバウンド観光コンテンツと、それを発信するプラットフォームがどのようなものかをお見せします。',
+    hero_credit_stats: '3シリーズ · 7エピソード · 20本',
+    hero_credit_by: 'produced by move-ment',
+    scroll_label: 'スクロールして見る',
+    badge_single: '単発',
+    label_omusubi: 'おむすび',
+    lbl_series: 'シリーズ',
+    lbl_episode: 'エピソード',
+    filter_all: '全て',
+    search_placeholder: '検索...',
+    results_prefix: '',
+    results_suffix: '本の動画を表示中',
+    no_results: '動画が見つかりません',
+    ep_okinawan: '沖縄料理',
+    ep_wagashi: '和菓子',
+    ep_parfait: 'パフェ',
+    ep_ginza: '銀座カレー',
+    ep_currypan: 'カレーパン',
+    ep_koenji: '高円寺カレー',
+    ep_omusubi: 'おむすび',
+    cta_eyebrow: '自治体・観光協会の皆様へ',
+    cta_title: 'あなたの街にも<br><em>このコンテンツを。</em>',
+    cta_body: '撮影・編集から発信ポータルの構築まで、全てお任せください。インバウンド向け縦型ショート動画を、ワンパッケージでご提供します。',
+    cta_link: 'テステモについて詳しく →',
+    detail_service_label: 'サービス',
+    detail_service_val: 'TesuTemo — 観光版',
+    detail_format_label: 'フォーマット',
+    detail_format_val: '縦型ショート動画 (9:16)',
+    detail_by_label: '制作',
+    detail_note_label: '備考',
+    detail_note_val: '栗栖町は実在しない架空の町です。',
+    footer_copy: '架空の町、リアルなコンテンツ。',
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'ja' : 'en';
+  applyLang();
+}
+
+function applyLang() {
+  const t = T[currentLang];
+  document.getElementById('langEN').classList.toggle('on', currentLang === 'en');
+  document.getElementById('langJA').classList.toggle('on', currentLang === 'ja');
+  document.documentElement.lang = currentLang;
+  document.body.style.fontFamily = currentLang === 'ja'
+    ? "'Noto Sans JP', 'Inter', sans-serif"
+    : "'Inter', sans-serif";
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  document.querySelectorAll('[data-ep-key]').forEach(el => {
+    const key = el.dataset.epKey;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-reel-ep]').forEach(el => {
+    const key = 'ep_' + el.dataset.reelEp;
+    if (t[key]) el.textContent = t[key];
+  });
+  // Re-render episode tabs in current language
+  if (activeFilters.series) renderEpisodeTabs(activeFilters.series);
+  updateResultsBar();
+}
+
+// ── CAROUSEL ──
+let reelIndex = 0;
+const reels = document.querySelectorAll('.hero-reel');
+const dots  = document.querySelectorAll('.reel-dot');
+
+function goReel(n) {
+  // Stop any playing video in the outgoing reel
+  const outgoing = reels[reelIndex];
+  const player = outgoing.querySelector('.inline-player');
+  if (player) { const f = player.querySelector('iframe'); if (f) f.src = ''; player.style.display = 'none'; }
+
+  outgoing.classList.remove('active');
+  dots[reelIndex].classList.remove('active');
+  reelIndex = n;
+  reels[reelIndex].classList.add('active');
+  dots[reelIndex].classList.add('active');
+}
+
+// ── FILTER STATE ──
+const activeFilters = { series: null, episode: null };
+let searchQuery = '';
+
+const seriesEpisodeMap = {
+  shibuyummy: [
+    { val: 'okinawan', key: 'ep_okinawan' },
+    { val: 'wagashi',  key: 'ep_wagashi'  },
+    { val: 'parfait',  key: 'ep_parfait'  },
+  ],
+  currypedia: [
+    { val: 'ginza',    key: 'ep_ginza'    },
+    { val: 'currypan', key: 'ep_currypan' },
+    { val: 'koenji',   key: 'ep_koenji'   },
+  ],
+  single: []
+};
+
+function renderEpisodeTabs(series) {
+  const t = T[currentLang];
+  const eps = seriesEpisodeMap[series] || [];
+  const container = document.getElementById('episodeTabs');
+  container.innerHTML = '';
+  eps.forEach(ep => {
+    const span = document.createElement('span');
+    span.className = 'ftab' + (activeFilters.episode === ep.val ? ' active' : '');
+    span.dataset.episode = ep.val;
+    span.textContent = t[ep.key] || ep.val;
+    span.onclick = () => selectEpisode(ep.val);
+    container.appendChild(span);
+  });
+}
+
+function selectSeries(val) {
+  activeFilters.series = val || null;
+  activeFilters.episode = null;
+
+  document.querySelectorAll('#seriesTabs .ftab').forEach(t => {
+    t.classList.toggle('active', t.dataset.series === (val || ''));
+  });
+
+  const epGroup = document.getElementById('epGroup');
+  const eps = val ? seriesEpisodeMap[val] : [];
+  if (val && eps.length > 0) {
+    renderEpisodeTabs(val);
+    epGroup.classList.add('visible');
+  } else {
+    epGroup.classList.remove('visible');
+    document.getElementById('episodeTabs').innerHTML = '';
+  }
+  applyFilters();
+}
+
+function selectEpisode(val) {
+  activeFilters.episode = activeFilters.episode === val ? null : val;
+  document.querySelectorAll('#episodeTabs .ftab').forEach(t => {
+    t.classList.toggle('active', t.dataset.episode === (activeFilters.episode || ''));
+  });
+  applyFilters();
+}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  applyFilters();
+});
+
+// ── APPLY FILTERS ──
+function applyFilters() {
+  const cards = document.querySelectorAll('.video-card');
+  let count = 0;
+  cards.forEach(card => {
+    let show = true;
+    if (activeFilters.series && card.dataset.series !== activeFilters.series) show = false;
+    if (activeFilters.episode && card.dataset.episode !== activeFilters.episode) show = false;
+    if (show && searchQuery && !(card.dataset.search || '').includes(searchQuery)) show = false;
+    card.classList.toggle('hidden', !show);
+    if (show) count++;
+  });
+  document.getElementById('resultCount').textContent = count;
+  document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
+  document.getElementById('videoGrid').style.display = count === 0 ? 'none' : 'grid';
+  updateResultsBar();
+}
+
+function updateResultsBar() {
+  const t = T[currentLang];
+  document.getElementById('resultsPrefix').textContent = t.results_prefix;
+  document.getElementById('resultsSuffix').textContent = t.results_suffix;
+}
+
+// ── INLINE VIDEO PLAYER ──
+function buildSrc(id, hash) {
+  return `https://player.vimeo.com/video/${id}?h=${hash}&autoplay=1&badge=0&autopause=0&portrait=0&title=0&byline=0`;
+}
+
+function playInline(container, id, hash) {
+  let player = container.querySelector('.inline-player');
+  if (player) {
+    player.querySelector('iframe').src = buildSrc(id, hash);
+    player.style.display = 'block';
+    return;
+  }
+  player = document.createElement('div');
+  player.className = 'inline-player';
+  player.style.cssText = 'position:absolute;inset:0;background:#000;z-index:5;';
+  const iframe = document.createElement('iframe');
+  iframe.src = buildSrc(id, hash);
+  iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+  iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+  iframe.setAttribute('allowfullscreen', '');
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '✕';
+  closeBtn.style.cssText = 'position:absolute;top:8px;right:8px;width:30px;height:30px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);border:none;color:white;cursor:pointer;font-size:13px;z-index:6;display:flex;align-items:center;justify-content:center;';
+  closeBtn.onclick = e => { e.stopPropagation(); iframe.src = ''; player.style.display = 'none'; };
+  player.appendChild(iframe);
+  player.appendChild(closeBtn);
+  container.appendChild(player);
+}
+
+document.querySelectorAll('.video-card').forEach(card => {
+  card.addEventListener('click', () =>
+    playInline(card.querySelector('.video-card-thumb'), card.dataset.id, card.dataset.hash));
+});
+document.querySelectorAll('.hero-reel').forEach(reel => {
+  reel.addEventListener('click', () => playInline(reel, reel.dataset.id, reel.dataset.hash));
+});
+
+// ── VIMEO THUMBNAILS ──
+async function loadThumbnails() {
+  const els = [
+    ...document.querySelectorAll('.video-card[data-id]'),
+    ...document.querySelectorAll('.hero-reel[data-id]')
+  ];
+  await Promise.allSettled(els.map(async el => {
+    const { id, hash } = el.dataset;
+    if (!id || !hash) return;
+    try {
+      const res = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}/${hash}&width=640`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data.thumbnail_url) return;
+      const bg = el.querySelector('.thumb-bg, .reel-bg');
+      if (!bg) return;
+      const img = new Image();
+      img.onload = () => {
+        bg.style.backgroundImage = `url(${data.thumbnail_url})`;
+        bg.style.backgroundSize = 'cover';
+        bg.style.backgroundPosition = 'center';
+      };
+      img.src = data.thumbnail_url;
+    } catch (_) {}
+  }));
+}
+
+loadThumbnails();
+</script>
+</body>
+</html>

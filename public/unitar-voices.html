@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>UNITAR Voices — Stories from Workshop Participants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f1923;
+    --ink-soft: #2a3544;
+    --paper: #f8f9fb;
+    --white: #ffffff;
+    --un-blue: #009edb;
+    --un-blue-dark: #0080b5;
+    --un-blue-pale: #e6f5fc;
+    --un-navy: #1f3c5c;
+    --warm: #f4f1ec;
+    --muted: #6e7d8e;
+    --border: #e2e6ec;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.10);
+    --radius: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: var(--un-navy);
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    padding: 6px 48px;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.04em;
+  }
+  .top-bar a { color: rgba(255,255,255,0.9); text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-left { display: flex; align-items: center; gap: 40px; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo-un {
+    background: var(--un-blue);
+    color: white;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-text {
+    font-size: 17px; font-weight: 700; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .nav-logo-text span { color: var(--un-blue); font-weight: 400; }
+
+  .nav-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.15s;
+    padding: 4px 0;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--ink);
+  }
+  .nav-links a.active {
+    border-bottom: 2px solid var(--un-blue);
+    padding-bottom: 2px;
+  }
+
+  .nav-lang {
+    font-size: 12px; font-weight: 500;
+    color: var(--muted);
+    display: flex; gap: 4px; align-items: center;
+  }
+  .nav-lang a {
+    text-decoration: none; padding: 4px 8px; border-radius: 4px;
+    color: var(--muted); transition: all 0.15s;
+  }
+  .nav-lang a.active { background: var(--un-blue-pale); color: var(--un-blue); font-weight: 600; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--un-navy) 0%, #1a3050 60%, #234060 100%);
+    padding: 80px 48px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse at 80% 50%, rgba(0,158,219,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 720px;
+    position: relative; z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    background: var(--un-blue);
+    border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.15;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--un-blue);
+  }
+
+  .hero-sub {
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+    max-width: 540px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .hero-counts {
+    display: flex; gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-count-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 600;
+    color: white; line-height: 1;
+  }
+  .hero-count-label {
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    margin-top: 6px; letter-spacing: 0.05em;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 64px;
+    z-index: 90;
+  }
+
+  .filter-group {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .filter-label {
+    font-size: 11px; font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .filter-select {
+    appearance: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 32px 8px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236e7d8e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--un-blue);
+  }
+
+  .filter-search {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--paper);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    min-width: 240px;
+    transition: border-color 0.15s;
+  }
+  .filter-search:focus-within { border-color: var(--un-blue); }
+  .filter-search svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
+  .filter-search input {
+    border: none; outline: none; background: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; color: var(--ink); width: 100%;
+  }
+
+  .filter-divider {
+    width: 1px; height: 24px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+
+  /* ── RESULTS HEADER ── */
+  .results-header {
+    padding: 28px 48px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .results-title {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+  }
+  .results-title span { color: var(--muted); font-weight: 400; }
+  .results-sort {
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .results-sort select {
+    appearance: none; border: none; background: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600; color: var(--ink);
+    cursor: pointer; padding-right: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L4 4L7 1' stroke='%230f1923' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+
+  /* ── VIDEO GRID ── */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 24px 48px 64px;
+  }
+
+  .video-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .video-card-thumb {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .video-card-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    transition: transform 0.4s;
+    background-size: cover;
+    background-position: center;
+  }
+  .video-card-bg[data-thumb] { font-size: 0; }
+  .video-card:hover .video-card-bg { transform: scale(1.06); }
+
+  .bg-blue { background: linear-gradient(135deg, #b8d8e8 0%, #7bb8d6 100%); }
+  .bg-green { background: linear-gradient(135deg, #b8d8c4 0%, #7bb89a 100%); }
+  .bg-warm { background: linear-gradient(135deg, #d8d0c4 0%, #c4b0a0 100%); }
+  .bg-purple { background: linear-gradient(135deg, #c8c0d8 0%, #a098c0 100%); }
+  .bg-teal { background: linear-gradient(135deg, #b0d8d4 0%, #78b8b0 100%); }
+  .bg-rose { background: linear-gradient(135deg, #d8c0c4 0%, #c0a0a8 100%); }
+  .bg-sky { background: linear-gradient(135deg, #c0d8e8 0%, #90b8d0 100%); }
+  .bg-sand { background: linear-gradient(135deg, #d8d4c0 0%, #c0b898 100%); }
+  .bg-mint { background: linear-gradient(135deg, #c0d8c8 0%, #98c0a8 100%); }
+
+  .video-card-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .video-card:hover .video-card-play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  .video-card-play svg { width: 18px; height: 18px; fill: var(--un-blue); margin-left: 3px; }
+
+  .video-card-duration {
+    position: absolute; bottom: 10px; right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .video-card-prog {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--un-blue);
+    color: white;
+    font-size: 10px; font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .video-card-body {
+    padding: 18px 20px 20px;
+  }
+
+  .video-card-name {
+    font-size: 16px; font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .video-card-role {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.4;
+  }
+
+  .video-card-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .video-card-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--paper);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .video-card-tag.country {
+    background: var(--un-blue-pale);
+    color: var(--un-blue-dark);
+    border-color: transparent;
+  }
+
+  /* ── FEATURED QUOTE ── */
+  .featured-quote {
+    background: var(--un-navy);
+    padding: 72px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .featured-quote-inner {
+    max-width: 640px;
+    text-align: center;
+  }
+  .featured-quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .featured-quote-attr {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── PROGRAMME HIGHLIGHTS ── */
+  .prog-section {
+    padding: 64px 48px;
+  }
+  .prog-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .prog-section-sub {
+    font-size: 15px; color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+
+  .prog-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .prog-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .prog-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--un-blue);
+  }
+
+  .prog-card-icon {
+    font-size: 32px; margin-bottom: 16px;
+  }
+  .prog-card-name {
+    font-size: 16px; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .prog-card-desc {
+    font-size: 13px; color: var(--muted);
+    line-height: 1.6; margin-bottom: 16px;
+  }
+  .prog-card-count {
+    font-size: 12px; font-weight: 600;
+    color: var(--un-blue);
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  /* ── COUNTRIES MAP-LIKE ── */
+  .countries-section {
+    padding: 0 48px 64px;
+  }
+  .countries-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .country-pill {
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .country-pill:hover {
+    background: var(--un-blue);
+    color: white;
+    border-color: var(--un-blue);
+  }
+  .country-pill .flag { font-size: 16px; }
+  .country-pill .count {
+    font-size: 11px;
+    background: var(--paper);
+    color: var(--muted);
+    padding: 1px 7px;
+    border-radius: 100px;
+    font-weight: 600;
+  }
+  .country-pill:hover .count {
+    background: rgba(255,255,255,0.2);
+    color: white;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand {
+    font-size: 18px; font-weight: 700; color: white;
+    margin-bottom: 8px;
+  }
+  .footer-brand span { color: var(--un-blue); font-weight: 400; }
+  .footer-desc { font-size: 13px; line-height: 1.6; }
+  .footer-col-title {
+    font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.6);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 8px; }
+  .footer-links a {
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .footer-links a:hover { color: white; }
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px;
+    display: flex; justify-content: space-between;
+    font-size: 12px;
+  }
+  .footer-bottom a { color: var(--un-blue); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge { animation: fadeUp 0.5s ease both; }
+  .hero h1 { animation: fadeUp 0.5s ease 0.1s both; }
+  .hero-sub { animation: fadeUp 0.5s ease 0.2s both; }
+  .hero-counts { animation: fadeUp 0.5s ease 0.3s both; }
+
+  .video-card { animation: fadeUp 0.4s ease both; }
+  .video-card:nth-child(2) { animation-delay: 0.05s; }
+  .video-card:nth-child(3) { animation-delay: 0.1s; }
+  .video-card:nth-child(4) { animation-delay: 0.15s; }
+  .video-card:nth-child(5) { animation-delay: 0.2s; }
+  .video-card:nth-child(6) { animation-delay: 0.25s; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .top-bar { display: none; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 48px 20px; }
+    .filter-bar { padding: 16px 20px; flex-direction: column; align-items: stretch; }
+    .filter-search { min-width: 0; margin-left: 0; }
+    .filter-divider { display: none; }
+    .video-grid { padding: 20px; grid-template-columns: 1fr; }
+    .results-header { padding: 20px 20px 0; }
+    .prog-section { padding: 40px 20px; }
+    .countries-section { padding: 0 20px 40px; }
+    .featured-quote { padding: 48px 20px; }
+    footer { padding: 32px 20px; grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="authScreen" style="position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1f3c5c 0%,#1a3050 60%,#234060 100%);display:flex;align-items:center;justify-content:center;">
+  <div style="text-align:center;max-width:380px;padding:24px;">
+    <div style="background:#009edb;color:white;font-weight:700;font-size:13px;padding:8px 12px;border-radius:6px;display:inline-block;margin-bottom:24px;letter-spacing:0.05em;">UNITAR</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:white;margin-bottom:8px;">UNITAR Voices</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:32px;">This portal is password protected.<br>Enter the password to continue.</p>
+    <form id="authForm" style="display:flex;gap:10px;" onsubmit="return checkPass()">
+      <input id="passInput" type="password" placeholder="Enter password" style="flex:1;padding:12px 16px;border-radius:6px;border:1.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:white;font-family:'Inter',sans-serif;font-size:14px;outline:none;" autofocus>
+      <button type="submit" style="padding:12px 24px;background:#009edb;color:white;border:none;border-radius:6px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Enter</button>
+    </form>
+    <div id="authError" style="color:#ff6b6b;font-size:13px;margin-top:12px;display:none;">Incorrect password. Please try again.</div>
+  </div>
+</div>
+<script>
+function checkPass(){
+  if(document.getElementById('passInput').value==='unitar2026'){
+    document.getElementById('authScreen').style.display='none';
+  } else {
+    document.getElementById('authError').style.display='block';
+    document.getElementById('passInput').value='';
+    document.getElementById('passInput').focus();
+  }
+  return false;
+}
+</script>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <span>United Nations Institute for Training and Research — Hiroshima Office</span>
+  <a href="#">unitar.org/hiroshima ↗</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="#">
+      <span class="nav-logo-un">UNITAR</span>
+      <span class="nav-logo-text">Voices <span>Hiroshima</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">All Stories</a></li>
+      <li><a href="#">Programmes</a></li>
+      <li><a href="#">Countries</a></li>
+      <li><a href="#">Themes</a></li>
+    </ul>
+  </div>
+  <div class="nav-lang">
+    <a href="#" class="active">EN</a>
+    <a href="#">日本語</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Real Stories from Real Participants
+    </div>
+    <h1>The people behind<br>UNITAR's <em>impact</em></h1>
+    <p class="hero-sub">
+      Workshop participants, fellows, and programme alumni share how their
+      experience in Hiroshima transformed their careers, communities,
+      and perspectives — in their own words.
+    </p>
+    <div class="hero-counts">
+      <div>
+        <div class="hero-count-num">40+</div>
+        <div class="hero-count-label">Video interviews</div>
+      </div>
+      <div>
+        <div class="hero-count-num">28</div>
+        <div class="hero-count-label">Countries represented</div>
+      </div>
+      <div>
+        <div class="hero-count-num">6</div>
+        <div class="hero-count-label">Programme areas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-group">
+    <span class="filter-label">Programme</span>
+    <select class="filter-select" id="filterProgramme">
+      <option value="">All Programmes</option>
+      <option value="leadership">Leadership & Inclusion</option>
+      <option value="peace">Hiroshima & Peace</option>
+      <option value="entrepreneurship">Entrepreneurship</option>
+      <option value="capacity">Capacity Building</option>
+      <option value="digital">Digital Learning</option>
+      <option value="anticorruption">Anti-Corruption</option>
+    </select>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">Country</span>
+    <select class="filter-select" id="filterCountry">
+      <option value="">All Countries</option>
+      <option value="japan">Japan</option>
+      <option value="philippines">Philippines</option>
+      <option value="kenya">Kenya</option>
+      <option value="senegal">Senegal</option>
+      <option value="colombia">Colombia</option>
+      <option value="india">India</option>
+      <option value="jordan">Jordan</option>
+      <option value="nigeria">Nigeria</option>
+      <option value="vietnam">Vietnam</option>
+      <option value="ukraine">Ukraine</option>
+      <option value="taiwan">Taiwan</option>
+    </select>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">Theme</span>
+    <select class="filter-select" id="filterTheme">
+      <option value="">All Themes</option>
+      <option value="leadership">Leadership</option>
+      <option value="peace">Peace & Disarmament</option>
+      <option value="career">Career Impact</option>
+      <option value="cross-cultural">Cross-Cultural</option>
+      <option value="community">Community Building</option>
+      <option value="innovation">Innovation</option>
+    </select>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">Year</span>
+    <select class="filter-select" id="filterYear">
+      <option value="">All Years</option>
+      <option value="2025">2025</option>
+      <option value="2024">2024</option>
+      <option value="2023">2023</option>
+      <option value="2022">2022</option>
+    </select>
+  </div>
+  <div class="filter-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/>
+    </svg>
+    <input type="text" placeholder="Search by name or keyword...">
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-header">
+  <div class="results-title">Showing 12 stories <span>from all programmes</span></div>
+  <div class="results-sort">
+    Sort by
+    <select>
+      <option>Most Recent</option>
+      <option>Programme</option>
+      <option>Country A-Z</option>
+    </select>
+  </div>
+</div>
+
+<!-- VIDEO GRID -->
+<section class="video-grid" id="videoGrid">
+
+  <!-- Each card has data attributes for filtering + data-video for the YouTube/Vimeo embed -->
+  <div class="video-card"
+       data-programme="leadership"
+       data-country="senegal"
+       data-theme="leadership"
+       data-year="2024"
+       data-name="Amara Diallo"
+       data-video="youtube:bRmi4c0q2Aw">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/bRmi4c0q2Aw/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">4:32</div>
+      <div class="video-card-prog">Leadership & Inclusion</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Amara Diallo</div>
+      <div class="video-card-role">2024 Fellow · Leadership & Inclusion Programme</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Senegal</span>
+        <span class="video-card-tag">Youth Leadership</span>
+        <span class="video-card-tag">SDGs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="peace"
+       data-country="japan"
+       data-theme="peace"
+       data-year="2024"
+       data-name="Yuki Tanaka"
+       data-video="youtube:OO6l7kSxFas">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/OO6l7kSxFas/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">5:18</div>
+      <div class="video-card-prog">Hiroshima & Peace</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Yuki Tanaka</div>
+      <div class="video-card-role">Workshop Participant · Peace Education Programme</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Japan</span>
+        <span class="video-card-tag">Peace</span>
+        <span class="video-card-tag">Education</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="entrepreneurship"
+       data-country="philippines"
+       data-theme="innovation"
+       data-year="2023"
+       data-name="Maria Santos"
+       data-video="youtube:bRmi4c0q2Aw">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/bRmi4c0q2Aw/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">3:47</div>
+      <div class="video-card-prog">Entrepreneurship</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Maria Santos</div>
+      <div class="video-card-role">Programme Alumni · Social Enterprise Track</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Philippines</span>
+        <span class="video-card-tag">Innovation</span>
+        <span class="video-card-tag">Social Impact</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="leadership"
+       data-country="taiwan"
+       data-theme="leadership"
+       data-year="2023"
+       data-name="Mei Lin Chen"
+       data-video="youtube:OO6l7kSxFas">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/OO6l7kSxFas/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">6:05</div>
+      <div class="video-card-prog">Leadership & Inclusion</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Mei Lin Chen</div>
+      <div class="video-card-role">2023 Fellow · Gender Equality Initiative</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Taiwan</span>
+        <span class="video-card-tag">Gender Equality</span>
+        <span class="video-card-tag">Leadership</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="entrepreneurship"
+       data-country="kenya"
+       data-theme="innovation"
+       data-year="2024"
+       data-name="James Mwangi"
+       data-video="youtube:bRmi4c0q2Aw">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/bRmi4c0q2Aw/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">4:15</div>
+      <div class="video-card-prog">Entrepreneurship</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">James Mwangi</div>
+      <div class="video-card-role">Participant · CIFAL Business Development</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Kenya</span>
+        <span class="video-card-tag">Business</span>
+        <span class="video-card-tag">Sustainability</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="leadership"
+       data-country="colombia"
+       data-theme="career"
+       data-year="2022"
+       data-name="Carlos Rivera"
+       data-video="youtube:OO6l7kSxFas">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/OO6l7kSxFas/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">5:52</div>
+      <div class="video-card-prog">Leadership & Inclusion</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Carlos Rivera</div>
+      <div class="video-card-role">Alumni · Community Leadership Programme</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Colombia</span>
+        <span class="video-card-tag">Community</span>
+        <span class="video-card-tag">Career</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="peace"
+       data-country="ukraine"
+       data-theme="peace"
+       data-year="2024"
+       data-name="Elena Petrov"
+       data-video="youtube:bRmi4c0q2Aw">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/bRmi4c0q2Aw/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">7:20</div>
+      <div class="video-card-prog">Hiroshima & Peace</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Elena Petrov</div>
+      <div class="video-card-role">Fellow · Post-Conflict Recovery Studies</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Ukraine</span>
+        <span class="video-card-tag">Reconciliation</span>
+        <span class="video-card-tag">Peace</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="capacity"
+       data-country="jordan"
+       data-theme="cross-cultural"
+       data-year="2023"
+       data-name="Fatima Al-Rashid"
+       data-video="youtube:OO6l7kSxFas">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/OO6l7kSxFas/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">4:48</div>
+      <div class="video-card-prog">Capacity Building</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Fatima Al-Rashid</div>
+      <div class="video-card-role">Participant · Shimanami Collective Programme</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Jordan</span>
+        <span class="video-card-tag">Capacity Building</span>
+        <span class="video-card-tag">Cross-Cultural</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-card"
+       data-programme="peace"
+       data-country="vietnam"
+       data-theme="peace"
+       data-year="2024"
+       data-name="Anh Nguyen"
+       data-video="youtube:bRmi4c0q2Aw">
+    <div class="video-card-thumb">
+      <div class="video-card-bg" data-thumb style="background-image:url('https://img.youtube.com/vi/bRmi4c0q2Aw/hqdefault.jpg')"></div>
+      <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <div class="video-card-duration">3:55</div>
+      <div class="video-card-prog">Hiroshima & Peace</div>
+    </div>
+    <div class="video-card-body">
+      <div class="video-card-name">Anh Nguyen</div>
+      <div class="video-card-role">Workshop Participant · Nuclear Disarmament</div>
+      <div class="video-card-tags">
+        <span class="video-card-tag country">Vietnam</span>
+        <span class="video-card-tag">Disarmament</span>
+        <span class="video-card-tag">Youth</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- NO RESULTS MESSAGE -->
+<div id="noResults" style="display:none; text-align:center; padding:64px 48px; color:var(--muted);">
+  <div style="font-size:48px; margin-bottom:16px;">🔍</div>
+  <div style="font-size:18px; font-weight:600; color:var(--ink); margin-bottom:8px;">No stories found</div>
+  <div style="font-size:14px;">Try adjusting your filters or search terms.</div>
+</div>
+
+<!-- VIDEO LIGHTBOX MODAL -->
+<div id="videoModal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.85); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+  <div style="position:relative; width:90%; max-width:900px; aspect-ratio:16/9; background:#000; border-radius:12px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <iframe id="videoFrame" src="" style="width:100%; height:100%; border:none;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <button id="modalClose" style="position:absolute; top:-44px; right:0; background:none; border:none; color:white; font-size:28px; cursor:pointer; padding:8px; line-height:1; opacity:0.7; transition:opacity 0.15s;">✕</button>
+  </div>
+  <div id="modalInfo" style="position:absolute; bottom:32px; left:50%; transform:translateX(-50%); text-align:center; color:white;">
+    <div id="modalName" style="font-size:18px; font-weight:700; margin-bottom:4px;"></div>
+    <div id="modalRole" style="font-size:14px; color:rgba(255,255,255,0.6);"></div>
+  </div>
+</div>
+
+<!-- PROGRAMMES -->
+<section class="prog-section">
+  <div class="prog-section-title">Explore by Programme</div>
+  <div class="prog-section-sub">Each UNITAR Hiroshima programme has its own collection of participant stories.</div>
+  <div class="prog-cards">
+    <div class="prog-card">
+      <div class="prog-card-icon">🤝</div>
+      <div class="prog-card-name">Leadership & Inclusion</div>
+      <div class="prog-card-desc">L.E.A.D.#Future fellows and participants share their leadership journeys.</div>
+      <div class="prog-card-count">▶ 14 stories</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-card-icon">🕊️</div>
+      <div class="prog-card-name">Hiroshima & Peace</div>
+      <div class="prog-card-desc">Reflections on peace education, nuclear disarmament, and post-conflict recovery.</div>
+      <div class="prog-card-count">▶ 11 stories</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-card-icon">💡</div>
+      <div class="prog-card-name">Entrepreneurship</div>
+      <div class="prog-card-desc">Social entrepreneurs and innovators who turned training into real ventures.</div>
+      <div class="prog-card-count">▶ 8 stories</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-card-icon">🏗️</div>
+      <div class="prog-card-name">Capacity Building</div>
+      <div class="prog-card-desc">Shimanami Collective participants building community resilience worldwide.</div>
+      <div class="prog-card-count">▶ 5 stories</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-card-icon">💻</div>
+      <div class="prog-card-name">Digital Learning</div>
+      <div class="prog-card-desc">EDUCATE ALL participants on bridging the digital divide in their communities.</div>
+      <div class="prog-card-count">▶ 4 stories</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-card-icon">⚖️</div>
+      <div class="prog-card-name">Anti-Corruption</div>
+      <div class="prog-card-desc">Practitioners combating corruption and building transparent governance.</div>
+      <div class="prog-card-count">▶ 3 stories</div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTRIES -->
+<section class="countries-section">
+  <div style="margin-bottom: 28px;">
+    <div class="prog-section-title">Voices from Around the World</div>
+    <div class="prog-section-sub">Filter by participant country to find stories from your region.</div>
+  </div>
+  <div class="countries-grid">
+    <a class="country-pill" href="#"><span class="flag">🇯🇵</span> Japan <span class="count">8</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇸🇳</span> Senegal <span class="count">3</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇵🇭</span> Philippines <span class="count">4</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇰🇪</span> Kenya <span class="count">3</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇨🇴</span> Colombia <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇮🇳</span> India <span class="count">3</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇯🇴</span> Jordan <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇳🇬</span> Nigeria <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇻🇳</span> Vietnam <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇺🇦</span> Ukraine <span class="count">1</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇹🇼</span> Taiwan <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇧🇩</span> Bangladesh <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇬🇭</span> Ghana <span class="count">1</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇲🇲</span> Myanmar <span class="count">1</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇵🇰</span> Pakistan <span class="count">1</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇹🇭</span> Thailand <span class="count">2</span></a>
+    <a class="country-pill" href="#"><span class="flag">🇪🇹</span> Ethiopia <span class="count">1</span></a>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="featured-quote">
+  <div class="featured-quote-inner">
+    <div class="featured-quote-text">
+      "Coming to Hiroshima changed everything for me. The training gave me tools, but the city gave me purpose."
+    </div>
+    <div class="featured-quote-attr">— 2024 Leadership & Inclusion Fellow</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">UNITAR <span>Voices</span></div>
+    <div class="footer-desc">Real stories from workshop participants, fellows, and alumni of UNITAR Hiroshima programmes.</div>
+  </div>
+  <div>
+    <div class="footer-col-title">Programmes</div>
+    <ul class="footer-links">
+      <li><a href="#">Leadership & Inclusion</a></li>
+      <li><a href="#">Hiroshima & Peace</a></li>
+      <li><a href="#">Entrepreneurship</a></li>
+      <li><a href="#">Capacity Building</a></li>
+      <li><a href="#">Digital Learning</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Connect</div>
+    <ul class="footer-links">
+      <li><a href="#">UNITAR Hiroshima Office ↗</a></li>
+      <li><a href="#">unitar.org ↗</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 UNITAR Hiroshima Office. All rights reserved.</span>
+    <span>Video production by <a href="#">TesuTemo</a></span>
+  </div>
+</footer>
+
+<script>
+(function() {
+  // ── GET ELEMENTS BY ID ──
+  var grid = document.getElementById('videoGrid');
+  var cards = [];
+  var els = grid.getElementsByClassName('video-card');
+  for (var i = 0; i < els.length; i++) cards.push(els[i]);
+
+  var noResults = document.getElementById('noResults');
+  var resultsTitle = document.querySelector('.results-title');
+
+  var fProg = document.getElementById('filterProgramme');
+  var fCountry = document.getElementById('filterCountry');
+  var fTheme = document.getElementById('filterTheme');
+  var fYear = document.getElementById('filterYear');
+  var fSearch = document.querySelector('.filter-search input');
+
+  // ── FILTER LOGIC ──
+  function applyFilters() {
+    var prog = fProg.value;
+    var country = fCountry.value;
+    var theme = fTheme.value;
+    var year = fYear.value;
+    var search = fSearch.value.toLowerCase().trim();
+    var visible = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var show = true;
+
+      if (prog && card.getAttribute('data-programme') !== prog) show = false;
+      if (country && card.getAttribute('data-country') !== country) show = false;
+      if (theme && card.getAttribute('data-theme') !== theme) show = false;
+      if (year && card.getAttribute('data-year') !== year) show = false;
+
+      if (search && show) {
+        var text = card.textContent.toLowerCase();
+        if (text.indexOf(search) === -1) show = false;
+      }
+
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }
+
+    var desc = (prog || country || theme || year || search)
+      ? 'matching your filters' : 'from all programmes';
+    resultsTitle.innerHTML = 'Showing ' + visible + ' ' + (visible === 1 ? 'story' : 'stories') + ' <span>' + desc + '</span>';
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // ── ATTACH LISTENERS ──
+  fProg.addEventListener('change', applyFilters);
+  fCountry.addEventListener('change', applyFilters);
+  fTheme.addEventListener('change', applyFilters);
+  fYear.addEventListener('change', applyFilters);
+
+  var timer;
+  fSearch.addEventListener('input', function() {
+    clearTimeout(timer);
+    timer = setTimeout(applyFilters, 200);
+  });
+
+  // ── COUNTRY PILLS ──
+  var pills = document.querySelectorAll('.country-pill');
+  for (var i = 0; i < pills.length; i++) {
+    pills[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      // Extract country name: skip flag emoji and count span
+      var parts = this.textContent.trim().replace(/\s+/g, ' ').split(' ');
+      // parts = ["🇯🇵", "Japan", "8"] — country name is index 1
+      var name = parts.slice(1, parts.length - 1).join(' ').toLowerCase();
+      // Find matching option
+      for (var j = 0; j < fCountry.options.length; j++) {
+        if (fCountry.options[j].value === name) {
+          fCountry.value = name;
+          break;
+        }
+      }
+      applyFilters();
+      document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // ── PROGRAMME CARDS ──
+  var progMap = {
+    'Leadership & Inclusion': 'leadership',
+    'Hiroshima & Peace': 'peace',
+    'Entrepreneurship': 'entrepreneurship',
+    'Capacity Building': 'capacity',
+    'Digital Learning': 'digital',
+    'Anti-Corruption': 'anticorruption'
+  };
+  var progCards = document.querySelectorAll('.prog-card');
+  for (var i = 0; i < progCards.length; i++) {
+    progCards[i].addEventListener('click', function() {
+      var name = this.querySelector('.prog-card-name').textContent.trim();
+      var val = progMap[name] || '';
+      if (val) fProg.value = val;
+      applyFilters();
+      document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // ── VIDEO LIGHTBOX ──
+  var modal = document.getElementById('videoModal');
+  var frame = document.getElementById('videoFrame');
+  var modalClose = document.getElementById('modalClose');
+  var modalName = document.getElementById('modalName');
+  var modalRole = document.getElementById('modalRole');
+
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', function() {
+      var videoData = this.getAttribute('data-video');
+      if (!videoData) return;
+
+      var parts = videoData.split(':');
+      var platform = parts[0];
+      var id = parts[1];
+      var src = '';
+
+      if (platform === 'youtube') {
+        src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+      } else if (platform === 'vimeo') {
+        src = 'https://player.vimeo.com/video/' + id + '?autoplay=1';
+      }
+
+      frame.src = src;
+      modalName.textContent = this.querySelector('.video-card-name').textContent;
+      modalRole.textContent = this.querySelector('.video-card-role').textContent;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    frame.src = '';
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Debug: confirm script loaded
+  console.log('UNITAR Voices: filters ready, ' + cards.length + ' cards found');
+})();
+</script>
+
+</body>
+</html>

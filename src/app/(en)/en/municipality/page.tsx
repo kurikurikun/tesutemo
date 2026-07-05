@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Interview videos of past migrants that resonate with potential relocators, delivering the real appeal of your region. An affordable migration promotion video service for local governments.',
   alternates: {
     canonical: 'https://www.tesutemo.co/en/municipality',
-    languages: { ja: 'https://www.tesutemo.co/municipality' },
+    languages: { ja: 'https://www.tesutemo.co/municipality', 'x-default': 'https://www.tesutemo.co/municipality' },
   },
 };
 
@@ -19,6 +19,7 @@ export default function MunicipalityPage() {
     <SubpageLayout
       locale="en"
       currentPath="/en/municipality"
+      defaultUseCase="municipality"
       heroTitle={<>Attract more of the relocators you want with <span className="text-primary">real migrant voices.</span></>}
       heroSubtitle={
         <>
@@ -62,8 +63,6 @@ export default function MunicipalityPage() {
         v('1013400453', '89cb5fd807'),
         v('1050617850', '2e4031d8bd'),
       ]}
-      companyLabel="Municipality"
-      companyPlaceholder="City/Town name"
     >
       {/* How TesuTemo transforms your promotion efforts */}
       <section className="py-20 bg-gray-50">

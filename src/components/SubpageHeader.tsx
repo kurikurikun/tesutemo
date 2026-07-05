@@ -20,10 +20,10 @@ export default function SubpageHeader({ locale = 'ja', currentPath = '/' }: Subp
           TesuTemo
         </Link>
         <div className="flex items-center gap-6">
-          <a href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-white/30 bg-white/10 p-0.5 text-xs font-semibold">
+          <Link href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-white/30 bg-white/10 p-0.5 text-xs font-semibold">
             <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-white/60 hover:text-white'}`}>EN</span>
             <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-white/60 hover:text-white'}`}>JP</span>
-          </a>
+          </Link>
           <a
             href="#contact"
             className="px-6 py-2.5 bg-primary text-white rounded-xl font-medium hover:bg-[#c74320] transition-all duration-300"

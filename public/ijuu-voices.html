@@ -120,7 +120,6 @@
   .hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 88vh;
     margin-top: 68px;
   }
 
@@ -136,7 +135,6 @@
     margin-bottom: 20px;
     font-family: 'Inter', sans-serif;
   }
-
   .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: 40px;
@@ -145,11 +143,6 @@
     color: var(--ink);
     margin-bottom: 24px;
   }
-  .hero-title em {
-    font-style: italic;
-    color: var(--primary);
-  }
-
   .hero-body {
     font-size: 15px;
     color: var(--muted);
@@ -157,7 +150,6 @@
     max-width: 480px;
     margin-bottom: 36px;
   }
-
   .hero-actions {
     display: flex; gap: 16px; align-items: center;
     margin-bottom: 48px;
@@ -182,10 +174,7 @@
     transition: all 0.2s;
   }
   .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
-
-  .hero-stats {
-    display: flex; gap: 48px;
-  }
+  .hero-stats { display: flex; gap: 48px; }
   .stat-item { text-align: left; }
   .stat-num {
     font-family: 'Playfair Display', serif;
@@ -201,45 +190,28 @@
 
   .hero-right {
     position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 4px;
-    background: var(--border);
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    align-self: center;
   }
-
   .hero-thumb {
     position: relative; overflow: hidden; cursor: pointer;
-  }
-  .hero-thumb.featured {
-    grid-column: 1 / -1;
-  }
-
-  .thumb-bg-1 { background: linear-gradient(135deg, #c8d8c4 0%, #90b890 100%); }
-  .thumb-bg-2 { background: linear-gradient(135deg, #d8e8d0 0%, #a8c8a0 100%); }
-  .thumb-bg-3 { background: linear-gradient(135deg, #e8d8c8 0%, #c8a888 100%); }
-
-  .thumb-placeholder {
     width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 52px;
-    transition: transform 0.3s;
+    background-size: cover;
+    background-position: center;
   }
-  .hero-thumb:hover .thumb-placeholder { transform: scale(1.05); }
-
   .play-badge {
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 48px; height: 48px;
-    background: rgba(255,255,255,0.9);
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,0.92);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.25s;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
   .hero-thumb:hover .play-badge { opacity: 1; }
-  .play-badge svg { width: 16px; height: 16px; fill: var(--primary); margin-left: 3px; }
-
+  .play-badge svg { width: 18px; height: 18px; fill: var(--primary); margin-left: 3px; }
   .hero-thumb-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
     padding: 16px;
@@ -472,6 +444,90 @@
     color: var(--accent);
   }
 
+  /* ── VERTICAL STRIP ── */
+  .vertical-strip-section {
+    padding: 60px 72px;
+    background: var(--light);
+    border-top: 1px solid var(--border);
+  }
+  .vertical-strip-header {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 28px;
+  }
+  .vertical-strip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--ink);
+  }
+  .vertical-strip-sub {
+    font-size: 13px; color: var(--muted);
+  }
+  .vertical-strip-badge {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    padding: 3px 9px; border-radius: 100px;
+    background: var(--primary-light); color: var(--primary);
+    font-family: 'Inter', sans-serif;
+    margin-left: 8px;
+  }
+  .vertical-strip {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .vertical-strip::-webkit-scrollbar { height: 4px; }
+  .vertical-strip::-webkit-scrollbar-track { background: transparent; }
+  .vertical-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .vertical-card {
+    flex: 0 0 160px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .vertical-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-2px); }
+  .vertical-card-thumb {
+    position: relative;
+    aspect-ratio: 9/16;
+    overflow: hidden;
+  }
+  .vertical-card-thumb .thumb-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .vertical-card-thumb .thumb-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .vertical-card-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .vertical-card:hover .vertical-card-play { opacity: 1; }
+  .vertical-card-play svg { width: 12px; height: 12px; fill: var(--primary); margin-left: 2px; }
+  .vertical-card-body {
+    padding: 10px 12px 12px;
+  }
+  .vertical-card-name {
+    font-size: 11px; font-weight: 600; color: var(--ink);
+    margin-bottom: 3px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .vertical-card-meta {
+    font-size: 10px; color: var(--muted); line-height: 1.4;
+  }
+
   /* ── REGION SECTION ── */
   .region-section {
     padding: 0 72px 60px;
@@ -502,7 +558,7 @@
     background: white;
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 28px;
+    padding: 0;
     cursor: pointer;
     transition: all 0.2s;
     position: relative;
@@ -517,11 +573,23 @@
     transform-origin: left;
     transition: transform 0.3s;
   }
-  .region-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .region-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-2px); }
   .region-card:hover::after { transform: scaleX(1); }
-  .region-card.has-videos { border-left: 3px solid var(--primary); }
+  .region-card.has-videos { border-top: 3px solid var(--primary); }
 
-  .region-icon { font-size: 32px; margin-bottom: 14px; }
+  .region-photo {
+    height: 148px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .region-photo-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, rgba(26,26,46,0.45) 100%);
+  }
+  .region-card-body {
+    padding: 20px 24px 22px;
+  }
   .region-name {
     font-family: 'Playfair Display', serif;
     font-size: 17px; font-weight: 700;
@@ -574,12 +642,12 @@
   .featured-quote-text {
     font-family: 'Playfair Display', serif;
     font-size: 22px;
-    font-style: italic;
     color: white;
     line-height: 1.65;
     max-width: 700px;
     margin: 0 auto 24px;
   }
+  .lang-en .featured-quote-text { font-style: italic; }
   .featured-quote-attr {
     font-size: 13px;
     color: rgba(255,255,255,0.45);
@@ -695,9 +763,9 @@
   @media (max-width: 900px) {
     nav { padding: 14px 24px; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero { grid-template-columns: 1fr; }
     .hero-left { padding: 48px 24px; }
-    .hero-right { height: 50vh; }
+    .hero-right { aspect-ratio: 16/9; }
     .search-section { padding: 48px 24px 32px; }
     .grid-section { padding: 40px 24px 60px; }
     .video-grid { grid-template-columns: repeat(2, 1fr); }
@@ -726,7 +794,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#regions" data-i18n="nav_region">地域別</a></li>
-    <li><a href="#themes" data-i18n="nav_theme">テーマ別</a></li>
+    <li><a href="#themes" data-i18n="nav_theme">仕事別</a></li>
     <li><a href="#videos" data-i18n="nav_voices">すべての声</a></li>
     <li><a href="https://www.tesutemo.co/municipality" target="_blank" id="navAbout" data-i18n="nav_about">テステモについて</a></li>
   </ul>
@@ -743,7 +811,7 @@
   <div class="hero-left">
     <div class="hero-eyebrow" data-i18n="hero_eyebrow">リアルな移住者 · リアルな声 · リアルなインパクト</div>
     <h1 class="hero-title" data-i18n-html="hero_title">
-      地方を選んだ人の<br>声が、次の移住を<br><em>決める。</em>
+      地方を選んだ人の<br>声が、<span style="color:var(--primary)">次の移住を<br>決める。</span>
     </h1>
     <p class="hero-body" data-i18n="hero_body">
       移住を検討している人は、パンフレットより先輩移住者の声を信じます。移住 Voices は、実際に移住した人のリアルな声を、次の移住希望者に直接届けるプラットフォームです。
@@ -770,39 +838,15 @@
       </div>
     </div>
   </div>
-
   <div class="hero-right">
-    <div class="hero-thumb featured" style="background:url('https://vumbnail.com/1010426949.jpg') center/cover; background-color:#c8d8c4;" onclick="openHeroVideo('https://player.vimeo.com/video/1010426949?h=34d0ad59fb&badge=0&autopause=0&player_id=0&app_id=58479')">
-      <div class="thumb-placeholder" style="opacity:0"></div>
+    <div class="hero-thumb" style="background:url('ijyu_thumbs/430839385f.jpg') center/cover; background-color:#d8e8d0;" onclick="openHeroVideo('https://player.vimeo.com/video/1010822965?h=430839385f&badge=0&autopause=0&player_id=0&app_id=58479')">
       <div class="play-badge">
         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
       </div>
       <div class="hero-thumb-overlay">
         <div class="thumb-prog">テステモ移住促進動画</div>
         <div class="thumb-name">移住者インタビュー</div>
-        <div class="thumb-role">横型 90〜120秒 · 自治体向けサンプル</div>
-      </div>
-    </div>
-    <div class="hero-thumb" style="background:url('https://vumbnail.com/1010823028.jpg') center/cover; background-color:#d8e8d0;" onclick="openHeroVideo('https://player.vimeo.com/video/1010823028?h=680857e13b&badge=0&autopause=0&player_id=0&app_id=58479')">
-      <div class="thumb-placeholder" style="opacity:0"></div>
-      <div class="play-badge">
-        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      </div>
-      <div class="hero-thumb-overlay">
-        <div class="thumb-prog">テステモ移住促進動画</div>
-        <div class="thumb-name">移住者インタビュー</div>
-        <div class="thumb-role">横型 · 農業・ライフスタイル</div>
-      </div>
-    </div>
-    <div class="hero-thumb" style="background:url('https://vumbnail.com/1015054920.jpg') center/cover; background-color:#e8d8c8;" onclick="openHeroVideo('https://player.vimeo.com/video/1015054920?h=aa8a72196a&badge=0&autopause=0&player_id=0&app_id=58479')">
-      <div class="thumb-placeholder" style="opacity:0"></div>
-      <div class="play-badge">
-        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      </div>
-      <div class="hero-thumb-overlay">
-        <div class="thumb-prog">テステモ移住促進動画</div>
-        <div class="thumb-name">移住者インタビュー（縦型）</div>
-        <div class="thumb-role">縦型 30〜60秒 · SNS向けサンプル</div>
+        <div class="thumb-role">高知県大月町 · 農業 · 横型</div>
       </div>
     </div>
   </div>
@@ -828,14 +872,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="filter-dropdown-menu" id="dropdown-region">
-        <div class="filter-dropdown-item" data-value="hokkaido" onclick="selectFilter('region','hokkaido','北海道')"><span class="check">✓</span> 北海道</div>
+        <div class="filter-dropdown-item" data-value="chubu" onclick="selectFilter('region','chubu','中部')"><span class="check">✓</span> 中部（静岡・長野・新潟・山梨・愛知・岐阜ほか）</div>
+        <div class="filter-dropdown-item" data-value="kyushu" onclick="selectFilter('region','kyushu','九州・沖縄')"><span class="check">✓</span> 九州・沖縄（福岡・宮崎・熊本・鹿児島・沖縄ほか）</div>
         <div class="filter-dropdown-item" data-value="tohoku" onclick="selectFilter('region','tohoku','東北')"><span class="check">✓</span> 東北（青森・岩手・宮城・秋田・山形・福島）</div>
-        <div class="filter-dropdown-item" data-value="koshinetsu" onclick="selectFilter('region','koshinetsu','信越・甲信')"><span class="check">✓</span> 信越・甲信（長野・新潟・山梨）</div>
-        <div class="filter-dropdown-item" data-value="sanin" onclick="selectFilter('region','sanin','山陰')"><span class="check">✓</span> 山陰（島根・鳥取）</div>
         <div class="filter-dropdown-item" data-value="shikoku" onclick="selectFilter('region','shikoku','四国')"><span class="check">✓</span> 四国（高知・徳島・愛媛・香川）</div>
-        <div class="filter-dropdown-item" data-value="kyushu" onclick="selectFilter('region','kyushu','九州')"><span class="check">✓</span> 九州（宮崎・大分・熊本・佐賀・長崎）</div>
-        <div class="filter-dropdown-item" data-value="okinawa" onclick="selectFilter('region','okinawa','沖縄')"><span class="check">✓</span> 沖縄</div>
-        <div class="filter-dropdown-item" data-value="chugoku" onclick="selectFilter('region','chugoku','中国山地')"><span class="check">✓</span> 中国山地（広島・山口・岡山）</div>
+        <div class="filter-dropdown-item" data-value="chugoku" onclick="selectFilter('region','chugoku','中国')"><span class="check">✓</span> 中国（広島・山口・岡山・島根・鳥取）</div>
+        <div class="filter-dropdown-item" data-value="hokkaido" onclick="selectFilter('region','hokkaido','北海道')"><span class="check">✓</span> 北海道</div>
       </div>
     </div>
 
@@ -853,18 +895,18 @@
 
     <div class="filter-dropdown" data-filter="theme">
       <button class="filter-dropdown-btn" onclick="toggleDropdown('theme')">
-        <span data-i18n="filter_theme">テーマ</span>
+        <span data-i18n="filter_theme">仕事</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="filter-dropdown-menu" id="dropdown-theme">
-        <div class="filter-dropdown-item" data-value="agriculture" onclick="selectFilter('theme','agriculture','農業・食')"><span class="check">✓</span> 農業・食</div>
-        <div class="filter-dropdown-item" data-value="remote-work" onclick="selectFilter('theme','remote-work','テレワーク・リモートワーク')"><span class="check">✓</span> テレワーク・リモートワーク</div>
-        <div class="filter-dropdown-item" data-value="nature" onclick="selectFilter('theme','nature','自然・アウトドア')"><span class="check">✓</span> 自然・アウトドア</div>
+        <div class="filter-dropdown-item" data-value="agriculture" onclick="selectFilter('theme','agriculture','農業')"><span class="check">✓</span> 農業</div>
+        <div class="filter-dropdown-item" data-value="restaurant" onclick="selectFilter('theme','restaurant','飲食店')"><span class="check">✓</span> 飲食店</div>
+        <div class="filter-dropdown-item" data-value="remote-work" onclick="selectFilter('theme','remote-work','テレワーク')"><span class="check">✓</span> テレワーク</div>
         <div class="filter-dropdown-item" data-value="family" onclick="selectFilter('theme','family','家族・子育て')"><span class="check">✓</span> 家族・子育て</div>
-        <div class="filter-dropdown-item" data-value="entrepreneur" onclick="selectFilter('theme','entrepreneur','起業・副業')"><span class="check">✓</span> 起業・副業・地域創生</div>
-        <div class="filter-dropdown-item" data-value="community" onclick="selectFilter('theme','community','コミュニティ')"><span class="check">✓</span> コミュニティ・地域づくり</div>
-        <div class="filter-dropdown-item" data-value="craft" onclick="selectFilter('theme','craft','ものづくり・伝統工芸')"><span class="check">✓</span> ものづくり・伝統工芸</div>
-        <div class="filter-dropdown-item" data-value="healthcare" onclick="selectFilter('theme','healthcare','医療・福祉')"><span class="check">✓</span> 医療・福祉・地域貢献</div>
+        <div class="filter-dropdown-item" data-value="entrepreneur" onclick="selectFilter('theme','entrepreneur','起業')"><span class="check">✓</span> 起業</div>
+        <div class="filter-dropdown-item" data-value="craft" onclick="selectFilter('theme','craft','ものづくり')"><span class="check">✓</span> ものづくり</div>
+        <div class="filter-dropdown-item" data-value="community" onclick="selectFilter('theme','community','コミュニティ')"><span class="check">✓</span> コミュニティ</div>
+        <div class="filter-dropdown-item" data-value="healthcare" onclick="selectFilter('theme','healthcare','医療・福祉')"><span class="check">✓</span> 医療・福祉</div>
       </div>
     </div>
 
@@ -886,7 +928,7 @@
 
 <!-- RESULTS BAR -->
 <div class="results-bar" id="resultsBar">
-  <span data-i18n="results_showing">表示中：</span><strong id="resultCount">16</strong><span data-i18n="results_voices">件の移住者インタビュー</span>
+  <span data-i18n="results_showing">表示中：</span><strong id="resultCount">16</strong><span data-i18n="results_voices">人の移住者インタビュー</span>
 </div>
 
 <!-- VIDEO GRID -->
@@ -894,116 +936,81 @@
   <div class="video-grid" id="videoGrid">
 
     <!-- ── REAL TESUTEMO MUNICIPALITY VIDEOS ── -->
-    <!-- Hero interview (横型) -->
-    <div class="video-card" data-region="koshinetsu" data-type="i-turn" data-theme="remote-work" data-gender="female" data-search="移住 インタビュー テステモ 富士宮 静岡 長野 地方">
+
+    <!-- 四国・大月町 female 農業 (横型) -->
+    <div class="video-card" data-region="shikoku" data-type="i-turn" data-theme="agriculture" data-gender="female" data-search="移住 インタビュー テステモ 大月町 高知 四国 農業 女性">
       <div class="video-card-thumb">
-        <img class="thumb-img" src="https://vumbnail.com/1010426949.jpg" alt="移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8c4,#90b890);display:none">🏔️</div>
-        <div class="video-card-play" data-video="https://player.vimeo.com/video/1010426949?h=34d0ad59fb&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <img class="thumb-img" src="ijyu_thumbs/430839385f.jpg" alt="大月町移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8e8d0,#a8c8a0);display:none">🌾</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1010822965?h=430839385f&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
       </div>
       <div class="video-card-body">
-        <div class="video-card-name">移住者インタビュー</div>
-        <div class="video-card-meta">テステモ移住促進動画 · 横型（90〜120秒）</div>
+        <div class="video-card-name">大月町移住者インタビュー</div>
+        <div class="video-card-meta">高知県大月町 · 農業 · 女性</div>
         <div class="video-card-tags">
-          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag region">四国</span>
+          <span class="video-card-tag nature">農業</span>
           <span class="video-card-tag">Iターン</span>
-          <span class="video-card-tag">横型</span>
         </div>
       </div>
     </div>
 
-    <!-- Horizontal video 1 -->
-    <div class="video-card" data-region="koshinetsu" data-type="i-turn" data-theme="agriculture" data-gender="female" data-search="移住 インタビュー テステモ 農業 地方 地域">
+    <!-- 四国・大月町 male 起業 -->
+    <div class="video-card" data-region="shikoku" data-type="i-turn" data-theme="entrepreneur" data-gender="male" data-search="移住 インタビュー テステモ 大月町 高知 四国 起業 男性">
       <div class="video-card-thumb">
-        <img class="thumb-img" src="https://vumbnail.com/1010823028.jpg" alt="移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img class="thumb-img" src="ijyu_thumbs/34d0ad59fb.jpg" alt="大月町移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8c4,#90b890);display:none">🌿</div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1010426949?h=34d0ad59fb&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">大月町移住者インタビュー</div>
+        <div class="video-card-meta">高知県大月町 · 起業 · 男性</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag region">四国</span>
+          <span class="video-card-tag">起業</span>
+          <span class="video-card-tag">Iターン</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四国・大月町 female 農業 (横型 2) -->
+    <div class="video-card" data-region="shikoku" data-type="i-turn" data-theme="agriculture" data-gender="female" data-search="移住 インタビュー テステモ 大月町 高知 四国 農業 女性">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="ijyu_thumbs/680857e13b.jpg" alt="大月町移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#d8e8d0,#a8c8a0);display:none">🌾</div>
         <div class="video-card-play" data-video="https://player.vimeo.com/video/1010823028?h=680857e13b&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
       </div>
       <div class="video-card-body">
-        <div class="video-card-name">移住者インタビュー</div>
-        <div class="video-card-meta">テステモ移住促進動画 · 横型（90〜120秒）</div>
+        <div class="video-card-name">大月町移住者インタビュー</div>
+        <div class="video-card-meta">高知県大月町 · 農業 · 女性</div>
         <div class="video-card-tags">
-          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag region">四国</span>
           <span class="video-card-tag nature">農業</span>
-          <span class="video-card-tag">横型</span>
+          <span class="video-card-tag">Iターン</span>
         </div>
       </div>
     </div>
 
-    <!-- Horizontal video 2 -->
-    <div class="video-card" data-region="shikoku" data-type="i-turn" data-theme="family" data-gender="female" data-search="移住 インタビュー テステモ 子育て 家族 四国">
+    <!-- 中部・富士宮市 male コミュニティ (横型) -->
+    <div class="video-card" data-region="chubu" data-type="i-turn" data-theme="community" data-gender="male" data-search="移住 インタビュー テステモ 富士宮市 静岡 中部 コミュニティ 男性">
       <div class="video-card-thumb">
-        <img class="thumb-img" src="https://vumbnail.com/1050610140.jpg" alt="移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8e8,#88b8d8);display:none">🌊</div>
-        <div class="video-card-play" data-video="https://player.vimeo.com/video/1050610140?h=a5b8353977&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-      </div>
-      <div class="video-card-body">
-        <div class="video-card-name">移住者インタビュー</div>
-        <div class="video-card-meta">テステモ移住促進動画 · 横型（90〜120秒）</div>
-        <div class="video-card-tags">
-          <span class="video-card-tag region">テステモ事例</span>
-          <span class="video-card-tag">子育て</span>
-          <span class="video-card-tag">横型</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vertical video 1 -->
-    <div class="video-card" data-region="sanin" data-type="i-turn" data-theme="entrepreneur" data-gender="male" data-search="移住 インタビュー テステモ 起業 縦型 SNS">
-      <div class="video-card-thumb">
-        <img class="thumb-img" src="https://vumbnail.com/1015054920.jpg" alt="移住者インタビュー縦型" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8d4c0,#b8a880);display:none">🌿</div>
-        <div class="video-card-play" data-video="https://player.vimeo.com/video/1015054920?h=aa8a72196a&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-      </div>
-      <div class="video-card-body">
-        <div class="video-card-name">移住者インタビュー（縦型）</div>
-        <div class="video-card-meta">テステモ移住促進動画 · 縦型（30〜60秒）</div>
-        <div class="video-card-tags">
-          <span class="video-card-tag region">テステモ事例</span>
-          <span class="video-card-tag">起業</span>
-          <span class="video-card-tag">縦型</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vertical video 2 -->
-    <div class="video-card" data-region="kyushu" data-type="u-turn" data-theme="nature" data-gender="male" data-search="移住 インタビュー テステモ 自然 縦型 SNS">
-      <div class="video-card-thumb">
-        <img class="thumb-img" src="https://vumbnail.com/1013400453.jpg" alt="移住者インタビュー縦型" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="thumb-bg" style="background:linear-gradient(135deg,#e8d8b8,#d0b888);display:none">☀️</div>
-        <div class="video-card-play" data-video="https://player.vimeo.com/video/1013400453?h=89cb5fd807&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-      </div>
-      <div class="video-card-body">
-        <div class="video-card-name">移住者インタビュー（縦型）</div>
-        <div class="video-card-meta">テステモ移住促進動画 · 縦型（30〜60秒）</div>
-        <div class="video-card-tags">
-          <span class="video-card-tag region">テステモ事例</span>
-          <span class="video-card-tag nature">自然</span>
-          <span class="video-card-tag">縦型</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vertical video 3 -->
-    <div class="video-card" data-region="tohoku" data-type="i-turn" data-theme="community" data-gender="female" data-search="移住 インタビュー テステモ コミュニティ 縦型 SNS">
-      <div class="video-card-thumb">
-        <img class="thumb-img" src="https://vumbnail.com/1050617850.jpg" alt="移住者インタビュー縦型" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img class="thumb-img" src="ijyu_thumbs/1050616577.jpg" alt="富士宮市移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e0d0,#a0c0a0);display:none">🏘️</div>
-        <div class="video-card-play" data-video="https://player.vimeo.com/video/1050617850?h=2e4031d8bd&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1050616577?badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
       </div>
       <div class="video-card-body">
-        <div class="video-card-name">移住者インタビュー（縦型）</div>
-        <div class="video-card-meta">テステモ移住促進動画 · 縦型（30〜60秒）</div>
+        <div class="video-card-name">富士宮市移住者インタビュー</div>
+        <div class="video-card-meta">静岡県富士宮市 · コミュニティ · 男性</div>
         <div class="video-card-tags">
-          <span class="video-card-tag region">テステモ事例</span>
+          <span class="video-card-tag region">中部</span>
           <span class="video-card-tag">コミュニティ</span>
-          <span class="video-card-tag">縦型</span>
+          <span class="video-card-tag">Iターン</span>
         </div>
       </div>
     </div>
 
     <!-- Hokkaido -->
-    <div class="video-card" data-region="hokkaido" data-type="i-turn" data-theme="nature" data-gender="male" data-search="北海道 富良野 アウトドア 自然 移住">
+    <div class="video-card" data-region="tohoku" data-type="i-turn" data-theme="nature" data-gender="male" data-search="北海道 富良野 アウトドア 自然 移住">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#c0d0e0,#80a8c8)">⛷️</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1019,7 +1026,7 @@
       </div>
     </div>
 
-    <div class="video-card" data-region="hokkaido" data-type="i-turn" data-theme="remote-work" data-gender="female" data-search="北海道 帯広 テレワーク リモート 女性 移住">
+    <div class="video-card" data-region="tohoku" data-type="i-turn" data-theme="remote-work" data-gender="female" data-search="北海道 帯広 テレワーク リモート 女性 移住">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#e0d8f0,#b8a8e0)">🖥️</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1036,7 +1043,7 @@
     </div>
 
     <!-- Tohoku -->
-    <div class="video-card" data-region="tohoku" data-type="u-turn" data-theme="agriculture" data-gender="male" data-search="山形 米沢 Uターン 農業 東北">
+    <div class="video-card" data-region="chubu" data-type="u-turn" data-theme="agriculture" data-gender="male" data-search="山形 米沢 Uターン 農業 東北">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#d8c8a8,#c0a878)">🌾</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1052,7 +1059,7 @@
       </div>
     </div>
 
-    <div class="video-card" data-region="tohoku" data-type="i-turn" data-theme="community" data-gender="female" data-search="岩手 遠野 コミュニティ 地域づくり 東北">
+    <div class="video-card" data-region="chubu" data-type="i-turn" data-theme="community" data-gender="female" data-search="岩手 遠野 コミュニティ 地域づくり 東北">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e0d0,#a0c0a0)">🏘️</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1119,7 +1126,7 @@
     </div>
 
     <!-- Okinawa -->
-    <div class="video-card" data-region="okinawa" data-type="i-turn" data-theme="nature" data-gender="female" data-search="沖縄 石垣島 自然 アウトドア 移住">
+    <div class="video-card" data-region="kyushu" data-type="i-turn" data-theme="nature" data-gender="female" data-search="沖縄 石垣島 自然 アウトドア 移住">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#b8e8e0,#78c8c0)">🐠</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1135,7 +1142,7 @@
       </div>
     </div>
 
-    <div class="video-card" data-region="okinawa" data-type="i-turn" data-theme="healthcare" data-gender="male" data-search="沖縄 うるま 医療 福祉 地域貢献">
+    <div class="video-card" data-region="kyushu" data-type="i-turn" data-theme="healthcare" data-gender="male" data-search="沖縄 うるま 医療 福祉 地域貢献">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e8f0,#98c8e0)">🏥</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1151,7 +1158,7 @@
       </div>
     </div>
 
-    <div class="video-card" data-region="koshinetsu" data-type="j-turn" data-theme="community" data-gender="female" data-search="新潟 十日町 コミュニティ 地域 Jターン 信越">
+    <div class="video-card" data-region="chubu" data-type="j-turn" data-theme="community" data-gender="female" data-search="新潟 十日町 コミュニティ 地域 Jターン 信越">
       <div class="video-card-thumb">
         <div class="thumb-bg" style="background:linear-gradient(135deg,#e8e0d0,#d0c0a0)">❄️</div>
         <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
@@ -1173,7 +1180,83 @@
   <div class="no-results" id="noResults" style="display:none;">
     <div class="no-results-icon">🔍</div>
     <h3 data-i18n="no_results_title">該当する声が見つかりません</h3>
-    <p data-i18n="no_results_body">フィルターや検索条件を変えてみてください</p>
+    <p data-i18n="no_results_body">フィルターや検索条人を変えてみてください</p>
+  </div>
+</section>
+
+<!-- SNS VERTICAL STRIP -->
+<section class="vertical-strip-section">
+  <div class="vertical-strip-header">
+    <div class="vertical-strip-title">SNS向け縦型クリップ<span class="vertical-strip-badge">縦型</span></div>
+    <div class="vertical-strip-sub">Instagram・TikTok・X などSNS配信用の短尺フォーマット（30〜60秒）</div>
+  </div>
+  <div class="vertical-strip">
+
+    <!-- 四国・大月町 female 農業 縦型 1 -->
+    <div class="vertical-card" onclick="openHeroVideo('https://player.vimeo.com/video/1014779536?h=2c4b22d316&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="vertical-card-thumb">
+        <img class="thumb-img" src="ijyu_thumbs/tate/1.jpg" alt="大月町移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8e8d0,#a8c8a0);display:none">🌾</div>
+        <div class="vertical-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="vertical-card-body">
+        <div class="vertical-card-name">大月町移住者インタビュー</div>
+        <div class="vertical-card-meta">高知県大月町 · 農業 · 女性</div>
+      </div>
+    </div>
+
+    <!-- 四国・大月町 female 農業 縦型 2 -->
+    <div class="vertical-card" onclick="openHeroVideo('https://player.vimeo.com/video/1015054920?h=aa8a72196a&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="vertical-card-thumb">
+        <img class="thumb-img" src="ijyu_thumbs/tate/2.jpg" alt="大月町移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e8d8,#98c8b0);display:none">🌾</div>
+        <div class="vertical-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="vertical-card-body">
+        <div class="vertical-card-name">大月町移住者インタビュー</div>
+        <div class="vertical-card-meta">高知県大月町 · 農業 · 女性</div>
+      </div>
+    </div>
+
+    <!-- 四国・大月町 male 起業 縦型 -->
+    <div class="vertical-card" onclick="openHeroVideo('https://player.vimeo.com/video/1013400453?h=89cb5fd807&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="vertical-card-thumb">
+        <img class="thumb-img" src="ijyu_thumbs/tate/3.jpg" alt="大月町移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8c4,#90b890);display:none">🌿</div>
+        <div class="vertical-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="vertical-card-body">
+        <div class="vertical-card-name">大月町移住者インタビュー</div>
+        <div class="vertical-card-meta">高知県大月町 · 起業 · 男性</div>
+      </div>
+    </div>
+
+    <!-- 中部・富士宮市 male コミュニティ 縦型 1 -->
+    <div class="vertical-card" onclick="openHeroVideo('https://player.vimeo.com/video/1050618512?badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="vertical-card-thumb">
+        <img class="thumb-img" src="ijyu_thumbs/tate/4.jpg" alt="富士宮市移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d0e0d0,#a0c0a0);display:none">🏘️</div>
+        <div class="vertical-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="vertical-card-body">
+        <div class="vertical-card-name">富士宮市移住者インタビュー</div>
+        <div class="vertical-card-meta">静岡県富士宮市 · コミュニティ · 男性</div>
+      </div>
+    </div>
+
+    <!-- 中部・富士宮市 male コミュニティ 縦型 2 -->
+    <div class="vertical-card" onclick="openHeroVideo('https://player.vimeo.com/video/1050617850?h=2e4031d8bd&badge=0&autopause=0&player_id=0&app_id=58479')">
+      <div class="vertical-card-thumb">
+        <img class="thumb-img" src="ijyu_thumbs/tate/5.jpg" alt="富士宮市移住者インタビュー" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8c8,#88b888);display:none">🏘️</div>
+        <div class="vertical-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="vertical-card-body">
+        <div class="vertical-card-name">富士宮市移住者インタビュー</div>
+        <div class="vertical-card-meta">静岡県富士宮市 · コミュニティ · 男性</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1185,47 +1268,59 @@
   </div>
 
   <div class="region-grid">
-    <div class="region-card has-videos" onclick="selectFilter('region','hokkaido','北海道');scrollToVideos()">
-      <div class="region-icon">🦅</div>
-      <div class="region-name">Hokkaido</div>
-      <div class="region-name-jp">北海道</div>
-      <div class="region-desc">広大な自然と農業。酪農・アウトドア・テレワーク移住が人気。スローライフを求める移住者に支持されています。</div>
-      <div class="region-count has">2件のインタビュー</div>
+    <div class="region-card has-videos" onclick="selectFilter('region','chubu','中部');scrollToVideos()">
+      <div class="region-photo" style="background-image:url('ijyu_photos/chubu.jpg')"><div class="region-photo-overlay"></div></div>
+      <div class="region-card-body">
+        <div class="region-name">Chubu</div>
+        <div class="region-name-jp">中部（静岡・長野・新潟・山梨・愛知・岐阜ほか）</div>
+        <div class="region-desc">日本アルプスと豊かな自然に囲まれたライフスタイル。テレワーク移住者・農業移住者・アウトドア愛好家に人気。</div>
+        <div class="region-count has">4人のインタビュー</div>
+      </div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','kyushu','九州・沖縄');scrollToVideos()">
+      <div class="region-photo" style="background-image:url('ijyu_photos/kyushu.jpg')"><div class="region-photo-overlay"></div></div>
+      <div class="region-card-body">
+        <div class="region-name">Kyushu / Okinawa</div>
+        <div class="region-name-jp">九州・沖縄（福岡・宮崎・熊本・鹿児島・沖縄ほか）</div>
+        <div class="region-desc">温暖な気候と豊かな食文化。宮崎・熊本では若者の起業・Uターン移住支援に力を入れています。</div>
+        <div class="region-count has">5人のインタビュー</div>
+      </div>
     </div>
     <div class="region-card has-videos" onclick="selectFilter('region','tohoku','東北');scrollToVideos()">
-      <div class="region-icon">🌾</div>
-      <div class="region-name">Tohoku</div>
-      <div class="region-name-jp">東北</div>
-      <div class="region-desc">豊かな食文化と伝統が残る地域。震災からの復興と地域創生に関わりたい移住者も多い。</div>
-      <div class="region-count has">2件のインタビュー</div>
-    </div>
-    <div class="region-card has-videos" onclick="selectFilter('region','koshinetsu','信越・甲信');scrollToVideos()">
-      <div class="region-icon">🏔️</div>
-      <div class="region-name">Shinshu / Koshinetsu</div>
-      <div class="region-name-jp">信越・甲信（長野・新潟・山梨）</div>
-      <div class="region-desc">山と自然に囲まれたライフスタイル。テレワーク移住者・農業移住者・アウトドア愛好家に人気。</div>
-      <div class="region-count has">3件のインタビュー</div>
-    </div>
-    <div class="region-card has-videos" onclick="selectFilter('region','sanin','山陰');scrollToVideos()">
-      <div class="region-icon">🌿</div>
-      <div class="region-name">San'in</div>
-      <div class="region-name-jp">山陰（島根・鳥取）</div>
-      <div class="region-desc">日本一の移住先として人気の島根・鳥取。起業支援や移住サポートが充実しており、若い世代の移住が増えています。</div>
-      <div class="region-count has">2件のインタビュー</div>
+      <div class="region-photo" style="background-image:url('ijyu_photos/tohoku.jpg')"><div class="region-photo-overlay"></div></div>
+      <div class="region-card-body">
+        <div class="region-name">Tohoku</div>
+        <div class="region-name-jp">東北（青森・岩手・宮城・秋田・山形・福島）</div>
+        <div class="region-desc">豊かな食文化と伝統が残る地域。震災からの復興と地域創生に関わりたい移住者も多い。</div>
+        <div class="region-count has">3人のインタビュー</div>
+      </div>
     </div>
     <div class="region-card has-videos" onclick="selectFilter('region','shikoku','四国');scrollToVideos()">
-      <div class="region-icon">🌊</div>
-      <div class="region-name">Shikoku</div>
-      <div class="region-name-jp">四国（高知・徳島・愛媛・香川）</div>
-      <div class="region-desc">自然豊かで温暖な気候。神山町のIT移住や、四万十川流域の豊かな自然が移住者を引きつけています。</div>
-      <div class="region-count has">2件のインタビュー</div>
+      <div class="region-photo" style="background-image:url('ijyu_photos/shikoku.jpg')"><div class="region-photo-overlay"></div></div>
+      <div class="region-card-body">
+        <div class="region-name">Shikoku</div>
+        <div class="region-name-jp">四国（高知・徳島・愛媛・香川）</div>
+        <div class="region-desc">自然豊かで温暖な気候。神山町のIT移住や、四万十川流域の豊かな自然が移住者を引きつけています。</div>
+        <div class="region-count has">2人のインタビュー</div>
+      </div>
     </div>
-    <div class="region-card has-videos" onclick="selectFilter('region','kyushu','九州');scrollToVideos()">
-      <div class="region-icon">☀️</div>
-      <div class="region-name">Kyushu</div>
-      <div class="region-name-jp">九州（宮崎・熊本・大分・佐賀・長崎）</div>
-      <div class="region-desc">温暖な気候と豊かな食文化。宮崎・熊本では若者の起業・Uターン移住支援に力を入れています。</div>
-      <div class="region-count has">2件のインタビュー</div>
+    <div class="region-card has-videos" onclick="selectFilter('region','chugoku','中国');scrollToVideos()">
+      <div class="region-photo" style="background-image:url('ijyu_photos/chugoku.jpg')"><div class="region-photo-overlay"></div></div>
+      <div class="region-card-body">
+        <div class="region-name">Chugoku</div>
+        <div class="region-name-jp">中国（広島・山口・岡山・島根・鳥取）</div>
+        <div class="region-desc">島根・鳥取は全国屈指の移住人気エリア。ものづくりや起業支援が充実しており、若い世代の移住が増えています。</div>
+        <div class="region-count has">3人のインタビュー</div>
+      </div>
+    </div>
+    <div class="region-card has-videos" onclick="selectFilter('region','hokkaido','北海道');scrollToVideos()">
+      <div class="region-photo" style="background-image:url('ijyu_photos/hokkaido.jpg')"><div class="region-photo-overlay"></div></div>
+      <div class="region-card-body">
+        <div class="region-name">Hokkaido</div>
+        <div class="region-name-jp">北海道</div>
+        <div class="region-desc">広大な自然と農業。酪農・アウトドア・テレワーク移住が人気。スローライフを求める移住者に支持されています。</div>
+        <div class="region-count has">2人のインタビュー</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1233,48 +1328,48 @@
 <!-- THEMES -->
 <section class="themes-section" id="themes">
   <div class="section-header">
-    <div class="section-title" data-i18n="sec_theme">テーマ別に探す</div>
+    <div class="section-title" data-i18n="sec_theme">仕事別に探す</div>
   </div>
   <div class="theme-grid">
-    <div class="theme-card" onclick="selectFilter('theme','agriculture','農業・食');scrollToVideos()">
+    <div class="theme-card" onclick="selectFilter('theme','agriculture','農業');scrollToVideos()">
       <div class="theme-emoji">🌾</div>
-      <div class="theme-name" data-i18n="theme_agriculture">農業・食</div>
-      <div class="theme-count">4件</div>
+      <div class="theme-name" data-i18n="theme_agriculture">農業</div>
+      <div class="theme-count">4人</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','restaurant','飲食店');scrollToVideos()">
+      <div class="theme-emoji">🍽️</div>
+      <div class="theme-name" data-i18n="theme_restaurant">飲食店</div>
+      <div class="theme-count">0人</div>
     </div>
     <div class="theme-card" onclick="selectFilter('theme','remote-work','テレワーク');scrollToVideos()">
       <div class="theme-emoji">💻</div>
       <div class="theme-name" data-i18n="theme_remote">テレワーク</div>
-      <div class="theme-count">3件</div>
-    </div>
-    <div class="theme-card" onclick="selectFilter('theme','nature','自然・アウトドア');scrollToVideos()">
-      <div class="theme-emoji">🏔️</div>
-      <div class="theme-name" data-i18n="theme_nature">自然・アウトドア</div>
-      <div class="theme-count">3件</div>
+      <div class="theme-count">3人</div>
     </div>
     <div class="theme-card" onclick="selectFilter('theme','family','家族・子育て');scrollToVideos()">
       <div class="theme-emoji">👨‍👩‍👧</div>
       <div class="theme-name" data-i18n="theme_family">家族・子育て</div>
-      <div class="theme-count">3件</div>
+      <div class="theme-count">3人</div>
     </div>
-    <div class="theme-card" onclick="selectFilter('theme','entrepreneur','起業・地域創生');scrollToVideos()">
+    <div class="theme-card" onclick="selectFilter('theme','entrepreneur','起業');scrollToVideos()">
       <div class="theme-emoji">🌱</div>
-      <div class="theme-name" data-i18n="theme_entrepreneur">起業・地域創生</div>
-      <div class="theme-count">3件</div>
-    </div>
-    <div class="theme-card" onclick="selectFilter('theme','community','コミュニティ');scrollToVideos()">
-      <div class="theme-emoji">🏘️</div>
-      <div class="theme-name" data-i18n="theme_community">コミュニティ</div>
-      <div class="theme-count">2件</div>
+      <div class="theme-name" data-i18n="theme_entrepreneur">起業</div>
+      <div class="theme-count">3人</div>
     </div>
     <div class="theme-card" onclick="selectFilter('theme','craft','ものづくり');scrollToVideos()">
       <div class="theme-emoji">🏺</div>
       <div class="theme-name" data-i18n="theme_craft">ものづくり</div>
-      <div class="theme-count">2件</div>
+      <div class="theme-count">2人</div>
+    </div>
+    <div class="theme-card" onclick="selectFilter('theme','community','コミュニティ');scrollToVideos()">
+      <div class="theme-emoji">🏘️</div>
+      <div class="theme-name" data-i18n="theme_community">コミュニティ</div>
+      <div class="theme-count">2人</div>
     </div>
     <div class="theme-card" onclick="selectFilter('theme','healthcare','医療・福祉');scrollToVideos()">
       <div class="theme-emoji">🏥</div>
       <div class="theme-name" data-i18n="theme_healthcare">医療・福祉</div>
-      <div class="theme-count">1件</div>
+      <div class="theme-count">1人</div>
     </div>
   </div>
 </section>
@@ -1482,12 +1577,12 @@ let currentLang = 'ja';
 const translations = {
   ja: {
     nav_region: '地域別',
-    nav_theme: 'テーマ別',
+    nav_theme: '仕事別',
     nav_voices: 'すべての声',
     nav_about: 'テステモについて',
     nav_cta: '移住 Voices を導入',
     hero_eyebrow: 'リアルな移住者 · リアルな声 · リアルなインパクト',
-    hero_title: '地方を選んだ人の<br>声が、次の移住を<br><em>決める。</em>',
+    hero_title: '地方を選んだ人の<br>声が、<span style="color:var(--primary)">次の移住を<br>決める。</span>',
     hero_body: '移住を検討している人は、パンフレットより先輩移住者の声を信じます。移住 Voices は、実際に移住した人のリアルな声を、次の移住希望者に直接届けるプラットフォームです。',
     hero_cta: '声を聴く',
     hero_learn: '詳しく見る',
@@ -1499,22 +1594,22 @@ const translations = {
     filter_by: '絞り込み：',
     filter_region: '地域',
     filter_type: '移住タイプ',
-    filter_theme: 'テーマ',
+    filter_theme: '仕事',
     filter_gender: '性別',
     results_showing: '表示中：',
-    results_voices: '件の移住者インタビュー',
+    results_voices: '人の移住者インタビュー',
     no_results_title: '該当する声が見つかりません',
-    no_results_body: 'フィルターや検索条件を変えてみてください',
+    no_results_body: 'フィルターや検索条人を変えてみてください',
     sec_region: '地域別に探す',
     sec_region_link: 'すべての声を見る →',
-    sec_theme: 'テーマ別に探す',
-    theme_agriculture: '農業・食',
+    sec_theme: '仕事別に探す',
+    theme_agriculture: '農業',
+    theme_restaurant: '飲食店',
     theme_remote: 'テレワーク',
-    theme_nature: '自然・アウトドア',
     theme_family: '家族・子育て',
-    theme_entrepreneur: '起業・地域創生',
-    theme_community: 'コミュニティ',
+    theme_entrepreneur: '起業',
     theme_craft: 'ものづくり',
+    theme_community: 'コミュニティ',
     theme_healthcare: '医療・福祉',
     quote_text: '「都会で得たスキルを、この地域で活かせる。<br>移住してはじめて、自分らしい働き方が見えてきました。」',
     quote_attr: '— 長野県松本市 移住者インタビューより',
@@ -1532,12 +1627,12 @@ const translations = {
   },
   en: {
     nav_region: 'By Region',
-    nav_theme: 'By Theme',
+    nav_theme: 'By Work Style',
     nav_voices: 'All Voices',
     nav_about: 'About TesuTemo',
     nav_cta: 'Get 移住 Voices',
     hero_eyebrow: 'Real migrants · Real stories · Real impact',
-    hero_title: 'Hear from people who chose<br>rural Japan —<br><em>in their own words.</em>',
+    hero_title: 'Hear from people who chose<br>rural Japan —<br><span style="color:var(--primary)">in their own words.</span>',
     hero_body: "People considering relocation don't trust brochures — they trust those who've already made the move. 移住 Voices connects real migrant stories directly with those thinking about taking the leap.",
     hero_cta: 'Watch Stories',
     hero_learn: 'Learn More',
@@ -1549,7 +1644,7 @@ const translations = {
     filter_by: 'Filter by:',
     filter_region: 'Region',
     filter_type: 'Migration Type',
-    filter_theme: 'Theme',
+    filter_theme: 'Work Style',
     filter_gender: 'Gender',
     results_showing: 'Showing',
     results_voices: 'migrant interviews',
@@ -1557,14 +1652,14 @@ const translations = {
     no_results_body: 'Try adjusting your filters or search terms',
     sec_region: 'Browse by Region',
     sec_region_link: 'View all voices →',
-    sec_theme: 'Explore by Theme',
-    theme_agriculture: 'Agriculture & Food',
+    sec_theme: 'Explore by Work Style',
+    theme_agriculture: 'Agriculture',
+    theme_restaurant: 'Restaurant & F&B',
     theme_remote: 'Remote Work',
-    theme_nature: 'Nature & Outdoors',
     theme_family: 'Family & Children',
     theme_entrepreneur: 'Entrepreneurship',
+    theme_craft: 'Craft & Making',
     theme_community: 'Community',
-    theme_craft: 'Craft & Tradition',
     theme_healthcare: 'Healthcare',
     quote_text: '"The skills I built in Tokyo — I can actually <em>use</em> them here.<br>Moving was when I finally found a way of working that felt like me."',
     quote_attr: '— Migrant interview, Matsumoto City, Nagano Prefecture',

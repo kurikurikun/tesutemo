@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     '顧客インタビュー動画で見込み客の不安を解消し、購買を後押しする導入事例動画サービス。信頼できる第三者の声で商品・サービスの本当の価値を届けます。',
   alternates: {
     canonical: 'https://www.tesutemo.co/case-study',
-    languages: { en: 'https://www.tesutemo.co/en/case-study' },
+    languages: { en: 'https://www.tesutemo.co/en/case-study', 'x-default': 'https://www.tesutemo.co/case-study' },
   },
 };
 

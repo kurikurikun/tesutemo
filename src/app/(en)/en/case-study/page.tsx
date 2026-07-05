@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Customer interview videos that address prospect concerns and drive purchase decisions. Deliver the true value of your product or service through trusted third-party voices.',
   alternates: {
     canonical: 'https://www.tesutemo.co/en/case-study',
-    languages: { ja: 'https://www.tesutemo.co/case-study' },
+    languages: { ja: 'https://www.tesutemo.co/case-study', 'x-default': 'https://www.tesutemo.co/case-study' },
   },
 };
 

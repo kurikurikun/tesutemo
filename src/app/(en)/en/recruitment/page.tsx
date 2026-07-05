@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'Employee interview videos that resonate with job seekers and eliminate hiring mismatches. Real voices convey workplace culture and job satisfaction through affordable recruitment video promotion.',
   alternates: {
     canonical: 'https://www.tesutemo.co/en/recruitment',
-    languages: { ja: 'https://www.tesutemo.co/recruitment' },
+    languages: { ja: 'https://www.tesutemo.co/recruitment', 'x-default': 'https://www.tesutemo.co/recruitment' },
   },
 };
 
@@ -20,6 +20,7 @@ export default function RecruitmentPage() {
     <SubpageLayout
       locale="en"
       currentPath="/en/recruitment"
+      defaultUseCase="recruitment"
       heroTitle={<>Attract more of the candidates you want with <span className="text-primary">real employee voices.</span></>}
       heroSubtitle={
         <>

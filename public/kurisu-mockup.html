@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurisu Town — Mockup B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --light: #f5f5f3;
+  --rule: #d0d0ce;
+  --muted: #999999;
+  --orange: #e95228;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ── NAV ── */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  height: 56px;
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink); text-decoration: none;
+}
+.nav-logo em { color: var(--orange); font-style: normal; }
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-lang {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--muted);
+  cursor: pointer; border: none; background: none;
+}
+.nav-lang .on { color: var(--ink); font-weight: 600; }
+.nav-contact {
+  font-size: 11px; letter-spacing: 0.06em; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+}
+
+/* ── HERO ── */
+.hero {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 56px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero-left {
+  padding: 80px 64px 64px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  border-right: 1px solid var(--rule);
+  position: relative; overflow: hidden;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  position: relative; z-index: 1;
+}
+.hero-main { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.hero-footer { position: relative; z-index: 1; }
+
+/* Big kanji — absolute, bleeds off bottom-left corner */
+.hero-kanji-bg {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 560px; font-weight: 800; line-height: 0.85;
+  color: #edeae4;
+  position: absolute;
+  bottom: -60px; left: -30px;
+  user-select: none; pointer-events: none;
+  letter-spacing: -0.04em; z-index: 0;
+}
+
+.hero-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 52px; line-height: 1.14; font-weight: 700;
+  color: var(--ink); position: relative; z-index: 1;
+  margin-bottom: 28px;
+}
+.hero-title .en {
+  display: block;
+  font-size: 20px; font-weight: 400; font-style: italic;
+  color: var(--muted); margin-top: 10px; letter-spacing: 0.02em;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-rule { width: 40px; height: 1px; background: var(--orange); margin-bottom: 24px; }
+
+.hero-body {
+  font-size: 13px; color: var(--muted); line-height: 1.9; max-width: 380px;
+}
+
+.hero-footer {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding-top: 48px;
+}
+.hero-scroll {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  text-decoration: none;
+}
+.hero-scroll-line { width: 40px; height: 1px; background: var(--rule); }
+.hero-credit {
+  font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-align: right; line-height: 1.7;
+}
+
+.hero-right {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--light); position: relative;
+  border-left: 1px solid var(--rule);
+  overflow: hidden;
+}
+/* Big 栖 behind the carousel */
+.hero-right-kanji {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 560px; font-weight: 800; line-height: 0.85;
+  color: #e6e3dd;
+  position: absolute;
+  bottom: -60px; right: -40px;
+  user-select: none; pointer-events: none;
+  z-index: 0;
+}
+.reel-carousel { position: relative; z-index: 1; }
+
+/* ── CAROUSEL ── */
+.reel-carousel {
+  position: relative;
+  width: 52%;
+  display: flex; flex-direction: column; align-items: center;
+}
+.reel-track {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+}
+.hero-reel {
+  position: absolute; inset: 0;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.hero-reel.active { opacity: 1; }
+.reel-bg { position: absolute; inset: 0; }
+.reel-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 18px 18px;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+}
+.reel-series {
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); margin-bottom: 5px; font-weight: 500;
+}
+.reel-ep { font-size: 15px; font-weight: 500; color: white; font-family: 'Inter', sans-serif; }
+.reel-play {
+  position: absolute; top: 14px; right: 14px; width: 34px; height: 34px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+}
+.reel-play svg { width: 10px; height: 10px; fill: white; margin-left: 2px; }
+
+/* Dots */
+.reel-dots {
+  display: flex; gap: 8px; margin-top: 18px;
+}
+.reel-dot {
+  width: 20px; height: 2px; background: var(--rule); cursor: pointer;
+  transition: background 0.3s;
+}
+.reel-dot.active { background: var(--ink); }
+
+/* ── FILTER BAR ── */
+.filter-section {
+  padding: 0 48px;
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: stretch; gap: 0;
+  height: 52px;
+}
+.filter-group {
+  display: flex; align-items: center; gap: 0;
+  border-right: 1px solid var(--rule);
+  padding: 0 24px 0 0;
+  margin-right: 24px;
+}
+.filter-group-label {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  margin-right: 20px; flex-shrink: 0;
+}
+.filter-tabs { display: flex; align-items: stretch; gap: 0; }
+.filter-tab {
+  font-size: 12px; font-weight: 500; color: var(--muted);
+  padding: 0 14px; cursor: pointer; height: 52px;
+  display: flex; align-items: center;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s; white-space: nowrap;
+}
+.filter-tab:hover { color: var(--ink); }
+.filter-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+.filter-tab.active-orange { color: var(--orange); border-bottom-color: var(--orange); }
+
+.search-input-wrap {
+  display: flex; align-items: center; gap: 10px; margin-left: auto;
+  border-bottom: 1px solid var(--rule); padding-bottom: 0;
+  align-self: center;
+}
+.search-input-wrap input {
+  border: none; outline: none; font-size: 12px; color: var(--ink);
+  font-family: 'Inter', sans-serif; width: 180px; background: none;
+}
+.search-input-wrap input::placeholder { color: var(--muted); }
+.search-input-wrap svg { width: 14px; height: 14px; color: var(--muted); }
+
+/* ── RESULTS LINE ── */
+.results-line {
+  padding: 14px 48px; font-size: 11px; color: var(--muted);
+  border-bottom: 1px solid var(--rule); letter-spacing: 0.04em;
+}
+.results-line strong { color: var(--ink); }
+
+/* ── VIDEO GRID ── */
+.grid-section { padding: 56px 48px; }
+
+/* Series block */
+.series-block { margin-bottom: 72px; }
+
+.series-heading {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.series-heading-jp {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px; font-weight: 700; color: var(--ink);
+}
+.series-heading-en {
+  font-size: 11px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase;
+}
+.series-heading-count {
+  margin-left: auto;
+  font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+
+/* Series row: featured left, right column = mini grid + text */
+.series-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  align-items: start;
+}
+
+/* Featured card — fills the left */
+.video-card-featured {
+  cursor: pointer; position: relative;
+}
+.video-card-featured .card-thumb {
+  aspect-ratio: 9 / 16; position: relative; overflow: hidden;
+}
+.video-card-featured .card-body {
+  padding: 12px 0 0;
+}
+
+/* Right column */
+.series-right {
+  display: flex; flex-direction: column;
+  align-self: stretch;
+}
+.series-mini-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+}
+
+/* Mini cards */
+.video-card-mini {
+  cursor: pointer; position: relative;
+}
+.video-card-mini .card-thumb {
+  aspect-ratio: 9 / 16; position: relative; overflow: hidden;
+}
+.video-card-mini .card-body {
+  padding: 8px 0 0;
+}
+
+/* Shared card thumb internals */
+.thumb-fill {
+  position: absolute; inset: 0;
+  transition: transform 0.4s ease;
+}
+.video-card-featured:hover .thumb-fill,
+.video-card-mini:hover .thumb-fill { transform: scale(1.04); }
+
+.play-indicator {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+  background: rgba(0,0,0,0.15);
+}
+.video-card-featured:hover .play-indicator,
+.video-card-mini:hover .play-indicator { opacity: 1; }
+.play-triangle {
+  width: 0; height: 0;
+  border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+  border-left: 20px solid rgba(255,255,255,0.9);
+  margin-left: 4px;
+}
+
+.card-label {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+  color: rgba(255,255,255,0.75);
+}
+.card-ep { font-size: 12px; font-weight: 500; color: var(--ink); }
+.card-vol { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.card-ep-sm { font-size: 11px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-vol-sm { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* Series info block — fills the remaining space below mini cards */
+.series-info {
+  flex: 1;
+  padding: 24px 0 0 0;
+  display: flex; flex-direction: column;
+}
+.series-info-label {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 14px;
+}
+.series-info-desc {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 15px; line-height: 1.75; color: var(--ink);
+  margin-bottom: 20px;
+}
+
+/* Episode index list */
+.ep-index { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+.ep-index-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule);
+  cursor: pointer; transition: all 0.15s;
+}
+.ep-index-row:last-child { border-bottom: 1px solid var(--rule); }
+.ep-index-row:hover .ep-index-name { color: var(--orange); }
+.ep-index-num {
+  font-size: 9px; color: var(--muted); letter-spacing: 0.1em; margin-right: 14px;
+  flex-shrink: 0;
+}
+.ep-index-name {
+  font-size: 12px; font-weight: 500; color: var(--ink); flex: 1;
+  transition: color 0.15s;
+}
+.ep-index-count {
+  font-size: 10px; color: var(--muted); letter-spacing: 0.04em;
+}
+
+.series-info-link {
+  font-size: 11px; color: var(--muted); letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--rule); padding-bottom: 2px;
+  text-decoration: none; cursor: pointer; display: inline-block; margin-top: 16px;
+}
+.series-info-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── CTA ── */
+.contact-section {
+  border-top: 1px solid var(--rule);
+  padding: 80px 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.contact-eyebrow {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 20px;
+}
+.contact-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 34px; font-weight: 700; line-height: 1.28; color: var(--ink); margin-bottom: 20px;
+}
+.contact-title em { color: var(--orange); font-style: normal; }
+.contact-body { font-size: 13px; color: var(--muted); line-height: 1.9; }
+.contact-link {
+  display: inline-block; margin-top: 28px;
+  font-size: 12px; letter-spacing: 0.06em; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+}
+.contact-link:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+.contact-detail {
+  padding: 22px 0; border-bottom: 1px solid var(--rule);
+}
+.contact-detail:first-child { border-top: 1px solid var(--rule); }
+.contact-detail-label {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+}
+.contact-detail-value {
+  font-size: 14px; color: var(--ink); font-family: 'Shippori Mincho', serif;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Shippori Mincho', serif; font-size: 14px; font-weight: 700;
+  color: var(--ink); letter-spacing: 0.08em;
+}
+.footer-logo em { color: var(--orange); font-style: normal; }
+.footer-copy { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Tese<em>Temo</em> <span style="font-size:10px;color:#ccc;font-family:Inter,sans-serif;font-weight:400;letter-spacing:0.08em;margin-left:8px;">by move-ment</span></a>
+  <ul class="nav-links">
+    <li><a href="#">All Videos</a></li>
+    <li><a href="#">Browse Series</a></li>
+    <li><a href="#">About TesuTemo</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-lang"><span class="on">EN</span> / JA</button>
+    <a class="nav-contact" href="#">Bring this to your city</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kanji-bg">栗</div>
+    <div class="hero-eyebrow">Tourism Content Portal · Demo</div>
+    <div class="hero-main">
+      <h1 class="hero-title">
+        栗栖町の旅
+        <span class="en">More than chestnuts.</span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-body">A fictional Japanese town, powered by real flavors and real filmmaking. This portal shows what short-form inbound tourism content — and the platform to display it — can look like for your municipality.</p>
+    </div>
+    <div class="hero-footer">
+      <a class="hero-scroll" href="#videos">
+        <span class="hero-scroll-line"></span>
+        Scroll to browse
+      </a>
+      <div class="hero-credit">
+        3 series &nbsp;·&nbsp; 7 episodes &nbsp;·&nbsp; 20 videos<br>
+        <span style="color:#ccc;">produced by move-ment</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-kanji">栖</div>
+    <div class="reel-carousel">
+      <div class="reel-track">
+        <div class="hero-reel active" data-reel="0">
+          <div class="reel-bg" style="background:linear-gradient(160deg,#f5d0e8 0%,#c870b0 100%)"></div>
+          <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="reel-overlay">
+            <div class="reel-series">Shibuyummy</div>
+            <div class="reel-ep">Wagashi</div>
+          </div>
+        </div>
+        <div class="hero-reel" data-reel="1">
+          <div class="reel-bg" style="background:linear-gradient(160deg,#fdf0b0 0%,#e0b810 100%)"></div>
+          <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="reel-overlay">
+            <div class="reel-series">Currypedia</div>
+            <div class="reel-ep">Ginza Curry</div>
+          </div>
+        </div>
+        <div class="hero-reel" data-reel="2">
+          <div class="reel-bg" style="background:linear-gradient(160deg,#fdecc8 0%,#d8a840 100%)"></div>
+          <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="reel-overlay">
+            <div class="reel-series">Omusubi</div>
+            <div class="reel-ep">Omusubi</div>
+          </div>
+        </div>
+      </div>
+      <div class="reel-dots">
+        <div class="reel-dot active" onclick="goReel(0)"></div>
+        <div class="reel-dot" onclick="goReel(1)"></div>
+        <div class="reel-dot" onclick="goReel(2)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-section" id="videos">
+  <div class="filter-group">
+    <span class="filter-group-label">Series</span>
+    <div class="filter-tabs">
+      <div class="filter-tab active">All</div>
+      <div class="filter-tab">Shibuyummy</div>
+      <div class="filter-tab">Currypedia</div>
+      <div class="filter-tab">Omusubi</div>
+    </div>
+  </div>
+  <div class="filter-group" style="border-right:none;">
+    <span class="filter-group-label">Episode</span>
+    <div class="filter-tabs">
+      <div class="filter-tab active-orange">Wagashi</div>
+    </div>
+  </div>
+  <div class="search-input-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" placeholder="Search...">
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-line">Showing <strong>20</strong> videos</div>
+
+<!-- VIDEO GRID -->
+<div class="grid-section">
+
+  <!-- ── SHIBUYUMMY ── -->
+  <div class="series-block">
+    <div class="series-heading">
+      <span class="series-heading-jp">渋谷美味</span>
+      <span class="series-heading-en">Shibuyummy</span>
+      <span class="series-heading-count">8 videos · 3 episodes</span>
+    </div>
+
+    <div class="series-row">
+      <!-- Featured -->
+      <div class="video-card-featured">
+        <div class="card-thumb">
+          <div class="thumb-fill" style="background:linear-gradient(160deg,#f5d0e8 0%,#d990c0 100%)"></div>
+          <div class="card-label">Shibuyummy · Wagashi</div>
+          <div class="play-indicator"><div class="play-triangle"></div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-ep">Wagashi</div>
+          <div class="card-vol">Vol. 1</div>
+        </div>
+      </div>
+
+      <!-- Right: mini grid + series info -->
+      <div class="series-right">
+        <div class="series-mini-grid">
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#f0c8e4 0%,#cf80b8 100%)"></div>
+              <div class="card-label">Wagashi</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Wagashi</div>
+              <div class="card-vol-sm">Vol. 2</div>
+            </div>
+          </div>
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#ecc0e0 0%,#c870b0 100%)"></div>
+              <div class="card-label">Wagashi</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Wagashi</div>
+              <div class="card-vol-sm">Vol. 3</div>
+            </div>
+          </div>
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#b2ede3 0%,#4ecdb4 100%)"></div>
+              <div class="card-label">Okinawan Food</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Okinawan Food</div>
+              <div class="card-vol-sm">Vol. 1</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Series info fills the remaining space -->
+        <div class="series-info">
+          <div class="series-info-label">About</div>
+          <div class="series-info-desc">Short-form portraits of Tokyo food culture — the people who make it, the people who eat it, the places that define it.</div>
+          <div class="ep-index">
+            <div class="ep-index-row">
+              <span class="ep-index-num">01</span>
+              <span class="ep-index-name">Okinawan Food</span>
+              <span class="ep-index-count">2 videos</span>
+            </div>
+            <div class="ep-index-row">
+              <span class="ep-index-num">02</span>
+              <span class="ep-index-name">Wagashi</span>
+              <span class="ep-index-count">3 videos</span>
+            </div>
+            <div class="ep-index-row">
+              <span class="ep-index-num">03</span>
+              <span class="ep-index-name">Parfait</span>
+              <span class="ep-index-count">3 videos</span>
+            </div>
+          </div>
+          <a class="series-info-link" href="#">View all 8 videos →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CURRYPEDIA ── -->
+  <div class="series-block">
+    <div class="series-heading">
+      <span class="series-heading-jp">カレー百科</span>
+      <span class="series-heading-en">Currypedia</span>
+      <span class="series-heading-count">9 videos · 3 episodes</span>
+    </div>
+
+    <div class="series-row">
+      <div class="video-card-featured">
+        <div class="card-thumb">
+          <div class="thumb-fill" style="background:linear-gradient(160deg,#fdf0b0 0%,#f0cc30 100%)"></div>
+          <div class="card-label">Currypedia · Ginza</div>
+          <div class="play-indicator"><div class="play-triangle"></div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-ep">Ginza Curry</div>
+          <div class="card-vol">Vol. 1</div>
+        </div>
+      </div>
+
+      <div class="series-right">
+        <div class="series-mini-grid">
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#fbeaa0 0%,#e8c020 100%)"></div>
+              <div class="card-label">Ginza Curry</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Ginza Curry</div>
+              <div class="card-vol-sm">Vol. 2</div>
+            </div>
+          </div>
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#f5d8a8 0%,#d89840 100%)"></div>
+              <div class="card-label">Curry Pan</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Curry Pan</div>
+              <div class="card-vol-sm">Vol. 1</div>
+            </div>
+          </div>
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#d8d0f8 0%,#8870d8 100%)"></div>
+              <div class="card-label">Koenji Curry</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Koenji Curry</div>
+              <div class="card-vol-sm">Vol. 1</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="series-info">
+          <div class="series-info-label">About</div>
+          <div class="series-info-desc">Tokyo's curry scene is its own universe. Currypedia documents it — one neighbourhood, one bowl, one story at a time.</div>
+          <div class="ep-index">
+            <div class="ep-index-row">
+              <span class="ep-index-num">01</span>
+              <span class="ep-index-name">Ginza Curry</span>
+              <span class="ep-index-count">3 videos</span>
+            </div>
+            <div class="ep-index-row">
+              <span class="ep-index-num">02</span>
+              <span class="ep-index-name">Curry Pan</span>
+              <span class="ep-index-count">3 videos</span>
+            </div>
+            <div class="ep-index-row">
+              <span class="ep-index-num">03</span>
+              <span class="ep-index-name">Koenji Curry</span>
+              <span class="ep-index-count">3 videos</span>
+            </div>
+          </div>
+          <a class="series-info-link" href="#">View all 9 videos →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OMUSUBI (single) ── -->
+  <div class="series-block">
+    <div class="series-heading">
+      <span class="series-heading-jp">おむすび</span>
+      <span class="series-heading-en">Omusubi</span>
+      <span class="series-heading-count">3 videos · single series</span>
+    </div>
+
+    <div class="series-row">
+      <div class="video-card-featured">
+        <div class="card-thumb">
+          <div class="thumb-fill" style="background:linear-gradient(160deg,#fdecc8 0%,#d8a840 100%)"></div>
+          <div class="card-label">Omusubi · Vol. 1</div>
+          <div class="play-indicator"><div class="play-triangle"></div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-ep">Omusubi</div>
+          <div class="card-vol">Vol. 1</div>
+        </div>
+      </div>
+
+      <div class="series-right">
+        <div class="series-mini-grid">
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#fbe4b8 0%,#cc9830 100%)"></div>
+              <div class="card-label">Omusubi</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Omusubi</div>
+              <div class="card-vol-sm">Vol. 2</div>
+            </div>
+          </div>
+          <div class="video-card-mini">
+            <div class="card-thumb">
+              <div class="thumb-fill" style="background:linear-gradient(160deg,#f8dca8 0%,#c08828 100%)"></div>
+              <div class="card-label">Omusubi</div>
+              <div class="play-indicator"><div class="play-triangle"></div></div>
+            </div>
+            <div class="card-body">
+              <div class="card-ep-sm">Omusubi</div>
+              <div class="card-vol-sm">Vol. 3</div>
+            </div>
+          </div>
+          <!-- empty slot — leave intentionally -->
+          <div></div>
+        </div>
+
+        <div class="series-info">
+          <div class="series-info-label">About</div>
+          <div class="series-info-desc">Three short films. One humble rice ball. The people who shape it, and what it means to them.</div>
+          <div class="ep-index">
+            <div class="ep-index-row">
+              <span class="ep-index-num">01</span>
+              <span class="ep-index-name">Omusubi</span>
+              <span class="ep-index-count">Vol. 1</span>
+            </div>
+            <div class="ep-index-row">
+              <span class="ep-index-num">02</span>
+              <span class="ep-index-name">Omusubi</span>
+              <span class="ep-index-count">Vol. 2</span>
+            </div>
+            <div class="ep-index-row">
+              <span class="ep-index-num">03</span>
+              <span class="ep-index-name">Omusubi</span>
+              <span class="ep-index-count">Vol. 3</span>
+            </div>
+          </div>
+          <a class="series-info-link" href="#">View all 3 videos →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="contact-section">
+  <div class="contact-left">
+    <div class="contact-eyebrow">For Municipalities &amp; Tourism Boards</div>
+    <h2 class="contact-title">あなたの街の<br><em>食の旅</em>を<br>届けませんか</h2>
+    <p class="contact-body">move-ment produces short-form vertical video and builds the portal to display it. From filming to publishing — we handle everything.</p>
+    <a class="contact-link" href="#">Talk to us about your city →</a>
+  </div>
+  <div class="contact-right">
+    <div class="contact-detail">
+      <div class="contact-detail-label">Service</div>
+      <div class="contact-detail-value">TesuTemo — Tourism Edition</div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label">Format</div>
+      <div class="contact-detail-value">Vertical short-form video (9:16)</div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label">Produced by</div>
+      <div class="contact-detail-value">move-ment</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Tese<em>Temo</em></div>
+  <div class="footer-copy">© 2025 move-ment · All content produced by move-ment</div>
+</footer>
+
+<script>
+let reelIndex = 0;
+const reels = document.querySelectorAll('.hero-reel');
+const dots = document.querySelectorAll('.reel-dot');
+
+function goReel(n) {
+  reels[reelIndex].classList.remove('active');
+  dots[reelIndex].classList.remove('active');
+  reelIndex = n;
+  reels[reelIndex].classList.add('active');
+  dots[reelIndex].classList.add('active');
+}
+
+setInterval(() => goReel((reelIndex + 1) % reels.length), 3500);
+</script>
+</body>
+</html>

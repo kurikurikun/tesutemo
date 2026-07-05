@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Campus Voices — Real Student Stories from Japanese Universities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a2e;
+    --paper: #faf9f7;
+    --light: #f3f1ed;
+    --primary: #e95228;
+    --primary-dark: #c94420;
+    --primary-light: #fef0ec;
+    --accent: #7e91cf;
+    --accent-light: #eef1f9;
+    --muted: #6b7280;
+    --card-bg: #ffffff;
+    --border: #e5e5e5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(250,249,247,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .nav-logo-text span { color: var(--primary); }
+  .nav-logo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: -2px;
+  }
+
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--primary); }
+
+  .nav-cta {
+    padding: 10px 24px;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--primary-dark); }
+
+  .lang-toggle {
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+    margin-right: 12px;
+  }
+  .lang-toggle:hover { border-color: var(--primary); color: var(--primary); }
+  .lang-toggle .active-lang { color: var(--primary); }
+  .lang-toggle .sep { opacity: 0.3; margin: 0 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 90vh;
+    margin-top: 68px;
+  }
+
+  .hero-left {
+    padding: 80px 72px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    line-height: 1.18;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  .hero-body {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    margin-bottom: 48px;
+  }
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-ghost {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 24px;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink); text-decoration: none;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--primary);
+  }
+  .stat-label {
+    font-size: 12px; color: var(--muted);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .hero-right {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+    background: var(--border);
+  }
+
+  .hero-thumb {
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .hero-thumb.featured {
+    grid-column: 1 / -1;
+  }
+
+  .thumb-bg-1 { background: linear-gradient(135deg, #f9c8b8 0%, #e8957a 100%); }
+  .thumb-bg-2 { background: linear-gradient(135deg, #b8c8e8 0%, #8fa8d6 100%); }
+  .thumb-bg-3 { background: linear-gradient(135deg, #c8d8c4 0%, #a4c09a 100%); }
+
+  .thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    transition: transform 0.3s;
+  }
+  .hero-thumb:hover .thumb-placeholder { transform: scale(1.05); }
+
+  .play-badge {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.25s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .hero-thumb:hover .play-badge { opacity: 1; }
+  .play-badge svg { width: 16px; height: 16px; fill: var(--primary); margin-left: 3px; }
+
+  .hero-thumb-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(26,26,46,0.85) 0%, transparent 100%);
+  }
+  .thumb-prog {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 4px;
+  }
+  .thumb-name { font-size: 14px; color: white; font-weight: 600; }
+  .thumb-role { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+  /* ── SEARCH ── */
+  .search-section {
+    padding: 56px 72px 32px;
+    background: var(--light);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .search-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .search-bar {
+    display: flex; align-items: center;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 20px;
+    gap: 12px;
+    max-width: 640px;
+    margin-bottom: 28px;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--primary); }
+  .search-bar svg { width: 18px; height: 18px; color: var(--muted); flex-shrink: 0; }
+  .search-bar input {
+    border: none; outline: none; background: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px; color: var(--ink); width: 100%;
+  }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  .filter-row {
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .filter-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    min-width: 80px;
+  }
+
+  .filter-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .filter-dropdown-btn {
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Inter', sans-serif;
+  }
+  .filter-dropdown-btn:hover { border-color: var(--primary); color: var(--ink); }
+  .filter-dropdown-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  .filter-dropdown-btn svg { width: 12px; height: 12px; }
+
+  .filter-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    min-width: 220px;
+    z-index: 50;
+    padding: 8px 0;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+  .filter-dropdown-menu.show { display: block; }
+  .filter-dropdown-item {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .filter-dropdown-item:hover { background: var(--primary-light); }
+  .filter-dropdown-item.selected { color: var(--primary); font-weight: 600; }
+  .filter-dropdown-item .check { opacity: 0; font-size: 14px; }
+  .filter-dropdown-item.selected .check { opacity: 1; }
+
+  .filter-pills {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .filter-pill {
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .filter-pill:hover, .filter-pill.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  .active-filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding-top: 12px;
+    min-height: 20px;
+  }
+  .active-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+  }
+  .active-tag .remove {
+    cursor: pointer; font-size: 14px; line-height: 1;
+    opacity: 0.6; transition: opacity 0.15s;
+  }
+  .active-tag .remove:hover { opacity: 1; }
+  .clear-all {
+    font-size: 12px; color: var(--muted); cursor: pointer;
+    text-decoration: underline;
+    padding: 5px 8px;
+    transition: color 0.15s;
+  }
+  .clear-all:hover { color: var(--primary); }
+
+  /* ── RESULTS COUNT ── */
+  .results-bar {
+    padding: 20px 72px;
+    font-size: 13px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: white;
+  }
+  .results-bar strong { color: var(--ink); font-weight: 600; }
+
+  /* ── VIDEO GRID ── */
+  .grid-section {
+    padding: 48px 72px 80px;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .video-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .video-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .video-card.hidden { display: none; }
+
+  .video-card-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+  .video-card-thumb iframe {
+    width: 100%; height: 100%; border: none;
+    pointer-events: none;
+  }
+  .video-card-thumb .thumb-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .video-card-thumb .thumb-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .video-card-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .video-card:hover .video-card-play { opacity: 1; }
+  .video-card-play svg { width: 14px; height: 14px; fill: var(--primary); margin-left: 2px; }
+
+  .video-card-body {
+    padding: 16px;
+  }
+  .video-card-name {
+    font-size: 14px; font-weight: 600; color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .video-card-meta {
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .video-card-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .video-card-tag {
+    font-size: 10px; padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--light);
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+  .video-card-tag.uni { background: var(--primary-light); color: var(--primary); }
+
+  /* ── UNIVERSITY SECTION ── */
+  .uni-section {
+    padding: 0 72px 60px;
+  }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 36px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--ink);
+  }
+  .section-link {
+    font-size: 13px; color: var(--primary); text-decoration: none;
+    font-weight: 500; letter-spacing: 0.03em;
+    border-bottom: 1px solid rgba(233,82,40,0.3);
+    transition: border-color 0.2s;
+  }
+  .section-link:hover { border-color: var(--primary); }
+
+  /* Uni cards */
+  .uni-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .uni-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .uni-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .uni-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .uni-card:hover::after { transform: scaleX(1); }
+  .uni-card.has-videos { border-left: 3px solid var(--primary); }
+
+  .uni-icon { font-size: 32px; margin-bottom: 14px; }
+  .uni-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .uni-name-jp {
+    font-size: 12px; color: var(--muted); margin-bottom: 10px;
+  }
+  .uni-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .uni-count {
+    margin-top: 14px;
+    font-size: 12px; font-weight: 600;
+  }
+  .uni-count.has { color: var(--primary); }
+  .uni-count.none { color: var(--muted); font-style: italic; }
+
+  /* ── SUBJECT SECTION ── */
+  .subjects-section {
+    padding: 60px 72px;
+    background: var(--light);
+  }
+
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .subject-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .subject-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .subject-emoji { font-size: 28px; margin-bottom: 10px; }
+  .subject-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .subject-count { font-size: 12px; color: var(--muted); }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--ink);
+    padding: 72px;
+    text-align: center;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; color: white;
+    margin-bottom: 16px;
+  }
+  .cta-body {
+    font-size: 16px; color: rgba(255,255,255,0.6);
+    max-width: 560px; margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--primary-dark); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    padding: 48px 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: white; font-weight: 700;
+  }
+  .footer-brand span { color: var(--primary); }
+  .footer-sub { font-size: 12px; margin-top: 4px; }
+  .footer-right {
+    font-size: 12px; text-align: right;
+    line-height: 1.6;
+  }
+  .footer-right a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .footer-right a:hover { color: white; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.85);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-content {
+    width: 90vw; max-width: 900px;
+    aspect-ratio: 16/9;
+    position: relative;
+  }
+  .modal-content iframe {
+    width: 100%; height: 100%; border: none; border-radius: 8px;
+  }
+  .modal-close {
+    position: absolute; top: -40px; right: 0;
+    color: white; font-size: 28px; cursor: pointer;
+    background: none; border: none;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  .modal-close:hover { opacity: 1; }
+
+  /* ── NO RESULTS ── */
+  .no-results {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+  }
+  .no-results-icon { font-size: 48px; margin-bottom: 16px; }
+  .no-results h3 { font-size: 18px; color: var(--ink); margin-bottom: 8px; }
+  .no-results p { font-size: 14px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-title { animation: fadeUp 0.6s ease 0.1s both; }
+  .hero-body { animation: fadeUp 0.6s ease 0.2s both; }
+  .hero-actions { animation: fadeUp 0.6s ease 0.3s both; }
+  .hero-stats { animation: fadeUp 0.6s ease 0.4s both; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px; }
+    .hero-right { height: 50vh; }
+    .search-section { padding: 48px 24px 32px; }
+    .grid-section { padding: 40px 24px 60px; }
+    .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .uni-grid { grid-template-columns: 1fr; }
+    .subject-grid { grid-template-columns: repeat(2, 1fr); }
+    .uni-section { padding: 0 24px 40px; }
+    .subjects-section { padding: 40px 24px; }
+    .cta-banner { padding: 48px 24px; }
+    .results-bar { padding: 16px 24px; }
+    footer { padding: 36px 24px; flex-direction: column; gap: 24px; text-align: center; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">CV</div>
+    <div>
+      <div class="nav-logo-text">Campus <span>Voices</span></div>
+      <div class="nav-logo-sub">by TesuTemo</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#universities" data-i18n="nav_uni">By University</a></li>
+    <li><a href="#subjects" data-i18n="nav_subject">By Subject</a></li>
+    <li><a href="#videos" data-i18n="nav_voices">All Voices</a></li>
+    <li><a href="https://www.tesutemo.co/en/university" target="_blank" id="navAbout" data-i18n="nav_about">About TesuTemo</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">
+      <span id="langEN" class="active-lang">EN</span><span class="sep">/</span><span id="langJA">JA</span>
+    </button>
+    <a class="nav-cta" id="navCta" href="https://www.tesutemo.co/en/university" target="_blank">Get Campus Voices</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow" data-i18n="hero_eyebrow">Real students · Real stories · Real impact</div>
+    <h1 class="hero-title" data-i18n-html="hero_title">
+      Hear from the students<br>who chose their<br><em>university for a reason.</em>
+    </h1>
+    <p class="hero-body" data-i18n="hero_body">
+      Prospective students don't trust brochures — they trust other students.
+      Campus Voices lets them hear directly from people just like them,
+      studying what they want, at the university they're considering.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#videos" data-i18n="hero_cta">Watch Stories</a>
+      <a class="btn-ghost" href="https://www.tesutemo.co/en/university" target="_blank" id="heroLearnMore">
+        <span data-i18n="hero_learn">Learn More</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">12+</div>
+        <div class="stat-label" data-i18n="stat_uni">Universities</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50+</div>
+        <div class="stat-label" data-i18n="stat_voices">Voices</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15</div>
+        <div class="stat-label" data-i18n="stat_subjects">Subjects</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-thumb featured" style="background:url('https://i.vimeocdn.com/video/1994634962-ac2ec4bbb8093ed45be56e7cf69b62e4432298900fad975355e4f9b80c8894c8-d_960x540?region=us') center/cover;">
+      <div class="thumb-placeholder"></div>
+      <div class="play-badge">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="hero-thumb-overlay">
+        <div class="thumb-prog">Kansai University</div>
+        <div class="thumb-name">Student Interview</div>
+        <div class="thumb-role">Economics · 3rd Year</div>
+      </div>
+    </div>
+    <div class="hero-thumb" style="background:url('https://i.vimeocdn.com/video/2024995652-38988f54da4421b99c0cbe74b854fd092bf91603416c27108ee4d5558e792b04-d_640x360?region=us') center/cover;">
+      <div class="thumb-placeholder"></div>
+      <div class="play-badge">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="hero-thumb-overlay">
+        <div class="thumb-prog">Kansai University</div>
+        <div class="thumb-name">Campus Life</div>
+        <div class="thumb-role">Law · 4th Year</div>
+      </div>
+    </div>
+    <div class="hero-thumb" style="background:url('https://i.vimeocdn.com/video/1938528032-3437eb04cee8705afad127bbd9115c3e5554cf742d60730bce6c1574ebb16fdb-d_640x360?region=us') center/cover;">
+      <div class="thumb-placeholder"></div>
+      <div class="play-badge">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="hero-thumb-overlay">
+        <div class="thumb-prog">Waseda University</div>
+        <div class="thumb-name">Why Waseda?</div>
+        <div class="thumb-role">Economics · 3rd Year</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH & FILTERS -->
+<section class="search-section" id="videos">
+  <div class="search-label" data-i18n="search_label">Find the student voice that matters to you</div>
+  <div class="search-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Search by name, university, subject, keyword..." data-i18n-placeholder="search_placeholder">
+  </div>
+
+  <!-- Dropdown filters -->
+  <div class="filter-row">
+    <span class="filter-label" data-i18n="filter_by">Filter by:</span>
+
+    <div class="filter-dropdown" data-filter="university">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('university')">
+        <span data-i18n="filter_university">University</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-university">
+        <div class="filter-dropdown-item" data-value="kansai" onclick="selectFilter('university','kansai','Kansai University')"><span class="check">✓</span> <span data-i18n="uni_kansai">Kansai University</span> <span style="color:var(--primary);font-size:10px;margin-left:auto;">● videos</span></div>
+        <div class="filter-dropdown-item" data-value="waseda" onclick="selectFilter('university','waseda','Waseda University')"><span class="check">✓</span> <span data-i18n="uni_waseda">Waseda University</span> <span style="color:var(--primary);font-size:10px;margin-left:auto;">● videos</span></div>
+        <div style="height:1px;background:var(--border);margin:6px 0;"></div>
+        <div class="filter-dropdown-item" data-value="todai" onclick="selectFilter('university','todai','University of Tokyo')"><span class="check">✓</span> University of Tokyo</div>
+        <div class="filter-dropdown-item" data-value="kyodai" onclick="selectFilter('university','kyodai','Kyoto University')"><span class="check">✓</span> Kyoto University</div>
+        <div class="filter-dropdown-item" data-value="keio" onclick="selectFilter('university','keio','Keio University')"><span class="check">✓</span> Keio University</div>
+        <div class="filter-dropdown-item" data-value="sophia" onclick="selectFilter('university','sophia','Sophia University')"><span class="check">✓</span> Sophia University</div>
+        <div class="filter-dropdown-item" data-value="meiji" onclick="selectFilter('university','meiji','Meiji University')"><span class="check">✓</span> Meiji University</div>
+        <div class="filter-dropdown-item" data-value="osaka" onclick="selectFilter('university','osaka','Osaka University')"><span class="check">✓</span> Osaka University</div>
+        <div class="filter-dropdown-item" data-value="tohoku" onclick="selectFilter('university','tohoku','Tohoku University')"><span class="check">✓</span> Tohoku University</div>
+        <div class="filter-dropdown-item" data-value="tsukuba" onclick="selectFilter('university','tsukuba','University of Tsukuba')"><span class="check">✓</span> University of Tsukuba</div>
+        <div class="filter-dropdown-item" data-value="ritsumei" onclick="selectFilter('university','ritsumei','Ritsumeikan University')"><span class="check">✓</span> Ritsumeikan University</div>
+        <div class="filter-dropdown-item" data-value="doshisha" onclick="selectFilter('university','doshisha','Doshisha University')"><span class="check">✓</span> Doshisha University</div>
+      </div>
+    </div>
+
+    <div class="filter-dropdown" data-filter="gender">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('gender')">
+        <span data-i18n="filter_gender">Gender</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-gender">
+        <div class="filter-dropdown-item" data-value="male" onclick="selectFilter('gender','male','Male')"><span class="check">✓</span> Male</div>
+        <div class="filter-dropdown-item" data-value="female" onclick="selectFilter('gender','female','Female')"><span class="check">✓</span> Female</div>
+      </div>
+    </div>
+
+    <div class="filter-dropdown" data-filter="nationality">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('nationality')">
+        <span data-i18n="filter_bg">Background</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-nationality">
+        <div class="filter-dropdown-item" data-value="japanese" onclick="selectFilter('nationality','japanese','Japanese')"><span class="check">✓</span> Japanese</div>
+        <div class="filter-dropdown-item" data-value="international" onclick="selectFilter('nationality','international','International')"><span class="check">✓</span> International</div>
+      </div>
+    </div>
+
+    <div class="filter-dropdown" data-filter="subject">
+      <button class="filter-dropdown-btn" onclick="toggleDropdown('subject')">
+        <span data-i18n="filter_subject">Subject</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="filter-dropdown-menu" id="dropdown-subject">
+        <div class="filter-dropdown-item" data-value="economics" onclick="selectFilter('subject','economics','Economics')"><span class="check">✓</span> Economics</div>
+        <div class="filter-dropdown-item" data-value="business" onclick="selectFilter('subject','business','Business')"><span class="check">✓</span> Business</div>
+        <div class="filter-dropdown-item" data-value="law" onclick="selectFilter('subject','law','Law')"><span class="check">✓</span> Law</div>
+        <div class="filter-dropdown-item" data-value="literature" onclick="selectFilter('subject','literature','Literature')"><span class="check">✓</span> Literature</div>
+        <div class="filter-dropdown-item" data-value="language" onclick="selectFilter('subject','language','Language Studies')"><span class="check">✓</span> Language Studies</div>
+        <div class="filter-dropdown-item" data-value="engineering" onclick="selectFilter('subject','engineering','Engineering')"><span class="check">✓</span> Engineering</div>
+        <div class="filter-dropdown-item" data-value="science" onclick="selectFilter('subject','science','Science')"><span class="check">✓</span> Science</div>
+        <div class="filter-dropdown-item" data-value="mathematics" onclick="selectFilter('subject','mathematics','Mathematics')"><span class="check">✓</span> Mathematics</div>
+        <div class="filter-dropdown-item" data-value="sociology" onclick="selectFilter('subject','sociology','Sociology')"><span class="check">✓</span> Sociology</div>
+        <div class="filter-dropdown-item" data-value="psychology" onclick="selectFilter('subject','psychology','Psychology')"><span class="check">✓</span> Psychology</div>
+        <div class="filter-dropdown-item" data-value="medicine" onclick="selectFilter('subject','medicine','Medicine')"><span class="check">✓</span> Medicine</div>
+        <div class="filter-dropdown-item" data-value="international-relations" onclick="selectFilter('subject','international-relations','International Relations')"><span class="check">✓</span> International Relations</div>
+        <div class="filter-dropdown-item" data-value="computer-science" onclick="selectFilter('subject','computer-science','Computer Science')"><span class="check">✓</span> Computer Science</div>
+        <div class="filter-dropdown-item" data-value="education" onclick="selectFilter('subject','education','Education')"><span class="check">✓</span> Education</div>
+        <div class="filter-dropdown-item" data-value="architecture" onclick="selectFilter('subject','architecture','Architecture')"><span class="check">✓</span> Architecture</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active filters display -->
+  <div class="active-filters" id="activeFilters"></div>
+</section>
+
+<!-- RESULTS BAR -->
+<div class="results-bar" id="resultsBar">
+  <span data-i18n="results_showing">Showing</span> <strong id="resultCount">16</strong> <span data-i18n="results_voices">student voices</span>
+</div>
+
+<!-- VIDEO GRID -->
+<section class="grid-section">
+  <div class="video-grid" id="videoGrid">
+    <!-- Kansai University - has real videos -->
+    <div class="video-card" data-university="kansai" data-gender="female" data-nationality="japanese" data-subject="economics" data-search="kansai university economics tanaka yui japanese female">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/1994634962-ac2ec4bbb8093ed45be56e7cf69b62e4432298900fad975355e4f9b80c8894c8-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1019675789?h=8ca81d7847&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Yui Tanaka</div>
+        <div class="video-card-meta">Kansai University · Economics · 3rd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Kansai</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="kansai" data-gender="male" data-nationality="japanese" data-subject="law" data-search="kansai university law suzuki kenji japanese male">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/2024995652-38988f54da4421b99c0cbe74b854fd092bf91603416c27108ee4d5558e792b04-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1082523091?badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Kenji Suzuki</div>
+        <div class="video-card-meta">Kansai University · Law · 4th Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Kansai</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="kansai" data-gender="female" data-nationality="international" data-subject="language" data-search="kansai university language emma chen international female exchange">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/1973437255-c43c3cff69662ecad3602da8439345663282b0632665f4cd6dcad84b6a8d7470-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1049154514?badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Emma Chen</div>
+        <div class="video-card-meta">Kansai University · Language Studies · Exchange</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Kansai</span>
+          <span class="video-card-tag">International</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="kansai" data-gender="male" data-nationality="japanese" data-subject="business" data-search="kansai university business yamamoto takeshi japanese male">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/1941306895-eb37b3ca6dbacb2141a2011de480b75b722c24485548ea0bd7a53827263dcf00-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1019649377?badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Takeshi Yamamoto</div>
+        <div class="video-card-meta">Kansai University · Business · 2nd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Kansai</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waseda University - has real videos -->
+    <div class="video-card" data-university="waseda" data-gender="female" data-nationality="japanese" data-subject="literature" data-search="waseda university literature sato haruka japanese female">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/1938543289-169647d5d7d2949fd2e99b01fe096db839da97db1569d1516a6b7696ced5b0b2-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1020046986?h=83e6b0fedd&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Haruka Sato</div>
+        <div class="video-card-meta">Waseda University · Literature · 3rd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Waseda</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="waseda" data-gender="male" data-nationality="international" data-subject="international-relations" data-search="waseda university international relations david kim international male korea">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/1973423865-ec57f6470c337fb11aaa47824ea6cf085e93ea0ca9ca4485feea784e711f31b2-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1049144140?badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">David Kim</div>
+        <div class="video-card-meta">Waseda University · Int'l Relations · 4th Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Waseda</span>
+          <span class="video-card-tag">International</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="waseda" data-gender="female" data-nationality="japanese" data-subject="engineering" data-search="waseda university engineering nakamura mika japanese female computer science">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/2128235104-d8383277dc09b79cc6b70e90e8af05e9b0697ee41e02a7d5736477e723b35153-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1169470823?h=af1c20547e&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Mika Nakamura</div>
+        <div class="video-card-meta">Waseda University · Engineering · 2nd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Waseda</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="waseda" data-gender="male" data-nationality="japanese" data-subject="economics" data-search="waseda university economics ito ryota japanese male">
+      <div class="video-card-thumb">
+        <img class="thumb-img" src="https://i.vimeocdn.com/video/1938528032-3437eb04cee8705afad127bbd9115c3e5554cf742d60730bce6c1574ebb16fdb-d_640x360?region=us" alt="Student interview" loading="lazy">
+        <div class="video-card-play" data-video="https://player.vimeo.com/video/1017754838?h=2df374323e&badge=0&autopause=0&player_id=0&app_id=58479"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Ryota Ito</div>
+        <div class="video-card-meta">Waseda University · Economics · 3rd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Waseda</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- University of Tokyo - placeholder -->
+    <div class="video-card" data-university="todai" data-gender="male" data-nationality="japanese" data-subject="science" data-search="university of tokyo science physics watanabe japanese male todai">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8e8e8,#90d0d0)">🔬</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Shota Watanabe</div>
+        <div class="video-card-meta">University of Tokyo · Science · 4th Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">UTokyo</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="todai" data-gender="female" data-nationality="international" data-subject="mathematics" data-search="university of tokyo mathematics sarah miller international female todai">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e8e0c8,#d6c890)">🧮</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Sarah Miller</div>
+        <div class="video-card-meta">University of Tokyo · Mathematics · PhD</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">UTokyo</span>
+          <span class="video-card-tag">International</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kyoto University -->
+    <div class="video-card" data-university="kyodai" data-gender="male" data-nationality="japanese" data-subject="psychology" data-search="kyoto university psychology takahashi japanese male kyodai">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8c8d8,#c0a0c0)">🧠</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Yuto Takahashi</div>
+        <div class="video-card-meta">Kyoto University · Psychology · 3rd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Kyoto</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-university="kyodai" data-gender="female" data-nationality="japanese" data-subject="medicine" data-search="kyoto university medicine kobayashi japanese female kyodai">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8d8c8,#a0c0a0)">🩺</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Aoi Kobayashi</div>
+        <div class="video-card-meta">Kyoto University · Medicine · 5th Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Kyoto</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Keio University -->
+    <div class="video-card" data-university="keio" data-gender="female" data-nationality="japanese" data-subject="business" data-search="keio university business administration fujita japanese female">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#e8d0b8,#d6b080)">📈</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Rina Fujita</div>
+        <div class="video-card-meta">Keio University · Business · 3rd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Keio</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sophia University -->
+    <div class="video-card" data-university="sophia" data-gender="male" data-nationality="international" data-subject="sociology" data-search="sophia university sociology james thompson international male">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#c8c8e8,#9898d6)">🏛️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">James Thompson</div>
+        <div class="video-card-meta">Sophia University · Sociology · 2nd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Sophia</span>
+          <span class="video-card-tag">International</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Osaka University -->
+    <div class="video-card" data-university="osaka" data-gender="female" data-nationality="japanese" data-subject="computer-science" data-search="osaka university computer science taniguchi japanese female">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#b8e0e8,#80c0d6)">🖥️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Sakura Taniguchi</div>
+        <div class="video-card-meta">Osaka University · Computer Science · 3rd Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Osaka</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Female</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meiji University -->
+    <div class="video-card" data-university="meiji" data-gender="male" data-nationality="japanese" data-subject="architecture" data-search="meiji university architecture honda japanese male">
+      <div class="video-card-thumb">
+        <div class="thumb-bg" style="background:linear-gradient(135deg,#d8d0c0,#c0b090)">🏗️</div>
+        <div class="video-card-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-name">Ren Honda</div>
+        <div class="video-card-meta">Meiji University · Architecture · 4th Year</div>
+        <div class="video-card-tags">
+          <span class="video-card-tag uni">Meiji</span>
+          <span class="video-card-tag">Japanese</span>
+          <span class="video-card-tag">Male</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults" style="display:none;">
+    <div class="no-results-icon">🔍</div>
+    <h3 data-i18n="no_results_title">No matching voices found</h3>
+    <p data-i18n="no_results_body">Try adjusting your filters or search terms</p>
+  </div>
+</section>
+
+<!-- UNIVERSITIES -->
+<section class="uni-section" id="universities">
+  <div class="section-header">
+    <div class="section-title" data-i18n="sec_uni">Browse by University</div>
+    <a class="section-link" href="#videos" data-i18n="sec_uni_link">View all voices →</a>
+  </div>
+
+  <div class="uni-grid">
+    <div class="uni-card has-videos" onclick="selectFilter('university','kansai','Kansai University');scrollToVideos()">
+      <div class="uni-icon">🏯</div>
+      <div class="uni-name">Kansai University</div>
+      <div class="uni-name-jp">関西大学</div>
+      <div class="uni-desc">One of the leading private universities in the Kansai region, known for practical education and strong industry ties.</div>
+      <div class="uni-count has">4 student voices available</div>
+    </div>
+    <div class="uni-card has-videos" onclick="selectFilter('university','waseda','Waseda University');scrollToVideos()">
+      <div class="uni-icon">🎌</div>
+      <div class="uni-name">Waseda University</div>
+      <div class="uni-name-jp">早稲田大学</div>
+      <div class="uni-desc">One of Japan's most prestigious private universities, celebrated for its global outlook and diverse student body.</div>
+      <div class="uni-count has">4 student voices available</div>
+    </div>
+    <div class="uni-card" onclick="selectFilter('university','todai','University of Tokyo');scrollToVideos()">
+      <div class="uni-icon">🏛️</div>
+      <div class="uni-name">University of Tokyo</div>
+      <div class="uni-name-jp">東京大学</div>
+      <div class="uni-desc">Japan's highest-ranked university, a powerhouse of research and academic excellence across all fields.</div>
+      <div class="uni-count has">2 student voices available</div>
+    </div>
+    <div class="uni-card" onclick="selectFilter('university','kyodai','Kyoto University');scrollToVideos()">
+      <div class="uni-icon">⛩️</div>
+      <div class="uni-name">Kyoto University</div>
+      <div class="uni-name-jp">京都大学</div>
+      <div class="uni-desc">Renowned for fostering independent thinking and producing Nobel laureates, set in Japan's cultural capital.</div>
+      <div class="uni-count has">2 student voices available</div>
+    </div>
+    <div class="uni-card" onclick="selectFilter('university','keio','Keio University');scrollToVideos()">
+      <div class="uni-icon">📘</div>
+      <div class="uni-name">Keio University</div>
+      <div class="uni-name-jp">慶應義塾大学</div>
+      <div class="uni-desc">Japan's oldest private university, known for its business school, alumni network, and innovative spirit.</div>
+      <div class="uni-count has">1 student voice available</div>
+    </div>
+    <div class="uni-card" onclick="selectFilter('university','sophia','Sophia University');scrollToVideos()">
+      <div class="uni-icon">🌍</div>
+      <div class="uni-name">Sophia University</div>
+      <div class="uni-name-jp">上智大学</div>
+      <div class="uni-desc">A leading international university in the heart of Tokyo, with English-taught programs and a diverse campus.</div>
+      <div class="uni-count has">1 student voice available</div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="subjects-section" id="subjects">
+  <div class="section-header">
+    <div class="section-title" data-i18n="sec_subject">Explore by Subject</div>
+  </div>
+  <div class="subject-grid">
+    <div class="subject-card" onclick="selectFilter('subject','economics','Economics');scrollToVideos()">
+      <div class="subject-emoji">📊</div>
+      <div class="subject-name">Economics</div>
+      <div class="subject-count">5 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','business','Business');scrollToVideos()">
+      <div class="subject-emoji">💼</div>
+      <div class="subject-name">Business</div>
+      <div class="subject-count">4 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','engineering','Engineering');scrollToVideos()">
+      <div class="subject-emoji">⚙️</div>
+      <div class="subject-name">Engineering</div>
+      <div class="subject-count">3 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','literature','Literature');scrollToVideos()">
+      <div class="subject-emoji">📖</div>
+      <div class="subject-name">Literature</div>
+      <div class="subject-count">3 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','language','Language Studies');scrollToVideos()">
+      <div class="subject-emoji">🗣️</div>
+      <div class="subject-name">Language Studies</div>
+      <div class="subject-count">3 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','science','Science');scrollToVideos()">
+      <div class="subject-emoji">🔬</div>
+      <div class="subject-name">Science</div>
+      <div class="subject-count">2 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','mathematics','Mathematics');scrollToVideos()">
+      <div class="subject-emoji">🧮</div>
+      <div class="subject-name">Mathematics</div>
+      <div class="subject-count">2 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','law','Law');scrollToVideos()">
+      <div class="subject-emoji">⚖️</div>
+      <div class="subject-name">Law</div>
+      <div class="subject-count">2 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','computer-science','Computer Science');scrollToVideos()">
+      <div class="subject-emoji">🖥️</div>
+      <div class="subject-name">Computer Science</div>
+      <div class="subject-count">2 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','psychology','Psychology');scrollToVideos()">
+      <div class="subject-emoji">🧠</div>
+      <div class="subject-name">Psychology</div>
+      <div class="subject-count">2 voices</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','medicine','Medicine');scrollToVideos()">
+      <div class="subject-emoji">🩺</div>
+      <div class="subject-name">Medicine</div>
+      <div class="subject-count">1 voice</div>
+    </div>
+    <div class="subject-card" onclick="selectFilter('subject','international-relations','International Relations');scrollToVideos()">
+      <div class="subject-emoji">🌐</div>
+      <div class="subject-name">Int'l Relations</div>
+      <div class="subject-count">2 voices</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="cta-title" data-i18n="cta_title">Want Campus Voices for your university?</div>
+  <div class="cta-body" data-i18n="cta_body">
+    TesuTemo creates authentic student interview videos that help prospective students
+    see themselves at your university. Affordable, fast, and powered by real stories.
+  </div>
+  <a class="cta-btn" href="https://www.tesutemo.co/en/university" target="_blank" id="ctaBtn" data-i18n="cta_btn">Learn More About TesuTemo →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Campus <span>Voices</span></div>
+    <div class="footer-sub" data-i18n="footer_sub">Real student stories from Japanese universities.</div>
+  </div>
+  <div class="footer-right">
+    A <a href="https://www.tesutemo.co" target="_blank">TesuTemo</a> <span data-i18n="footer_product">product</span><br>
+    <a href="https://www.tesutemo.co/en/university" target="_blank" id="footerLink" data-i18n="footer_cta">Get Campus Voices for your university →</a>
+  </div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="videoModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <iframe id="modalIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+const activeFilters = { university: null, gender: null, nationality: null, subject: null };
+let searchQuery = '';
+
+// ── DROPDOWN TOGGLE ──
+function toggleDropdown(name) {
+  const menu = document.getElementById('dropdown-' + name);
+  const isOpen = menu.classList.contains('show');
+  // Close all dropdowns first
+  document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+  if (!isOpen) menu.classList.add('show');
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.filter-dropdown')) {
+    document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+  }
+});
+
+// ── SELECT FILTER ──
+function selectFilter(category, value, label) {
+  const menu = document.getElementById('dropdown-' + category);
+
+  // Toggle: if same value already selected, deselect
+  if (activeFilters[category] === value) {
+    activeFilters[category] = null;
+    menu?.querySelectorAll('.filter-dropdown-item').forEach(i => i.classList.remove('selected'));
+  } else {
+    activeFilters[category] = value;
+    menu?.querySelectorAll('.filter-dropdown-item').forEach(i => {
+      i.classList.toggle('selected', i.dataset.value === value);
+    });
+  }
+
+  // Update dropdown button style
+  const btn = document.querySelector(`[data-filter="${category}"] .filter-dropdown-btn`);
+  if (btn) btn.classList.toggle('active', activeFilters[category] !== null);
+
+  // Close dropdown
+  document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+
+  updateActiveFiltersDisplay();
+  applyFilters();
+}
+
+// ── ACTIVE FILTERS DISPLAY ──
+function updateActiveFiltersDisplay() {
+  const container = document.getElementById('activeFilters');
+  const labels = { university: 'University', gender: 'Gender', nationality: 'Background', subject: 'Subject' };
+  let html = '';
+  let hasAny = false;
+
+  for (const [cat, val] of Object.entries(activeFilters)) {
+    if (val) {
+      hasAny = true;
+      // Get the label from the dropdown item
+      const item = document.querySelector(`#dropdown-${cat} [data-value="${val}"]`);
+      const text = item ? item.textContent.replace('✓','').replace('● videos','').trim() : val;
+      html += `<span class="active-tag">${labels[cat]}: ${text} <span class="remove" onclick="selectFilter('${cat}','${val}','')">✕</span></span>`;
+    }
+  }
+  if (hasAny) {
+    html += `<span class="clear-all" onclick="clearAllFilters()">Clear all</span>`;
+  }
+  container.innerHTML = html;
+}
+
+function clearAllFilters() {
+  for (const cat in activeFilters) activeFilters[cat] = null;
+  document.querySelectorAll('.filter-dropdown-item').forEach(i => i.classList.remove('selected'));
+  document.querySelectorAll('.filter-dropdown-btn').forEach(b => b.classList.remove('active'));
+  updateActiveFiltersDisplay();
+  applyFilters();
+}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  applyFilters();
+});
+
+// ── APPLY FILTERS ──
+function applyFilters() {
+  const cards = document.querySelectorAll('.video-card');
+  let visibleCount = 0;
+
+  cards.forEach(card => {
+    let show = true;
+
+    // Check dropdown filters
+    for (const [cat, val] of Object.entries(activeFilters)) {
+      if (val && card.dataset[cat] !== val) {
+        show = false;
+        break;
+      }
+    }
+
+    // Check search
+    if (show && searchQuery) {
+      const searchData = card.dataset.search || '';
+      if (!searchData.includes(searchQuery)) show = false;
+    }
+
+    card.classList.toggle('hidden', !show);
+    if (show) visibleCount++;
+  });
+
+  // Update count
+  document.getElementById('resultCount').textContent = visibleCount;
+
+  // Show/hide no results
+  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+  document.getElementById('videoGrid').style.display = visibleCount === 0 ? 'none' : 'grid';
+}
+
+// ── VIDEO MODAL ──
+document.querySelectorAll('.video-card-play').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const videoUrl = btn.dataset.video;
+    if (videoUrl) {
+      document.getElementById('modalIframe').src = videoUrl + '&autoplay=1';
+      document.getElementById('videoModal').classList.add('show');
+    }
+  });
+});
+
+// Also make the whole card clickable
+document.querySelectorAll('.video-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const playBtn = card.querySelector('.video-card-play');
+    const videoUrl = playBtn?.dataset?.video;
+    if (videoUrl) {
+      document.getElementById('modalIframe').src = videoUrl + '&autoplay=1';
+      document.getElementById('videoModal').classList.add('show');
+    }
+  });
+});
+
+function closeModal() {
+  document.getElementById('videoModal').classList.remove('show');
+  document.getElementById('modalIframe').src = '';
+}
+
+document.getElementById('videoModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('videoModal')) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+function scrollToVideos() {
+  setTimeout(() => {
+    document.getElementById('videos').scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
+// ── i18n LANGUAGE SYSTEM ──
+let currentLang = 'en';
+
+const translations = {
+  en: {
+    nav_uni: 'By University',
+    nav_subject: 'By Subject',
+    nav_voices: 'All Voices',
+    nav_about: 'About TesuTemo',
+    nav_cta: 'Get Campus Voices',
+    hero_eyebrow: 'Real students · Real stories · Real impact',
+    hero_title: 'Hear from the students<br>who chose their<br><em>university for a reason.</em>',
+    hero_body: "Prospective students don't trust brochures — they trust other students. Campus Voices lets them hear directly from people just like them, studying what they want, at the university they're considering.",
+    hero_cta: 'Watch Stories',
+    hero_learn: 'Learn More',
+    stat_uni: 'Universities',
+    stat_voices: 'Voices',
+    stat_subjects: 'Subjects',
+    search_label: 'Find the student voice that matters to you',
+    search_placeholder: 'Search by name, university, subject, keyword...',
+    filter_by: 'Filter by:',
+    filter_university: 'University',
+    filter_gender: 'Gender',
+    filter_bg: 'Background',
+    filter_subject: 'Subject',
+    results_showing: 'Showing',
+    results_voices: 'student voices',
+    no_results_title: 'No matching voices found',
+    no_results_body: 'Try adjusting your filters or search terms',
+    sec_uni: 'Browse by University',
+    sec_uni_link: 'View all voices →',
+    sec_subject: 'Explore by Subject',
+    cta_title: 'Want Campus Voices for your university?',
+    cta_body: 'TesuTemo creates authentic student interview videos that help prospective students see themselves at your university. Affordable, fast, and powered by real stories.',
+    cta_btn: 'Learn More About TesuTemo →',
+    footer_sub: 'Real student stories from Japanese universities.',
+    footer_product: 'product',
+    footer_cta: 'Get Campus Voices for your university →',
+    // Dropdown items
+    uni_kansai: 'Kansai University',
+    uni_waseda: 'Waseda University',
+    // Filter labels for active tags
+    lbl_university: 'University',
+    lbl_gender: 'Gender',
+    lbl_nationality: 'Background',
+    lbl_subject: 'Subject',
+  },
+  ja: {
+    nav_uni: '大学別',
+    nav_subject: '学部別',
+    nav_voices: 'すべての声',
+    nav_about: 'テステモについて',
+    nav_cta: 'Campus Voicesを導入',
+    hero_eyebrow: 'リアルな学生 · リアルな声 · リアルなインパクト',
+    hero_title: '大学を選んだ理由を、<br><em>学生自身の言葉で。</em>',
+    hero_body: '受験生はパンフレットより、先輩の声を信じます。Campus Voicesは、志望大学で学ぶ先輩の生の声を、受験生に直接届けるプラットフォームです。',
+    hero_cta: '動画を見る',
+    hero_learn: '詳しく見る',
+    stat_uni: '大学',
+    stat_voices: 'インタビュー',
+    stat_subjects: '学部',
+    search_label: 'あなたに合った学生の声を見つけよう',
+    search_placeholder: '名前、大学、学部、キーワードで検索...',
+    filter_by: '絞り込み：',
+    filter_university: '大学',
+    filter_gender: '性別',
+    filter_bg: '国籍',
+    filter_subject: '学部',
+    results_showing: '表示中：',
+    results_voices: '件の学生インタビュー',
+    no_results_title: '該当する声が見つかりません',
+    no_results_body: 'フィルターや検索条件を変更してみてください',
+    sec_uni: '大学別に探す',
+    sec_uni_link: 'すべての声を見る →',
+    sec_subject: '学部別に探す',
+    cta_title: 'あなたの大学にもCampus Voicesを',
+    cta_body: 'テステモは、受験生が「ここで学びたい」と感じるリアルな学生インタビュー動画を制作します。手頃な価格で、スピーディに、本物の声で。',
+    cta_btn: 'テステモについて詳しく →',
+    footer_sub: '日本の大学のリアルな学生の声。',
+    footer_product: 'プロダクト',
+    footer_cta: 'あなたの大学にCampus Voicesを導入 →',
+    uni_kansai: '関西大学',
+    uni_waseda: '早稲田大学',
+    lbl_university: '大学',
+    lbl_gender: '性別',
+    lbl_nationality: '国籍',
+    lbl_subject: '学部',
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'ja' : 'en';
+  applyLang();
+}
+
+function applyLang() {
+  const t = translations[currentLang];
+
+  // Update toggle button highlight
+  document.getElementById('langEN').classList.toggle('active-lang', currentLang === 'en');
+  document.getElementById('langJA').classList.toggle('active-lang', currentLang === 'ja');
+
+  // Update html lang attribute
+  document.documentElement.lang = currentLang === 'ja' ? 'ja' : 'en';
+
+  // Update body font for Japanese
+  document.body.style.fontFamily = currentLang === 'ja'
+    ? "'Noto Sans JP', 'Inter', sans-serif"
+    : "'Inter', sans-serif";
+
+  // Update all data-i18n text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // Update all data-i18n-html inner HTML
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // Update all data-i18n-placeholder
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Update links to point to correct locale
+  const jaBase = 'https://www.tesutemo.co/university';
+  const enBase = 'https://www.tesutemo.co/en/university';
+  const targetUrl = currentLang === 'ja' ? jaBase : enBase;
+  ['navCta', 'navAbout', 'heroLearnMore', 'ctaBtn', 'footerLink'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = targetUrl;
+  });
+
+  // Re-render active filters display with correct labels
+  updateActiveFiltersDisplay();
+}
+
+// Override the labels object in updateActiveFiltersDisplay to be locale-aware
+const _origUpdateActiveFiltersDisplay = updateActiveFiltersDisplay;
+updateActiveFiltersDisplay = function() {
+  const container = document.getElementById('activeFilters');
+  const t = translations[currentLang] || translations.en;
+  const labels = {
+    university: t.lbl_university || 'University',
+    gender: t.lbl_gender || 'Gender',
+    nationality: t.lbl_nationality || 'Background',
+    subject: t.lbl_subject || 'Subject'
+  };
+  let html = '';
+  let hasAny = false;
+
+  for (const [cat, val] of Object.entries(activeFilters)) {
+    if (val) {
+      hasAny = true;
+      const item = document.querySelector('#dropdown-' + cat + ' [data-value="' + val + '"]');
+      const text = item ? item.textContent.replace('✓','').replace('● videos','').trim() : val;
+      html += '<span class="active-tag">' + labels[cat] + ': ' + text + ' <span class="remove" onclick="selectFilter(\'' + cat + '\',\'' + val + '\',\'\')">✕</span></span>';
+    }
+  }
+  if (hasAny) {
+    html += '<span class="clear-all" onclick="clearAllFilters()">' + (currentLang === 'ja' ? 'すべてクリア' : 'Clear all') + '</span>';
+  }
+  container.innerHTML = html;
+};
+</script>
+</body>
+</html>

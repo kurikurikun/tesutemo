@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     '社員インタビュー動画で求職者の共感を生み、ミスマッチのない採用を実現。リアルな声で職場の雰囲気や働きがいを伝える採用プロモーション動画サービス。',
   alternates: {
     canonical: 'https://www.tesutemo.co/recruitment',
-    languages: { en: 'https://www.tesutemo.co/en/recruitment' },
+    languages: { en: 'https://www.tesutemo.co/en/recruitment', 'x-default': 'https://www.tesutemo.co/recruitment' },
   },
 };
 
@@ -19,6 +19,7 @@ export default function RecruitmentPage() {
   return (
     <SubpageLayout
       currentPath="/recruitment"
+      defaultUseCase="recruitment"
       heroTitle={
         <>
           社員のリアルな声で、採用を変える。

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     languages: {
       'ja': 'https://www.tesutemo.co',
       'en': 'https://www.tesutemo.co/en',
+      'x-default': 'https://www.tesutemo.co',
     },
   },
   title: {
@@ -57,15 +58,33 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'TesuTemo',
-  url: 'https://www.tesutemo.co',
-  logo: 'https://www.tesutemo.co/tesutemo-logo.png',
-  description:
-    'リアルな声を動画で届け、人と組織をつなぐインタビューサービス。採用、集客、移住促進に。',
-};
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'TesuTemo',
+    url: 'https://www.tesutemo.co',
+    logo: 'https://www.tesutemo.co/tesutemo-logo.png',
+    description:
+      'リアルな声を動画で届け、人と組織をつなぐインタビューサービス。採用、集客、移住促進に。',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'TesuTemo',
+    url: 'https://www.tesutemo.co',
+    inLanguage: 'ja',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'TesuTemo インタビュー動画制作',
+    provider: { '@type': 'Organization', name: 'TesuTemo' },
+    description: 'オンライン完結のインタビュー動画制作サービス。採用プロモーション、大学広報、移住促進、導入事例に。',
+    areaServed: 'JP',
+    serviceType: 'Video Production',
+  },
+];
 
 export default function RootLayout({
   children,

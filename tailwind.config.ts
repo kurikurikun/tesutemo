@@ -18,6 +18,15 @@ const config: Config = {
       fontFamily: {
         display: ['"DM Serif Display"', 'Georgia', 'serif'],
       },
+      keyframes: {
+        'pulse-orange': {
+          '0%, 100%': { opacity: '1', color: '#e95228' },
+          '50%': { opacity: '0.4', color: '#ffb199' },
+        },
+      },
+      animation: {
+        'pulse-orange': 'pulse-orange 2s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

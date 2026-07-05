@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     'Student interview videos that resonate with prospective students and convey the real appeal of your university. Share campus life and academic experiences through authentic student voices.',
   alternates: {
     canonical: 'https://www.tesutemo.co/en/university',
-    languages: { ja: 'https://www.tesutemo.co/university' },
+    languages: { ja: 'https://www.tesutemo.co/university', 'x-default': 'https://www.tesutemo.co/university' },
   },
 };
 
@@ -21,6 +21,7 @@ export default function UniversityPage() {
     <SubpageLayout
       locale="en"
       currentPath="/en/university"
+      defaultUseCase="university"
       heroTitle={<>Attract more of the applicants you want with <span className="text-primary">real student voices.</span></>}
       heroSubtitle={
         <>
@@ -66,8 +67,6 @@ export default function UniversityPage() {
         v('1049144140'),
         v('1169470823', 'af1c20547e'),
       ]}
-      companyLabel="University"
-      companyPlaceholder="University name"
     >
       {/* How TesuTemo transforms your promotion efforts */}
       <section className="py-20 bg-gray-50">

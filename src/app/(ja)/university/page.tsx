@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     '在学生インタビュー動画で志願者の共感を生み、大学の魅力をリアルに届ける広報動画サービス。キャンパスライフや学びの魅力を等身大の声で伝えます。',
   alternates: {
     canonical: 'https://www.tesutemo.co/university',
-    languages: { en: 'https://www.tesutemo.co/en/university' },
+    languages: { en: 'https://www.tesutemo.co/en/university', 'x-default': 'https://www.tesutemo.co/university' },
   },
 };
 
@@ -20,6 +20,7 @@ export default function UniversityPage() {
   return (
     <SubpageLayout
       currentPath="/university"
+      defaultUseCase="university"
       heroTitle={
         <>
           学生のリアルな声で志願者を増やす。
@@ -67,8 +68,6 @@ export default function UniversityPage() {
         v('1049144140'),
         v('1169470823', 'af1c20547e'),
       ]}
-      companyLabel="大学名"
-      companyPlaceholder="大学"
     >
       {/* TesuTemoの導入により変わるプロモーションの現場 */}
       <section className="py-20 bg-gray-50">

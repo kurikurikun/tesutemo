@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     '先輩移住者のインタビュー動画で移住検討者の共感を生み、地域の魅力をリアルに届ける移住促進動画サービス。限られた予算で効果的なプロモーションを実現します。',
   alternates: {
     canonical: 'https://www.tesutemo.co/municipality',
-    languages: { en: 'https://www.tesutemo.co/en/municipality' },
+    languages: { en: 'https://www.tesutemo.co/en/municipality', 'x-default': 'https://www.tesutemo.co/municipality' },
   },
 };
 
@@ -18,6 +18,7 @@ export default function MunicipalityPage() {
   return (
     <SubpageLayout
       currentPath="/municipality"
+      defaultUseCase="municipality"
       heroTitle={
         <>
           移住者のリアルな声で、選ばれる地域へ。
@@ -63,8 +64,6 @@ export default function MunicipalityPage() {
         v('1013400453', '89cb5fd807'),
         v('1050617850', '2e4031d8bd'),
       ]}
-      companyLabel="自治体名"
-      companyPlaceholder="テステモ町"
     >
       {/* TesuTemoの導入により変わるプロモーションの現場 */}
       <section className="py-20 bg-gray-50">

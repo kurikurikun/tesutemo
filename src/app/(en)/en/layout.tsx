@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     languages: {
       'ja': 'https://www.tesutemo.co',
       'en': 'https://www.tesutemo.co/en',
+      'x-default': 'https://www.tesutemo.co',
     },
   },
   title: {
@@ -56,15 +57,33 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'TesuTemo',
-  url: 'https://www.tesutemo.co',
-  logo: 'https://www.tesutemo.co/tesutemo-logo.png',
-  description:
-    'Delivering real voices through video, connecting people with organizations. For recruitment, customer acquisition, and migration promotion.',
-};
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'TesuTemo',
+    url: 'https://www.tesutemo.co',
+    logo: 'https://www.tesutemo.co/tesutemo-logo.png',
+    description:
+      'Delivering real voices through video, connecting people with organizations. For recruitment, customer acquisition, and migration promotion.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'TesuTemo',
+    url: 'https://www.tesutemo.co/en',
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'TesuTemo Interview Video Production',
+    provider: { '@type': 'Organization', name: 'TesuTemo' },
+    description: 'Fully online interview video production service. For recruitment, university admissions, migration promotion, and customer case studies.',
+    areaServed: 'JP',
+    serviceType: 'Video Production',
+  },
+];
 
 export default function EnglishLayout({
   children,

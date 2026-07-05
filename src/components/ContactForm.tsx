@@ -180,15 +180,6 @@ export default function ContactForm({ companyLabel, companyPlaceholder, locale =
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all resize-none"
                     />
                   </div>
-                  <div className="bg-gray-50 rounded-xl p-4">
-                    <p className="text-sm text-gray-600">
-                      {isEn ? (
-                        <>By submitting, you agree to our <span className="text-primary">privacy policy</span>. Your information will only be used to respond to your inquiry.</>
-                      ) : (
-                        <><span className="text-primary">プライバシーポリシー</span>に同意の上、送信してください。お預かりした個人情報は、お問い合わせへの対応のみに使用いたします。</>
-                      )}
-                    </p>
-                  </div>
                   {status === 'error' && (
                     <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                       <p className="text-sm text-red-600">{isEn ? 'Submission failed. Please try again.' : '送信に失敗しました。もう一度お試しください。'}</p>
