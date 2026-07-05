@@ -44,14 +44,7 @@ All 3 EN pages (university, recruitment, municipality) use natural English copy 
 - Min 3 interviewees; 15% discount per person for 4+
 - `whitespace-pre-line` removed from benefit card descriptions — text wraps naturally
 
-## Deploy
-
-```bash
-cd /Users/a25_11/Documents/claude/tesutemo && PATH="/usr/local/bin:$PATH" npx vercel --prod
-```
-
 ## Deployment
 
-- **`git push` to `origin` (kurikurikun/tesutemo) is the ONLY deploy path.** Never use `vercel` CLI (uninstalled machine-wide 2026-07-05) — dirty-tree CLI deploys caused live sites to silently diverge from git.
-- NOTE: as of 2026-07-05 the Vercel project `tesutemo` is NOT yet git-connected — Chris must connect the repo in the Vercel dashboard (project Settings → Git) before pushes deploy.
+- **`git push` to `origin` (kurikurikun/tesutemo) is the ONLY deploy path** — Vercel git integration connected 2026-07-05, every push to main auto-deploys production. Never use `vercel` CLI (removed from both Macs) — dirty-tree CLI deploys caused live sites to silently diverge from git.
 - All assets referenced by pages must be committed to git.
