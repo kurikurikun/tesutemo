@@ -1,0 +1,695 @@
+[
+  {
+    "text": "AI",
+    "startMs": 0,
+    "endMs": 250,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " coming",
+    "startMs": 250,
+    "endMs": 1000,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " in,",
+    "startMs": 1000,
+    "endMs": 1375,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 1375,
+    "endMs": 1750,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "apps",
+    "startMs": 1792,
+    "endMs": 2209,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " are",
+    "startMs": 2209,
+    "endMs": 2522,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " garbage",
+    "startMs": 2522,
+    "endMs": 3251,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " now.",
+    "startMs": 3251,
+    "endMs": 3667,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "You",
+    "startMs": 3667,
+    "endMs": 3873,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " are,",
+    "startMs": 3873,
+    "endMs": 4148,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " when",
+    "startMs": 4148,
+    "endMs": 4423,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " am",
+    "startMs": 4423,
+    "endMs": 4561,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " I",
+    "startMs": 4561,
+    "endMs": 4630,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " ever",
+    "startMs": 4630,
+    "endMs": 4905,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " going",
+    "startMs": 4905,
+    "endMs": 5250,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "to",
+    "startMs": 5250,
+    "endMs": 5381,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " have",
+    "startMs": 5381,
+    "endMs": 5643,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 5643,
+    "endMs": 5774,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " say",
+    "startMs": 5774,
+    "endMs": 5970,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 5970,
+    "endMs": 6101,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " somebody",
+    "startMs": 6101,
+    "endMs": 6625,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "that",
+    "startMs": 6792,
+    "endMs": 7159,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 7159,
+    "endMs": 7342,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " lawyer's",
+    "startMs": 7342,
+    "endMs": 8075,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " parrot",
+    "startMs": 8075,
+    "endMs": 8625,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " needs",
+    "startMs": 8625,
+    "endMs": 9083,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "to",
+    "startMs": 9083,
+    "endMs": 9212,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " go",
+    "startMs": 9212,
+    "endMs": 9341,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 9341,
+    "endMs": 9470,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 9470,
+    "endMs": 9663,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " hospital,",
+    "startMs": 9663,
+    "endMs": 10243,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " it's",
+    "startMs": 10243,
+    "endMs": 10500,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "just,",
+    "startMs": 10500,
+    "endMs": 10948,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " it's",
+    "startMs": 10948,
+    "endMs": 11306,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " garbage",
+    "startMs": 11306,
+    "endMs": 11933,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 11933,
+    "endMs": 12292,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "you're",
+    "startMs": 12292,
+    "endMs": 12578,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " learning,",
+    "startMs": 12578,
+    "endMs": 13007,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " right?",
+    "startMs": 13007,
+    "endMs": 13292,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "The",
+    "startMs": 13292,
+    "endMs": 13546,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " introduction",
+    "startMs": 13546,
+    "endMs": 14562,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 14562,
+    "endMs": 14901,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " Comas",
+    "startMs": 14901,
+    "endMs": 15324,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " offers,",
+    "startMs": 15324,
+    "endMs": 15917,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "the",
+    "startMs": 15917,
+    "endMs": 16138,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " free",
+    "startMs": 16138,
+    "endMs": 16432,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " trial",
+    "startMs": 16432,
+    "endMs": 16800,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " in",
+    "startMs": 16800,
+    "endMs": 16947,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 16947,
+    "endMs": 17167,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "beginning,",
+    "startMs": 17167,
+    "endMs": 18705,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " was",
+    "startMs": 18705,
+    "endMs": 19167,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "quite",
+    "startMs": 19500,
+    "endMs": 19961,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " generous.",
+    "startMs": 19961,
+    "endMs": 20792,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "And",
+    "startMs": 20792,
+    "endMs": 21411,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " so",
+    "startMs": 21411,
+    "endMs": 21824,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " I",
+    "startMs": 21824,
+    "endMs": 22030,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " tried",
+    "startMs": 22030,
+    "endMs": 23061,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " out,",
+    "startMs": 23061,
+    "endMs": 23886,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 23886,
+    "endMs": 24505,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " it",
+    "startMs": 24505,
+    "endMs": 24917,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "was",
+    "startMs": 24917,
+    "endMs": 25273,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " just",
+    "startMs": 25273,
+    "endMs": 25748,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " way",
+    "startMs": 25748,
+    "endMs": 26104,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " more",
+    "startMs": 26104,
+    "endMs": 26579,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " in",
+    "startMs": 26579,
+    "endMs": 26817,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " line",
+    "startMs": 26817,
+    "endMs": 27292,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "with",
+    "startMs": 27292,
+    "endMs": 27611,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " what",
+    "startMs": 27611,
+    "endMs": 27930,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " I",
+    "startMs": 27930,
+    "endMs": 28010,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " actually",
+    "startMs": 28010,
+    "endMs": 28648,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " needed",
+    "startMs": 28648,
+    "endMs": 29125,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "as",
+    "startMs": 29125,
+    "endMs": 29303,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " somebody",
+    "startMs": 29303,
+    "endMs": 30013,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " trying",
+    "startMs": 30013,
+    "endMs": 30546,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 30546,
+    "endMs": 30724,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " learn",
+    "startMs": 30724,
+    "endMs": 31167,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Japanese,",
+    "startMs": 31167,
+    "endMs": 31886,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " both",
+    "startMs": 31886,
+    "endMs": 32205,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " for",
+    "startMs": 32205,
+    "endMs": 32445,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " personal",
+    "startMs": 32445,
+    "endMs": 33083,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "reasons,",
+    "startMs": 33083,
+    "endMs": 33445,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " of",
+    "startMs": 33445,
+    "endMs": 33536,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " course,",
+    "startMs": 33536,
+    "endMs": 33853,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " living",
+    "startMs": 33853,
+    "endMs": 34125,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "here,",
+    "startMs": 34125,
+    "endMs": 34611,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " but",
+    "startMs": 34611,
+    "endMs": 34903,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " also",
+    "startMs": 34903,
+    "endMs": 35292,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " specifically",
+    "startMs": 35292,
+    "endMs": 36458,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "for",
+    "startMs": 36458,
+    "endMs": 36823,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 36823,
+    "endMs": 37066,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " practice",
+    "startMs": 37066,
+    "endMs": 38038,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 38038,
+    "endMs": 38403,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " learning",
+    "startMs": 38403,
+    "endMs": 39375,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "chiropractic",
+    "startMs": 39375,
+    "endMs": 40049,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " language",
+    "startMs": 40049,
+    "endMs": 40498,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 40498,
+    "endMs": 40667,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "more",
+    "startMs": 40667,
+    "endMs": 40917,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " medical",
+    "startMs": 40917,
+    "endMs": 41355,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " language.",
+    "startMs": 41355,
+    "endMs": 41917,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

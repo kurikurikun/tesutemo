@@ -1,0 +1,954 @@
+[
+  {
+    "text": "I'm",
+    "startMs": 42,
+    "endMs": 193,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " seeing",
+    "startMs": 193,
+    "endMs": 495,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 495,
+    "endMs": 646,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " improvement,",
+    "startMs": 646,
+    "endMs": 1250,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "even",
+    "startMs": 1292,
+    "endMs": 1730,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 1730,
+    "endMs": 1949,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " Japanese",
+    "startMs": 1949,
+    "endMs": 2824,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " clients",
+    "startMs": 2824,
+    "endMs": 3590,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " who",
+    "startMs": 3590,
+    "endMs": 3917,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "are,",
+    "startMs": 4125,
+    "endMs": 4417,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 4417,
+    "endMs": 4636,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " know,",
+    "startMs": 4636,
+    "endMs": 5000,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "they're",
+    "startMs": 5042,
+    "endMs": 5385,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " bilingual.",
+    "startMs": 5385,
+    "endMs": 5875,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "And",
+    "startMs": 5875,
+    "endMs": 6171,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " so",
+    "startMs": 6171,
+    "endMs": 6368,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " they'll",
+    "startMs": 6368,
+    "endMs": 7059,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " help",
+    "startMs": 7059,
+    "endMs": 7454,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " me,",
+    "startMs": 7454,
+    "endMs": 7750,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "they'll",
+    "startMs": 8333,
+    "endMs": 8900,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " speak",
+    "startMs": 8900,
+    "endMs": 9305,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 9305,
+    "endMs": 9467,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " me",
+    "startMs": 9467,
+    "endMs": 9629,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " in",
+    "startMs": 9629,
+    "endMs": 9792,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Japanese",
+    "startMs": 9792,
+    "endMs": 10312,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 10312,
+    "endMs": 10507,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " they'll",
+    "startMs": 10507,
+    "endMs": 10962,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " start",
+    "startMs": 10962,
+    "endMs": 11287,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 11287,
+    "endMs": 11417,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "notice,",
+    "startMs": 11417,
+    "endMs": 12040,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " okay,",
+    "startMs": 12040,
+    "endMs": 12485,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " what",
+    "startMs": 12485,
+    "endMs": 12841,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " are",
+    "startMs": 12841,
+    "endMs": 13108,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 13108,
+    "endMs": 13375,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "kind",
+    "startMs": 13833,
+    "endMs": 14048,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " of",
+    "startMs": 14048,
+    "endMs": 14156,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " getting",
+    "startMs": 14156,
+    "endMs": 14533,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " better",
+    "startMs": 14533,
+    "endMs": 14856,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " with?",
+    "startMs": 14856,
+    "endMs": 15125,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "And",
+    "startMs": 15208,
+    "endMs": 15422,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " they'll",
+    "startMs": 15422,
+    "endMs": 15922,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " text",
+    "startMs": 15922,
+    "endMs": 16208,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " me",
+    "startMs": 16208,
+    "endMs": 16351,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " about",
+    "startMs": 16351,
+    "endMs": 16708,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "their",
+    "startMs": 16708,
+    "endMs": 16872,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " appointments",
+    "startMs": 16872,
+    "endMs": 17267,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " in",
+    "startMs": 17267,
+    "endMs": 17333,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Japanese",
+    "startMs": 17333,
+    "endMs": 17841,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 17841,
+    "endMs": 18032,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " all",
+    "startMs": 18032,
+    "endMs": 18223,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " of",
+    "startMs": 18223,
+    "endMs": 18350,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " this.",
+    "startMs": 18350,
+    "endMs": 18667,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "My",
+    "startMs": 19708,
+    "endMs": 19885,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " clients",
+    "startMs": 19885,
+    "endMs": 20505,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " are",
+    "startMs": 20505,
+    "endMs": 20771,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " also",
+    "startMs": 20771,
+    "endMs": 21125,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "very",
+    "startMs": 21125,
+    "endMs": 21338,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " supportive",
+    "startMs": 21338,
+    "endMs": 21871,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 21871,
+    "endMs": 22031,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " they",
+    "startMs": 22031,
+    "endMs": 22244,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " kind",
+    "startMs": 22244,
+    "endMs": 22458,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "of",
+    "startMs": 22458,
+    "endMs": 22655,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " keep",
+    "startMs": 22655,
+    "endMs": 23050,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " me",
+    "startMs": 23050,
+    "endMs": 23247,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " on",
+    "startMs": 23247,
+    "endMs": 23444,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " track",
+    "startMs": 23444,
+    "endMs": 23937,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 23937,
+    "endMs": 24333,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "learning",
+    "startMs": 24333,
+    "endMs": 24889,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " because",
+    "startMs": 24889,
+    "endMs": 25375,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " I",
+    "startMs": 25375,
+    "endMs": 25444,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " then",
+    "startMs": 25444,
+    "endMs": 25722,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " want",
+    "startMs": 25722,
+    "endMs": 26000,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "to",
+    "startMs": 26000,
+    "endMs": 26146,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " be",
+    "startMs": 26146,
+    "endMs": 26292,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " able",
+    "startMs": 26292,
+    "endMs": 26584,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 26584,
+    "endMs": 26730,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " use",
+    "startMs": 26730,
+    "endMs": 26949,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " all",
+    "startMs": 26949,
+    "endMs": 27168,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " of",
+    "startMs": 27168,
+    "endMs": 27314,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 27314,
+    "endMs": 27458,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "new",
+    "startMs": 27458,
+    "endMs": 27673,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " vocabulary",
+    "startMs": 27673,
+    "endMs": 28390,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 28390,
+    "endMs": 28677,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " them",
+    "startMs": 28677,
+    "endMs": 28964,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " when",
+    "startMs": 28964,
+    "endMs": 29250,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "I'm",
+    "startMs": 29292,
+    "endMs": 29446,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " adjusting",
+    "startMs": 29446,
+    "endMs": 29909,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " them.",
+    "startMs": 29909,
+    "endMs": 30167,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "I",
+    "startMs": 30417,
+    "endMs": 30513,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " think",
+    "startMs": 30513,
+    "endMs": 30993,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 30993,
+    "endMs": 31377,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " just",
+    "startMs": 31377,
+    "endMs": 31761,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " based",
+    "startMs": 31761,
+    "endMs": 32241,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " on",
+    "startMs": 32241,
+    "endMs": 32433,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 32433,
+    "endMs": 32625,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "experience",
+    "startMs": 32625,
+    "endMs": 33283,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " of",
+    "startMs": 33283,
+    "endMs": 33415,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " how",
+    "startMs": 33415,
+    "endMs": 33612,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " well",
+    "startMs": 33612,
+    "endMs": 33875,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "prepared",
+    "startMs": 33875,
+    "endMs": 34511,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 34511,
+    "endMs": 34670,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " tutor",
+    "startMs": 34670,
+    "endMs": 35068,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " was",
+    "startMs": 35068,
+    "endMs": 35307,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 35307,
+    "endMs": 35625,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "working",
+    "startMs": 35625,
+    "endMs": 36028,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 36028,
+    "endMs": 36258,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " my",
+    "startMs": 36258,
+    "endMs": 36373,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " specific",
+    "startMs": 36373,
+    "endMs": 36833,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "business,",
+    "startMs": 36833,
+    "endMs": 37651,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " I'm",
+    "startMs": 37651,
+    "endMs": 37924,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " pretty",
+    "startMs": 37924,
+    "endMs": 38469,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " sure",
+    "startMs": 38469,
+    "endMs": 38833,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "they",
+    "startMs": 38875,
+    "endMs": 39155,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " would",
+    "startMs": 39155,
+    "endMs": 39505,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " be",
+    "startMs": 39505,
+    "endMs": 39645,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " prepared",
+    "startMs": 39645,
+    "endMs": 40206,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " for",
+    "startMs": 40206,
+    "endMs": 40417,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "any",
+    "startMs": 40458,
+    "endMs": 40701,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " type",
+    "startMs": 40701,
+    "endMs": 41025,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " of",
+    "startMs": 41025,
+    "endMs": 41187,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " business.",
+    "startMs": 41187,
+    "endMs": 41917,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "I",
+    "startMs": 41917,
+    "endMs": 41975,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " would",
+    "startMs": 41975,
+    "endMs": 42267,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " recommend",
+    "startMs": 42267,
+    "endMs": 42792,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 42792,
+    "endMs": 43025,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " anyone",
+    "startMs": 43025,
+    "endMs": 43375,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "check",
+    "startMs": 43375,
+    "endMs": 43806,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " them",
+    "startMs": 43806,
+    "endMs": 44151,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " out",
+    "startMs": 44151,
+    "endMs": 44409,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 44409,
+    "endMs": 44667,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "see",
+    "startMs": 44833,
+    "endMs": 45093,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " if",
+    "startMs": 45093,
+    "endMs": 45266,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " Comas",
+    "startMs": 45266,
+    "endMs": 45699,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " fits",
+    "startMs": 45699,
+    "endMs": 46046,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " their",
+    "startMs": 46046,
+    "endMs": 46479,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": " needs.",
+    "startMs": 46479,
+    "endMs": 47000,
+    "timestampMs": null,
+    "confidence": null
+  }
+]
