@@ -46,7 +46,7 @@ export default function MunicipalityPage() {
       solutionSubtitle={<>We interview migrants and community members and turn their genuine stories<br />into content that helps people picture themselves living in your region</>}
       solutionPoints={['Content that gives potential relocators a real feel for life in your community — and helps the right ones decide to make the move']}
       videoSectionTitle="When residents speak, people listen."
-      videoSectionSubtitle="Interview Videos (Horizontal: 90–120 sec / Vertical: 30–60 sec)"
+      videoSectionSubtitle="Interview Videos"
       videoHorizontalDesc={<>Horizontal videos go deep — perfect for your <span className="text-primary font-bold">migration website and relocation events</span></>}
       videoVerticalDesc={<>Vertical videos get you <span className="text-primary font-bold">discovered on social media</span></>}
       onlineFeatures={[

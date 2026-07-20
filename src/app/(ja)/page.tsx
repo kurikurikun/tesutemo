@@ -287,7 +287,9 @@ function UseCasesSection() {
       icon: TrendingUp,
       title: '顧客を増やす',
       description: 'お客様のリアルな声で、次の顧客と出会う',
-      href: '/case-study',
+      // Unlinked until Comas approves publication of their interviews.
+      // Restore to '/case-study' once approved.
+      href: '',
       image: '/usecase-customer.png',
     },
     {
@@ -342,12 +344,14 @@ function UseCasesSection() {
                   <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">{c.tag}</p>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{c.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed flex-1 mb-5">{c.description}</p>
-                  <Link
-                    href={c.href}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
-                  >
-                    もっとみる →
-                  </Link>
+                  {c.href && (
+                    <Link
+                      href={c.href}
+                      className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
+                    >
+                      もっとみる →
+                    </Link>
+                  )}
                 </div>
               </div>
             </FadeIn>

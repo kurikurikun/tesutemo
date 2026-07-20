@@ -47,7 +47,7 @@ export default function RecruitmentPage() {
       solutionSubtitle={<>We interview your employees and turn their genuine stories<br />into content that attracts the candidates you actually want</>}
       solutionPoints={['Content that gives candidates a real feel for your culture — and helps the right ones decide to apply']}
       videoSectionTitle="When employees speak, candidates listen."
-      videoSectionSubtitle="Interview Videos (Horizontal: 90–120 sec / Vertical: 30–60 sec)"
+      videoSectionSubtitle="Interview Videos"
       videoHorizontalDesc={<>Horizontal videos go deep — perfect for your <span className="text-primary font-bold">careers page and recruitment events</span></>}
       videoVerticalDesc={<>Vertical videos get you <span className="text-primary font-bold">discovered on social media</span></>}
       onlineFeatures={[

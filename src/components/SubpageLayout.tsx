@@ -75,11 +75,13 @@ export default function SubpageLayout({
                   {heroSubtitle}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
+                  {/* EN pointed at /en/case-study; parked on #videos (matching JA)
+                      until Comas approves publication. Restore once approved. */}
                   <a
-                    href={isEn ? '/en/case-study' : '#videos'}
+                    href="#videos"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-primary text-primary rounded-xl font-medium hover:bg-primary hover:text-white transition-all duration-300"
                   >
-                    {isEn ? 'View Case Studies' : '導入事例を見る'}
+                    {isEn ? 'View Case Studies' : '事例を見る'}
                     <ArrowRight size={20} />
                   </a>
                   <a

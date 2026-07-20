@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     canonical: 'https://www.tesutemo.co/en/case-study',
     languages: { ja: 'https://www.tesutemo.co/case-study', 'x-default': 'https://www.tesutemo.co/case-study' },
   },
+  // Comas has not yet given written permission to publish their interviews.
+  // Remove this block (and restore the nav links + sitemap entries) once approved.
+  robots: { index: false, follow: false },
 };
 
 const v = (id: string, h?: string) =>
@@ -26,7 +29,7 @@ export default function CaseStudyPage() {
         </>
       }
       heroSubtitle="Real customer interviews that deliver the true value of your product or service"
-      heroVideoUrl={v('1017754838', '2df374323e')}
+      heroVideoUrl={v('1211121590', 'bfb474263b')}
       problemHeading="Promoting your product, but not being chosen"
       problemSubheading={<>Your company is putting information out there,<br />but are you experiencing these challenges?</>}
       problems={[
@@ -41,7 +44,7 @@ export default function CaseStudyPage() {
       solutionSubtitle={<>Through customer interviews,<br />we make the true value of your product or service visible</>}
       solutionPoints={['Content that helps prospects decide if your solution is the right fit for them']}
       videoSectionTitle="Real voices change purchase decisions"
-      videoSectionSubtitle="Interview Videos (Horizontal: 90-120 sec / Vertical: 30-60 sec)"
+      videoSectionSubtitle="Interview Videos"
       videoHorizontalDesc={<>Horizontal videos are for <span className="text-primary font-bold">&ldquo;telling your story in depth&rdquo;</span> on websites and at events</>}
       videoVerticalDesc={<>Vertical videos are for <span className="text-primary font-bold">&ldquo;getting discovered&rdquo;</span> on social media</>}
       onlineFeatures={[
@@ -50,15 +53,17 @@ export default function CaseStudyPage() {
         { title: 'Optimized for customer channels', desc: 'Content tailored for the social media platforms that your target customers use every day' },
       ]}
       horizontalVideos={[
-        v('1019675789', '8ca81d7847'),
-        v('1082523091'),
-        v('1049154514'),
-        v('1019649377'),
+        // Comas (comasjapan.com) — Ariel Thorpe (EN) / Takuya Tejima (JA).
+        // Hero is Ariel here / 寺島 on the JA page; the other three run in the carousel.
+        v('1211265629', 'f1a11af050'), // Tejima — A_CEO_story
+        v('1211187525', '489f3465ce'), // Tejima — B_team
+        v('1211121611', '46b646bbae'), // Ariel — B_method
       ]}
       verticalVideos={[
-        v('1020046986'),
-        v('1049144140'),
-        v('1169470823'),
+        // EN page: 2 Ariel + 1 Tejima (JA page runs the inverse).
+        v('1211072516', '73c275066b'), // Ariel — hook_apps_garbage
+        v('1211072475', '8e9082a9da'), // Tejima — S1_seiyaku
+        v('1211072550', '5072a1c650'), // Ariel — results_recommend
       ]}
     />
   );

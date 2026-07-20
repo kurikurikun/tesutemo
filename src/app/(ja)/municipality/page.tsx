@@ -47,7 +47,7 @@ export default function MunicipalityPage() {
       solutionSubtitle={<>移住者・地域に関わる人のインタビューを通して<br />地域の&ldquo;本当の魅力&rdquo;を可視化</>}
       solutionPoints={['移住後の暮らしを具体的にイメージできるコンテンツ']}
       videoSectionTitle="リアルな声が、移住の判断を変える"
-      videoSectionSubtitle="インタビュー動画（横型：90〜120秒 / 縦型：30〜60秒）"
+      videoSectionSubtitle="インタビュー動画"
       videoHorizontalDesc={<>横型は移住サイトや説明会・イベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>}
       videoVerticalDesc={<>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>}
       onlineFeatures={[

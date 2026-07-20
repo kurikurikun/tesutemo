@@ -15,7 +15,7 @@ export default function SubpageFooter() {
             <Link href="/recruitment" className="hover:text-white transition-colors">企業採用</Link>
             <Link href="/municipality" className="hover:text-white transition-colors">自治体</Link>
             <Link href="/university" className="hover:text-white transition-colors">大学</Link>
-            <Link href="/case-study" className="hover:text-white transition-colors">導入事例</Link>
+            {/* 導入事例 link removed until Comas approves publication. Restore: /case-study */}
           </div>
         </div>
         <div className="border-t border-gray-800 mt-8 pt-6">

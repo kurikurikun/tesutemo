@@ -48,7 +48,7 @@ export default function UniversityPage() {
       solutionSubtitle={<>We interview your current and former students and turn their genuine experiences<br />into content that actually moves prospective students to act</>}
       solutionPoints={['Content that gives prospective students a real feel for campus life — and helps them decide your university is the right fit']}
       videoSectionTitle="When students speak, applicants listen"
-      videoSectionSubtitle="Interview Videos (Horizontal: 90–120 sec / Vertical: 30–60 sec)"
+      videoSectionSubtitle="Interview Videos"
       videoHorizontalDesc={<>Horizontal videos go deep — perfect for your university website and <span className="text-primary font-bold">open day presentations</span></>}
       videoVerticalDesc={<>Vertical videos get you <span className="text-primary font-bold">discovered on social media</span></>}
       onlineFeatures={[
