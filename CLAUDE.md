@@ -44,6 +44,19 @@ All 3 EN pages (university, recruitment, municipality) use natural English copy 
 - Min 3 interviewees; 15% discount per person for 4+
 - `whitespace-pre-line` removed from benefit card descriptions — text wraps naturally
 
+## Video production (client testimonial videos)
+
+This repo also drives the client testimonial video pipeline (Descript Studio
+Sound → DaVinci Resolve → Remotion overlays → Vimeo). Reusable procedure and
+hard-won gotchas — including the **required post-export loudness normalization**
+(the Resolve preset undershoots to ~−18 LUFS; two-pass ffmpeg `loudnorm` to −16),
+the **Vimeo MCP + `~/scripts/vimeo_upload.py`** upload flow (`--replace` keeps the
+URL), and the **verify-before-upload** audio scan — are in
+[VIDEO_PRODUCTION_WORKFLOW.md](VIDEO_PRODUCTION_WORKFLOW.md).
+
+Project-specific status: [COMAS_HANDOFF.md](COMAS_HANDOFF.md). Overlay project:
+[remotion/CLAUDE.md](remotion/CLAUDE.md).
+
 ## Deployment
 
 - **`git push` to `origin` (kurikurikun/tesutemo) is the ONLY deploy path** — Vercel git integration connected 2026-07-05, every push to main auto-deploys production. Never use `vercel` CLI (removed from both Macs) — dirty-tree CLI deploys caused live sites to silently diverge from git.
