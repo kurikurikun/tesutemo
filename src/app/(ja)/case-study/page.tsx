@@ -52,17 +52,17 @@ export default function CaseStudyPage() {
         { title: '顧客の情報収集チャネルに最適化', desc: 'ターゲットとなる顧客が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
       horizontalVideos={[
-        // Comas (comasjapan.com) — Ariel Thorpe (EN) / 手嶋 (JA).
-        // Hero is 手嶋 here / Ariel on the EN page; the other three run in the carousel.
-        v('1211187525', '489f3465ce'), // 手嶋 — B_team
+        // Comas (comasjapan.com) — Ariel Thorpe (EN) / 手島 (JA).
+        // Hero is 手島 here / Ariel on the EN page; the other three run in the carousel.
+        v('1211187525', '489f3465ce'), // 手島 — B_team
         v('1211121590', 'bfb474263b'), // Ariel — A_story
         v('1211121611', '46b646bbae'), // Ariel — B_method
       ]}
       verticalVideos={[
-        // JA page: 2 手嶋 + 1 Ariel (EN page runs the inverse).
-        v('1211072475', '8e9082a9da'), // 手嶋 — S1_seiyaku
+        // JA page: 2 手島 + 1 Ariel (EN page runs the inverse).
+        v('1211072475', '8e9082a9da'), // 手島 — S1_seiyaku
         v('1211072516', '73c275066b'), // Ariel — hook_apps_garbage
-        v('1211072453', 'c96d4c9dc8'), // 手嶋 — S2_kachi
+        v('1211072453', 'c96d4c9dc8'), // 手島 — S2_kachi
       ]}
     />
   );
