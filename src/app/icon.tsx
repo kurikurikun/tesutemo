@@ -9,9 +9,10 @@ export const contentType = 'image/png';
 // `background` changes, so the family reads as one but the tabs stay tellable
 // apart.
 //
-//   move-ment.co       #1a1a1a  (near-black — the brand's own dark palette)
-//   tesutemo.co        #e95228  (TesuTemo orange)      ← this file
-//   filminginjapan.com #ff0000  (the sun dot from the FIJ logo)
+//   move-ment.co       #1a1a1a ground, white mark  (its dark palette)
+//   tesutemo.co        #e95228 ground, white mark  (TesuTemo orange)  ← this file
+//   filminginjapan.com #fdf8f3 ground, #0d0a07 mark  (its cream site ground —
+//                      the one inverted tile, for a clear three-way split)
 export default function Icon() {
   return new ImageResponse(
     (
