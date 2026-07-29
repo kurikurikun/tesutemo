@@ -287,10 +287,8 @@ function UseCasesSection() {
       icon: TrendingUp,
       title: '顧客を増やす',
       description: 'お客様のリアルな声で、次の顧客と出会う',
-      // Unlinked until Comas approves publication of their interviews.
-      // Restore to '/case-study' once approved.
-      href: '',
-      image: '/usecase-customer.png',
+      href: '/case-study',
+      vimeo: 'https://player.vimeo.com/video/1211265629?h=f1a11af050&badge=0&autopause=0&player_id=0&app_id=58479',
     },
     {
       tag: 'for 大学',
@@ -327,18 +325,14 @@ function UseCasesSection() {
             <FadeIn key={c.title} delay={i * 0.1}>
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full">
                 <div className="relative aspect-video overflow-hidden bg-gray-100">
-                  {c.vimeo ? (
-                    <iframe
-                      src={c.vimeo}
-                      className="w-full h-full"
-                      allow="autoplay; fullscreen; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                      title={c.title}
-                    />
-                  ) : (
-                    <Image src={c.image!} alt={c.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
-                  )}
+                  <iframe
+                    src={c.vimeo}
+                    className="w-full h-full"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                    title={c.title}
+                  />
                 </div>
                 <div className="p-7 flex flex-col flex-1">
                   <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">{c.tag}</p>

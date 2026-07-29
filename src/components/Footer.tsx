@@ -50,6 +50,11 @@ export default function Footer({ locale = 'ja' }: { locale?: 'ja' | 'en' } = {})
                   {isEn ? 'Universities' : '大学 universities'}
                 </Link>
               </li>
+              <li>
+                <Link href={`${prefix}/case-study`} className="underline hover:opacity-70 transition-opacity text-accent">
+                  {isEn ? 'Case Studies' : '導入事例 customers'}
+                </Link>
+              </li>
             </ul>
           </div>
 

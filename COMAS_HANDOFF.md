@@ -24,7 +24,10 @@ The wrong kanji is in TWO baked-in places. Both must be fixed before the videos 
 **1. The name-strip lower-third (Remotion).** `TERAJIMA_STRIP_PROPS.name`, was `"手嶋拓也"`.
 Source is now fixed to `"手島拓也"` AND the two alpha clips have been re-rendered
 (`out/storycards/TerajimaAStoryNameStripAlpha.mov` + `TerajimaBTeamNameStripAlpha.mov`, 2026-07-21).
-Still TODO: re-composite in DaVinci `26_6_comas2` → re-export → re-upload to Vimeo (same clip IDs).
+✅ **CLOSED 2026-07-29** — Chris confirmed the name kanji is fixed. Both long-forms were
+re-composited and re-uploaded to Vimeo (`tejima_B_team` modified 2026-07-22,
+`tejima_A_CEO_story` 2026-07-26); the live name strip reads 手島拓也. The two items below are
+kept for the record only.
 Reload the clips in Resolve's media pool so it picks up the new render. **Proxy copies in
 `out/storycards/Proxy/` were NOT regenerated** — if a proxy workflow is in use they still show 手嶋.
 
@@ -200,7 +203,8 @@ Fairlight UI-only limitation.
 end — but the duplicate pile grows. Always pick timelines from the `編集中` bins, never by name.
 
 ### Still TODO
-- **Get written permission from Comas to publish.** This is the only open item. Production is done.
+- Nothing open. ~~Get written permission from Comas to publish.~~ — **approval received 2026-07-29**
+  (Chris). Pages unhidden the same day; see "Website" below.
 
 ## Website (tesutemo.co)
 
@@ -213,13 +217,23 @@ The finished videos are live on `/case-study` and `/en/case-study` as of 2026-07
 - Unused shorts if you want to swap: Ariel `method_lets_struggle`, `S4_mtfuji`;
   手島 `S3_B2C1`, `S4_tsuzukekata`.
 
-**Both pages are noindexed and unreachable pending Comas approval.** Four things to restore once
-they say yes — each is commented in the code:
+**Comas approved publication on 2026-07-29 — both pages are now public.** What was undone:
 
-1. `robots: { index: false, follow: false }` in both `case-study/page.tsx` files
+1. `robots: { index: false, follow: false }` removed from both `case-study/page.tsx` files
 2. `href: ''` → `/case-study` / `/en/case-study` on the two homepage use-case cards
-3. The 導入事例 footer link in `src/components/SubpageFooter.tsx`
-4. Both `/case-study` entries in `src/app/sitemap.ts`
+3. 導入事例 / Case Studies added to the footer — note the removal had been recorded in
+   `SubpageFooter.tsx`, but **that component is dead code** (nothing imports it). The footer that
+   actually renders is `src/components/Footer.tsx`, and it never had a case-study link; the link
+   was added there ("Testimonial videos for" column, locale-aware).
+4. Both `/case-study` entries restored in `src/app/sitemap.ts`
+5. The 顧客を増やす / Case Studies use-case card on both homepages now embeds a Comas long-form
+   instead of the `/usecase-customer.png` placeholder — 手島 `A_CEO_story` on JA, Ariel
+   `A_story` on EN. All four cards are videos now, so the card's image fallback branch was
+   dropped.
+
+The EN subpage hero button still scrolls to `#videos` — deliberately not pointed at
+`/en/case-study` (see below). The header nav still has no case-study item, per Chris's standing
+preference.
 
 Do **not** restore the EN subpage hero button to `/en/case-study` — it now scrolls to `#videos`
 on the current page, matching JA, and Chris confirmed that should stay.

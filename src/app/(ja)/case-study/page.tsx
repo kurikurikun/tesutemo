@@ -9,9 +9,6 @@ export const metadata: Metadata = {
     canonical: 'https://www.tesutemo.co/case-study',
     languages: { en: 'https://www.tesutemo.co/en/case-study', 'x-default': 'https://www.tesutemo.co/case-study' },
   },
-  // Comas has not yet given written permission to publish their interviews.
-  // Remove this block (and restore the nav links + sitemap entries) once approved.
-  robots: { index: false, follow: false },
 };
 
 const v = (id: string, h?: string) =>
