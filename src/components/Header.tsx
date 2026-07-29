@@ -18,11 +18,13 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
   const navItems = isEN
     ? [
         { label: 'Recruitment', href: '/en/recruitment' },
+        { label: 'Case Studies', href: '/en/case-study' },
         { label: 'Municipalities', href: '/en/municipality' },
         { label: 'Universities', href: '/en/university' },
       ]
     : [
         { label: '採用促進 for 企業', href: '/recruitment' },
+        { label: '導入事例 for 企業', href: '/case-study' },
         { label: 'for 自治体', href: '/municipality' },
         { label: 'for 大学', href: '/university' },
       ];
@@ -42,12 +44,13 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
             <Image src="/tesutemo-logo.png" alt="TesuTemo" width={96} height={36} className="h-9 w-auto" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          {/* lg, not md: with 4 use-case items the JA labels wrap in the 768–950px band */}
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-accent hover:text-accent/70 transition-colors"
+                className="text-sm font-medium text-accent hover:text-accent/70 transition-colors whitespace-nowrap"
               >
                 {item.label}
               </Link>
@@ -72,7 +75,7 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
             </Link>
           </nav>
 
-          <div className="md:hidden flex items-center gap-3">
+          <div className="lg:hidden flex items-center gap-3">
             <Link href={toggleHref} className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-gray-100 p-0.5 text-xs font-semibold">
               <span className={`px-2.5 py-1 rounded-full transition-colors ${isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400'}`}>EN</span>
               <span className={`px-2.5 py-1 rounded-full transition-colors ${!isEN ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-400'}`}>JP</span>
@@ -89,7 +92,7 @@ export default function Header({ locale = 'ja', currentPath = '/' }: HeaderProps
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 py-5 px-6 space-y-4">
+        <div className="lg:hidden bg-white border-t border-gray-100 py-5 px-6 space-y-4">
           {navItems.map((item) => (
             <Link
               key={item.href}
