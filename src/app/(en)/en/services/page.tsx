@@ -18,8 +18,11 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Choose your TesuTemo style | TesuTemo',
+  title: 'Choose your TesuTemo style',
   description: 'Four ways to collect real interview videos — for recruitment, universities, municipalities, and customer stories.',
+  alternates: {
+    canonical: 'https://www.tesutemo.co/en/services',
+  },
   robots: { index: true, follow: true },
 };
 

@@ -4,7 +4,7 @@ import VideoCarousel from '@/components/VideoCarousel';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: '大学広報動画・学生インタビュー動画の制作｜TesuTemo',
+  title: '大学広報動画・学生インタビュー動画の制作',
   description:
     '在学生インタビュー動画で志願者の共感を生み、大学の魅力をリアルに届ける広報動画サービス。キャンパスライフや学びの魅力を等身大の声で伝えます。',
   alternates: {

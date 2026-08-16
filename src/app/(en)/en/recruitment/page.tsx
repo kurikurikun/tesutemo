@@ -3,7 +3,7 @@ import SubpageLayout from '@/components/SubpageLayout';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Employee Interview Videos for Recruitment | TesuTemo',
+  title: 'Employee Interview Videos for Recruitment',
   description:
     'Employee interview videos that resonate with job seekers and eliminate hiring mismatches. Real voices convey workplace culture and job satisfaction through affordable recruitment video promotion.',
   alternates: {

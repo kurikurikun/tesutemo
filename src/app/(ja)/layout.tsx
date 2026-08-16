@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   title: {
     default: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
-    template: '%s | TesuTemo',
+    template: '%s｜TesuTemo',
   },
   description:
     'TesuTemoは、リアルな声をインタビュー動画で届け、人と組織をつなぐサービスです。採用プロモーション、大学広報、自治体の移住促進に最適。社員・学生・移住者のリアルな体験談が、次の意思決定者の共感を生みます。',

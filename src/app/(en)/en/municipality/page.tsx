@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
 
 export const metadata: Metadata = {
-  title: 'Migration Promotion Videos & Resident Interview Videos | TesuTemo',
+  title: 'Migration Promotion Videos & Resident Interview Videos',
   description:
     'Interview videos of past migrants that resonate with potential relocators, delivering the real appeal of your region. An affordable migration promotion video service for local governments.',
   alternates: {

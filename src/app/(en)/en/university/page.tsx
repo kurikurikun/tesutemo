@@ -4,7 +4,7 @@ import VideoCarousel from '@/components/VideoCarousel';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'University Promotion Videos & Student Interview Videos | TesuTemo',
+  title: 'University Promotion Videos & Student Interview Videos',
   description:
     'Student interview videos that resonate with prospective students and convey the real appeal of your university. Share campus life and academic experiences through authentic student voices.',
   alternates: {

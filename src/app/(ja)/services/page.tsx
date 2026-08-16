@@ -18,8 +18,11 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'サービスの選び方 | TesuTemo',
+  title: 'サービスの選び方',
   description: 'テステモのサービス一覧。インタビュー動画の収録方法は、状況に合わせて選べます。',
+  alternates: {
+    canonical: 'https://www.tesutemo.co/services',
+  },
   robots: { index: true, follow: true },
 };
 

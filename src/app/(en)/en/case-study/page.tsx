@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
 
 export const metadata: Metadata = {
-  title: 'Customer Testimonial Videos & Case Study Videos | TesuTemo',
+  title: 'Customer Testimonial Videos & Case Study Videos',
   description:
     'Customer interview videos that address prospect concerns and drive purchase decisions. Deliver the true value of your product or service through trusted third-party voices.',
   alternates: {

@@ -8,11 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/university`, lastModified: new Date('2026-03-28'), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/municipality`, lastModified: new Date('2026-03-28'), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/case-study`, lastModified: new Date('2026-07-29'), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/services`, lastModified: new Date('2026-08-17'), changeFrequency: 'monthly', priority: 0.8 },
     // English pages
     { url: `${baseUrl}/en`, lastModified: new Date('2026-03-31'), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/en/recruitment`, lastModified: new Date('2026-03-31'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/en/university`, lastModified: new Date('2026-03-31'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/en/municipality`, lastModified: new Date('2026-03-31'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/en/case-study`, lastModified: new Date('2026-07-29'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/en/services`, lastModified: new Date('2026-08-17'), changeFrequency: 'monthly', priority: 0.7 },
   ];
 }

@@ -5,6 +5,9 @@ import LiteTopBanner from '@/components/LiteTopBanner'
 export const metadata: Metadata = {
   title: 'TesuTemoライト',
   description: '手軽に始める動画インタビュー収集ツール',
+  // App screens, not marketing pages — keep them out of the index so Google
+  // doesn't treat them as duplicates of each other.
+  robots: { index: false, follow: false },
 }
 
 export default function LiteLayout({ children }: { children: React.ReactNode }) {

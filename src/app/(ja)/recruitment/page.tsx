@@ -3,7 +3,7 @@ import SubpageLayout from '@/components/SubpageLayout';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: '社員インタビュー動画で採用を強化｜TesuTemo',
+  title: '社員インタビュー動画で採用を強化',
   description:
     '社員インタビュー動画で求職者の共感を生み、ミスマッチのない採用を実現。リアルな声で職場の雰囲気や働きがいを伝える採用プロモーション動画サービス。',
   alternates: {
