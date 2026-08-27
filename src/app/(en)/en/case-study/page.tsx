@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+import ArticleShowcase from '@/components/ArticleShowcase';
 
 export const metadata: Metadata = {
   title: 'Customer Testimonial Videos & Case Study Videos',
@@ -62,6 +63,8 @@ export default function CaseStudyPage() {
         v('1211072475', '8e9082a9da'), // Tejima — S1_seiyaku
         v('1211072550', '5072a1c650'), // Ariel — results_recommend
       ]}
-    />
+    >
+      <ArticleShowcase locale="en" />
+    </SubpageLayout>
   );
 }
