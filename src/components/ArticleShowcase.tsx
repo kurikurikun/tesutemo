@@ -6,6 +6,7 @@ interface Article {
   url: string;
   langLabel: string;
   desc: string;
+  thumb: string;
 }
 
 const ARTICLES: Record<'ja' | 'en', { heading: string; subheading: string; note: string; readLabel: string; publishedLabel: string; articles: Article[] }> = {
@@ -21,12 +22,14 @@ const ARTICLES: Record<'ja' | 'en', { heading: string; subheading: string; note:
         url: 'https://comasjapan.com/column/client-story-gaogao-tejima-cefr/',
         langLabel: '日本語記事',
         desc: '受講者インタビューを基に執筆した導入事例記事。数値の変化と商談成約というビジネス成果を軸に構成。',
+        thumb: '/articles/comas-tejima.jpg',
       },
       {
         title: 'Customized Business Japanese Training in Tokyo | A Clinic Owner’s Story',
         url: 'https://comasjapan.com/column/client-story-ariel-thorpe-business-japanese/',
         langLabel: 'English Article',
         desc: '英語話者の受講者インタビューを基に英語で執筆。海外向けの検索流入・集客を狙った導入事例記事。',
+        thumb: '/articles/comas-ariel.jpg',
       },
     ],
   },
@@ -42,12 +45,14 @@ const ARTICLES: Record<'ja' | 'en', { heading: string; subheading: string; note:
         url: 'https://comasjapan.com/column/client-story-gaogao-tejima-cefr/',
         langLabel: 'Japanese Article',
         desc: 'A case-study article written from a learner interview — built around measurable progress and a real business win.',
+        thumb: '/articles/comas-tejima.jpg',
       },
       {
         title: 'Customized Business Japanese Training in Tokyo | A Clinic Owner’s Story',
         url: 'https://comasjapan.com/column/client-story-ariel-thorpe-business-japanese/',
         langLabel: 'English Article',
         desc: 'Written in English from an English-speaking client’s interview — a case study aimed at international search traffic.',
+        thumb: '/articles/comas-ariel.jpg',
       },
     ],
   },
@@ -70,8 +75,18 @@ export default function ArticleShowcase({ locale = 'ja' }: { locale?: 'ja' | 'en
                 href={a.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col h-full bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300"
+                className="group flex flex-col h-full bg-gray-50 rounded-2xl border border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
+                <div className="relative border-b border-gray-100 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={a.thumb}
+                    alt={a.title}
+                    className="w-full aspect-[900/497] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex flex-col flex-grow p-8">
                 <div className="flex items-center justify-between mb-5">
                   <span className="inline-flex items-center gap-2 text-primary">
                     <FileText size={22} />
@@ -86,6 +101,7 @@ export default function ArticleShowcase({ locale = 'ja' }: { locale?: 'ja' | 'en
                   {t.readLabel}
                   <ExternalLink size={14} />
                 </span>
+                </div>
               </a>
             </FadeIn>
           ))}
