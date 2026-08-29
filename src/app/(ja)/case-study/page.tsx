@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+import ArticleShowcase from '@/components/ArticleShowcase';
 
 export const metadata: Metadata = {
   title: '導入事例動画・顧客インタビュー動画の制作',
@@ -61,6 +62,8 @@ export default function CaseStudyPage() {
         v('1211072516', '73c275066b'), // Ariel — hook_apps_garbage
         v('1211072453', 'c96d4c9dc8'), // 手島 — S2_kachi
       ]}
-    />
+    >
+      <ArticleShowcase locale="ja" />
+    </SubpageLayout>
   );
 }
