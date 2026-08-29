@@ -25,8 +25,11 @@ export const metadata: Metadata = {
     default: 'TesuTemo - Interview Videos That Drive Better Decisions',
     template: '%s | TesuTemo',
   },
+  // Homepage-only: every subpage overrides title and description, so this pair is the
+  // top page's own copy. The openGraph/twitter block below is NOT homepage-only — the
+  // university and municipality pages inherit it — so it deliberately stays service-wide.
   description:
-    'TesuTemo delivers real voices through interview videos, connecting people with organizations. Ideal for recruitment, university admissions, and regional migration promotion.',
+    'TesuTemo turns your employees and your customers into interview video. Recruitment videos that show candidates the real workplace, and case study videos that give buyers a trusted voice to judge by. Filmed and delivered entirely online.',
   keywords: [
     'interview videos',
     'recruitment videos',

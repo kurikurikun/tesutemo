@@ -7,7 +7,7 @@ import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Video, Users, Shield, Sparkles, UserPlus, TrendingUp, GraduationCap, MapPin, Clock } from 'lucide-react';
+import { Video, Users, Shield, Sparkles, UserPlus, TrendingUp, Clock } from 'lucide-react';
 
 function PlayBtn() {
   return (
@@ -40,7 +40,7 @@ function HeroSection() {
             <FadeIn delay={0.1}>
               <p className="text-base lg:text-lg text-gray-600 leading-relaxed mb-10 max-w-md">
                 人は、広告よりも「人の声」で意思決定する。<br />
-                テステモは、採用・学生生活・移住・顧客の声をオンライン完結で収録し、判断につながる動画コンテンツを届けるサービスです。
+                テステモは、社員と顧客のリアルな声をオンライン完結で収録し、採用と受注につながる動画コンテンツを届けるサービスです。
               </p>
             </FadeIn>
             <FadeIn delay={0.2}>
@@ -56,15 +56,17 @@ function HeroSection() {
             </FadeIn>
           </div>
 
-          {/* Right: 3-column staggered grid */}
+          {/* Right: staggered pair of business interview stills */}
           <FadeIn delay={0.15}>
-            <div className="grid grid-cols-3 gap-2 max-w-[380px] mx-auto lg:max-w-none">
+            <div className="grid grid-cols-2 gap-3 max-w-[420px] mx-auto lg:max-w-none">
               {[
-                '/hero-20.jpg', '/hero-1.png', '/hero-3.png',
-                '/hero-5.png', '/hero-21.png', '/hero-4.png',
-              ].map((src) => (
-                <div key={src} className="relative rounded-xl overflow-hidden h-[190px]">
-                  <Image src={src} alt="" fill className="object-cover" style={{ objectPosition: '50% 20%' }} />
+                // hero-20 is top-aligned on purpose: its 株式会社プロベル name strip sits in the
+                // top band of the frame, and a half-sliced strip reads as a mistake.
+                { src: '/hero-20.jpg', offset: '', pos: '50% 0%' },
+                { src: '/hero-4.png', offset: 'mt-8 lg:mt-12', pos: '50% 20%' },
+              ].map((img) => (
+                <div key={img.src} className={`relative rounded-2xl overflow-hidden h-[280px] lg:h-[360px] ${img.offset}`}>
+                  <Image src={img.src} alt="" fill className="object-cover" style={{ objectPosition: img.pos }} />
                   <PlayBtn />
                 </div>
               ))}
@@ -99,8 +101,8 @@ function ContextSection() {
                 人は、広告より<br />「<span className="text-primary">人の声</span>」で決める。
               </h2>
               <div className="flex flex-col gap-3">
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Amazonのレビュー、Googleの口コミ、先に体験した人の声を信頼して判断する時代。</p>
-                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">でも、進学・就職・移住・サービス導入には、信頼できる「レビュー」がない。</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">買う前にレビューを読み、応募する前に口コミを調べる。先に体験した人の声を信頼して判断する時代。</p>
+                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">でも、自社の採用にも、サービスの導入検討にも、信頼できる「レビュー」がない。</p>
                 <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">重要な意思決定ほど「信頼できる声」が届いていない。</p>
               </div>
             </div>
@@ -116,9 +118,9 @@ function ContextSection() {
                 情報は発信しているのに、<br /><span className="text-gray-400">伝わらない。</span>
               </h2>
               <div className="flex flex-col gap-3">
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Webサイトやパンフレット、SNSなどで情報発信はしているものの、</p>
-                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">本当の魅力が伝わらず、他社・他校・他地域との差別化ができない。</p>
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">応募・集客につながらない。</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">採用サイトもサービス資料もSNSも用意しているものの、</p>
+                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">どこの会社も同じことを書いているように見え、他社との差別化ができない。</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">応募にも、問い合わせにもつながらない。</p>
               </div>
             </div>
           </div>
@@ -127,7 +129,7 @@ function ContextSection() {
         {/* Consequence */}
         <FadeIn>
           <div className="bg-red-50 border-l-[3px] border-red-400 rounded-r-lg px-6 py-5 mb-10">
-            <p className="text-sm lg:text-base font-semibold text-red-600">結果 → ミスマッチが起き、双方に機会損失が生まれる。</p>
+            <p className="text-sm lg:text-base font-semibold text-red-600">結果 → 採用ではミスマッチが起き、商談では決めきれない見込み客が残る。</p>
           </div>
         </FadeIn>
 
@@ -150,14 +152,14 @@ function ContextSection() {
                   テステモは、<br />リアルな声で<br /><span className="text-primary">伝えます</span>
                 </h2>
               </div>
-              <p className="text-sm text-white/50 leading-relaxed">実際にその企業・大学・地域を選んだ人へのインタビューを通して、判断につながる情報を動画で届ける</p>
+              <p className="text-sm text-white/50 leading-relaxed">実際にその会社で働く社員、その商品・サービスを選んだ顧客へのインタビューを通して、判断につながる情報を動画で届ける</p>
             </div>
             <div className="bg-white p-10 lg:p-12 flex flex-col gap-4">
               {[
                 '表情、温度感、本音まで含めて伝えることができる',
                 'オンライン完結で、従来の現地撮影より担当者の負担がはるかに少ない',
-                '信頼できる判断材料として、意思決定を後押しする',
-                'SNS・採用サイト・大学ページへの掲載まで、すぐに使える素材として納品',
+                '求職者・見込み客が「自分に合うか」を判断できる材料になる',
+                '採用サイト・サービスサイト・SNSにすぐ使える素材として納品',
               ].map((point, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
@@ -290,22 +292,6 @@ function UseCasesSection() {
       href: '/case-study',
       vimeo: 'https://player.vimeo.com/video/1211265629?h=f1a11af050&badge=0&autopause=0&player_id=0&app_id=58479',
     },
-    {
-      tag: 'for 大学',
-      icon: GraduationCap,
-      title: '学生と出会う',
-      description: '在学生のリアルな声で、未来の学生と出会う',
-      href: '/university',
-      vimeo: 'https://player.vimeo.com/video/1019675789?h=8ca81d7847&badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      tag: 'for 自治体',
-      icon: MapPin,
-      title: '移住者を増やす',
-      description: '移住者のリアルな声で、新しい住民と出会う',
-      href: '/municipality',
-      vimeo: 'https://player.vimeo.com/video/1010822965?h=430839385f&badge=0&autopause=0&player_id=0&app_id=58479',
-    },
   ];
 
   return (
@@ -317,7 +303,7 @@ function UseCasesSection() {
             <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">Use Cases</span>
           </div>
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">リアルな声が意思決定を加速</h2>
-          <p className="text-base text-gray-600 mb-12">採用強化、集客改善、信頼構築、移住促進。目的に合ったカテゴリを選んでください</p>
+          <p className="text-base text-gray-600 mb-12">採用強化と、導入検討の後押し。目的に合った活用方法を選んでください</p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -351,6 +337,17 @@ function UseCasesSection() {
             </FadeIn>
           ))}
         </div>
+
+        {/* Quiet route out to the non-corporate work — the top page stays company-facing,
+            but university/municipality stay one click away (and keep their inbound links). */}
+        <FadeIn>
+          <p className="mt-8 text-sm text-gray-500">
+            大学・自治体向けの実績もあります —{' '}
+            <Link href="/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">大学の広報に</Link>
+            <span className="text-gray-300 mx-2">/</span>
+            <Link href="/municipality" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">自治体の移住促進に</Link>
+          </p>
+        </FadeIn>
       </div>
     </section>
   );
@@ -358,9 +355,9 @@ function UseCasesSection() {
 
 function FeaturesSection() {
   const features = [
-    { icon: Video, title: 'リアルな判断材料', desc: '実際に経験した人の声だから、自分に合うかどうかが具体的にわかる' },
+    { icon: Video, title: 'リアルな判断材料', desc: '実際に働く人・使った人の声だから、自分に合うかどうかが具体的にわかる' },
     { icon: Users, title: '本音が見える', desc: '文章では見えない、表情や言葉の温度感まで伝わる' },
-    { icon: Shield, title: 'ミスマッチを防ぐ', desc: '事前にリアルを知ることで、選択のズレを減らす' },
+    { icon: Shield, title: 'ミスマッチを防ぐ', desc: '入社前・導入前にリアルを知ることで、期待とのズレを減らす' },
     { icon: Sparkles, title: 'オンラインで完結', desc: 'インタビューから納品まで、すべてオンラインでスピーディに' },
   ];
 
@@ -392,14 +389,20 @@ function FeaturesSection() {
   );
 }
 
+/*
+ * 導入実績 — corporate only.
+ *
+ * The old logo wall (富士宮市 / 大月町 / 関西大学 / 早稲田大学) and the 関西大学 quote were
+ * university and municipality proof, so they came off this company-facing top page; both
+ * still live on /university and /municipality.
+ *
+ * What stands in is the one piece of corporate work already named publicly on this site:
+ * the プロベル recruitment interview, whose company name strip is baked into the still.
+ * No client logo files exist in public/ and no corporate testimonial quote exists anywhere
+ * in the repo, so neither is invented here. The customer-interview work is linked rather
+ * than re-carded, so this section does not repeat the Use Cases block above it.
+ */
 function CustomersSection() {
-  const customers = [
-    { name: '富士宮市', logo: '/logo-fujinomiya.png' },
-    { name: '大月町', logo: '/logo-otsuki.png' },
-    { name: '関西大学', logo: '/logo-kansai.png' },
-    { name: '早稲田大学', logo: '/logo-waseda.png' },
-  ];
-
   return (
     <section className="py-20 lg:py-28 bg-gray-50 border-t border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -409,29 +412,37 @@ function CustomersSection() {
           <FadeIn>
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-3">Trusted By</p>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">導入実績</h2>
-            <p className="text-sm text-gray-600 leading-relaxed">すでに、リアルな声の価値に気づいた企業・団体が活用を始めています</p>
+            <p className="text-sm text-gray-600 leading-relaxed">すでに、リアルな声の価値に気づいた企業が活用を始めています</p>
           </FadeIn>
 
           {/* Right */}
           <div>
             <FadeIn>
-              <div className="flex flex-wrap gap-3 mb-10">
-                {customers.map((c) => (
-                  <div key={c.name} className="bg-white border border-gray-200 rounded-lg px-5 py-3 h-[52px] flex items-center justify-center">
-                    <Image src={c.logo} alt={c.name} width={120} height={32} className="h-7 w-auto object-contain" />
-                  </div>
-                ))}
+              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden grid grid-cols-1 sm:grid-cols-[240px_1fr]">
+                <div className="relative h-[220px] sm:h-full min-h-[220px] bg-gray-100">
+                  <Image src="/hero-20.jpg" alt="株式会社プロベル 社員インタビュー" fill className="object-cover" style={{ objectPosition: '50% 30%' }} />
+                </div>
+                <div className="p-7 lg:p-8 flex flex-col justify-center">
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">採用インタビュー</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">株式会社プロベル</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-5">
+                    社員が自分の言葉で語る動画を、採用サイトとSNSで使える素材として制作。会社の理念や働く空気が、求職者に伝わる形になりました。
+                  </p>
+                  <Link
+                    href="/recruitment"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
+                  >
+                    採用の活用方法を見る →
+                  </Link>
+                </div>
               </div>
             </FadeIn>
             <FadeIn>
-              <div className="bg-white border border-gray-200 rounded-xl p-7 lg:p-8">
-                <blockquote className="text-base text-gray-900 leading-relaxed mb-5">
-                  「学生の人柄や授業のインパクトなど、AI生成では出せない生のインタビューのリアルさや親近感がこのテステモの価値だなと改めて感じました！」
-                </blockquote>
-                <p className="text-sm text-gray-400">
-                  <span className="font-semibold text-gray-900">関西大学</span> — 学部・大学院事務グループ
-                </p>
-              </div>
+              <p className="mt-5 text-sm text-gray-500">
+                顧客インタビューの事例は{' '}
+                <Link href="/case-study" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">導入事例ページ</Link>
+                {' '}で公開しています。
+              </p>
             </FadeIn>
           </div>
 

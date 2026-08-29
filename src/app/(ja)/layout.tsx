@@ -22,11 +22,14 @@ export const metadata: Metadata = {
     },
   },
   title: {
-    default: 'TesuTemo - リアルな声で意思決定を支えるインタビュー動画サービス',
+    default: 'TesuTemo - 社員と顧客のリアルな声を届けるインタビュー動画サービス',
     template: '%s｜TesuTemo',
   },
+  // Homepage-only: every subpage overrides title and description, so this pair is the
+  // top page's own copy. The openGraph/twitter block below is NOT homepage-only — the
+  // university and municipality pages inherit it — so it deliberately stays service-wide.
   description:
-    'TesuTemoは、リアルな声をインタビュー動画で届け、人と組織をつなぐサービスです。採用プロモーション、大学広報、自治体の移住促進に最適。社員・学生・移住者のリアルな体験談が、次の意思決定者の共感を生みます。',
+    'TesuTemoは、社員と顧客のリアルな声をインタビュー動画で届けるサービスです。採用プロモーションと導入事例動画で、求職者と見込み客の意思決定を後押しします。オンライン完結だから、担当者の負担を抑えて制作できます。',
   keywords: [
     'インタビュー動画',
     '採用動画',

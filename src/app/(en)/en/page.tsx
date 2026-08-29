@@ -7,7 +7,7 @@ import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Video, Users, Sparkles, Shield, UserPlus, TrendingUp, GraduationCap, MapPin, Clock } from 'lucide-react';
+import { Video, Users, Sparkles, Shield, UserPlus, TrendingUp, Clock } from 'lucide-react';
 
 function PlayBtn() {
   return (
@@ -39,7 +39,7 @@ function HeroSection() {
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-base lg:text-lg text-gray-600 leading-relaxed mb-10 max-w-md">
-                People trust real voices over advertising. TesuTemo captures interviews with employees, students, residents, and customers — all online — delivering video content that drives better decisions.
+                People trust real voices over advertising. TesuTemo captures interviews with your employees and your customers — all online — and turns them into video that moves hiring and buying decisions.
               </p>
             </FadeIn>
             <FadeIn delay={0.2}>
@@ -55,15 +55,17 @@ function HeroSection() {
             </FadeIn>
           </div>
 
-          {/* Right: 3-column staggered grid */}
+          {/* Right: staggered pair of business interview stills */}
           <FadeIn delay={0.15}>
-            <div className="grid grid-cols-3 gap-2 max-w-[380px] mx-auto lg:max-w-none">
+            <div className="grid grid-cols-2 gap-3 max-w-[420px] mx-auto lg:max-w-none">
               {[
-                '/hero-20.jpg', '/hero-1.png', '/hero-3.png',
-                '/hero-5.png', '/hero-21.png', '/hero-4.png',
-              ].map((src) => (
-                <div key={src} className="relative rounded-xl overflow-hidden h-[190px]">
-                  <Image src={src} alt="" fill className="object-cover" style={{ objectPosition: '50% 20%' }} />
+                // hero-20 is top-aligned on purpose: its 株式会社プロベル name strip sits in the
+                // top band of the frame, and a half-sliced strip reads as a mistake.
+                { src: '/hero-20.jpg', offset: '', pos: '50% 0%' },
+                { src: '/hero-4.png', offset: 'mt-8 lg:mt-12', pos: '50% 20%' },
+              ].map((img) => (
+                <div key={img.src} className={`relative rounded-2xl overflow-hidden h-[280px] lg:h-[360px] ${img.offset}`}>
+                  <Image src={img.src} alt="" fill className="object-cover" style={{ objectPosition: img.pos }} />
                   <PlayBtn />
                 </div>
               ))}
@@ -97,9 +99,9 @@ function ContextSection() {
                 <span className="text-primary">Real voices</span>, not ads,<br />drive decisions.
               </h2>
               <div className="flex flex-col gap-3">
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Amazon reviews, Google ratings — people trust the voices of those who have been there, bought that.</p>
-                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">Yet for important life decisions like education, careers, relocation, and service adoption, trusted &lsquo;reviews&rsquo; are hard to find.</p>
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">The more important the life decision, the more important it is to hear trusted reviews.</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Amazon reviews, Glassdoor ratings — people trust whoever got there first and told the truth about it.</p>
+                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">Yet when someone is deciding where to work — or which service to buy — there is no trusted &lsquo;review&rsquo; of you to read.</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">The bigger the decision, the less honest information there is to go on.</p>
               </div>
             </div>
           </div>
@@ -114,9 +116,9 @@ function ContextSection() {
                 Pushing out content isn&apos;t<br /><span className="text-gray-400">the same as building trust.</span>
               </h2>
               <div className="flex flex-col gap-3">
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Websites, brochures, and social media — they&apos;re your words, not theirs.</p>
-                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">One-sided messaging can&apos;t build the trust that drives real decisions.</p>
-                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Without authentic voices, interest doesn&apos;t convert.</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Careers page, service deck, social — all of it is your words, not theirs.</p>
+                <p className="text-sm lg:text-base text-gray-900 font-medium leading-relaxed pl-4 border-l-2 border-primary">Every company says the same things, so nothing sets you apart.</p>
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">Applications stall. So do deals.</p>
               </div>
             </div>
           </div>
@@ -125,7 +127,7 @@ function ContextSection() {
         {/* Consequence */}
         <FadeIn>
           <div className="bg-red-50 border-l-[3px] border-red-400 rounded-r-lg px-6 py-5 mb-10">
-            <p className="text-sm lg:text-base font-semibold text-red-600">Bad fit. Missed opportunity. For both sides.</p>
+            <p className="text-sm lg:text-base font-semibold text-red-600">The result? Hires who leave, and buyers who never decide.</p>
           </div>
         </FadeIn>
 
@@ -148,14 +150,14 @@ function ContextSection() {
                   Let your people<br />do the talking.
                 </h2>
               </div>
-              <p className="text-sm text-white/50 leading-relaxed">Real voices of people who chose your company, university, region — building connection and trust to enable authentic decision making.</p>
+              <p className="text-sm text-white/50 leading-relaxed">Real voices from the people who chose you — the employees who stayed and the customers who bought — so the next candidate and the next buyer can judge for themselves.</p>
             </div>
             <div className="bg-white p-10 lg:p-12 flex flex-col gap-4">
               {[
                 'Real people, real expressions — the human signals that build genuine trust',
                 'All online, from first conversation to final delivered video',
                 'No crew, no travel, no hassle — just authentic voices that work for you',
-                'Ready to publish straight to your website, social media, and beyond',
+                'Ready to publish straight to your careers page, service site, and social',
               ].map((point, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
@@ -286,22 +288,6 @@ function UseCasesSection() {
       href: '/en/case-study',
       vimeo: 'https://player.vimeo.com/video/1211121590?h=bfb474263b&badge=0&autopause=0&player_id=0&app_id=58479',
     },
-    {
-      tag: 'Universities',
-      icon: GraduationCap,
-      title: 'Universities',
-      description: 'Reach future students through real student voices',
-      href: '/en/university',
-      vimeo: 'https://player.vimeo.com/video/1019675789?h=8ca81d7847&badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      tag: 'Municipalities',
-      icon: MapPin,
-      title: 'Municipalities',
-      description: 'Attract new residents through real voices of those who relocated',
-      href: '/en/municipality',
-      vimeo: 'https://player.vimeo.com/video/1010822965?h=430839385f&badge=0&autopause=0&player_id=0&app_id=58479',
-    },
   ];
 
   return (
@@ -313,7 +299,7 @@ function UseCasesSection() {
             <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">Use Cases</span>
           </div>
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">Real voices accelerate decision-making</h2>
-          <p className="text-base text-gray-600 mb-12">Stronger hiring, better customer acquisition, trust-building, migration promotion. Choose the category that fits your goals.</p>
+          <p className="text-base text-gray-600 mb-12">Hiring, or winning the deal. Pick the one you are working on.</p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -347,6 +333,17 @@ function UseCasesSection() {
             </FadeIn>
           ))}
         </div>
+
+        {/* Quiet route out to the non-corporate work — the top page stays company-facing,
+            but university/municipality stay one click away (and keep their inbound links). */}
+        <FadeIn>
+          <p className="mt-8 text-sm text-gray-500">
+            We work with universities and municipalities too —{' '}
+            <Link href="/en/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for universities</Link>
+            <span className="text-gray-300 mx-2">/</span>
+            <Link href="/en/municipality" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for municipalities</Link>
+          </p>
+        </FadeIn>
       </div>
     </section>
   );
@@ -388,14 +385,20 @@ function FeaturesSection() {
   );
 }
 
+/*
+ * Trusted By — corporate only.
+ *
+ * The old logo wall (Fujinomiya City / Otsuki Town / Kansai University / Waseda University)
+ * and the Kansai University quote were university and municipality proof, so they came off
+ * this company-facing top page; both still live on /en/university and /en/municipality.
+ *
+ * What stands in is the one piece of corporate work already named publicly on this site:
+ * the プロベル recruitment interview, whose company name strip is baked into the still. No
+ * client logo files exist in public/ and no corporate testimonial quote exists anywhere in
+ * the repo, so neither is invented here. The company name is left in Japanese because that
+ * is how it appears on screen — there is no romanization to copy from.
+ */
 function CustomersSection() {
-  const customers = [
-    { name: 'Fujinomiya City', logo: '/logo-fujinomiya.png' },
-    { name: 'Otsuki Town', logo: '/logo-otsuki.png' },
-    { name: 'Kansai University', logo: '/logo-kansai.png' },
-    { name: 'Waseda University', logo: '/logo-waseda.png' },
-  ];
-
   return (
     <section className="py-20 lg:py-28 bg-gray-50 border-t border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -403,29 +406,36 @@ function CustomersSection() {
 
           <FadeIn>
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-3">Trusted By</p>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Organizations using TesuTemo</h2>
-            <p className="text-sm text-gray-600 leading-relaxed">Companies and organizations that recognize the value of real voices are already using TesuTemo</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Companies using TesuTemo</h2>
+            <p className="text-sm text-gray-600 leading-relaxed">Companies that recognize the value of real voices are already using TesuTemo</p>
           </FadeIn>
 
           <div>
             <FadeIn>
-              <div className="flex flex-wrap gap-3 mb-10">
-                {customers.map((c) => (
-                  <div key={c.name} className="bg-white border border-gray-200 rounded-lg px-5 py-3 h-[52px] flex items-center justify-center">
-                    <Image src={c.logo} alt={c.name} width={120} height={32} className="h-7 w-auto object-contain" />
-                  </div>
-                ))}
+              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden grid grid-cols-1 sm:grid-cols-[240px_1fr]">
+                <div className="relative h-[220px] sm:h-full min-h-[220px] bg-gray-100">
+                  <Image src="/hero-20.jpg" alt="株式会社プロベル employee interview" fill className="object-cover" style={{ objectPosition: '50% 30%' }} />
+                </div>
+                <div className="p-7 lg:p-8 flex flex-col justify-center">
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">Recruitment interviews</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">株式会社プロベル</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-5">
+                    Employees telling it in their own words — cut into video their careers page and social feeds can actually use, so candidates get a feel for the place before they apply.
+                  </p>
+                  <Link
+                    href="/en/recruitment"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
+                  >
+                    See how it works →
+                  </Link>
+                </div>
               </div>
             </FadeIn>
             <FadeIn>
-              <div className="bg-white border border-gray-200 rounded-xl p-7 lg:p-8">
-                <blockquote className="text-base text-gray-900 leading-relaxed mb-5">
-                  &ldquo;The personality of the students and the impact of the classes — the realism and warmth of live interviews that AI-generated content simply cannot replicate. That is the true value of TesuTemo!&rdquo;
-                </blockquote>
-                <p className="text-sm text-gray-400">
-                  <span className="font-semibold text-gray-900">Kansai University</span> — Faculty &amp; Graduate School Administrative Group
-                </p>
-              </div>
+              <p className="mt-5 text-sm text-gray-500">
+                Customer interview work is published on the{' '}
+                <Link href="/en/case-study" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">case studies page</Link>.
+              </p>
             </FadeIn>
           </div>
 
