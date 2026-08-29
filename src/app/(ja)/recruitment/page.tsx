@@ -57,7 +57,7 @@ export default function RecruitmentPage() {
         { title: '専用ソフトで高品質に収録', desc: 'ログイン・サインアップ不要の専用ソフトで収録することで、音声・映像の品質を保ちながら、現地に撮影に行く必要がなく、コストを抑えて実施できる' },
         { title: '求職者の情報収集チャネルに最適化', desc: 'ターゲットとなる求職者が日常的に使うSNSに適したコンテンツとして活用できる' },
       ]}
-      // TechCrew の採用インタビュー（2名 × 横2・縦4）は編集中。スロットは
+      // TECH CREW の採用インタビュー（2名 × 横2・縦4）は編集中。スロットは
       // src/lib/techcrew-videos.ts にあり、Vimeo ID を入れた分だけここに並ぶ。
       horizontalVideos={[
         v('1177653343', 'ddc7b19cbb'),

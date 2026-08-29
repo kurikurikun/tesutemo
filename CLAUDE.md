@@ -57,7 +57,7 @@ URL), and the **verify-before-upload** audio scan — are in
 Project-specific status: [COMAS_HANDOFF.md](COMAS_HANDOFF.md). Overlay project:
 [remotion/CLAUDE.md](remotion/CLAUDE.md).
 
-**In flight:** TechCrew (techcrew.co.jp) 採用インタビュー — 2 people, 2 horizontal +
+**In flight:** TECH CREW Inc. (techcrew.co.jp) 採用インタビュー — 2 people, 2 horizontal +
 4 vertical each. Empty slots are already wired into both /recruitment pages via
 `src/lib/techcrew-videos.ts`; drop the Vimeo IDs into that one file and they appear
 on JA and EN. Unfilled slots render nothing, so partial delivery is safe to ship.

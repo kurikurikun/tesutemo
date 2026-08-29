@@ -56,7 +56,7 @@ export default function RecruitmentPage() {
         { title: 'Pro-quality video, no crew required', desc: 'One free app, no login — employees just tap the call link we send. The tech handles audio and video quality automatically.' },
         { title: 'Built for the platforms candidates actually use', desc: 'Every video is cut and formatted for the feeds where your target candidates actually spend their time — ready to post, ready to perform.' },
       ]}
-      // TechCrew の採用インタビュー（2名 × 横2・縦4）は編集中。スロットは
+      // TECH CREW の採用インタビュー（2名 × 横2・縦4）は編集中。スロットは
       // src/lib/techcrew-videos.ts にあり、Vimeo ID を入れた分だけここに並ぶ。
       horizontalVideos={[
         v('1177653343', 'ddc7b19cbb'),
