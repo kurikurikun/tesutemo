@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
+import { TECHCREW_HORIZONTAL, TECHCREW_VERTICAL, readyVideos } from '@/lib/techcrew-videos';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -55,13 +56,17 @@ export default function RecruitmentPage() {
         { title: 'Pro-quality video, no crew required', desc: 'One free app, no login — employees just tap the call link we send. The tech handles audio and video quality automatically.' },
         { title: 'Built for the platforms candidates actually use', desc: 'Every video is cut and formatted for the feeds where your target candidates actually spend their time — ready to post, ready to perform.' },
       ]}
+      // TechCrew の採用インタビュー（2名 × 横2・縦4）は編集中。スロットは
+      // src/lib/techcrew-videos.ts にあり、Vimeo ID を入れた分だけここに並ぶ。
       horizontalVideos={[
         v('1177653343', 'ddc7b19cbb'),
+        ...readyVideos(TECHCREW_HORIZONTAL),
       ]}
       verticalVideos={[
         v('1177647609', 'fb5b66c157'),
         v('1177647513', 'd517b6f9ed'),
         v('1177647574', 'c1311764fd'),
+        ...readyVideos(TECHCREW_VERTICAL),
       ]}
     >
       {/* How TesuTemo videos are used in recruitment */}
