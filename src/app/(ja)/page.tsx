@@ -45,8 +45,8 @@ function HeroSection() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href="#usecases" className="bg-primary text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-primary/90 transition-colors text-center">
-                  導入事例を見る
+                <a href="#what-we-do" className="bg-primary text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-primary/90 transition-colors text-center">
+                  できることを見る
                 </a>
                 <a href="#contact" className="inline-flex items-center gap-2 text-gray-500 text-sm font-medium border-b border-gray-200 pb-0.5 self-start sm:self-center">
                   お問い合わせ
@@ -274,10 +274,13 @@ function ProcessSection() {
   );
 }
 
-function UseCasesSection() {
+// The two things TesuTemo sells to companies. Not "use cases": that label came from
+// the four-audience top page, where the section was a router. Not "services" either —
+// /services already owns that word for the four delivery styles (声さがし etc.).
+function WhatWeDoSection() {
   const cases = [
     {
-      tag: 'for 企業',
+      tag: '採用',
       icon: UserPlus,
       title: '人材を採用する',
       description: '社員のリアルな声で、人材と出会う',
@@ -285,7 +288,7 @@ function UseCasesSection() {
       vimeo: 'https://player.vimeo.com/video/1177652915?h=be43651176&badge=0&autopause=0&player_id=0&app_id=58479',
     },
     {
-      tag: 'for 企業',
+      tag: '導入事例',
       icon: TrendingUp,
       title: '顧客を増やす',
       description: 'お客様のリアルな声で、次の顧客と出会う',
@@ -295,15 +298,15 @@ function UseCasesSection() {
   ];
 
   return (
-    <section id="usecases" className="py-24 lg:py-32 bg-gray-50">
+    <section id="what-we-do" className="py-24 lg:py-32 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="flex items-center gap-3 mb-4">
             <span className="block w-6 h-px bg-gray-400 flex-shrink-0" />
-            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">Use Cases</span>
+            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">What We Do</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">リアルな声が意思決定を加速</h2>
-          <p className="text-base text-gray-600 mb-12">採用強化と、導入検討の後押し。目的に合った活用方法を選んでください</p>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">採用と、導入事例。</h2>
+          <p className="text-base text-gray-600 mb-12">社員の声で人を集め、顧客の声で受注を後押しする。どちらも企業向けのサービスです</p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -337,17 +340,6 @@ function UseCasesSection() {
             </FadeIn>
           ))}
         </div>
-
-        {/* Quiet route out to the non-corporate work — the top page stays company-facing,
-            but university/municipality stay one click away (and keep their inbound links). */}
-        <FadeIn>
-          <p className="mt-8 text-sm text-gray-500">
-            大学・自治体向けの実績もあります —{' '}
-            <Link href="/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">大学の広報に</Link>
-            <span className="text-gray-300 mx-2">/</span>
-            <Link href="/municipality" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">自治体の移住促進に</Link>
-          </p>
-        </FadeIn>
       </div>
     </section>
   );
@@ -400,7 +392,7 @@ function FeaturesSection() {
  * the プロベル recruitment interview, whose company name strip is baked into the still.
  * No client logo files exist in public/ and no corporate testimonial quote exists anywhere
  * in the repo, so neither is invented here. The customer-interview work is linked rather
- * than re-carded, so this section does not repeat the Use Cases block above it.
+ * than re-carded, so this section does not repeat the What We Do block above it.
  */
 function CustomersSection() {
   return (
@@ -443,6 +435,14 @@ function CustomersSection() {
                 <Link href="/case-study" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">導入事例ページ</Link>
                 {' '}で公開しています。
               </p>
+              {/* Quiet route out to the non-corporate work — kept low on a company-facing
+                  top page, but university/municipality keep their inbound links. */}
+              <p className="mt-3 text-sm text-gray-500">
+                大学・自治体向けの実績もあります —{' '}
+                <Link href="/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">大学の広報に</Link>
+                <span className="text-gray-300 mx-2">/</span>
+                <Link href="/municipality" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">自治体の移住促進に</Link>
+              </p>
             </FadeIn>
           </div>
 
@@ -458,10 +458,12 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        {/* What We Do sits directly under the hero: with only two offerings, both for
+            companies, what TesuTemo does has to land before the problem framing. */}
+        <WhatWeDoSection />
         <ContextSection />
         <ValueSection />
         <ProcessSection />
-        <UseCasesSection />
         <FeaturesSection />
         <CustomersSection />
         <RssFeed />

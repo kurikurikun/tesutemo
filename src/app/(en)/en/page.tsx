@@ -44,8 +44,8 @@ function HeroSection() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href="#usecases" className="bg-primary text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-primary/90 transition-colors text-center">
-                  View Use Cases
+                <a href="#what-we-do" className="bg-primary text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-primary/90 transition-colors text-center">
+                  See what we do
                 </a>
                 <a href="#contact" className="inline-flex items-center gap-2 text-gray-500 text-sm font-medium border-b border-gray-200 pb-0.5 self-start sm:self-center">
                   Contact Us
@@ -270,12 +270,15 @@ function ProcessSection() {
   );
 }
 
-function UseCasesSection() {
+// The two things TesuTemo sells to companies. Not "use cases": that label came from
+// the four-audience top page, where the section was a router. Not "services" either —
+// /services already owns that word for the four delivery styles.
+function WhatWeDoSection() {
   const cases = [
     {
       tag: 'Recruitment',
       icon: UserPlus,
-      title: 'Recruitment',
+      title: 'Hire the right people',
       description: 'Connect with talent through real employee voices',
       href: '/en/recruitment',
       vimeo: 'https://player.vimeo.com/video/1177652915?h=be43651176&badge=0&autopause=0&player_id=0&app_id=58479',
@@ -283,23 +286,23 @@ function UseCasesSection() {
     {
       tag: 'Case Studies',
       icon: TrendingUp,
-      title: 'Case Studies',
-      description: 'Win new customers through real customer voices',
+      title: 'Win more customers',
+      description: 'Give buyers a trusted voice to judge you by',
       href: '/en/case-study',
       vimeo: 'https://player.vimeo.com/video/1211121590?h=bfb474263b&badge=0&autopause=0&player_id=0&app_id=58479',
     },
   ];
 
   return (
-    <section id="usecases" className="py-24 lg:py-32 bg-gray-50">
+    <section id="what-we-do" className="py-24 lg:py-32 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="flex items-center gap-3 mb-4">
             <span className="block w-6 h-px bg-gray-400 flex-shrink-0" />
-            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">Use Cases</span>
+            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">What We Do</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">Real voices accelerate decision-making</h2>
-          <p className="text-base text-gray-600 mb-12">Hiring, or winning the deal. Pick the one you are working on.</p>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">Recruitment, and case studies.</h2>
+          <p className="text-base text-gray-600 mb-12">Employee voices to bring people in. Customer voices to close the deal. Both built for companies.</p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -333,17 +336,6 @@ function UseCasesSection() {
             </FadeIn>
           ))}
         </div>
-
-        {/* Quiet route out to the non-corporate work — the top page stays company-facing,
-            but university/municipality stay one click away (and keep their inbound links). */}
-        <FadeIn>
-          <p className="mt-8 text-sm text-gray-500">
-            We work with universities and municipalities too —{' '}
-            <Link href="/en/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for universities</Link>
-            <span className="text-gray-300 mx-2">/</span>
-            <Link href="/en/municipality" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for municipalities</Link>
-          </p>
-        </FadeIn>
       </div>
     </section>
   );
@@ -436,6 +428,14 @@ function CustomersSection() {
                 Customer interview work is published on the{' '}
                 <Link href="/en/case-study" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">case studies page</Link>.
               </p>
+              {/* Quiet route out to the non-corporate work — kept low on a company-facing
+                  top page, but university/municipality keep their inbound links. */}
+              <p className="mt-3 text-sm text-gray-500">
+                We work with universities and municipalities too —{' '}
+                <Link href="/en/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for universities</Link>
+                <span className="text-gray-300 mx-2">/</span>
+                <Link href="/en/municipality" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for municipalities</Link>
+              </p>
             </FadeIn>
           </div>
 
@@ -451,10 +451,12 @@ export default function Home() {
       <Header locale="en" />
       <main>
         <HeroSection />
+        {/* What We Do sits directly under the hero: with only two offerings, both for
+            companies, what TesuTemo does has to land before the problem framing. */}
+        <WhatWeDoSection />
         <ContextSection />
         <ValueSection />
         <ProcessSection />
-        <UseCasesSection />
         <FeaturesSection />
         <CustomersSection />
         <RssFeed />
