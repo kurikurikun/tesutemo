@@ -7,70 +7,33 @@ import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Video, Users, Shield, Sparkles, UserPlus, TrendingUp, Clock } from 'lucide-react';
-
-function PlayBtn() {
-  return (
-    <div className="absolute bottom-2 left-2 w-7 h-7 rounded-full bg-white/80 flex items-center justify-center">
-      <svg width="10" height="10" viewBox="0 0 10 10" fill="#e95228"><polygon points="2,1 9,5 2,9"/></svg>
-    </div>
-  );
-}
+import { Video, Users, Shield, Sparkles, Clock } from 'lucide-react';
 
 function HeroSection() {
   return (
-    <section className="pt-28 pb-16 bg-white overflow-hidden">
+    <section className="pt-28 pb-14 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
-          {/* Left: text */}
-          <div>
-            <FadeIn>
+          <FadeIn>
+            <div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="block w-6 h-px bg-primary flex-shrink-0" />
                 <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-primary">
                   Testimonial Interview Video
                 </span>
               </div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-6">
-                Real Voices.<br />
-                <span className="text-primary">Better Decisions.</span>
-              </h1>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <p className="text-base lg:text-lg text-gray-600 leading-relaxed mb-10 max-w-md">
-                人は、広告よりも「人の声」で意思決定する。<br />
-                テステモは、社員と顧客のリアルな声をオンライン完結で収録し、採用と受注につながる動画コンテンツを届けるサービスです。
+              <p className="text-xl lg:text-[26px] font-medium text-gray-900 leading-[1.6] tracking-[-0.01em] max-w-[520px]">
+                人は、広告よりも「人の声」で意思決定する。テステモは、企業のリアルな声をオンライン完結で収録します。
               </p>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a href="#what-we-do" className="bg-primary text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-primary/90 transition-colors text-center">
-                  できることを見る
-                </a>
-                <a href="#contact" className="inline-flex items-center gap-2 text-gray-500 text-sm font-medium border-b border-gray-200 pb-0.5 self-start sm:self-center">
-                  お問い合わせ
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 7h10M8 3l4 4-4 4" /></svg>
-                </a>
-              </div>
-            </FadeIn>
-          </div>
-
-          {/* Right: staggered pair of business interview stills */}
-          <FadeIn delay={0.15}>
-            <div className="grid grid-cols-2 gap-3 max-w-[420px] mx-auto lg:max-w-none">
-              {[
-                // hero-20 is top-aligned on purpose: its 株式会社プロベル name strip sits in the
-                // top band of the frame, and a half-sliced strip reads as a mistake.
-                { src: '/hero-20.jpg', offset: '', pos: '50% 0%' },
-                { src: '/hero-4.png', offset: 'mt-8 lg:mt-12', pos: '50% 20%' },
-              ].map((img) => (
-                <div key={img.src} className={`relative rounded-2xl overflow-hidden h-[280px] lg:h-[360px] ${img.offset}`}>
-                  <Image src={img.src} alt="" fill className="object-cover" style={{ objectPosition: img.pos }} />
-                  <PlayBtn />
-                </div>
-              ))}
             </div>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <h1 className="text-5xl sm:text-6xl lg:text-[64px] font-bold tracking-tight leading-[1.1] text-gray-900">
+              Real Voices.<br />
+              <span className="text-primary">Better Decisions.</span>
+            </h1>
           </FadeIn>
 
         </div>
@@ -277,65 +240,80 @@ function ProcessSection() {
 // The two things TesuTemo sells to companies. Not "use cases": that label came from
 // the four-audience top page, where the section was a router. Not "services" either —
 // /services already owns that word for the four delivery styles (声さがし etc.).
+//
+// White, not gray-50: the hero and this section read as one continuous top area, with
+// the hairline rule doing the separating rather than a change of ground.
 function WhatWeDoSection() {
-  const cases = [
+  const offers = [
     {
       tag: '採用',
-      icon: UserPlus,
       title: '人材を採用する',
-      description: '社員のリアルな声で、人材と出会う',
+      lead: '社員のリアルな声で、人材と出会う。求職者が入社後の働き方を具体的にイメージできる動画を、オンライン完結で制作します。',
+      points: [
+        <>横型は採用サイトや説明会・イベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>,
+        <>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>,
+        <>入社後の働き方を具体的にイメージできるコンテンツ</>,
+      ],
       href: '/recruitment',
       vimeo: 'https://player.vimeo.com/video/1177652915?h=be43651176&badge=0&autopause=0&player_id=0&app_id=58479',
     },
     {
       tag: '導入事例',
-      icon: TrendingUp,
       title: '顧客を増やす',
-      description: 'お客様のリアルな声で、次の顧客と出会う',
+      lead: 'お客様のリアルな声で、次の顧客と出会う。信頼できる第三者の声で、商品・サービスの本当の価値を届けます。',
+      points: [
+        <>横型はWebサイトやイベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>,
+        <>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>,
+        <>見込み客が「自分にも合うか」を判断できるコンテンツ</>,
+      ],
       href: '/case-study',
       vimeo: 'https://player.vimeo.com/video/1211265629?h=f1a11af050&badge=0&autopause=0&player_id=0&app_id=58479',
     },
   ];
 
   return (
-    <section id="what-we-do" className="py-24 lg:py-32 bg-gray-50">
+    <section id="what-we-do" className="pb-24 lg:pb-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="block w-6 h-px bg-gray-400 flex-shrink-0" />
-            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-gray-400">What We Do</span>
-          </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">採用と、導入事例。</h2>
-          <p className="text-base text-gray-600 mb-12">社員の声で人を集め、顧客の声で受注を後押しする。どちらも企業向けのサービスです</p>
-        </FadeIn>
+        <div className="border-t border-gray-200 grid grid-cols-1 md:grid-cols-2">
+          {offers.map((o, i) => (
+            <FadeIn key={o.title} delay={i * 0.1}>
+              <div
+                className={`flex flex-col gap-3.5 pt-11 pb-2 h-full ${
+                  i === 0
+                    ? 'md:pr-14 md:border-r md:border-gray-200'
+                    : 'md:pl-14 border-t border-gray-200 md:border-t-0 mt-10 md:mt-0'
+                }`}
+              >
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent">{o.tag}</span>
+                <h2 className="text-2xl lg:text-[26px] font-bold tracking-[-0.02em] leading-[1.35] text-gray-900">{o.title}</h2>
+                <p className="text-base text-gray-600 leading-[1.75]">{o.lead}</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {cases.map((c, i) => (
-            <FadeIn key={c.title} delay={i * 0.1}>
-              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full">
-                <div className="relative aspect-video overflow-hidden bg-gray-100">
+                <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 my-1">
                   <iframe
-                    src={c.vimeo}
+                    src={o.vimeo}
                     className="w-full h-full"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
-                    title={c.title}
+                    title={o.title}
                   />
                 </div>
-                <div className="p-7 flex flex-col flex-1">
-                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">{c.tag}</p>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{c.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed flex-1 mb-5">{c.description}</p>
-                  {c.href && (
-                    <Link
-                      href={c.href}
-                      className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
-                    >
-                      もっとみる →
-                    </Link>
-                  )}
+
+                <div className="flex flex-col gap-2.5">
+                  {o.points.map((point, j) => (
+                    <div key={j} className="flex items-start gap-3">
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                      <p className="text-[15px] text-gray-600 leading-[1.7]">{point}</p>
+                    </div>
+                  ))}
                 </div>
+
+                <Link
+                  href={o.href}
+                  className="mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
+                >
+                  もっとみる →
+                </Link>
               </div>
             </FadeIn>
           ))}
