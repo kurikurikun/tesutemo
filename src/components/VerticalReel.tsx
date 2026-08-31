@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronUp, Volume2, VolumeX } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ChevronDown, ChevronUp, Volume2, VolumeX } from 'lucide-react';
 
 /**
  * 縦型ショートを、SNSのように上から下へ1本ずつ見せるフィード。
@@ -42,11 +42,11 @@ type Props = {
 };
 
 /** これだけ画面に近づいたら iframe を作る。1.5画面ぶん手前。 */
-const PRELOAD_MARGIN = "150% 0px";
+const PRELOAD_MARGIN = '150% 0px';
 
 /** 自動再生はミュートでしか始められないので muted=1。ループも入れる。 */
 const reelUrl = (url: string) =>
-  `${url}${url.includes("?") ? "&" : "?"}muted=1&loop=1&title=0&byline=0&portrait=0&dnt=1`;
+  `${url}${url.includes('?') ? '&' : '?'}muted=1&loop=1&title=0&byline=0&portrait=0&dnt=1`;
 
 /** @vimeo/player のうち、ここで使うぶんだけ。SDKは動的 import なので自前で型を持つ。 */
 type VimeoPlayer = {
@@ -99,7 +99,7 @@ function ReelItem({
   useEffect(() => {
     if (!mounted) return;
     let cancelled = false;
-    import("@vimeo/player").then(({ default: Player }) => {
+    import('@vimeo/player').then(({ default: Player }) => {
       if (cancelled || !iframeRef.current) return;
       const player = new Player(iframeRef.current) as unknown as VimeoPlayer;
       playerRef.current = player;
@@ -144,11 +144,11 @@ function ReelItem({
         aria-label={
           soundOn
             ? isEn
-              ? "Mute"
-              : "ミュートする"
+              ? 'Mute'
+              : 'ミュートする'
             : isEn
-              ? "Turn sound on"
-              : "音を出す"
+              ? 'Turn sound on'
+              : '音を出す'
         }
         aria-pressed={soundOn}
         className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-2 text-xs font-medium text-white backdrop-blur transition hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
@@ -157,11 +157,11 @@ function ReelItem({
         <span>
           {soundOn
             ? isEn
-              ? "Muted"
-              : "ミュート"
+              ? 'Muted'
+              : 'ミュート'
             : isEn
-              ? "Sound"
-              : "音を出す"}
+              ? 'Sound'
+              : '音を出す'}
         </span>
       </button>
     </div>
@@ -195,7 +195,7 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
     if (observed.length === 0) return;
 
     const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+      '(prefers-reduced-motion: reduce)',
     ).matches;
 
     const observer = new IntersectionObserver(
@@ -233,11 +233,11 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
     const el = items.current[index];
     if (!el) return;
     const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+      '(prefers-reduced-motion: reduce)',
     ).matches;
     el.scrollIntoView({
-      behavior: reduce ? "auto" : "smooth",
-      block: "center",
+      behavior: reduce ? 'auto' : 'smooth',
+      block: 'center',
     });
   };
 
@@ -246,10 +246,6 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
       ref={panelRef}
       className="rounded-[2.5rem] bg-gradient-to-b from-[#f0eef8] to-[#e8e5f5] px-4 py-12 sm:px-8"
     >
-      <p className="mb-8 text-center text-sm font-medium tracking-wide text-gray-500">
-        {isEn ? "Scroll to watch" : "スクロールして見る"}
-      </p>
-
       <div className="space-y-10">
         {videos.map((url, i) => (
           <ReelItem
@@ -271,19 +267,19 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
       <div
         aria-hidden={!inView}
         className={`pointer-events-none fixed inset-x-0 top-1/2 z-30 -translate-y-1/2 transition-opacity duration-300 ${
-          inView ? "opacity-100" : "opacity-0"
+          inView ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <div className="mx-auto flex max-w-2xl justify-end px-3 sm:px-6">
           <div
-            className={`flex flex-col items-center gap-2 ${inView ? "pointer-events-auto" : ""}`}
+            className={`flex flex-col items-center gap-2 ${inView ? 'pointer-events-auto' : ''}`}
           >
             <button
               type="button"
               onClick={() => goTo(active - 1)}
               disabled={active === 0}
               tabIndex={inView ? 0 : -1}
-              aria-label={isEn ? "Previous video" : "前の動画"}
+              aria-label={isEn ? 'Previous video' : '前の動画'}
               className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-gray-700 shadow-lg ring-1 ring-black/5 transition hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <ChevronUp size={22} />
@@ -296,7 +292,7 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
               onClick={() => goTo(active + 1)}
               disabled={active === videos.length - 1}
               tabIndex={inView ? 0 : -1}
-              aria-label={isEn ? "Next video" : "次の動画"}
+              aria-label={isEn ? 'Next video' : '次の動画'}
               className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-gray-700 shadow-lg ring-1 ring-black/5 transition hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <ChevronDown size={22} />

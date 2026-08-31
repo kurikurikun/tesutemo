@@ -34,6 +34,24 @@ interface SubpageProps {
   children?: ReactNode;
 }
 
+/**
+ * 横型 / 縦型 の見出し。細い罫線ではさんだラベルが、2つの動画ブロックの間の
+ * 区切りも兼ねている。ラベルはアクセントの #7e91cf、説明文の中の強調は
+ * これまで通りプライマリのオレンジなので、色が競合しない。
+ */
+function FormatHeading({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="mb-8">
+      <div className="flex items-center justify-center gap-4">
+        <span className="h-px w-10 bg-accent/40 sm:w-16" />
+        <span className="-mr-[0.2em] text-sm font-bold tracking-[0.2em] text-accent">{label}</span>
+        <span className="h-px w-10 bg-accent/40 sm:w-16" />
+      </div>
+      <p className="mt-4 text-center text-gray-600">{children}</p>
+    </div>
+  );
+}
+
 export default function SubpageLayout({
   heroTitle,
   heroSubtitle,
@@ -187,26 +205,29 @@ export default function SubpageLayout({
             <div className="inline-flex w-full justify-center mb-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-center px-8 py-4 rounded-2xl bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/15">{videoSectionTitle}</h2>
             </div>
-            <p className="text-center text-gray-500 mb-4">{videoSectionSubtitle}</p>
-            <div className="text-center space-y-1 mb-12">
-              <p className="text-gray-600">{videoHorizontalDesc}</p>
-              <p className="text-gray-600">{videoVerticalDesc}</p>
-            </div>
+            <p className="text-center text-gray-500 mb-12">{videoSectionSubtitle}</p>
           </FadeIn>
 
-          {/* Horizontal Videos Carousel */}
+          {/* 横型と縦型は、それぞれの見出しの下に置く。以前は「横型は…」「縦型は…」の
+              2行をセクション冒頭にまとめて出していたが、そこから離れた場所に2つの
+              大きな帯が続くので、どちらの説明がどちらの帯なのか読み手が覚えて
+              おかないといけなかった。説明文はそのまま、置き場所だけ移してある。 */}
           {horizontalVideos.length > 0 && (
             <FadeIn>
+              <FormatHeading label={isEn ? 'HORIZONTAL' : '横型'}>{videoHorizontalDesc}</FormatHeading>
               <VideoCarousel videos={horizontalVideos} />
             </FadeIn>
           )}
 
-          {/* Vertical videos — SNS 風の縦スクロールフィード。3列グリッドをやめた
-              経緯と自動再生の扱いは VerticalReel.tsx のヘッダに書いてある。 */}
+          {/* 縦型は SNS 風の縦スクロールフィード。3列グリッドをやめた経緯と
+              自動再生の扱いは VerticalReel.tsx のヘッダに書いてある。 */}
           {verticalVideos.length > 0 && (
             <FadeIn delay={0.2}>
-              <div className="max-w-2xl mx-auto mt-16">
-                <VerticalReel videos={verticalVideos} isEn={isEn} />
+              <div className="mt-16">
+                <FormatHeading label={isEn ? 'VERTICAL' : '縦型'}>{videoVerticalDesc}</FormatHeading>
+                <div className="max-w-2xl mx-auto">
+                  <VerticalReel videos={verticalVideos} isEn={isEn} />
+                </div>
               </div>
             </FadeIn>
           )}
