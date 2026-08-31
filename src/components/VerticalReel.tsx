@@ -13,9 +13,12 @@ import { ChevronDown, ChevronUp, Volume2, VolumeX } from 'lucide-react';
  *
  * 画面に入った動画だけを再生し、外れたものは止める（IntersectionObserver, 0.6）。
  * 同時に鳴るのはインタビュー動画にとって致命的なので、ここは崩さないこと。
- * 音のON/OFFはフィード全体で1つの状態として持つ。1本目で音を出したら、次の動画も
- * 音つきで始まる（SNSアプリと同じ挙動）。ブラウザに音つき再生を拒否されたら
- * ミュートに戻して再生し直す。
+ *
+ * 音を持てるのは常に1本だけ（soundIndex）。別のカードで音を出すと前のカードは
+ * ミュートに戻る。以前はフィード全体で1つの真偽値にしていたが、縦に長い画面では
+ * 2枚が同時に 0.6 を超えて両方再生されることがあり、そのとき2人ぶんの声が重なる。
+ * トップページの帯（VerticalMarquee）と同じ持ち方に揃えてある。
+ * ブラウザに音つき再生を拒否されたらミュートに戻す。
  *
  * ## 読み込みを軽くする仕組み
  *
@@ -59,7 +62,8 @@ function ReelItem({
   url,
   index,
   isEn,
-  soundOn,
+  hasSound,
+  dimmed,
   onSoundToggle,
   onSoundBlocked,
   setItemRef,
@@ -68,7 +72,9 @@ function ReelItem({
   url: string;
   index: number;
   isEn: boolean;
-  soundOn: boolean;
+  hasSound: boolean;
+  /** 他のカードが音を持っているとき。そちらに目が行くよう一段落とす。 */
+  dimmed: boolean;
   onSoundToggle: () => void;
   onSoundBlocked: () => void;
   setItemRef: (index: number, el: HTMLDivElement | null) => void;
@@ -112,13 +118,13 @@ function ReelItem({
     };
   }, [mounted, index, setPlayer]);
 
-  // 音のON/OFFはフィード共通の状態。切り替わったら再生中のこの動画にも反映する。
+  // 音を持っているのが自分かどうか。持っていなければ黙る。
   useEffect(() => {
     const player = playerRef.current;
     if (!player) return;
-    player.setMuted(!soundOn).catch(() => {});
-    if (soundOn) player.play().catch(() => onSoundBlocked());
-  }, [soundOn, onSoundBlocked]);
+    player.setMuted(!hasSound).catch(() => {});
+    if (hasSound) player.play().catch(() => onSoundBlocked());
+  }, [hasSound, onSoundBlocked]);
 
   return (
     <div
@@ -126,7 +132,11 @@ function ReelItem({
         wrapRef.current = el;
         setItemRef(index, el);
       }}
-      className="relative mx-auto aspect-[9/16] w-full max-w-[min(43.875vh,405px)] overflow-hidden rounded-3xl bg-black shadow-2xl shadow-[#7e91cf]/30 ring-1 ring-black/5"
+      className={`relative mx-auto aspect-[9/16] w-full max-w-[min(43.875vh,405px)] overflow-hidden rounded-3xl bg-black transition-all duration-500 ${
+        hasSound
+          ? 'shadow-2xl shadow-[#7e91cf]/50 ring-2 ring-primary/70'
+          : 'shadow-2xl shadow-[#7e91cf]/30 ring-1 ring-black/5'
+      } ${dimmed ? 'opacity-40 saturate-50' : ''}`}
     >
       {mounted && (
         <iframe
@@ -142,7 +152,7 @@ function ReelItem({
         type="button"
         onClick={onSoundToggle}
         aria-label={
-          soundOn
+          hasSound
             ? isEn
               ? 'Mute'
               : 'ミュートする'
@@ -150,12 +160,12 @@ function ReelItem({
               ? 'Turn sound on'
               : '音を出す'
         }
-        aria-pressed={soundOn}
+        aria-pressed={hasSound}
         className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-2 text-xs font-medium text-white backdrop-blur transition hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
       >
-        {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
+        {hasSound ? <Volume2 size={16} /> : <VolumeX size={16} />}
         <span>
-          {soundOn
+          {hasSound
             ? isEn
               ? 'Muted'
               : 'ミュート'
@@ -173,7 +183,8 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
   const players = useRef<(VimeoPlayer | null)[]>([]);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
-  const [soundOn, setSoundOn] = useState(false);
+  // 音を持っているカードの番号。null なら全部ミュート。常に1本だけ。
+  const [soundIndex, setSoundIndex] = useState<number | null>(null);
   const [inView, setInView] = useState(false);
 
   const setItemRef = useCallback((index: number, el: HTMLDivElement | null) => {
@@ -184,8 +195,13 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
     players.current[index] = player;
   }, []);
 
+  const toggleSound = useCallback(
+    (index: number) => setSoundIndex((current) => (current === index ? null : index)),
+    [],
+  );
+
   // ブラウザが音つき再生を拒否したときはミュートに戻す。無音のまま止まるより良い。
-  const handleSoundBlocked = useCallback(() => setSoundOn(false), []);
+  const handleSoundBlocked = useCallback(() => setSoundIndex(null), []);
 
   // 画面に入った動画だけを再生、外れたら停止。声が重ならないための要。
   useEffect(() => {
@@ -258,8 +274,9 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
             url={url}
             index={i}
             isEn={isEn}
-            soundOn={soundOn}
-            onSoundToggle={() => setSoundOn((on) => !on)}
+            hasSound={soundIndex === i}
+            dimmed={soundIndex !== null && soundIndex !== i}
+            onSoundToggle={() => toggleSound(i)}
             onSoundBlocked={handleSoundBlocked}
             setItemRef={setItemRef}
             setPlayer={setPlayer}

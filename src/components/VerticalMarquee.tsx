@@ -26,6 +26,9 @@ import { Volume2, VolumeX } from 'lucide-react';
  * その1本を見たいということなので、ベルトは止める。タッチ環境にはホバーがないため、
  * この3つ目がないと動く的をタップし続けることになる。
  *
+ * 音を出したカードは少し大きくなり、他は暗くなる。どれが喋っているのかを
+ * 目で追えるようにするため。拡大ぶんが上下で切れないよう、帯には py-4 が要る。
+ *
  * ## 触るとおかしくなりやすい3点
  *
  * - animation は CSS クラスで当てること。style 属性で animation ショートハンドを
@@ -62,11 +65,14 @@ type VimeoPlayer = {
 function MarqueeCard({
   video,
   hasSound,
+  dimmed,
   onSoundToggle,
   isEn,
 }: {
   video: ShowcaseVideo;
   hasSound: boolean;
+  /** 他のカードが音を持っているとき。そちらに目が行くよう一段落とす。 */
+  dimmed: boolean;
   onSoundToggle: () => void;
   isEn: boolean;
 }) {
@@ -133,7 +139,11 @@ function MarqueeCard({
   return (
     <div
       ref={wrapRef}
-      className="relative aspect-[9/16] w-[68vw] shrink-0 overflow-hidden rounded-2xl bg-black shadow-lg shadow-[#7e91cf]/25 ring-1 ring-black/5 sm:w-[300px] lg:w-[340px]"
+      className={`relative aspect-[9/16] w-[68vw] shrink-0 overflow-hidden rounded-2xl bg-black transition-all duration-500 sm:w-[300px] lg:w-[340px] ${
+        hasSound
+          ? 'z-10 scale-[1.04] shadow-2xl shadow-[#7e91cf]/45 ring-2 ring-primary/70'
+          : 'shadow-lg shadow-[#7e91cf]/25 ring-1 ring-black/5'
+      } ${dimmed ? 'scale-[0.97] opacity-40 saturate-50' : ''}`}
     >
       {mounted && (
         <iframe
@@ -187,12 +197,13 @@ export default function VerticalMarquee({ videos, isEn = false, edgeColor = '#f9
         }
       `}</style>
 
-      <div className={`tt-marquee-track flex w-max gap-5 ${paused ? 'is-paused' : ''}`}>
+      <div className={`tt-marquee-track flex w-max gap-5 py-4 ${paused ? 'is-paused' : ''}`}>
         {loop.map((video, i) => (
           <MarqueeCard
             key={`${video.name}-${i}`}
             video={video}
             hasSound={soundIndex === i}
+            dimmed={soundIndex !== null && soundIndex !== i}
             onSoundToggle={() => toggleSound(i)}
             isEn={isEn}
           />
