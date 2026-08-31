@@ -7,6 +7,7 @@ import FadeIn from './FadeIn';
 import { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
 import VideoCarousel from './VideoCarousel';
+import VerticalReel from './VerticalReel';
 
 interface SubpageProps {
   heroTitle: ReactNode;
@@ -200,26 +201,12 @@ export default function SubpageLayout({
             </FadeIn>
           )}
 
-          {/* Vertical Videos */}
+          {/* Vertical videos — SNS 風の縦スクロールフィード。3列グリッドをやめた
+              経緯と自動再生の扱いは VerticalReel.tsx のヘッダに書いてある。 */}
           {verticalVideos.length > 0 && (
             <FadeIn delay={0.2}>
-              <div className="max-w-5xl mx-auto mt-16">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {verticalVideos.map((url, i) => (
-                    <div key={i} className="bg-gradient-to-br from-[#e8f0fe] to-[#d0e1fd] rounded-3xl p-6 shadow-xl">
-                      <div className="aspect-[9/16] bg-gray-900 rounded-2xl overflow-hidden shadow-xl">
-                        <iframe
-                          src={url}
-                          className="w-full h-full"
-                          allow="autoplay; fullscreen; picture-in-picture"
-                          allowFullScreen
-                          loading="lazy"
-                          title={`Vertical video ${i + 1}`}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div className="max-w-2xl mx-auto mt-16">
+                <VerticalReel videos={verticalVideos} isEn={isEn} />
               </div>
             </FadeIn>
           )}
