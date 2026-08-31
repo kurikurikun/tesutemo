@@ -222,8 +222,13 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
   useEffect(() => {
     const panel = panelRef.current;
     if (!panel) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setInView(entry.isIntersecting),
+    // 単純な isIntersecting では駄目だった。パネルは動画6本ぶんの高さ（4000px超）が
+    // あるので、下端が画面の上に少し残っているだけでも「交差している」ことになり、
+    // すでに下の横型セクションを見ているのに矢印が動画の上に浮いたままになる。
+    // 画面中央20%の帯に重なっているときだけ in view とみなす。
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: '-40% 0px -40% 0px' },
     );
     observer.observe(panel);
     return () => observer.disconnect();

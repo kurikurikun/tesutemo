@@ -211,23 +211,25 @@ export default function SubpageLayout({
           {/* 横型と縦型は、それぞれの見出しの下に置く。以前は「横型は…」「縦型は…」の
               2行をセクション冒頭にまとめて出していたが、そこから離れた場所に2つの
               大きな帯が続くので、どちらの説明がどちらの帯なのか読み手が覚えて
-              おかないといけなかった。説明文はそのまま、置き場所だけ移してある。 */}
-          {horizontalVideos.length > 0 && (
+              おかないといけなかった。説明文はそのまま、置き場所だけ移してある。
+
+              順番は 縦型 → 横型。このページ自身の言い分が「縦型はSNSで見つけて
+              もらうため、横型はしっかり伝えるため」なので、見つけてもらう→じっくり
+              伝える、の順に並べる方が話の流れと合う。逆にしないこと。 */}
+          {verticalVideos.length > 0 && (
             <FadeIn>
-              <FormatHeading label={isEn ? 'HORIZONTAL' : '横型'}>{videoHorizontalDesc}</FormatHeading>
-              <VideoCarousel videos={horizontalVideos} />
+              <FormatHeading label={isEn ? 'VERTICAL' : '縦型'}>{videoVerticalDesc}</FormatHeading>
+              <div className="max-w-2xl mx-auto">
+                <VerticalReel videos={verticalVideos} isEn={isEn} />
+              </div>
             </FadeIn>
           )}
 
-          {/* 縦型は SNS 風の縦スクロールフィード。3列グリッドをやめた経緯と
-              自動再生の扱いは VerticalReel.tsx のヘッダに書いてある。 */}
-          {verticalVideos.length > 0 && (
+          {horizontalVideos.length > 0 && (
             <FadeIn delay={0.2}>
-              <div className="mt-16">
-                <FormatHeading label={isEn ? 'VERTICAL' : '縦型'}>{videoVerticalDesc}</FormatHeading>
-                <div className="max-w-2xl mx-auto">
-                  <VerticalReel videos={verticalVideos} isEn={isEn} />
-                </div>
+              <div className={verticalVideos.length > 0 ? 'mt-16' : undefined}>
+                <FormatHeading label={isEn ? 'HORIZONTAL' : '横型'}>{videoHorizontalDesc}</FormatHeading>
+                <VideoCarousel videos={horizontalVideos} />
               </div>
             </FadeIn>
           )}
