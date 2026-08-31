@@ -20,6 +20,10 @@ import { ChevronDown, ChevronUp, Volume2, VolumeX } from 'lucide-react';
  * トップページの帯（VerticalMarquee）と同じ持ち方に揃えてある。
  * ブラウザに音つき再生を拒否されたらミュートに戻す。
  *
+ * 音を出したカードにはリングが付くが、トップページの帯と違って他のカードを暗く
+ * する処理は入れていない。ここは一度に1本しか見えないので、暗くする相手がおらず
+ * 効果がないため。帯と揃っていないのは意図的。
+ *
  * ## 読み込みを軽くする仕組み
  *
  * Vimeoの埋め込みは1つがプレイヤーアプリ1個ぶんの重さなので、6本ぶんの iframe を
@@ -63,7 +67,6 @@ function ReelItem({
   index,
   isEn,
   hasSound,
-  dimmed,
   onSoundToggle,
   onSoundBlocked,
   setItemRef,
@@ -73,8 +76,6 @@ function ReelItem({
   index: number;
   isEn: boolean;
   hasSound: boolean;
-  /** 他のカードが音を持っているとき。そちらに目が行くよう一段落とす。 */
-  dimmed: boolean;
   onSoundToggle: () => void;
   onSoundBlocked: () => void;
   setItemRef: (index: number, el: HTMLDivElement | null) => void;
@@ -136,7 +137,7 @@ function ReelItem({
         hasSound
           ? 'shadow-2xl shadow-[#7e91cf]/50 ring-2 ring-primary/70'
           : 'shadow-2xl shadow-[#7e91cf]/30 ring-1 ring-black/5'
-      } ${dimmed ? 'opacity-40 saturate-50' : ''}`}
+      }`}
     >
       {mounted && (
         <iframe
@@ -275,7 +276,6 @@ export default function VerticalReel({ videos, isEn = false }: Props) {
             index={i}
             isEn={isEn}
             hasSound={soundIndex === i}
-            dimmed={soundIndex !== null && soundIndex !== i}
             onSoundToggle={() => toggleSound(i)}
             onSoundBlocked={handleSoundBlocked}
             setItemRef={setItemRef}
