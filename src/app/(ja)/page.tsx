@@ -6,7 +6,6 @@ import ContactForm from '@/components/ContactForm';
 import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Video, Users, Shield, Sparkles, Clock } from 'lucide-react';
 
 function HeroSection() {
@@ -386,62 +385,54 @@ function FeaturesSection() {
 }
 
 /*
- * 導入実績 — corporate only.
+ * 導入実績 — the corporate client roll call.
  *
- * The old logo wall (富士宮市 / 大月町 / 関西大学 / 早稲田大学) and the 関西大学 quote were
- * university and municipality proof, so they came off this company-facing top page; both
- * still live on /university and /municipality.
+ * Named in copy for the first time, on Chris's say-so (2026-08). Name forms:
+ * 株式会社プロベル is the strip baked into its own video; TECH CREW Inc. is that
+ * company's own footer copyright, two words and uppercase. Comas follows the
+ * spelling used throughout COMAS_HANDOFF.md — its logo sets the mark in caps, which
+ * is styling rather than a different name, but worth confirming before print.
  *
- * What stands in is the one piece of corporate work already named publicly on this site:
- * the プロベル recruitment interview, whose company name strip is baked into the still.
- * No client logo files exist in public/ and no corporate testimonial quote exists anywhere
- * in the repo, so neither is invented here. The customer-interview work is linked rather
- * than re-carded, so this section does not repeat the What We Do block above it.
+ * Names, not logos: public/ holds no logo file for any of the three, and three
+ * lonely tiles would read thinner than the work itself. Each entry says what was
+ * actually made and links to the page that shows it.
  */
 function CustomersSection() {
+  const clients = [
+    { name: '株式会社プロベル', work: '採用インタビュー動画', href: '/recruitment' },
+    { name: 'TECH CREW Inc.', work: '採用インタビュー動画', href: '/recruitment' },
+    { name: 'Comas', work: '顧客インタビュー動画', href: '/case-study' },
+  ];
+
   return (
     <section className="py-20 lg:py-28 bg-gray-50 border-t border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-16 items-start">
 
-          {/* Left */}
           <FadeIn>
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-3">Trusted By</p>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">導入実績</h2>
             <p className="text-sm text-gray-600 leading-relaxed">すでに、リアルな声の価値に気づいた企業が活用を始めています</p>
           </FadeIn>
 
-          {/* Right */}
           <div>
-            <FadeIn>
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden grid grid-cols-1 sm:grid-cols-[240px_1fr]">
-                <div className="relative h-[220px] sm:h-full min-h-[220px] bg-gray-100">
-                  <Image src="/hero-20.jpg" alt="株式会社プロベル 社員インタビュー" fill className="object-cover" style={{ objectPosition: '50% 30%' }} />
-                </div>
-                <div className="p-7 lg:p-8 flex flex-col justify-center">
-                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">採用インタビュー</p>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">株式会社プロベル</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-5">
-                    社員が自分の言葉で語る動画を、採用サイトとSNSで使える素材として制作。会社の理念や働く空気が、求職者に伝わる形になりました。
-                  </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {clients.map((c, i) => (
+                <FadeIn key={c.name} delay={i * 0.08}>
                   <Link
-                    href="/recruitment"
-                    className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
+                    href={c.href}
+                    className="h-full bg-white border border-gray-200 rounded-xl p-6 flex flex-col gap-1.5 hover:border-gray-300 transition-colors"
                   >
-                    採用の活用方法を見る →
+                    <span className="text-base font-bold text-gray-900">{c.name}</span>
+                    <span className="text-sm text-gray-500">{c.work}</span>
                   </Link>
-                </div>
-              </div>
-            </FadeIn>
+                </FadeIn>
+              ))}
+            </div>
             <FadeIn>
-              <p className="mt-5 text-sm text-gray-500">
-                顧客インタビューの事例は{' '}
-                <Link href="/case-study" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">導入事例ページ</Link>
-                {' '}で公開しています。
-              </p>
               {/* Quiet route out to the non-corporate work — kept low on a company-facing
                   top page, but university/municipality keep their inbound links. */}
-              <p className="mt-3 text-sm text-gray-500">
+              <p className="mt-5 text-sm text-gray-500">
                 大学・自治体向けの実績もあります —{' '}
                 <Link href="/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">大学の広報に</Link>
                 <span className="text-gray-300 mx-2">/</span>

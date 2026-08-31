@@ -6,7 +6,6 @@ import ContactForm from '@/components/ContactForm';
 import RssFeed from '@/components/RssFeed';
 import FadeIn from '@/components/FadeIn';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Video, Users, Sparkles, Shield, Clock } from 'lucide-react';
 
 function HeroSection() {
@@ -383,19 +382,25 @@ function FeaturesSection() {
 }
 
 /*
- * Trusted By — corporate only.
+ * 導入実績 — the corporate client roll call.
  *
- * The old logo wall (Fujinomiya City / Otsuki Town / Kansai University / Waseda University)
- * and the Kansai University quote were university and municipality proof, so they came off
- * this company-facing top page; both still live on /en/university and /en/municipality.
+ * Named in copy for the first time, on Chris's say-so (2026-08). Name forms:
+ * 株式会社プロベル is the strip baked into its own video (no romanization exists); TECH CREW Inc. is that
+ * company's own footer copyright, two words and uppercase. Comas follows the
+ * spelling used throughout COMAS_HANDOFF.md — its logo sets the mark in caps, which
+ * is styling rather than a different name, but worth confirming before print.
  *
- * What stands in is the one piece of corporate work already named publicly on this site:
- * the プロベル recruitment interview, whose company name strip is baked into the still. No
- * client logo files exist in public/ and no corporate testimonial quote exists anywhere in
- * the repo, so neither is invented here. The company name is left in Japanese because that
- * is how it appears on screen — there is no romanization to copy from.
+ * Names, not logos: public/ holds no logo file for any of the three, and three
+ * lonely tiles would read thinner than the work itself. Each entry says what was
+ * actually made and links to the page that shows it.
  */
 function CustomersSection() {
+  const clients = [
+    { name: '株式会社プロベル', work: 'Recruitment interviews', href: '/en/recruitment' },
+    { name: 'TECH CREW Inc.', work: 'Recruitment interviews', href: '/en/recruitment' },
+    { name: 'Comas', work: 'Customer interviews', href: '/en/case-study' },
+  ];
+
   return (
     <section className="py-20 lg:py-28 bg-gray-50 border-t border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -408,34 +413,23 @@ function CustomersSection() {
           </FadeIn>
 
           <div>
-            <FadeIn>
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden grid grid-cols-1 sm:grid-cols-[240px_1fr]">
-                <div className="relative h-[220px] sm:h-full min-h-[220px] bg-gray-100">
-                  <Image src="/hero-20.jpg" alt="株式会社プロベル employee interview" fill className="object-cover" style={{ objectPosition: '50% 30%' }} />
-                </div>
-                <div className="p-7 lg:p-8 flex flex-col justify-center">
-                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-accent mb-2">Recruitment interviews</p>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">株式会社プロベル</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-5">
-                    Employees telling it in their own words — cut into video their careers page and social feeds can actually use, so candidates get a feel for the place before they apply.
-                  </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {clients.map((c, i) => (
+                <FadeIn key={c.name} delay={i * 0.08}>
                   <Link
-                    href="/en/recruitment"
-                    className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.06em] uppercase text-gray-900 border-b border-gray-900 pb-px self-start"
+                    href={c.href}
+                    className="h-full bg-white border border-gray-200 rounded-xl p-6 flex flex-col gap-1.5 hover:border-gray-300 transition-colors"
                   >
-                    See how it works →
+                    <span className="text-base font-bold text-gray-900">{c.name}</span>
+                    <span className="text-sm text-gray-500">{c.work}</span>
                   </Link>
-                </div>
-              </div>
-            </FadeIn>
+                </FadeIn>
+              ))}
+            </div>
             <FadeIn>
-              <p className="mt-5 text-sm text-gray-500">
-                Customer interview work is published on the{' '}
-                <Link href="/en/case-study" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">case studies page</Link>.
-              </p>
               {/* Quiet route out to the non-corporate work — kept low on a company-facing
                   top page, but university/municipality keep their inbound links. */}
-              <p className="mt-3 text-sm text-gray-500">
+              <p className="mt-5 text-sm text-gray-500">
                 We work with universities and municipalities too —{' '}
                 <Link href="/en/university" className="text-accent underline underline-offset-2 hover:opacity-70 transition-opacity">for universities</Link>
                 <span className="text-gray-300 mx-2">/</span>
