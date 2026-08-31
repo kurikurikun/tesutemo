@@ -1,18 +1,39 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronDown, ChevronUp, Volume2, VolumeX } from "lucide-react";
 
 /**
- * 縦型ショートを、SNSのように上から下へスクロールして見せるフィード。
+ * 縦型ショートを、SNSのように上から下へ1本ずつ見せるフィード。
  *
  * 3列グリッドをやめた理由: 9:16 を3つ横に並べると1本あたりが細くなり、
- * 縦型が本来持っている「画面いっぱいで人の顔を見る」感じが消える。1本ずつ
- * 縦に積んで、画面に入った動画だけをミュート再生する。音はカード右上のボタン。
+ * 縦型が本来持っている「画面いっぱいで人の顔を見る」感じが消える。
  *
- * 自動再生はブラウザの仕様上ミュートでしか始められないので、まず muted で
- * 再生し、ユーザーが押したときだけ音を出す。OSで「視差効果を減らす」を有効に
- * している人には自動再生をせず、Vimeo標準のコントロールから手で再生してもらう。
+ * ## 声が混ざらないようにする仕組み
+ *
+ * 画面に入った動画だけを再生し、外れたものは止める（IntersectionObserver, 0.6）。
+ * 同時に鳴るのはインタビュー動画にとって致命的なので、ここは崩さないこと。
+ * 音のON/OFFはフィード全体で1つの状態として持つ。1本目で音を出したら、次の動画も
+ * 音つきで始まる（SNSアプリと同じ挙動）。ブラウザに音つき再生を拒否されたら
+ * ミュートに戻して再生し直す。
+ *
+ * ## 読み込みを軽くする仕組み
+ *
+ * Vimeoの埋め込みは1つがプレイヤーアプリ1個ぶんの重さなので、6本ぶんの iframe を
+ * 最初から置くとページが重い。各カードは画面から1.5画面ぶん以内に近づいて初めて
+ * iframe を作る（下の PRELOAD_MARGIN）。実際に存在するプレイヤーは常時2〜3個で、
+ * 自動再生しているのはそのうち1つだけ。
+ *
+ * ## 色と、矢印が fixed である理由
+ *
+ * 地は薄い藤色 (#f0eef8 → #e8e5f5)。/recruitment の「採用現場での活用イメージ」の
+ * 帯と同じ組み合わせで、ブランドのアクセント #7e91cf の系統。最初は Tailwind の
+ * bg-gray-900 (#111827) を使っていたが、あれは青紫寄りのグレーでブランド色ではない。
+ *
+ * 前後送りのボタンは position: fixed。sticky にできない事情があって、globals.css が
+ * html と body に overflow-x: hidden をかけており、これが position: sticky を無効に
+ * する（body がスクロールコンテナになるため）。site全体に効いている指定なので外さず、
+ * フィードが画面に入っている間だけ矢印を出す形にした。
  */
 
 type Props = {
@@ -20,103 +41,268 @@ type Props = {
   isEn?: boolean;
 };
 
-/** フィード用のパラメータを足す。ループ・ミュート、Vimeoのタイトル類は非表示。 */
+/** これだけ画面に近づいたら iframe を作る。1.5画面ぶん手前。 */
+const PRELOAD_MARGIN = "150% 0px";
+
+/** 自動再生はミュートでしか始められないので muted=1。ループも入れる。 */
 const reelUrl = (url: string) =>
-  `${url}${url.includes('?') ? '&' : '?'}muted=1&loop=1&title=0&byline=0&portrait=0&dnt=1`;
+  `${url}${url.includes("?") ? "&" : "?"}muted=1&loop=1&title=0&byline=0&portrait=0&dnt=1`;
 
-function ReelItem({ url, index, isEn }: { url: string; index: number; isEn: boolean }) {
-  const wrapRef = useRef<HTMLDivElement>(null);
+/** @vimeo/player のうち、ここで使うぶんだけ。SDKは動的 import なので自前で型を持つ。 */
+type VimeoPlayer = {
+  play: () => Promise<void>;
+  pause: () => Promise<void>;
+  setMuted: (muted: boolean) => Promise<boolean>;
+};
+
+function ReelItem({
+  url,
+  index,
+  isEn,
+  soundOn,
+  onSoundToggle,
+  onSoundBlocked,
+  setItemRef,
+  setPlayer,
+}: {
+  url: string;
+  index: number;
+  isEn: boolean;
+  soundOn: boolean;
+  onSoundToggle: () => void;
+  onSoundBlocked: () => void;
+  setItemRef: (index: number, el: HTMLDivElement | null) => void;
+  setPlayer: (index: number, player: VimeoPlayer | null) => void;
+}) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  // @vimeo/player の Player インスタンス。型は動的 import なので unknown 扱い。
-  const playerRef = useRef<{
-    play: () => Promise<void>;
-    pause: () => Promise<void>;
-    setMuted: (m: boolean) => Promise<boolean>;
-  } | null>(null);
-  const [muted, setMuted] = useState(true);
+  const playerRef = useRef<VimeoPlayer | null>(null);
+  const [mounted, setMounted] = useState(false);
 
+  // 画面に近づいてから iframe を作る。一度作ったら外さない（作り直すと再生が飛ぶ）。
   useEffect(() => {
-    let cancelled = false;
-    let observer: IntersectionObserver | undefined;
-
-    import('@vimeo/player').then(({ default: Player }) => {
-      if (cancelled || !iframeRef.current || !wrapRef.current) return;
-
-      const player = new Player(iframeRef.current);
-      playerRef.current = player;
-      player.setMuted(true).catch(() => {});
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      // 画面の6割以上入ったら再生、外れたら停止。同時に鳴らないようにするため。
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) player.play().catch(() => {});
-          else player.pause().catch(() => {});
-        },
-        { threshold: 0.6 }
-      );
-      observer.observe(wrapRef.current);
-    });
-
-    return () => {
-      cancelled = true;
-      observer?.disconnect();
-      playerRef.current?.pause().catch(() => {});
-    };
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMounted(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: PRELOAD_MARGIN },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
-  const toggleSound = () => {
+  useEffect(() => {
+    if (!mounted) return;
+    let cancelled = false;
+    import("@vimeo/player").then(({ default: Player }) => {
+      if (cancelled || !iframeRef.current) return;
+      const player = new Player(iframeRef.current) as unknown as VimeoPlayer;
+      playerRef.current = player;
+      setPlayer(index, player);
+    });
+    return () => {
+      cancelled = true;
+      setPlayer(index, null);
+      playerRef.current = null;
+    };
+  }, [mounted, index, setPlayer]);
+
+  // 音のON/OFFはフィード共通の状態。切り替わったら再生中のこの動画にも反映する。
+  useEffect(() => {
     const player = playerRef.current;
     if (!player) return;
-    const next = !muted;
-    player.setMuted(next).catch(() => {});
-    if (!next) player.play().catch(() => {});
-    setMuted(next);
-  };
+    player.setMuted(!soundOn).catch(() => {});
+    if (soundOn) player.play().catch(() => onSoundBlocked());
+  }, [soundOn, onSoundBlocked]);
 
   return (
     <div
-      ref={wrapRef}
-      className="relative mx-auto aspect-[9/16] w-full max-w-[min(43.875vh,405px)] overflow-hidden rounded-3xl bg-black shadow-2xl shadow-black/40 ring-1 ring-white/10"
+      ref={(el) => {
+        wrapRef.current = el;
+        setItemRef(index, el);
+      }}
+      className="relative mx-auto aspect-[9/16] w-full max-w-[min(43.875vh,405px)] overflow-hidden rounded-3xl bg-black shadow-2xl shadow-[#7e91cf]/30 ring-1 ring-black/5"
     >
-      <iframe
-        ref={iframeRef}
-        src={reelUrl(url)}
-        className="h-full w-full"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowFullScreen
-        loading="lazy"
-        title={isEn ? `Vertical video ${index + 1}` : `縦型動画 ${index + 1}`}
-      />
+      {mounted && (
+        <iframe
+          ref={iframeRef}
+          src={reelUrl(url)}
+          className="h-full w-full"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title={isEn ? `Vertical video ${index + 1}` : `縦型動画 ${index + 1}`}
+        />
+      )}
       <button
         type="button"
-        onClick={toggleSound}
+        onClick={onSoundToggle}
         aria-label={
-          muted
-            ? isEn ? 'Turn sound on' : '音を出す'
-            : isEn ? 'Mute' : 'ミュートする'
+          soundOn
+            ? isEn
+              ? "Mute"
+              : "ミュートする"
+            : isEn
+              ? "Turn sound on"
+              : "音を出す"
         }
-        aria-pressed={!muted}
+        aria-pressed={soundOn}
         className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-2 text-xs font-medium text-white backdrop-blur transition hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
       >
-        {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-        <span>{muted ? (isEn ? 'Sound' : '音を出す') : (isEn ? 'Muted' : 'ミュート')}</span>
+        {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
+        <span>
+          {soundOn
+            ? isEn
+              ? "Muted"
+              : "ミュート"
+            : isEn
+              ? "Sound"
+              : "音を出す"}
+        </span>
       </button>
     </div>
   );
 }
 
 export default function VerticalReel({ videos, isEn = false }: Props) {
+  const items = useRef<(HTMLDivElement | null)[]>([]);
+  const players = useRef<(VimeoPlayer | null)[]>([]);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(0);
+  const [soundOn, setSoundOn] = useState(false);
+  const [inView, setInView] = useState(false);
+
+  const setItemRef = useCallback((index: number, el: HTMLDivElement | null) => {
+    items.current[index] = el;
+  }, []);
+
+  const setPlayer = useCallback((index: number, player: VimeoPlayer | null) => {
+    players.current[index] = player;
+  }, []);
+
+  // ブラウザが音つき再生を拒否したときはミュートに戻す。無音のまま止まるより良い。
+  const handleSoundBlocked = useCallback(() => setSoundOn(false), []);
+
+  // 画面に入った動画だけを再生、外れたら停止。声が重ならないための要。
+  useEffect(() => {
+    const observed = items.current.filter((el): el is HTMLDivElement =>
+      Boolean(el),
+    );
+    if (observed.length === 0) return;
+
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = observed.indexOf(entry.target as HTMLDivElement);
+          if (index === -1) return;
+          if (entry.isIntersecting) {
+            setActive(index);
+            if (!reduce) players.current[index]?.play().catch(() => {});
+          } else {
+            players.current[index]?.pause().catch(() => {});
+          }
+        });
+      },
+      { threshold: 0.6 },
+    );
+
+    observed.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [videos.length]);
+
+  // フィードが画面にある間だけ矢印を出す。
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setInView(entry.isIntersecting),
+    );
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, []);
+
+  const goTo = (index: number) => {
+    const el = items.current[index];
+    if (!el) return;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    el.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "center",
+    });
+  };
+
   return (
-    <div className="rounded-[2.5rem] bg-gray-900 px-4 py-12 sm:px-8">
-      <p className="mb-8 text-center text-sm font-medium tracking-wide text-gray-400">
-        {isEn ? 'Scroll to watch' : 'スクロールして見る'}
+    <div
+      ref={panelRef}
+      className="rounded-[2.5rem] bg-gradient-to-b from-[#f0eef8] to-[#e8e5f5] px-4 py-12 sm:px-8"
+    >
+      <p className="mb-8 text-center text-sm font-medium tracking-wide text-gray-500">
+        {isEn ? "Scroll to watch" : "スクロールして見る"}
       </p>
+
       <div className="space-y-10">
         {videos.map((url, i) => (
-          <ReelItem key={url} url={url} index={i} isEn={isEn} />
+          <ReelItem
+            key={url}
+            url={url}
+            index={i}
+            isEn={isEn}
+            soundOn={soundOn}
+            onSoundToggle={() => setSoundOn((on) => !on)}
+            onSoundBlocked={handleSoundBlocked}
+            setItemRef={setItemRef}
+            setPlayer={setPlayer}
+          />
         ))}
+      </div>
+
+      {/* 前後の動画へ送るボタン。fixed にしている理由はファイル冒頭のコメント参照。
+          フィードが画面から外れている間は隠す。スマホでは動画の右端に少し重なる。 */}
+      <div
+        aria-hidden={!inView}
+        className={`pointer-events-none fixed inset-x-0 top-1/2 z-30 -translate-y-1/2 transition-opacity duration-300 ${
+          inView ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="mx-auto flex max-w-2xl justify-end px-3 sm:px-6">
+          <div
+            className={`flex flex-col items-center gap-2 ${inView ? "pointer-events-auto" : ""}`}
+          >
+            <button
+              type="button"
+              onClick={() => goTo(active - 1)}
+              disabled={active === 0}
+              tabIndex={inView ? 0 : -1}
+              aria-label={isEn ? "Previous video" : "前の動画"}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-gray-700 shadow-lg ring-1 ring-black/5 transition hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <ChevronUp size={22} />
+            </button>
+            <span className="rounded-full bg-white/80 px-2 py-0.5 text-xs font-medium tabular-nums text-gray-600 shadow-sm">
+              {active + 1} / {videos.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => goTo(active + 1)}
+              disabled={active === videos.length - 1}
+              tabIndex={inView ? 0 : -1}
+              aria-label={isEn ? "Next video" : "次の動画"}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-gray-700 shadow-lg ring-1 ring-black/5 transition hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <ChevronDown size={22} />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
