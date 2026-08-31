@@ -138,10 +138,15 @@ function ContextSection() {
 }
 
 function ValueSection() {
+  // Four real client shorts, replacing the three generic Expression/Warmth/True Feelings
+  // demos. Comas from /en/case-study, TECH CREW from the 2026-08 delivery; all unlisted,
+  // so each embed carries its hash. `name` is for the key and the iframe title only — it
+  // is not rendered, so no client is named in visible copy.
   const videos = [
-    { label: 'Expression', vimeo: 'https://player.vimeo.com/video/1020065025?h=c786d2097a&title=0&byline=0&portrait=0' },
-    { label: 'Warmth', vimeo: 'https://player.vimeo.com/video/1014779536?h=2c4b22d316&title=0&byline=0&portrait=0' },
-    { label: 'True Feelings', vimeo: 'https://player.vimeo.com/video/1173147932?h=22cefed8a7&title=0&byline=0&portrait=0' },
+    { name: '手島 — S1', vimeo: 'https://player.vimeo.com/video/1211072475?h=8e9082a9da&title=0&byline=0&portrait=0' },
+    { name: 'Ariel — hook', vimeo: 'https://player.vimeo.com/video/1211072516?h=73c275066b&title=0&byline=0&portrait=0' },
+    { name: '清水 — S1', vimeo: 'https://player.vimeo.com/video/1222248136?h=094e6a6fd2&title=0&byline=0&portrait=0' },
+    { name: '野田 — S1', vimeo: 'https://player.vimeo.com/video/1221072287?h=09e1a18a37&title=0&byline=0&portrait=0' },
   ];
 
   return (
@@ -158,9 +163,9 @@ function ValueSection() {
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {videos.map((v, i) => (
-            <FadeIn key={v.label} delay={i * 0.1}>
+            <FadeIn key={v.name} delay={i * 0.1}>
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <div className="relative w-full" style={{ paddingBottom: '177.78%' }}>
                   <iframe
@@ -169,12 +174,8 @@ function ValueSection() {
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
-                    title={`Tesutemo - ${v.label}`}
+                    title={`TesuTemo - ${v.name}`}
                   />
-                </div>
-                <div className="px-5 py-4 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                  <span className="text-sm font-semibold text-gray-900">{v.label}</span>
                 </div>
               </div>
             </FadeIn>
