@@ -248,9 +248,8 @@ function WhatWeDoSection() {
       title: 'Hire the right people',
       lead: 'Employees telling it in their own words, so candidates get a feel for the place before they apply. Filmed and delivered entirely online.',
       points: [
-        <>Landscape cuts to <span className="text-primary font-bold">make the case</span> on your careers site and at hiring events</>,
-        <>Vertical cuts to <span className="text-primary font-bold">get found</span> on social</>,
-        <>The kind of detail that shows what the job is actually like</>,
+        <>Candidates see the real workplace before they apply, so fewer bad fits</>,
+        <>A small team can keep posting without booking a shoot every time</>,
       ],
       href: '/en/recruitment',
       vimeo: 'https://player.vimeo.com/video/1222247699?h=2a1e5a09e6&badge=0&autopause=0&player_id=0&app_id=58479',
@@ -260,9 +259,8 @@ function WhatWeDoSection() {
       title: 'Win more customers',
       lead: 'Your customers in their own words, so buyers hear it from someone other than you. A trusted third voice on what your product is actually worth.',
       points: [
-        <>Landscape cuts to <span className="text-primary font-bold">make the case</span> on your site and at events</>,
-        <>Vertical cuts to <span className="text-primary font-bold">get found</span> on social</>,
-        <>Enough for a buyer to judge whether it fits them</>,
+        <>Answers the doubts that stall a deal</>,
+        <>Something to hand a buyer mid-conversation, or run on your site</>,
       ],
       href: '/en/case-study',
       vimeo: 'https://player.vimeo.com/video/1211121590?h=bfb474263b&badge=0&autopause=0&player_id=0&app_id=58479',
@@ -315,6 +313,17 @@ function WhatWeDoSection() {
               </div>
             </FadeIn>
           ))}
+        </div>
+
+        {/* Format is true of both offers, so it is stated once here instead of
+            repeating near-identically inside each column. */}
+        <div className="mt-12 pt-8 border-t border-gray-200 grid grid-cols-1 sm:grid-cols-2 gap-x-14 gap-y-3">
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Landscape cuts to <span className="text-primary font-bold">make the case</span> on your site and at events
+          </p>
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Vertical cuts to <span className="text-primary font-bold">get found</span> on social
+          </p>
         </div>
       </div>
 

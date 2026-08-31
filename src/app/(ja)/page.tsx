@@ -251,9 +251,8 @@ function WhatWeDoSection() {
       title: '人材を採用する',
       lead: '社員のリアルな声で、人材と出会う。求職者が入社後の働き方を具体的にイメージできる動画を、オンライン完結で制作します。',
       points: [
-        <>横型は採用サイトや説明会・イベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>,
-        <>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>,
-        <>入社後の働き方を具体的にイメージできるコンテンツ</>,
+        <>応募前に職場のリアルが伝わり、採用のミスマッチが減る</>,
+        <>限られた人員でも、続けて発信できる素材になる</>,
       ],
       href: '/recruitment',
       vimeo: 'https://player.vimeo.com/video/1222247699?h=2a1e5a09e6&badge=0&autopause=0&player_id=0&app_id=58479',
@@ -263,9 +262,8 @@ function WhatWeDoSection() {
       title: '顧客を増やす',
       lead: 'お客様のリアルな声で、次の顧客と出会う。信頼できる第三者の声で、商品・サービスの本当の価値を届けます。',
       points: [
-        <>横型はWebサイトやイベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために</>,
-        <>縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために</>,
-        <>見込み客が「自分にも合うか」を判断できるコンテンツ</>,
+        <>見込み客の不安を解消し、購買を後押しする</>,
+        <>商談やWebサイトで、検討中の相手にそのまま渡せる</>,
       ],
       href: '/case-study',
       vimeo: 'https://player.vimeo.com/video/1211265629?h=f1a11af050&badge=0&autopause=0&player_id=0&app_id=58479',
@@ -318,6 +316,17 @@ function WhatWeDoSection() {
               </div>
             </FadeIn>
           ))}
+        </div>
+
+        {/* 横型/縦型 is true of both offers, so it is stated once here instead of
+            repeating near-identically inside each column. */}
+        <div className="mt-12 pt-8 border-t border-gray-200 grid grid-cols-1 sm:grid-cols-2 gap-x-14 gap-y-3">
+          <p className="text-sm text-gray-500 leading-relaxed">
+            横型は採用サイトやWebサイト・イベントで<span className="text-primary font-bold">「しっかり伝える」</span>ために
+          </p>
+          <p className="text-sm text-gray-500 leading-relaxed">
+            縦型はSNSで<span className="text-primary font-bold">「見つけてもらう」</span>ために
+          </p>
         </div>
       </div>
 
