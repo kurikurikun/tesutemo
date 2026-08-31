@@ -107,14 +107,14 @@ function ContextSection() {
         {/* Solution */}
         <FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-200 border border-gray-200 rounded-2xl overflow-hidden">
-            <div className="bg-gray-900 p-10 lg:p-12 flex flex-col justify-between gap-8">
+            <div className="bg-gradient-to-b from-[#f0eef8] to-[#e8e5f5] p-10 lg:p-12 flex flex-col justify-between gap-8">
               <div>
                 <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-primary mb-5">Solution</p>
-                <h2 className="text-3xl lg:text-4xl font-bold text-white leading-snug">
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-snug">
                   テステモは、<br />リアルな声で<br /><span className="text-primary">伝えます</span>
                 </h2>
               </div>
-              <p className="text-sm text-white/50 leading-relaxed">実際にその会社で働く社員、その商品・サービスを選んだ顧客へのインタビューを通して、判断につながる情報を動画で届ける</p>
+              <p className="text-sm text-gray-600 leading-relaxed">実際にその会社で働く社員、その商品・サービスを選んだ顧客へのインタビューを通して、判断につながる情報を動画で届ける</p>
             </div>
             <div className="bg-white p-10 lg:p-12 flex flex-col gap-4">
               {[
@@ -331,9 +331,9 @@ function WhatWeDoSection() {
 
       {/* The CTA the hero gave up. One action, not a competing pair, and it sits where
           someone has just finished reading both offers. */}
-      <div className="bg-gray-900">
+      <div className="bg-gradient-to-b from-[#f0eef8] to-[#e8e5f5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <p className="text-base lg:text-lg text-white/70 leading-relaxed max-w-xl">
+          <p className="text-base lg:text-lg text-gray-700 leading-relaxed max-w-xl">
             オンライン完結だから、担当者さまの負担を抑えたまま進められます。まずはご相談ください。
           </p>
           <a
