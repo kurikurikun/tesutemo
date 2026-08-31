@@ -272,8 +272,8 @@ function WhatWeDoSection() {
   ];
 
   return (
-    <section id="what-we-do" className="pb-24 lg:pb-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="what-we-do" className="bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-20">
         <div className="border-t border-gray-200 grid grid-cols-1 md:grid-cols-2">
           {offers.map((o, i) => (
             <FadeIn key={o.title} delay={i * 0.1}>
@@ -317,6 +317,22 @@ function WhatWeDoSection() {
               </div>
             </FadeIn>
           ))}
+        </div>
+      </div>
+
+      {/* The CTA the hero gave up. One action, not a competing pair, and it sits where
+          someone has just finished reading both offers. */}
+      <div className="bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <p className="text-base lg:text-lg text-white/70 leading-relaxed max-w-xl">
+            オンライン完結だから、担当者さまの負担を抑えたまま進められます。まずはご相談ください。
+          </p>
+          <a
+            href="#contact"
+            className="bg-primary text-white px-8 py-4 rounded-full font-semibold text-sm hover:bg-primary/90 transition-colors text-center whitespace-nowrap self-start sm:self-auto flex-shrink-0"
+          >
+            お問い合わせ
+          </a>
         </div>
       </div>
     </section>
