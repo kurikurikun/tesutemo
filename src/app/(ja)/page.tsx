@@ -255,7 +255,7 @@ function WhatWeDoSection() {
         <>入社後の働き方を具体的にイメージできるコンテンツ</>,
       ],
       href: '/recruitment',
-      vimeo: 'https://player.vimeo.com/video/1177652915?h=be43651176&badge=0&autopause=0&player_id=0&app_id=58479',
+      vimeo: 'https://player.vimeo.com/video/1222247699?h=2a1e5a09e6&badge=0&autopause=0&player_id=0&app_id=58479',
     },
     {
       tag: '導入事例',
