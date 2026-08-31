@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
-import { TECHCREW_HORIZONTAL, TECHCREW_VERTICAL, pickVideos, readyVideos } from '@/lib/techcrew-videos';
+import { TECHCREW_HORIZONTAL, TECHCREW_VERTICAL, pickVideos, videoUrl } from '@/lib/techcrew-videos';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -37,7 +37,9 @@ export default function RecruitmentPage() {
           </p>
         </>
       }
-      heroVideoUrl={v('1177652915', 'be43651176')}
+      // ヒーローは TECH CREW 清水さん 横B。ID は techcrew-videos.ts が持っている。
+      // このスロットはヒーロー専用。下のカルーセルに入れると同じ動画が2回出る。
+      heroVideoUrl={videoUrl(TECHCREW_HORIZONTAL, 'shimizu-b') ?? v('1177652915', 'be43651176')}
       problemHeading={<>You&rsquo;re hiring.<br />But the right candidates aren&rsquo;t applying.</>}
       problemSubheading="Do any of these sound familiar?"
       problems={[
@@ -62,9 +64,13 @@ export default function RecruitmentPage() {
       ]}
       // TECH CREW の横型4本は公開前の確認待ち（理由は techcrew-videos.ts のヘッダ）。
       // ID のコメントを外せば、この行のまま自動でカルーセルに並ぶ。
+      // カルーセルは 野田B → 既存 → 野田A の順。shimizu-b はヒーローが使っている
+      // ので名指ししない（入れると同じ動画が2回出る）。shimizu-a はまだ公開前で、
+      // techcrew-videos.ts で id を入れれば末尾に並ぶ。
       horizontalVideos={[
+        ...pickVideos(TECHCREW_HORIZONTAL, ['noda-b']),
         v('1177653343', 'ddc7b19cbb'),
-        ...readyVideos(TECHCREW_HORIZONTAL),
+        ...pickVideos(TECHCREW_HORIZONTAL, ['noda-a', 'shimizu-a']),
       ]}
       // 縦型は6本 = lg の3列でちょうど2行。TECH CREW の2名から2本ずつ出し、
       // その間にプロベル素材を2本はさむ。TECH CREW の Vimeo ID は

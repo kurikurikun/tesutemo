@@ -59,12 +59,19 @@ export const pickVideos = (slots: VideoSlot[], keys: string[]): string[] => {
   });
 };
 
+/** 1本だけ欲しいとき。id がまだ入っていなければ undefined。 */
+export const videoUrl = (slots: VideoSlot[], key: string): string | undefined =>
+  pickVideos(slots, [key])[0];
+
 // 横型はまだ公開待ち（上のコメント参照）。確認が取れたら id / hash のコメントを外す。
 export const TECHCREW_HORIZONTAL: VideoSlot[] = [
-  { key: 'noda-a',    note: '野田さん — A「作りたいものを作る」 2:38' },             // id: '1222225510', hash: '447221aeae'  ※2:45以降に別フック候補が残る確認用
-  { key: 'noda-b',    note: '野田さん — B「ぶつかることで」 2:50' },                 // id: '1222225734', hash: '0a1be063e1'
+  // A の Vimeo 説明欄には「末尾（2:45以降）に別のフック候補」と残っているが、尺は
+  // 2:38 なので該当部分はすでに切られている。説明文の方が古い。
+  { key: 'noda-a',    note: '野田さん — A「作りたいものを作る」 2:38', id: '1222225510', hash: '447221aeae' },
+  { key: 'noda-b',    note: '野田さん — B「ぶつかることで」 2:50', id: '1222225734', hash: '0a1be063e1' },
   { key: 'shimizu-a', note: '清水さん — A「子育てしていてもレベルアップ」 3:47' },   // id: '1222247699', hash: '2a1e5a09e6'  ※Vimeoでトランスコード中
-  { key: 'shimizu-b', note: '清水さん — B「言ってもいい、やってもいい」 4:44' },     // id: '1222248018', hash: '742f9ff032'
+  // /recruitment のヒーロー（ページ最上部）で使用中。下のカルーセルには入れないこと。
+  { key: 'shimizu-b', note: '清水さん — B「言ってもいい、やってもいい」 4:44', id: '1222248018', hash: '742f9ff032' },
 ];
 
 // 9本すべて公開可。どれをどこに出すかは各ページの pickVideos() の並びが決める。
