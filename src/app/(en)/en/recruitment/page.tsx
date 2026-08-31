@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import SubpageLayout from '@/components/SubpageLayout';
-import { TECHCREW_HORIZONTAL, TECHCREW_VERTICAL, readyVideos } from '@/lib/techcrew-videos';
+import { TECHCREW_HORIZONTAL, TECHCREW_VERTICAL, pickVideos, readyVideos } from '@/lib/techcrew-videos';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
@@ -60,17 +60,21 @@ export default function RecruitmentPage() {
         { title: 'Pro-quality video, no crew required', desc: 'One free app, no login — employees just tap the call link we send. The tech handles audio and video quality automatically.' },
         { title: 'Built for the platforms candidates actually use', desc: 'Every video is cut and formatted for the feeds where your target candidates actually spend their time — ready to post, ready to perform.' },
       ]}
-      // TECH CREW の採用インタビュー（2名 × 横2・縦4）は編集中。スロットは
-      // src/lib/techcrew-videos.ts にあり、Vimeo ID を入れた分だけここに並ぶ。
+      // TECH CREW の横型4本は公開前の確認待ち（理由は techcrew-videos.ts のヘッダ）。
+      // ID のコメントを外せば、この行のまま自動でカルーセルに並ぶ。
       horizontalVideos={[
         v('1177653343', 'ddc7b19cbb'),
         ...readyVideos(TECHCREW_HORIZONTAL),
       ]}
+      // 縦型は6本 = lg の3列でちょうど2行。TECH CREW の2名から2本ずつ出し、
+      // その間にプロベル素材を2本はさむ。TECH CREW の Vimeo ID は
+      // techcrew-videos.ts が持っているので、ここでは key で並び順だけを決める。
       verticalVideos={[
+        ...pickVideos(TECHCREW_VERTICAL, ['noda-s2', 'shimizu-s3']),
         v('1177647609', 'fb5b66c157'),
+        ...pickVideos(TECHCREW_VERTICAL, ['shimizu-s4']),
         v('1177647513', 'd517b6f9ed'),
-        v('1177647574', 'c1311764fd'),
-        ...readyVideos(TECHCREW_VERTICAL),
+        ...pickVideos(TECHCREW_VERTICAL, ['noda-s4']),
       ]}
     >
       {/* How TesuTemo videos are used in recruitment */}
