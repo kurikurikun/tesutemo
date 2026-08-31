@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   },
 };
 
+// The 1177xxxxxx videos below are プロベル footage. プロベル is a sales agency
+// TesuTemo pays, not a customer, so they are never to be named on the site or listed
+// as 導入実績 — the top page's client roll call deliberately omits them. Whether the
+// footage itself should stay here as sample work is Chris's call, still open.
 const v = (id: string, h?: string) =>
   `https://player.vimeo.com/video/${id}?${h ? `h=${h}&` : ''}badge=0&autopause=0&player_id=0&app_id=58479`;
 

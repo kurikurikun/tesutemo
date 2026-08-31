@@ -387,11 +387,16 @@ function FeaturesSection() {
 /*
  * 導入実績 — the corporate client roll call.
  *
- * Named in copy for the first time, on Chris's say-so (2026-08). Name forms:
- * 株式会社プロベル is the strip baked into its own video; TECH CREW Inc. is that
- * company's own footer copyright, two words and uppercase. Comas follows the
- * spelling used throughout COMAS_HANDOFF.md — its logo sets the mark in caps, which
- * is styling rather than a different name, but worth confirming before print.
+ * Named in copy for the first time, on Chris's say-so (2026-08).
+ *
+ * プロベル is deliberately NOT here, and must not be added: they are a sales agency
+ * TesuTemo pays, not a customer, so listing them as 導入実績 would misrepresent the
+ * relationship. Their footage still runs on /recruitment — see the note there.
+ *
+ * Name forms: TECH CREW Inc. is that company's own footer copyright, two words and
+ * uppercase. Comas follows the spelling used throughout COMAS_HANDOFF.md — its logo
+ * sets the mark in caps, which reads as styling rather than a different name, but
+ * worth confirming before print.
  *
  * Names, not logos: public/ holds no logo file for any of the three, and three
  * lonely tiles would read thinner than the work itself. Each entry says what was
@@ -399,7 +404,6 @@ function FeaturesSection() {
  */
 function CustomersSection() {
   const clients = [
-    { name: '株式会社プロベル', work: '採用インタビュー動画', href: '/recruitment' },
     { name: 'TECH CREW Inc.', work: '採用インタビュー動画', href: '/recruitment' },
     { name: 'Comas', work: '顧客インタビュー動画', href: '/case-study' },
   ];
@@ -416,7 +420,7 @@ function CustomersSection() {
           </FadeIn>
 
           <div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {clients.map((c, i) => (
                 <FadeIn key={c.name} delay={i * 0.08}>
                   <Link
