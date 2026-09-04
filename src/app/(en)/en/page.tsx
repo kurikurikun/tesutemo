@@ -235,7 +235,7 @@ function WhatWeDoSection() {
     {
       tag: 'Recruitment',
       title: 'Hire the right people',
-      lead: 'Employees telling it in their own words, so candidates get a feel for the place before they apply. Filmed and delivered entirely online.',
+      lead: "Meet the right talent through your employees' real voices. Candidates hear from those who already love working with you. Fewer mismatches, better hires.",
       points: [
         <>Candidates see the real workplace before they apply, so fewer bad fits</>,
         <>A small team can keep posting without booking a shoot every time</>,
@@ -246,7 +246,7 @@ function WhatWeDoSection() {
     {
       tag: 'Case Studies',
       title: 'Win more customers',
-      lead: 'Your customers in their own words, so buyers hear it from someone other than you. A trusted third voice on what your product is actually worth.',
+      lead: "Meet your next customer through your clients' real voices. A trusted third party explaining, in their own words, how you helped them. Proof no sales deck can match.",
       points: [
         <>Answers the doubts that stall a deal</>,
         <>Something to hand a buyer mid-conversation, or run on your site</>,
