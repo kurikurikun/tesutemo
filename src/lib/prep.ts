@@ -30,7 +30,7 @@
  *   company text,
  *   interview_date date,
  *   lang text not null default 'ja' check (lang in ('ja', 'en')),
- *   kit_type text not null default 'floor' check (kit_type in ('floor', 'desk')),
+ *   setup_mode text not null default 'floor' check (setup_mode in ('floor', 'desk')),
  *   kit_shipped_at timestamptz,
  *   kit_tracking text,
  *   first_opened_at timestamptz,
@@ -68,7 +68,7 @@ export type PrepRow = {
   company: string | null
   interview_date: string | null
   lang: PrepLang
-  kit_type: PrepKitType
+  setup_mode: PrepSetupMode
   kit_shipped_at: string | null
   kit_tracking: string | null
   first_opened_at: string | null
@@ -86,7 +86,7 @@ export type PrepRow = {
 /** ページが本人に見せてよい範囲だけ。電話番号などは返さない。 */
 export type PrepPublicRow = Pick<
   PrepRow,
-  'name' | 'company' | 'interview_date' | 'lang' | 'kit_type' | 'submitted_at'
+  'name' | 'company' | 'interview_date' | 'lang' | 'setup_mode' | 'submitted_at'
 >
 
 export type PrepStatus = 'unopened' | 'opened' | 'acknowledged'
@@ -121,11 +121,14 @@ export const PREP_CRITICAL_CHECKS: PrepCheckKey[] = [
 ]
 
 /**
- * 送るキットは2種類ある。床に立てる三脚スタンドと、机に置く卓上三脚。
- * 目線の高さの作り方が違う（床置きは床から、卓上は机の天板からの積み上げ）ので、
- * ページのコピーはここで分岐させる。どちらを送ったかは行ごとに持つ。
+ * 置き方。送るキットは1種類（三脚・LEDライト一体型のスタンド）で、これは
+ * **同じものを床に立てるか机に置くか** の違い。目線の高さの作り方が変わる
+ * （床置きは床から、卓上は天板からの積み上げ）ので、ページのコピーを分岐させる。
+ *
+ * どちらを案内するかは相手の部屋次第なので行ごとに持つ。迷ったら床置き
+ * （机の高さに左右されず、机の上より安定する）。
  */
-export type PrepKitType = 'floor' | 'desk'
+export type PrepSetupMode = 'floor' | 'desk'
 
 /**
  * 座ったときの目の高さの目安（床から）。ここを外すと下から見上げる画になる。
@@ -134,11 +137,11 @@ export type PrepKitType = 'floor' | 'desk'
 export const EYE_HEIGHT_CM = '110〜120cm'
 
 /**
- * 卓上三脚のとき、天板の上に必要な高さ。一般的な机（70cm前後）に
+ * 卓上に置くとき、天板の上に必要な高さ。一般的な机（70cm前後）に
  * EYE_HEIGHT_CM を載せるとこのくらいになる。
  *
- * 伸ばしきってもここに届かない三脚だと、結局カメラが下から見上げることになる。
- * 買う前に最大伸長を確認すること。
+ * 伸ばしきってもここに届かないスタンドだと、結局カメラが下から見上げることに
+ * なる。別の製品に変えるときは最大伸長を必ず確認すること。
  */
 export const DESK_RISE_CM = '40〜50cm'
 
@@ -167,11 +170,9 @@ type Copy = {
   kitTitle: string
   kitLede: string
   kitNote: string
-  /** 送ったキットによって、中身の一覧と高さの作り方が変わる。 */
-  kits: Record<
-    PrepKitType,
-    { items: string[]; heightTitle: string; heightBody: string; heightBullets: string[] }
-  >
+  kitItems: string[]
+  /** 床置きか卓上かで、目線の高さの作り方が変わる。 */
+  setups: Record<PrepSetupMode, { heightTitle: string; heightBody: string; heightBullets: string[] }>
 
   ngTitle: string
   ngLede: string
@@ -232,40 +233,37 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     kitTitle: 'お届けするもの',
     kitLede:
-      'インタビューの1週間ほど前に、撮影用のスタンドとライトをお送りします。ご自身で用意していただくものはありません。',
+      'インタビューの1週間ほど前に、撮影用のスタンドをお送りします。ライトもリモコンもこのスタンドに付いていますので、ご自身で用意していただくものはありません。',
     kitNote:
       '前日までに届いていない場合は、下の連絡先までお知らせください。予備をお持ちします。',
-    kits: {
+    kitItems: [
+      'スマホスタンド（三脚・LEDライト一体型／最大140cm・9段階伸縮／折りたたみ式）',
+      'LEDライトはスマホホルダーの上に付いています。別に組み立てる必要はありません',
+      'グリップのBluetoothリモコンは、当日は使いません。外さずそのままで結構です',
+    ],
+    setups: {
       floor: {
-        items: [
-          'スマホスタンド（床置きの三脚・伸縮式）',
-          'LEDライト（充電式）',
-          'ワイヤレスリモコン ── 当日は使いません。箱に入れたままで結構です。',
-        ],
         heightTitle: 'スタンドの高さ',
-        heightBody: `座った状態で、レンズがちょうど目の高さにくるのが正解です。スタンドは床に立てて、${EYE_HEIGHT_CM} ほどまで伸ばしてください（いっぱいまで伸ばすと、立ったときの高さになります）。`,
+        heightBody: `座った状態で、レンズがちょうど目の高さにくるのが正解です。三脚の脚を開いて床に立て、${EYE_HEIGHT_CM} ほどまで伸ばしてください。`,
         heightBullets: [
           `伸ばす目安は床から ${EYE_HEIGHT_CM}。座ってレンズと目が同じ高さになれば正解です`,
-          '三脚の脚が広がるので、足元に50cmほどの余裕がある場所に立ててください',
-          'ライトは顔の正面、少し上から当たるように。後ろから当てると逆光になります',
+          '目いっぱい（140cm）伸ばす必要はありません。立ったときの高さですし、伸ばすほど不安定になります',
+          '三脚の脚は根元まで開いてください。足元に50cmほど余裕のある場所に立てると安全です',
+          'ライトはスマホの上に付いているので、位置合わせは不要です。明るさだけ、顔が自然に見えるところに合わせてください',
           '前日にライトを充電してください。充電式なので、当日に切れると使えません',
-          'スマホがスタンドに問題なく取り付けられるか、当日より前に一度お試しください',
+          'スマホがホルダーに問題なく収まるか、当日より前に一度お試しください',
         ],
       },
       desk: {
-        items: [
-          'スマホスタンド（卓上三脚・伸縮式）',
-          'LEDライト（充電式）',
-          'ワイヤレスリモコン ── 当日は使いません。箱に入れたままで結構です。',
-        ],
-        heightTitle: '三脚の高さ',
-        heightBody: `座った状態で、レンズがちょうど目の高さにくるのが正解です。机に置いて、天板から ${DESK_RISE_CM} ほど上にレンズがくるまで伸ばしてください（高さ70cmほどの一般的な机の場合）。`,
+        heightTitle: 'スタンドの高さ',
+        heightBody: `座った状態で、レンズがちょうど目の高さにくるのが正解です。三脚の脚を開いて机に置き、天板から ${DESK_RISE_CM} ほど上にレンズがくるまで伸ばしてください（高さ70cmほどの一般的な机の場合）。`,
         heightBullets: [
           `机の上に ${DESK_RISE_CM}。座ってレンズと目が同じ高さになれば正解です`,
-          '伸ばしきっても足りないときは、三脚ごと箱や本の上に載せて高さを足してください。スマホを上に向けて角度でごまかすと、見上げる画のままになります',
-          'ライトは顔の正面、少し上から当たるように。後ろから当てると逆光になります',
+          '伸ばしきっても足りないときは、スタンドごと箱や本の上に載せて高さを足してください。スマホを上に向けて角度でごまかすと、見上げる画のままになります',
+          '上のほうが重くなります。机のふちから離し、三脚の脚を根元まで開いて置いてください',
+          'ライトはスマホの上に付いているので、位置合わせは不要です。明るさだけ、顔が自然に見えるところに合わせてください',
           '前日にライトを充電してください。充電式なので、当日に切れると使えません',
-          'スマホが三脚に問題なく取り付けられるか、当日より前に一度お試しください',
+          'スマホがホルダーに問題なく収まるか、当日より前に一度お試しください',
         ],
       },
     },
@@ -375,40 +373,37 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     kitTitle: 'What we’re sending you',
     kitLede:
-      'About a week before your interview, a stand and a light will arrive by post. There’s nothing you need to buy or borrow.',
+      'About a week before your interview, a stand arrives by post. The light and the remote are both part of it, so there’s nothing you need to buy or borrow.',
     kitNote:
       'If it hasn’t arrived the day before, let us know at the number below and we’ll bring a spare.',
-    kits: {
+    kitItems: [
+      'Phone stand (tripod with a built-in LED light, extends to 140cm, folds down)',
+      'The light sits above the phone holder — there’s nothing to assemble',
+      'The Bluetooth remote in the grip isn’t used on the day. Leave it where it is',
+    ],
+    setups: {
       floor: {
-        items: [
-          'Phone stand (floor tripod, adjustable height)',
-          'LED light (rechargeable)',
-          'Wireless remote — you won’t need it. Leave it in the box.',
-        ],
-        heightTitle: 'Setting the stand',
-        heightBody: `You want the lens level with your eyes while you’re seated. Stand it on the floor and extend it to roughly ${EYE_HEIGHT_CM} — fully extended is standing height, which is too tall.`,
+        heightTitle: 'Setting the height',
+        heightBody: `You want the lens level with your eyes while you’re seated. Open the tripod legs, stand it on the floor, and extend it to roughly ${EYE_HEIGHT_CM}.`,
         heightBullets: [
           `Aim for about ${EYE_HEIGHT_CM} off the floor. If the lens meets your eyes when you sit, it’s right`,
-          'The tripod legs spread out, so pick a spot with around 50cm of clear floor',
-          'Put the light in front of you and slightly above — behind you it just backlights your face',
+          'Don’t run it all the way out to 140cm — that’s standing height, and the further it goes the less steady it gets',
+          'Open the legs fully. A spot with about 50cm of clear floor around it is safest',
+          'The light is already above the phone, so there’s nothing to line up. Just set the brightness so your face looks natural',
           'Charge the light the night before. It runs on a battery, and a flat one is no light at all',
-          'Try mounting your phone in the stand once before the day, so nothing is a surprise',
+          'Try your phone in the holder once before the day, so nothing is a surprise',
         ],
       },
       desk: {
-        items: [
-          'Phone stand (desk tripod, adjustable height)',
-          'LED light (rechargeable)',
-          'Wireless remote — you won’t need it. Leave it in the box.',
-        ],
-        heightTitle: 'Setting the tripod',
-        heightBody: `You want the lens level with your eyes while you’re seated. Stand it on your desk and extend it until the lens sits about ${DESK_RISE_CM} above the desktop — that’s what a typical 70cm desk needs.`,
+        heightTitle: 'Setting the height',
+        heightBody: `You want the lens level with your eyes while you’re seated. Open the tripod legs, stand it on your desk, and extend it until the lens sits about ${DESK_RISE_CM} above the desktop — that’s what a typical 70cm desk needs.`,
         heightBullets: [
           `Aim for ${DESK_RISE_CM} above the desk. If the lens meets your eyes when you sit, it’s right`,
-          'If it won’t go high enough even fully extended, stand the whole tripod on a box or some books. Tilting the phone up instead just keeps the camera looking up at you',
-          'Put the light in front of you and slightly above — behind you it just backlights your face',
+          'If it won’t go high enough even fully extended, stand the whole thing on a box or some books. Tilting the phone up instead just keeps the camera looking up at you',
+          'It’s top-heavy. Keep it back from the edge of the desk and open the legs fully',
+          'The light is already above the phone, so there’s nothing to line up. Just set the brightness so your face looks natural',
           'Charge the light the night before. It runs on a battery, and a flat one is no light at all',
-          'Try mounting your phone in the tripod once before the day, so nothing is a surprise',
+          'Try your phone in the holder once before the day, so nothing is a surprise',
         ],
       },
     },

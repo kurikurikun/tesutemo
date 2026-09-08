@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { prepStatus, type PrepKitType, type PrepRow, type PrepStatus } from '@/lib/prep'
+import { prepStatus, type PrepRow, type PrepSetupMode, type PrepStatus } from '@/lib/prep'
 
 const STATUS_STYLE: Record<PrepStatus, { label: string; className: string }> = {
   unopened: { label: '未開封', className: 'bg-red-100 text-red-700' },
@@ -14,10 +14,11 @@ const BLANK = {
   company: '',
   interview_date: '',
   lang: 'ja' as 'ja' | 'en',
-  kit_type: 'floor' as PrepKitType,
+  setup_mode: 'floor' as PrepSetupMode,
 }
 
-const KIT_LABEL: Record<PrepKitType, string> = { floor: '床置きスタンド', desk: '卓上三脚' }
+// スタンドは1種類。床に立てるか机に置くかを、相手の部屋に合わせて選ぶ。
+const SETUP_LABEL: Record<PrepSetupMode, string> = { floor: '床置き', desk: '卓上' }
 
 function shortDate(iso: string | null) {
   if (!iso) return '—'
@@ -69,7 +70,7 @@ function Row({
           </p>
           <p className="truncate text-xs text-gray-500">
             {row.company || '会社名なし'}　撮影 {shortDate(row.interview_date)}　
-            {KIT_LABEL[row.kit_type === 'desk' ? 'desk' : 'floor']}
+            {SETUP_LABEL[row.setup_mode === 'desk' ? 'desk' : 'floor']}
           </p>
         </div>
         <button onClick={copy} className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700">
@@ -259,20 +260,20 @@ export default function OpsPrepPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600">送るキット</label>
+              <label className="block text-xs font-medium text-gray-600">置き方</label>
               <div className="mt-1 flex gap-2">
                 {(['floor', 'desk'] as const).map((k) => (
                   <button
                     key={k}
                     type="button"
-                    onClick={() => setForm((f) => ({ ...f, kit_type: k }))}
+                    onClick={() => setForm((f) => ({ ...f, setup_mode: k }))}
                     className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-                      form.kit_type === k
+                      form.setup_mode === k
                         ? 'border-orange-500 bg-orange-500 text-white'
                         : 'border-gray-300 bg-white text-gray-600 hover:border-orange-400'
                     }`}
                   >
-                    {KIT_LABEL[k]}
+                    {SETUP_LABEL[k]}
                   </button>
                 ))}
               </div>

@@ -7,7 +7,8 @@
  *
  * ## 撮り方
  *
- * 実際にお送りするキット（三脚スタンド＋LEDライト）を使って撮ること。
+ * 実際にお送りするスタンド（三脚とLEDライトが一体になったもの）で撮ること。
+ * 製品は今後変わる可能性があるが「スタンドとライトが一体」という前提は変わらない。
  * 以前のPDFに載せていた「卓上スタンド」「本を積む」の写真は、もう送るものと
  * 違うので使わない。
  *
@@ -23,7 +24,7 @@
  * 画像は横1200px程度、JPEGで十分。スマホで開かれるので重すぎないように。
  */
 
-import type { PrepKitType } from './prep'
+import type { PrepSetupMode } from './prep'
 
 export type PrepPhoto = {
   /** photoCaptions のキーと対応。並び順もこの配列のとおり。 */
@@ -35,25 +36,25 @@ export type PrepPhoto = {
   /** ○×どちらの例か。ページ側の枠の色に使う。 */
   tone: 'good' | 'bad' | 'neutral'
   /**
-   * どちらのキットを送った人に見せる写真か。省略 = 両方に見せる。
-   * セットアップの写真は床置きと卓上でまったく別物なので、必ず分けること。
+   * どの置き方の人に見せる写真か。省略 = 両方に見せる。
+   * 床置きと卓上では絵がまったく違うので、セットアップ写真は必ず分けること。
    */
-  kits?: PrepKitType[]
+  setups?: PrepSetupMode[]
 }
 
 export const PREP_PHOTOS: PrepPhoto[] = [
   {
     key: 'setup-floor',
     tone: 'neutral',
-    kits: ['floor'],
-    note: '床置きスタンドの全体像を横から。三脚の高さ・ライトの位置・座った人の目線が1枚でわかること。',
+    setups: ['floor'],
+    note: '床置きの全体像を横から。三脚の脚が開いていること・伸ばした高さ・座った人の目線が1枚でわかること。',
     // src: '/prep/setup-floor.jpg',
   },
   {
     key: 'setup-desk',
     tone: 'neutral',
-    kits: ['desk'],
-    note: '卓上三脚の全体像を横から。机の天板からレンズまでの高さと、座った人の目線が同じであることがわかること。届かないときに台を噛ませた例も撮れるとなおよい。',
+    setups: ['desk'],
+    note: '卓上に置いた全体像を横から。天板からレンズまでの高さと、座った人の目線が同じであることがわかること。高さが足りず台を噛ませた例も撮れるとなおよい。',
     // src: '/prep/setup-desk.jpg',
   },
   {
@@ -76,8 +77,8 @@ export const PREP_PHOTOS: PrepPhoto[] = [
   },
 ]
 
-/** そのキット向けで、かつ用意できている写真だけ。1枚もなければ空配列。 */
-export const readyPrepPhotos = (kit: PrepKitType): (PrepPhoto & { src: string })[] =>
+/** その置き方向けで、かつ用意できている写真だけ。1枚もなければ空配列。 */
+export const readyPrepPhotos = (setup: PrepSetupMode): (PrepPhoto & { src: string })[] =>
   PREP_PHOTOS.flatMap((p) =>
-    p.src && (!p.kits || p.kits.includes(kit)) ? [{ ...p, src: p.src }] : []
+    p.src && (!p.setups || p.setups.includes(setup)) ? [{ ...p, src: p.src }] : []
   )

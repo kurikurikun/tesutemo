@@ -39,7 +39,7 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
       user_agent: req.headers.get('user-agent'),
     })
     .eq('id', params.token)
-    .select('name, company, interview_date, lang, kit_type')
+    .select('name, company, interview_date, lang, setup_mode')
     .maybeSingle()
 
   if (error) {
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
         `電話番号　：${phone}`,
         contact_note ? `連絡の補足：${contact_note}` : null,
         `インタビュー日：${row.interview_date ?? '未設定'}`,
-        `お送りしたキット：${row.kit_type === 'desk' ? '卓上三脚' : '床置きスタンド'}`,
+        `ご案内した置き方：${row.setup_mode === 'desk' ? '卓上' : '床置き'}`,
         '',
         '【チェック項目】',
         checkLines,

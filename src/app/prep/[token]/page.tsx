@@ -10,7 +10,7 @@ import {
   RIVERSIDE_ANDROID,
   RIVERSIDE_IOS,
   type PrepCheckKey,
-  type PrepKitType,
+  type PrepSetupMode,
   type PrepLang,
   type PrepPublicRow,
 } from '@/lib/prep'
@@ -132,10 +132,10 @@ export default function PrepPage() {
 
   const lang: PrepLang = row?.lang === 'en' ? 'en' : 'ja'
   const t = PREP_COPY[lang]
-  // 床置きスタンドか卓上三脚か。目線の高さの作り方が変わるので、コピーごと差し替える。
-  const kitType: PrepKitType = row?.kit_type === 'desk' ? 'desk' : 'floor'
-  const kit = t.kits[kitType]
-  const photos = readyPrepPhotos(kitType)
+  // 床に立てるか机に置くか。スタンドは同じものだが、目線の高さの作り方が変わる。
+  const setupMode: PrepSetupMode = row?.setup_mode === 'desk' ? 'desk' : 'floor'
+  const setup = t.setups[setupMode]
+  const photos = readyPrepPhotos(setupMode)
 
   const allChecked = PREP_CHECK_KEYS.every((k) => checks[k])
   const filled = fullName.trim() && jobTitle.trim() && phone.trim()
@@ -246,7 +246,7 @@ export default function PrepPage() {
       )}
 
       <Section title={t.kitTitle} lede={t.kitLede}>
-        <Bullets items={kit.items} />
+        <Bullets items={t.kitItems} />
         <p className="mt-4 text-sm leading-relaxed text-gray-500">{t.kitNote}</p>
       </Section>
 
@@ -269,8 +269,8 @@ export default function PrepPage() {
         </div>
       </Section>
 
-      <Section title={kit.heightTitle} lede={kit.heightBody}>
-        <Bullets items={kit.heightBullets} />
+      <Section title={setup.heightTitle} lede={setup.heightBody}>
+        <Bullets items={setup.heightBullets} />
       </Section>
 
       {/* 写真は入っているものだけ出す。1枚もなくてもページは成立する。 */}
