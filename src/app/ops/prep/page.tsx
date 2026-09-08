@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { prepStatus, type PrepRow, type PrepStatus } from '@/lib/prep'
+import { prepStatus, type PrepKitType, type PrepRow, type PrepStatus } from '@/lib/prep'
 
 const STATUS_STYLE: Record<PrepStatus, { label: string; className: string }> = {
   unopened: { label: '未開封', className: 'bg-red-100 text-red-700' },
@@ -9,7 +9,15 @@ const STATUS_STYLE: Record<PrepStatus, { label: string; className: string }> = {
   acknowledged: { label: '同意済み', className: 'bg-emerald-100 text-emerald-700' },
 }
 
-const BLANK = { name: '', company: '', interview_date: '', lang: 'ja' as 'ja' | 'en' }
+const BLANK = {
+  name: '',
+  company: '',
+  interview_date: '',
+  lang: 'ja' as 'ja' | 'en',
+  kit_type: 'floor' as PrepKitType,
+}
+
+const KIT_LABEL: Record<PrepKitType, string> = { floor: '床置きスタンド', desk: '卓上三脚' }
 
 function shortDate(iso: string | null) {
   if (!iso) return '—'
@@ -60,7 +68,8 @@ function Row({
             {row.lang === 'en' && <span className="ml-2 text-xs font-normal text-gray-400">EN</span>}
           </p>
           <p className="truncate text-xs text-gray-500">
-            {row.company || '会社名なし'}　撮影 {shortDate(row.interview_date)}
+            {row.company || '会社名なし'}　撮影 {shortDate(row.interview_date)}　
+            {KIT_LABEL[row.kit_type === 'desk' ? 'desk' : 'floor']}
           </p>
         </div>
         <button onClick={copy} className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700">
@@ -248,6 +257,25 @@ export default function OpsPrepPage() {
                 onChange={(e) => setForm((f) => ({ ...f, interview_date: e.target.value }))}
                 className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
               />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600">送るキット</label>
+              <div className="mt-1 flex gap-2">
+                {(['floor', 'desk'] as const).map((k) => (
+                  <button
+                    key={k}
+                    type="button"
+                    onClick={() => setForm((f) => ({ ...f, kit_type: k }))}
+                    className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                      form.kit_type === k
+                        ? 'border-orange-500 bg-orange-500 text-white'
+                        : 'border-gray-300 bg-white text-gray-600 hover:border-orange-400'
+                    }`}
+                  >
+                    {KIT_LABEL[k]}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600">言語</label>

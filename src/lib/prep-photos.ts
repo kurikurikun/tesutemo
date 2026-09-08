@@ -23,23 +23,38 @@
  * 画像は横1200px程度、JPEGで十分。スマホで開かれるので重すぎないように。
  */
 
+import type { PrepKitType } from './prep'
+
 export type PrepPhoto = {
   /** photoCaptions のキーと対応。並び順もこの配列のとおり。 */
-  key: 'setup' | 'frame-good' | 'frame-bad' | 'room-bad'
+  key: 'setup-floor' | 'setup-desk' | 'frame-good' | 'frame-bad' | 'room-bad'
   /** 何を撮るかのメモ。表示されない。 */
   note: string
   /** public/ からのパス。空 = まだ出さない。 */
   src?: string
   /** ○×どちらの例か。ページ側の枠の色に使う。 */
   tone: 'good' | 'bad' | 'neutral'
+  /**
+   * どちらのキットを送った人に見せる写真か。省略 = 両方に見せる。
+   * セットアップの写真は床置きと卓上でまったく別物なので、必ず分けること。
+   */
+  kits?: PrepKitType[]
 }
 
 export const PREP_PHOTOS: PrepPhoto[] = [
   {
-    key: 'setup',
+    key: 'setup-floor',
     tone: 'neutral',
-    note: 'キット一式を立てた全体像を横から。三脚の高さ・ライトの位置・座った人の目線が1枚でわかること。',
-    // src: '/prep/setup.jpg',
+    kits: ['floor'],
+    note: '床置きスタンドの全体像を横から。三脚の高さ・ライトの位置・座った人の目線が1枚でわかること。',
+    // src: '/prep/setup-floor.jpg',
+  },
+  {
+    key: 'setup-desk',
+    tone: 'neutral',
+    kits: ['desk'],
+    note: '卓上三脚の全体像を横から。机の天板からレンズまでの高さと、座った人の目線が同じであることがわかること。届かないときに台を噛ませた例も撮れるとなおよい。',
+    // src: '/prep/setup-desk.jpg',
   },
   {
     key: 'frame-good',
@@ -61,6 +76,8 @@ export const PREP_PHOTOS: PrepPhoto[] = [
   },
 ]
 
-/** 用意できている写真だけ。1枚もなければ空配列。 */
-export const readyPrepPhotos = (): (PrepPhoto & { src: string })[] =>
-  PREP_PHOTOS.flatMap((p) => (p.src ? [{ ...p, src: p.src }] : []))
+/** そのキット向けで、かつ用意できている写真だけ。1枚もなければ空配列。 */
+export const readyPrepPhotos = (kit: PrepKitType): (PrepPhoto & { src: string })[] =>
+  PREP_PHOTOS.flatMap((p) =>
+    p.src && (!p.kits || p.kits.includes(kit)) ? [{ ...p, src: p.src }] : []
+  )

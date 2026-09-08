@@ -10,6 +10,7 @@ import {
   RIVERSIDE_ANDROID,
   RIVERSIDE_IOS,
   type PrepCheckKey,
+  type PrepKitType,
   type PrepLang,
   type PrepPublicRow,
 } from '@/lib/prep'
@@ -131,7 +132,10 @@ export default function PrepPage() {
 
   const lang: PrepLang = row?.lang === 'en' ? 'en' : 'ja'
   const t = PREP_COPY[lang]
-  const photos = readyPrepPhotos()
+  // 床置きスタンドか卓上三脚か。目線の高さの作り方が変わるので、コピーごと差し替える。
+  const kitType: PrepKitType = row?.kit_type === 'desk' ? 'desk' : 'floor'
+  const kit = t.kits[kitType]
+  const photos = readyPrepPhotos(kitType)
 
   const allChecked = PREP_CHECK_KEYS.every((k) => checks[k])
   const filled = fullName.trim() && jobTitle.trim() && phone.trim()
@@ -242,7 +246,7 @@ export default function PrepPage() {
       )}
 
       <Section title={t.kitTitle} lede={t.kitLede}>
-        <Bullets items={t.kitItems} />
+        <Bullets items={kit.items} />
         <p className="mt-4 text-sm leading-relaxed text-gray-500">{t.kitNote}</p>
       </Section>
 
@@ -265,8 +269,8 @@ export default function PrepPage() {
         </div>
       </Section>
 
-      <Section title={t.heightTitle} lede={t.heightBody}>
-        <Bullets items={t.heightBullets} />
+      <Section title={kit.heightTitle} lede={kit.heightBody}>
+        <Bullets items={kit.heightBullets} />
       </Section>
 
       {/* 写真は入っているものだけ出す。1枚もなくてもページは成立する。 */}
