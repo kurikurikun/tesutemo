@@ -13,7 +13,6 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
   const full_name = String(body.full_name ?? '').trim()
   const job_title = String(body.job_title ?? '').trim()
   const phone = String(body.phone ?? '').trim()
-  const contact_note = String(body.contact_note ?? '').trim() || null
   const checks = (body.checks ?? {}) as Record<string, boolean>
 
   if (!full_name || !job_title || !phone) {
@@ -33,13 +32,12 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
       full_name,
       job_title,
       phone,
-      contact_note,
       checks,
       submitted_at: new Date().toISOString(),
       user_agent: req.headers.get('user-agent'),
     })
     .eq('id', params.token)
-    .select('name, company, interview_date, lang, setup_mode')
+    .select('name, company, interview_date, lang')
     .maybeSingle()
 
   if (error) {
@@ -66,9 +64,7 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
         `お名前　　：${full_name}`,
         `役職　　　：${job_title}`,
         `電話番号　：${phone}`,
-        contact_note ? `連絡の補足：${contact_note}` : null,
-        `インタビュー日：${row.interview_date ?? '未設定'}`,
-        `ご案内した置き方：${row.setup_mode === 'desk' ? '卓上' : '床置き'}`,
+          `インタビュー日：${row.interview_date ?? '未設定'}`,
         '',
         '【チェック項目】',
         checkLines,

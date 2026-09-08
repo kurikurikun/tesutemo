@@ -10,7 +10,6 @@ import {
   RIVERSIDE_ANDROID,
   RIVERSIDE_IOS,
   type PrepCheckKey,
-  type PrepSetupMode,
   type PrepLang,
   type PrepPublicRow,
 } from '@/lib/prep'
@@ -78,7 +77,6 @@ export default function PrepPage() {
   const [fullName, setFullName] = useState('')
   const [jobTitle, setJobTitle] = useState('')
   const [phone, setPhone] = useState('')
-  const [contactNote, setContactNote] = useState('')
   const [readToEnd, setReadToEnd] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -112,30 +110,34 @@ export default function PrepPage() {
     }
   }, [token, ping])
 
-  // フォームの手前に置いたセンチネルが画面に入ったら「最後まで読んだ」とみなす。
+  // フォームの手前に置いた目印まで来たら「最後まで読んだ」とみなす。
+  //
+  // IntersectionObserver で見ていたが、勢いよくスクロールすると目印が1フレームで
+  // 画面の下から上へ抜けてしまい、交差が一度も起きないことがある。そうなると
+  // 判定が立たないまま送信ボタンが押せなくなり、本人にはどうしようもない。
+  // 交差ではなく位置で見れば、飛ばしてもページ内リンクで跳んでも必ず立つ。
   useEffect(() => {
-    const el = sentinel.current
-    if (screen !== 'page' || !el || readToEnd) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setReadToEnd(true)
-          ping('scroll')
-          io.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -10% 0px' }
-    )
-    io.observe(el)
-    return () => io.disconnect()
+    if (screen !== 'page' || readToEnd) return
+    const check = () => {
+      const el = sentinel.current
+      if (!el) return
+      if (el.getBoundingClientRect().top <= window.innerHeight) {
+        setReadToEnd(true)
+        ping('scroll')
+      }
+    }
+    check()
+    window.addEventListener('scroll', check, { passive: true })
+    window.addEventListener('resize', check)
+    return () => {
+      window.removeEventListener('scroll', check)
+      window.removeEventListener('resize', check)
+    }
   }, [screen, readToEnd, ping])
 
   const lang: PrepLang = row?.lang === 'en' ? 'en' : 'ja'
   const t = PREP_COPY[lang]
-  // 床に立てるか机に置くか。スタンドは同じものだが、目線の高さの作り方が変わる。
-  const setupMode: PrepSetupMode = row?.setup_mode === 'desk' ? 'desk' : 'floor'
-  const setup = t.setups[setupMode]
-  const photos = readyPrepPhotos(setupMode)
+  const photos = readyPrepPhotos()
 
   const allChecked = PREP_CHECK_KEYS.every((k) => checks[k])
   const filled = fullName.trim() && jobTitle.trim() && phone.trim()
@@ -153,7 +155,6 @@ export default function PrepPage() {
         full_name: fullName.trim(),
         job_title: jobTitle.trim(),
         phone: phone.trim(),
-        contact_note: contactNote.trim(),
         checks,
       }),
     }).catch(() => null)
@@ -267,10 +268,6 @@ export default function PrepPage() {
             </div>
           ))}
         </div>
-      </Section>
-
-      <Section title={setup.heightTitle} lede={setup.heightBody}>
-        <Bullets items={setup.heightBullets} />
       </Section>
 
       {/* 写真は入っているものだけ出す。1枚もなくてもページは成立する。 */}
@@ -403,17 +400,6 @@ export default function PrepPage() {
               inputMode="tel"
               className="mt-1.5 block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none"
               required
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-gray-600">
-              {t.contactNoteLabel}
-            </label>
-            <input
-              value={contactNote}
-              onChange={(e) => setContactNote(e.target.value)}
-              placeholder={t.contactNotePlaceholder}
-              className="mt-1.5 block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none"
             />
           </div>
         </div>

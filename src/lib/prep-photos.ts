@@ -24,38 +24,23 @@
  * 画像は横1200px程度、JPEGで十分。スマホで開かれるので重すぎないように。
  */
 
-import type { PrepSetupMode } from './prep'
-
 export type PrepPhoto = {
   /** photoCaptions のキーと対応。並び順もこの配列のとおり。 */
-  key: 'setup-floor' | 'setup-desk' | 'frame-good' | 'frame-bad' | 'room-bad'
+  key: 'setup' | 'frame-good' | 'frame-bad' | 'room-bad'
   /** 何を撮るかのメモ。表示されない。 */
   note: string
   /** public/ からのパス。空 = まだ出さない。 */
   src?: string
   /** ○×どちらの例か。ページ側の枠の色に使う。 */
   tone: 'good' | 'bad' | 'neutral'
-  /**
-   * どの置き方の人に見せる写真か。省略 = 両方に見せる。
-   * 床置きと卓上では絵がまったく違うので、セットアップ写真は必ず分けること。
-   */
-  setups?: PrepSetupMode[]
 }
 
 export const PREP_PHOTOS: PrepPhoto[] = [
   {
-    key: 'setup-floor',
+    key: 'setup',
     tone: 'neutral',
-    setups: ['floor'],
-    note: '床置きの全体像を横から。三脚の脚が開いていること・伸ばした高さ・座った人の目線が1枚でわかること。',
-    // src: '/prep/setup-floor.jpg',
-  },
-  {
-    key: 'setup-desk',
-    tone: 'neutral',
-    setups: ['desk'],
-    note: '卓上に置いた全体像を横から。天板からレンズまでの高さと、座った人の目線が同じであることがわかること。高さが足りず台を噛ませた例も撮れるとなおよい。',
-    // src: '/prep/setup-desk.jpg',
+    note: 'スタンドを立てた全体像を横から。座った人の目線とレンズが同じ高さにあることが一目でわかること。床置きでも卓上でもよい。',
+    // src: '/prep/setup.jpg',
   },
   {
     key: 'frame-good',
@@ -77,8 +62,6 @@ export const PREP_PHOTOS: PrepPhoto[] = [
   },
 ]
 
-/** その置き方向けで、かつ用意できている写真だけ。1枚もなければ空配列。 */
-export const readyPrepPhotos = (setup: PrepSetupMode): (PrepPhoto & { src: string })[] =>
-  PREP_PHOTOS.flatMap((p) =>
-    p.src && (!p.setups || p.setups.includes(setup)) ? [{ ...p, src: p.src }] : []
-  )
+/** 用意できている写真だけ。1枚もなければ空配列。 */
+export const readyPrepPhotos = (): (PrepPhoto & { src: string })[] =>
+  PREP_PHOTOS.flatMap((p) => (p.src ? [{ ...p, src: p.src }] : []))

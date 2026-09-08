@@ -30,7 +30,6 @@
  *   company text,
  *   interview_date date,
  *   lang text not null default 'ja' check (lang in ('ja', 'en')),
- *   setup_mode text not null default 'floor' check (setup_mode in ('floor', 'desk')),
  *   kit_shipped_at timestamptz,
  *   kit_tracking text,
  *   first_opened_at timestamptz,
@@ -39,7 +38,6 @@
  *   full_name text,
  *   job_title text,
  *   phone text,
- *   contact_note text,
  *   checks jsonb,
  *   user_agent text,
  *   created_at timestamptz not null default now()
@@ -68,7 +66,6 @@ export type PrepRow = {
   company: string | null
   interview_date: string | null
   lang: PrepLang
-  setup_mode: PrepSetupMode
   kit_shipped_at: string | null
   kit_tracking: string | null
   first_opened_at: string | null
@@ -77,7 +74,6 @@ export type PrepRow = {
   full_name: string | null
   job_title: string | null
   phone: string | null
-  contact_note: string | null
   checks: Record<string, boolean> | null
   user_agent: string | null
   created_at: string
@@ -86,7 +82,7 @@ export type PrepRow = {
 /** ページが本人に見せてよい範囲だけ。電話番号などは返さない。 */
 export type PrepPublicRow = Pick<
   PrepRow,
-  'name' | 'company' | 'interview_date' | 'lang' | 'setup_mode' | 'submitted_at'
+  'name' | 'company' | 'interview_date' | 'lang' | 'submitted_at'
 >
 
 export type PrepStatus = 'unopened' | 'opened' | 'acknowledged'
@@ -99,9 +95,7 @@ export function prepStatus(row: Pick<PrepRow, 'first_opened_at' | 'submitted_at'
 
 export const PREP_CHECK_KEYS = [
   'kit_received',
-  'light_charged',
   'riverside_installed',
-  'no_signin',
   'no_virtual_background',
   'no_earphones',
   'eye_level',
@@ -120,30 +114,10 @@ export const PREP_CRITICAL_CHECKS: PrepCheckKey[] = [
   'eye_level',
 ]
 
-/**
- * 置き方。送るキットは1種類（三脚・LEDライト一体型のスタンド）で、これは
- * **同じものを床に立てるか机に置くか** の違い。目線の高さの作り方が変わる
- * （床置きは床から、卓上は天板からの積み上げ）ので、ページのコピーを分岐させる。
- *
- * どちらを案内するかは相手の部屋次第なので行ごとに持つ。迷ったら床置き
- * （机の高さに左右されず、机の上より安定する）。
- */
-export type PrepSetupMode = 'floor' | 'desk'
-
-/**
- * 座ったときの目の高さの目安（床から）。ここを外すと下から見上げる画になる。
- * 「目線の高さで」とだけ書いていたら伝わらなかったので、数字で出している。
- */
-export const EYE_HEIGHT_CM = '110〜120cm'
-
-/**
- * 卓上に置くとき、天板の上に必要な高さ。一般的な机（70cm前後）に
- * EYE_HEIGHT_CM を載せるとこのくらいになる。
- *
- * 伸ばしきってもここに届かないスタンドだと、結局カメラが下から見上げることに
- * なる。別の製品に変えるときは最大伸長を必ず確認すること。
- */
-export const DESK_RISE_CM = '40〜50cm'
+// スタンドの説明はあえて置かない。指示や情報が増えるほど、結局誰も読まないし
+// やらない。伝えるのは「スタンドを使って目線の高さに」だけで、それはNGの3つめに
+// 入っている。高さの数字・脚の開き方・床置きと卓上の違いは、当日こちらから声を
+// かけて直せる範囲なので、ページには書かない。
 
 export const RIVERSIDE_IOS = 'https://apps.apple.com/us/app/riverside-fm/id1554443872'
 export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=riverside.fm'
@@ -171,8 +145,6 @@ type Copy = {
   kitLede: string
   kitNote: string
   kitItems: string[]
-  /** 床置きか卓上かで、目線の高さの作り方が変わる。 */
-  setups: Record<PrepSetupMode, { heightTitle: string; heightBody: string; heightBullets: string[] }>
 
   ngTitle: string
   ngLede: string
@@ -201,8 +173,6 @@ type Copy = {
   phoneLabel: string
   phoneHelp: string
   phonePlaceholder: string
-  contactNoteLabel: string
-  contactNotePlaceholder: string
   submit: string
   submitting: string
   submitError: string
@@ -237,39 +207,11 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     kitNote:
       '前日までに届いていない場合は、下の連絡先までお知らせください。予備をお持ちします。',
     kitItems: [
-      'スマホスタンド（三脚・LEDライト一体型／最大140cm・9段階伸縮／折りたたみ式）',
-      'LEDライトはスマホホルダーの上に付いています。別に組み立てる必要はありません',
-      'グリップのBluetoothリモコンは、当日は使いません。外さずそのままで結構です',
+      'スマホスタンド（LEDライト付き）。組み立ては不要です',
+      'ライトは充電式です。前日に充電だけお願いします',
     ],
-    setups: {
-      floor: {
-        heightTitle: 'スタンドの高さ',
-        heightBody: `座った状態で、レンズがちょうど目の高さにくるのが正解です。三脚の脚を開いて床に立て、${EYE_HEIGHT_CM} ほどまで伸ばしてください。`,
-        heightBullets: [
-          `伸ばす目安は床から ${EYE_HEIGHT_CM}。座ってレンズと目が同じ高さになれば正解です`,
-          '目いっぱい（140cm）伸ばす必要はありません。立ったときの高さですし、伸ばすほど不安定になります',
-          '三脚の脚は根元まで開いてください。足元に50cmほど余裕のある場所に立てると安全です',
-          'ライトはスマホの上に付いているので、位置合わせは不要です。明るさだけ、顔が自然に見えるところに合わせてください',
-          '前日にライトを充電してください。充電式なので、当日に切れると使えません',
-          'スマホがホルダーに問題なく収まるか、当日より前に一度お試しください',
-        ],
-      },
-      desk: {
-        heightTitle: 'スタンドの高さ',
-        heightBody: `座った状態で、レンズがちょうど目の高さにくるのが正解です。三脚の脚を開いて机に置き、天板から ${DESK_RISE_CM} ほど上にレンズがくるまで伸ばしてください（高さ70cmほどの一般的な机の場合）。`,
-        heightBullets: [
-          `机の上に ${DESK_RISE_CM}。座ってレンズと目が同じ高さになれば正解です`,
-          '伸ばしきっても足りないときは、スタンドごと箱や本の上に載せて高さを足してください。スマホを上に向けて角度でごまかすと、見上げる画のままになります',
-          '上のほうが重くなります。机のふちから離し、三脚の脚を根元まで開いて置いてください',
-          'ライトはスマホの上に付いているので、位置合わせは不要です。明るさだけ、顔が自然に見えるところに合わせてください',
-          '前日にライトを充電してください。充電式なので、当日に切れると使えません',
-          'スマホがホルダーに問題なく収まるか、当日より前に一度お試しください',
-        ],
-      },
-    },
-
-    ngTitle: 'この3つだけは、必ず',
-    ngLede: '過去に当日その場で直していただくことになった3点です。ここだけは覚えて帰ってください。',
+    ngTitle: 'この3つだけ、お願いします',
+    ngLede: '過去に、当日その場で直していただくことになった3点です。',
     ng: [
       {
         title: 'バーチャル背景・美肌フィルターはオフに',
@@ -282,17 +224,16 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
           'イヤホンのマイクは口元から遠く、音がこもります。スマホ本体のマイクのほうがきれいに録れます。ワイヤレスは途中で切れることもあるので、耳から外してお待ちください。',
       },
       {
-        title: 'スマホは目線の高さに固定する',
+        title: 'スマホは目線の高さに',
         body:
-          '机に直接置くと、カメラが下から見上げる画になります。同梱のスタンドを使って、座ったときにレンズが目の高さにくるようにしてください。手で持つのもNGです。',
+          '机に直接置いたり手で持ったりすると、カメラが下から見上げる画になります。同梱のスタンドに取り付けて、座ったときにレンズが目の高さにくるように合わせてください。床でも机の上でも構いません。細かい位置は当日お声がけします。',
       },
     ],
 
     roomTitle: '撮影する場所',
     roomBullets: [
-      'できるだけ静かな場所（空調やドアの開閉音も入ります）',
-      '外光や天井の光で、顔に適度な光がはいる場所',
-      '背景はできるだけスッキリと。写り込むものは事前に片付けてください',
+      'できるだけ静かな場所（空調やドアの音も入ります）',
+      '背景はできるだけスッキリと',
       '窓を背にすると逆光になります。窓は正面か横に',
     ],
 
@@ -319,9 +260,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     formGate: '上の内容を最後までご確認ください',
     checks: {
       kit_received: 'スタンドとライトが届きました',
-      light_charged: '前日までにライトを充電します',
       riverside_installed: 'Riverside アプリをインストールしました',
-      no_signin: '「Continue with…」でサインインしないことを理解しました',
       no_virtual_background: 'バーチャル背景・フィルターはオフにします',
       no_earphones: 'イヤホン（有線・無線とも）は使いません',
       eye_level: 'スマホはスタンドで、座ったときの目線の高さに固定します',
@@ -331,12 +270,9 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     fullNamePlaceholder: '山田 太郎',
     jobTitleLabel: '役職・肩書き',
     jobTitlePlaceholder: '営業部 マネージャー',
-    phoneLabel: '当日つながる電話番号',
-    phoneHelp:
-      '撮影にはスマホを使うため、そのスマホは通話中にお使いいただけません。別の電話番号か、当日近くにいらっしゃる方の番号をご記入ください。',
+    phoneLabel: '携帯電話番号',
+    phoneHelp: '当日、何かあったときにご連絡します。',
     phonePlaceholder: '090-1234-5678',
-    contactNoteLabel: '連絡方法の補足（任意）',
-    contactNotePlaceholder: '例：LINEのほうが早いです／当日は総務の田中が同席します',
     submit: '確認しました・送信する',
     submitting: '送信中…',
     submitError: '送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。',
@@ -350,8 +286,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     helpBody: '当日でも構いません。つながらないときはお電話ください。',
 
     photoCaptions: {
-      'setup-floor': 'スタンドとライトを立てた状態。座ってレンズが目の高さにきています。',
-      'setup-desk': '机に置いた三脚とライト。座ってレンズが目の高さにきています。',
+      setup: 'スタンドを立てた状態。座ってレンズが目の高さにきています。',
       'frame-good': 'これが良い画角です。目線の高さ、頭の上の余白も適度。',
       'frame-bad': 'これはNG。机に直置きすると、下から見上げる画になります。',
       'room-bad': 'これもNG。窓を背にすると逆光に。背景の写り込みも整理してください。',
@@ -377,37 +312,9 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     kitNote:
       'If it hasn’t arrived the day before, let us know at the number below and we’ll bring a spare.',
     kitItems: [
-      'Phone stand (tripod with a built-in LED light, extends to 140cm, folds down)',
-      'The light sits above the phone holder — there’s nothing to assemble',
-      'The Bluetooth remote in the grip isn’t used on the day. Leave it where it is',
+      'A phone stand with an LED light. Nothing to assemble',
+      'The light runs on a battery — just charge it the night before',
     ],
-    setups: {
-      floor: {
-        heightTitle: 'Setting the height',
-        heightBody: `You want the lens level with your eyes while you’re seated. Open the tripod legs, stand it on the floor, and extend it to roughly ${EYE_HEIGHT_CM}.`,
-        heightBullets: [
-          `Aim for about ${EYE_HEIGHT_CM} off the floor. If the lens meets your eyes when you sit, it’s right`,
-          'Don’t run it all the way out to 140cm — that’s standing height, and the further it goes the less steady it gets',
-          'Open the legs fully. A spot with about 50cm of clear floor around it is safest',
-          'The light is already above the phone, so there’s nothing to line up. Just set the brightness so your face looks natural',
-          'Charge the light the night before. It runs on a battery, and a flat one is no light at all',
-          'Try your phone in the holder once before the day, so nothing is a surprise',
-        ],
-      },
-      desk: {
-        heightTitle: 'Setting the height',
-        heightBody: `You want the lens level with your eyes while you’re seated. Open the tripod legs, stand it on your desk, and extend it until the lens sits about ${DESK_RISE_CM} above the desktop — that’s what a typical 70cm desk needs.`,
-        heightBullets: [
-          `Aim for ${DESK_RISE_CM} above the desk. If the lens meets your eyes when you sit, it’s right`,
-          'If it won’t go high enough even fully extended, stand the whole thing on a box or some books. Tilting the phone up instead just keeps the camera looking up at you',
-          'It’s top-heavy. Keep it back from the edge of the desk and open the legs fully',
-          'The light is already above the phone, so there’s nothing to line up. Just set the brightness so your face looks natural',
-          'Charge the light the night before. It runs on a battery, and a flat one is no light at all',
-          'Try your phone in the holder once before the day, so nothing is a surprise',
-        ],
-      },
-    },
-
     ngTitle: 'Three things that really matter',
     ngLede: 'These are the three we’ve had to fix on the day. If you remember nothing else, remember these.',
     ng: [
@@ -424,15 +331,14 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       {
         title: 'Put the phone at eye level',
         body:
-          'Flat on a desk, the camera looks up your nose. Use the stand we send and set it so the lens meets your eyes while you’re sitting down. Holding the phone doesn’t work either.',
+          'Flat on a desk or held in your hand, the camera ends up looking up at you. Put it in the stand we send and set it so the lens meets your eyes while you’re sitting down — on the floor or on your desk, whichever is easier. We’ll help you fine-tune it on the day.',
       },
     ],
 
     roomTitle: 'Where to sit',
     roomBullets: [
       'Somewhere quiet — air conditioning and doors both make it onto the recording',
-      'Somewhere daylight or a ceiling light reaches your face',
-      'A tidy background. Anything in shot is worth moving beforehand',
+      'A tidy background',
       'Don’t sit with a window behind you. Put it in front of you or to one side',
     ],
 
@@ -459,9 +365,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     formGate: 'Please read to the end of the page first',
     checks: {
       kit_received: 'The stand and light have arrived',
-      light_charged: 'I’ll charge the light the night before',
       riverside_installed: 'I’ve installed the Riverside app',
-      no_signin: 'I understand not to sign in with “Continue with…”',
       no_virtual_background: 'I’ll turn off virtual backgrounds and filters',
       no_earphones: 'I won’t use earphones, wired or wireless',
       eye_level: 'I’ll put the phone on the stand at seated eye level',
@@ -471,12 +375,9 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     fullNamePlaceholder: 'Taro Yamada',
     jobTitleLabel: 'Job title',
     jobTitlePlaceholder: 'Sales Manager',
-    phoneLabel: 'A number we can reach you on',
-    phoneHelp:
-      'You’ll be filming on your phone, so that phone won’t be free to take a call. Give us a different number, or one for someone who’ll be nearby.',
+    phoneLabel: 'Mobile number',
+    phoneHelp: 'In case we need to reach you on the day.',
     phonePlaceholder: '090-1234-5678',
-    contactNoteLabel: 'Anything else about reaching you (optional)',
-    contactNotePlaceholder: 'e.g. LINE is faster / Tanaka from admin will be with me',
     submit: 'Confirm and send',
     submitting: 'Sending…',
     submitError: 'That didn’t send. Check your connection and try once more.',
@@ -490,8 +391,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     helpBody: 'Even on the day. If you can’t get through, call.',
 
     photoCaptions: {
-      'setup-floor': 'The stand and light set up. Seated, the lens is level with the eyes.',
-      'setup-desk': 'The tripod and light on the desk. Seated, the lens is level with the eyes.',
+      setup: 'The stand set up. Seated, the lens is level with the eyes.',
       'frame-good': 'This is the framing we want — eye level, a sensible amount of headroom.',
       'frame-bad': 'Not this. Flat on the desk, the camera ends up looking up at you.',
       'room-bad': 'Not this either. A window behind you backlights your face, and the shelf is in shot.',
