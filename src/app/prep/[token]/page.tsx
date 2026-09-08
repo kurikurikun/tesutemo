@@ -1,26 +1,20 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import {
-  PREP_CHECK_KEYS,
   PREP_COPY,
   PREP_CONTACT,
-  PREP_CRITICAL_CHECKS,
+  PREP_STEPS,
   RIVERSIDE_ANDROID,
   RIVERSIDE_IOS,
-  type PrepCheckKey,
   type PrepLang,
   type PrepPublicRow,
+  type PrepStep,
 } from '@/lib/prep'
 import { readyPrepPhotos } from '@/lib/prep-photos'
 
-type Screen = 'loading' | 'notfound' | 'failed' | 'page' | 'done'
-
-const BLANK_CHECKS = Object.fromEntries(PREP_CHECK_KEYS.map((k) => [k, false])) as Record<
-  PrepCheckKey,
-  boolean
->
+type Screen = 'loading' | 'notfound' | 'failed' | 'steps' | 'done'
 
 function formatDate(iso: string, lang: PrepLang) {
   const d = new Date(`${iso}T00:00:00`)
@@ -37,24 +31,6 @@ function formatDate(iso: string, lang: PrepLang) {
     : new Intl.DateTimeFormat('en-GB', { dateStyle: 'full' }).format(d)
 }
 
-function Section({
-  title,
-  lede,
-  children,
-}: {
-  title: string
-  lede?: string
-  children: React.ReactNode
-}) {
-  return (
-    <section className="mt-10">
-      <h2 className="text-lg font-bold text-gray-900">{title}</h2>
-      {lede && <p className="mt-2 text-[15px] leading-relaxed text-gray-600">{lede}</p>}
-      <div className="mt-4">{children}</div>
-    </section>
-  )
-}
-
 function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="space-y-2.5">
@@ -68,27 +44,51 @@ function Bullets({ items }: { items: string[] }) {
   )
 }
 
+function Field({
+  label,
+  help,
+  children,
+}: {
+  label: string
+  help?: string
+  children: React.ReactNode
+}) {
+  return (
+    <label className="block">
+      <span className="block text-xs font-semibold text-gray-600">{label}</span>
+      {help && <span className="mt-1 block text-xs leading-relaxed text-gray-500">{help}</span>}
+      <span className="mt-1.5 block">{children}</span>
+    </label>
+  )
+}
+
+const inputClass =
+  'block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none'
+
 export default function PrepPage() {
   const { token } = useParams<{ token: string }>()
 
   const [screen, setScreen] = useState<Screen>('loading')
   const [row, setRow] = useState<PrepPublicRow | null>(null)
-  const [checks, setChecks] = useState<Record<PrepCheckKey, boolean>>(BLANK_CHECKS)
-  const [fullName, setFullName] = useState('')
+  const [stepIndex, setStepIndex] = useState(0)
+
+  const [familyName, setFamilyName] = useState('')
+  const [givenName, setGivenName] = useState('')
+  const [familyKana, setFamilyKana] = useState('')
+  const [givenKana, setGivenKana] = useState('')
   const [jobTitle, setJobTitle] = useState('')
   const [phone, setPhone] = useState('')
-  const [readToEnd, setReadToEnd] = useState(false)
+
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
-  const sentinel = useRef<HTMLDivElement | null>(null)
-
-  const ping = useCallback(
-    (event: 'open' | 'scroll') => {
+  // 画面に着いた時点で記録する。つまり1つ前の画面の「次へ」を押したという記録。
+  const markSeen = useCallback(
+    (step: PrepStep) => {
       fetch(`/api/prep/${token}/ping`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event }),
+        body: JSON.stringify({ step }),
       }).catch(() => {})
     },
     [token]
@@ -101,8 +101,8 @@ export default function PrepPage() {
       .then((data: PrepPublicRow) => {
         if (!live) return
         setRow(data)
-        setScreen('page')
-        ping('open')
+        setScreen('steps')
+        markSeen(PREP_STEPS[0])
       })
       // リンクが無いのか、こちら側が落ちているのかは分けて出す。同じ文面にすると、
       // 設定ミスで落ちているときに本人が「リンクが違うのだろう」と思って連絡してこない。
@@ -110,40 +110,28 @@ export default function PrepPage() {
     return () => {
       live = false
     }
-  }, [token, ping])
-
-  // フォームの手前に置いた目印まで来たら「最後まで読んだ」とみなす。
-  //
-  // IntersectionObserver で見ていたが、勢いよくスクロールすると目印が1フレームで
-  // 画面の下から上へ抜けてしまい、交差が一度も起きないことがある。そうなると
-  // 判定が立たないまま送信ボタンが押せなくなり、本人にはどうしようもない。
-  // 交差ではなく位置で見れば、飛ばしてもページ内リンクで跳んでも必ず立つ。
-  useEffect(() => {
-    if (screen !== 'page' || readToEnd) return
-    const check = () => {
-      const el = sentinel.current
-      if (!el) return
-      if (el.getBoundingClientRect().top <= window.innerHeight) {
-        setReadToEnd(true)
-        ping('scroll')
-      }
-    }
-    check()
-    window.addEventListener('scroll', check, { passive: true })
-    window.addEventListener('resize', check)
-    return () => {
-      window.removeEventListener('scroll', check)
-      window.removeEventListener('resize', check)
-    }
-  }, [screen, readToEnd, ping])
+  }, [token, markSeen])
 
   const lang: PrepLang = row?.lang === 'en' ? 'en' : 'ja'
   const t = PREP_COPY[lang]
   const photos = readyPrepPhotos()
+  const isJa = lang === 'ja'
 
-  const allChecked = PREP_CHECK_KEYS.every((k) => checks[k])
-  const filled = fullName.trim() && jobTitle.trim() && phone.trim()
-  const canSubmit = readToEnd && allChecked && filled && !saving
+  function goNext() {
+    const next = stepIndex + 1
+    setStepIndex(next)
+    markSeen(PREP_STEPS[next])
+    window.scrollTo({ top: 0 })
+  }
+
+  function goBack() {
+    setStepIndex((i) => Math.max(0, i - 1))
+    window.scrollTo({ top: 0 })
+  }
+
+  const nameFilled = familyName.trim() && givenName.trim()
+  const kanaFilled = !isJa || (familyKana.trim() && givenKana.trim())
+  const canSubmit = nameFilled && kanaFilled && jobTitle.trim() && phone.trim() && !saving
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -154,10 +142,12 @@ export default function PrepPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        full_name: fullName.trim(),
+        family_name: familyName.trim(),
+        given_name: givenName.trim(),
+        family_kana: familyKana.trim(),
+        given_kana: givenKana.trim(),
         job_title: jobTitle.trim(),
         phone: phone.trim(),
-        checks,
       }),
     }).catch(() => null)
 
@@ -193,7 +183,7 @@ export default function PrepPage() {
           )}
         </p>
         <p className="mt-6 text-sm text-gray-500">
-          {PREP_CONTACT.person}　
+          {PREP_CONTACT.person}
           <a className="text-primary" href={`tel:${PREP_CONTACT.tel}`}>
             {PREP_CONTACT.tel}
           </a>
@@ -208,7 +198,7 @@ export default function PrepPage() {
       <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{t.helpBody}</p>
       <div className="mt-4 space-y-1 text-[15px] text-gray-800">
         <p>
-          {PREP_CONTACT.company}　{lang === 'ja' ? PREP_CONTACT.person : PREP_CONTACT.personEn}
+          {PREP_CONTACT.company}　{isJa ? PREP_CONTACT.person : PREP_CONTACT.personEn}
         </p>
         <p>
           <a className="font-semibold text-primary" href={`tel:${PREP_CONTACT.tel}`}>
@@ -236,201 +226,306 @@ export default function PrepPage() {
     )
   }
 
-  return (
-    <main className="mx-auto max-w-xl px-5 pb-24 pt-10">
-      {/* 冒頭で枠組みを変える。ここが本題より先に来ることに意味がある。 */}
-      <p className="text-xs font-bold uppercase tracking-widest text-primary">{t.kicker}</p>
-      <h1 className="mt-3 text-[26px] font-bold leading-snug text-gray-900">{t.title}</h1>
-      <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede}</p>
+  const step = PREP_STEPS[stepIndex]
+  const total = PREP_STEPS.length
 
-      <div className="mt-6 rounded-xl bg-white px-5 py-4 text-sm text-gray-700 ring-1 ring-gray-200">
-        <p className="font-semibold text-gray-900">{t.forWhom(row.name)}</p>
-        {row.company && <p className="mt-0.5 text-gray-500">{row.company}</p>}
-        {row.interview_date && (
-          <p className="mt-1.5">{t.onDate(formatDate(row.interview_date, lang))}</p>
-        )}
+  // テロップの見え方をその場で出す。書いた文字がそのまま世に出ると分かれば、
+  // 姓だけ・名だけローマ字、といった書き方は起きにくい。
+  // 並び順は言語で変わる。日本語は姓→名、英語は名→姓。
+  const captionName = (isJa
+    ? [familyName.trim(), givenName.trim()]
+    : [givenName.trim(), familyName.trim()]
+  )
+    .filter(Boolean)
+    .join(' ')
+  const captionLines = [captionName, jobTitle.trim(), row.company ?? ''].filter(Boolean)
+
+  return (
+    <main className="mx-auto max-w-xl px-5 pb-24 pt-8">
+      <div className="flex items-center gap-3">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary">{t.kicker}</p>
+        <span className="ml-auto text-xs font-semibold tabular-nums text-gray-400">
+          {t.stepOf(stepIndex + 1, total)}
+        </span>
+      </div>
+      <div className="mt-3 flex gap-1.5" aria-hidden>
+        {PREP_STEPS.map((s, i) => (
+          <span
+            key={s}
+            className={`h-1 flex-1 rounded-full ${i <= stepIndex ? 'bg-primary' : 'bg-gray-200'}`}
+          />
+        ))}
       </div>
 
-      {row.submitted_at && (
-        <div className="mt-4 rounded-xl bg-emerald-50 px-5 py-4 ring-1 ring-emerald-200">
-          <p className="text-sm font-semibold text-emerald-900">{t.alreadyDone}</p>
-          <p className="mt-1 text-sm leading-relaxed text-emerald-800">{t.alreadyDoneBody}</p>
-        </div>
+      {step === 'intro' && (
+        <>
+          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.title}</h1>
+          <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede}</p>
+
+          <div className="mt-6 rounded-xl bg-white px-5 py-4 text-sm text-gray-700 ring-1 ring-gray-200">
+            <p className="font-semibold text-gray-900">{t.forWhom(row.name)}</p>
+            {row.company && <p className="mt-0.5 text-gray-500">{row.company}</p>}
+            {row.interview_date && (
+              <p className="mt-1.5">{t.onDate(formatDate(row.interview_date, lang))}</p>
+            )}
+          </div>
+
+          {row.submitted_at && (
+            <div className="mt-4 rounded-xl bg-emerald-50 px-5 py-4 ring-1 ring-emerald-200">
+              <p className="text-sm font-semibold text-emerald-900">{t.alreadyDone}</p>
+              <p className="mt-1 text-sm leading-relaxed text-emerald-800">{t.alreadyDoneBody}</p>
+            </div>
+          )}
+
+          <section className="mt-10">
+            <h2 className="text-lg font-bold text-gray-900">{t.kitTitle}</h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-gray-600">{t.kitLede}</p>
+            <div className="mt-4">
+              <Bullets items={t.kitItems} />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-gray-500">{t.kitNote}</p>
+          </section>
+        </>
       )}
 
-      <Section title={t.kitTitle} lede={t.kitLede}>
-        <Bullets items={t.kitItems} />
-        <p className="mt-4 text-sm leading-relaxed text-gray-500">{t.kitNote}</p>
-      </Section>
+      {step === 'critical' && (
+        <>
+          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.ngTitle}</h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.ngLede}</p>
 
-      {/* 事故になりやすい3点。他の項目と同じ見た目にしないこと。 */}
-      <Section title={t.ngTitle} lede={t.ngLede}>
-        <div className="space-y-3">
-          {t.ng.map((item, i) => (
-            <div key={i} className="rounded-2xl bg-white p-5 ring-1 ring-red-200">
-              <div className="flex gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
-                  {i + 1}
-                </span>
-                <div>
-                  <h3 className="text-[15px] font-bold text-gray-900">{item.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{item.body}</p>
+          <div className="mt-6 space-y-3">
+            {t.ng.map((item, i) => (
+              <div key={i} className="rounded-2xl bg-white p-5 ring-1 ring-red-200">
+                <div className="flex gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h2 className="text-[15px] font-bold text-gray-900">{item.title}</h2>
+                    <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{item.body}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+            ))}
+          </div>
 
-      {/* 写真は入っているものだけ出す。1枚もなくてもページは成立する。 */}
-      {photos.length > 0 && (
-        <div className="mt-8 space-y-4">
-          {photos.map((p) => (
-            <figure key={p.key}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={p.src}
-                alt={t.photoCaptions[p.key]}
-                className={`w-full rounded-2xl ring-1 ${
-                  p.tone === 'good'
-                    ? 'ring-emerald-300'
-                    : p.tone === 'bad'
-                      ? 'ring-red-300'
-                      : 'ring-gray-200'
-                }`}
-              />
-              <figcaption className="mt-2 flex gap-2 text-sm leading-relaxed text-gray-600">
-                {p.tone !== 'neutral' && (
-                  <span
-                    className={`font-bold ${p.tone === 'good' ? 'text-emerald-600' : 'text-red-500'}`}
-                  >
-                    {p.tone === 'good' ? '○' : '×'}
-                  </span>
-                )}
-                <span>{t.photoCaptions[p.key]}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+          {/* 写真は入っているものだけ出す。1枚もなくても画面は成立する。 */}
+          {photos.length > 0 && (
+            <div className="mt-8 space-y-4">
+              {photos.map((p) => (
+                <figure key={p.key}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.src}
+                    alt={t.photoCaptions[p.key]}
+                    className={`w-full rounded-2xl ring-1 ${
+                      p.tone === 'good'
+                        ? 'ring-emerald-300'
+                        : p.tone === 'bad'
+                          ? 'ring-red-300'
+                          : 'ring-gray-200'
+                    }`}
+                  />
+                  <figcaption className="mt-2 flex gap-2 text-sm leading-relaxed text-gray-600">
+                    {p.tone !== 'neutral' && (
+                      <span
+                        className={`font-bold ${p.tone === 'good' ? 'text-emerald-600' : 'text-red-500'}`}
+                      >
+                        {p.tone === 'good' ? '○' : '×'}
+                      </span>
+                    )}
+                    <span>{t.photoCaptions[p.key]}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+
+          <section className="mt-10">
+            <h2 className="text-lg font-bold text-gray-900">{t.roomTitle}</h2>
+            <div className="mt-4">
+              <Bullets items={t.roomBullets} />
+            </div>
+          </section>
+        </>
       )}
 
-      <Section title={t.roomTitle}>
-        <Bullets items={t.roomBullets} />
-      </Section>
-
-      <Section title={t.appTitle}>
-        <Bullets items={t.appBullets} />
-        <div className="mt-4 space-y-2">
-          <a
-            href={RIVERSIDE_IOS}
-            target="_blank"
-            rel="noreferrer"
-            className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
-          >
-            {t.appIos} →
-          </a>
-          <a
-            href={RIVERSIDE_ANDROID}
-            target="_blank"
-            rel="noreferrer"
-            className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
-          >
-            {t.appAndroid} →
-          </a>
-        </div>
-        <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
-          {t.appWarning}
-        </p>
-      </Section>
-
-      <Section title={t.dayTitle}>
-        <Bullets items={t.dayBullets} />
-      </Section>
-
-      {/* ここまで来たら「最後まで読んだ」。フォームの手前に置くのがポイント。 */}
-      <div ref={sentinel} aria-hidden className="h-px" />
-
-      <form onSubmit={handleSubmit} className="mt-12 rounded-2xl bg-white p-6 ring-1 ring-gray-200">
-        <h2 className="text-lg font-bold text-gray-900">{t.formTitle}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-gray-600">{t.formLede}</p>
-
-        <div className="mt-5 space-y-2">
-          {PREP_CHECK_KEYS.map((key) => {
-            const critical = PREP_CRITICAL_CHECKS.includes(key)
-            return (
-              <label
-                key={key}
-                className={`flex cursor-pointer gap-3 rounded-xl px-4 py-3 ring-1 transition ${
-                  checks[key]
-                    ? 'bg-emerald-50 ring-emerald-300'
-                    : critical
-                      ? 'bg-red-50/60 ring-red-200'
-                      : 'bg-gray-50 ring-gray-200'
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={checks[key]}
-                  onChange={(e) => setChecks((c) => ({ ...c, [key]: e.target.checked }))}
-                  className="mt-0.5 h-5 w-5 shrink-0 accent-emerald-600"
-                />
-                <span className="text-sm leading-relaxed text-gray-800">{t.checks[key]}</span>
-              </label>
-            )
-          })}
-        </div>
-
-        <div className="mt-6 space-y-4">
-          <div>
-            <label className="block text-xs font-semibold text-gray-600">{t.fullNameLabel}</label>
-            <input
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder={t.fullNamePlaceholder}
-              className="mt-1.5 block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none"
-              required
-            />
+      {step === 'app' && (
+        <>
+          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.appTitle}</h1>
+          <div className="mt-4">
+            <Bullets items={t.appBullets} />
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-gray-600">{t.jobTitleLabel}</label>
-            <input
-              value={jobTitle}
-              onChange={(e) => setJobTitle(e.target.value)}
-              placeholder={t.jobTitlePlaceholder}
-              className="mt-1.5 block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none"
-              required
-            />
+          <div className="mt-4 space-y-2">
+            <a
+              href={RIVERSIDE_IOS}
+              target="_blank"
+              rel="noreferrer"
+              className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
+            >
+              {t.appIos} →
+            </a>
+            <a
+              href={RIVERSIDE_ANDROID}
+              target="_blank"
+              rel="noreferrer"
+              className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
+            >
+              {t.appAndroid} →
+            </a>
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-gray-600">{t.phoneLabel}</label>
-            <p className="mt-1 text-xs leading-relaxed text-gray-500">{t.phoneHelp}</p>
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder={t.phonePlaceholder}
-              type="tel"
-              inputMode="tel"
-              className="mt-1.5 block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none"
-              required
-            />
-          </div>
-        </div>
-
-        {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={!canSubmit}
-          className="mt-6 w-full rounded-xl bg-primary py-4 text-[16px] font-bold text-white transition disabled:cursor-not-allowed disabled:bg-gray-300"
-        >
-          {saving ? t.submitting : t.submit}
-        </button>
-        {!canSubmit && !saving && (
-          <p className="mt-3 text-center text-xs text-gray-500">
-            {readToEnd ? t.requiredNote : t.formGate}
+          <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
+            {t.appWarning}
           </p>
-        )}
-      </form>
+
+          <section className="mt-10">
+            <h2 className="text-lg font-bold text-gray-900">{t.dayTitle}</h2>
+            <div className="mt-4">
+              <Bullets items={t.dayBullets} />
+            </div>
+          </section>
+        </>
+      )}
+
+      {step === 'contact' && (
+        <form onSubmit={handleSubmit} className="mt-6">
+          <h1 className="text-[26px] font-bold leading-snug text-gray-900">{t.formTitle}</h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.formLede}</p>
+
+          <p className="mt-5 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
+            {t.captionNote}
+          </p>
+
+          <div className="mt-6 space-y-4">
+            {/* 日本語は姓→名、英語は名→姓。並び順が言語の様式と違うと書き間違えやすい。 */}
+            <div className="grid grid-cols-2 gap-3">
+              {(isJa ? ['family', 'given'] : ['given', 'family']).map((which) =>
+                which === 'family' ? (
+                  <Field key="family" label={t.familyNameLabel}>
+                    <input
+                      value={familyName}
+                      onChange={(e) => setFamilyName(e.target.value)}
+                      placeholder={t.familyNamePlaceholder}
+                      className={inputClass}
+                      autoComplete="family-name"
+                      required
+                    />
+                  </Field>
+                ) : (
+                  <Field key="given" label={t.givenNameLabel}>
+                    <input
+                      value={givenName}
+                      onChange={(e) => setGivenName(e.target.value)}
+                      placeholder={t.givenNamePlaceholder}
+                      className={inputClass}
+                      autoComplete="given-name"
+                      required
+                    />
+                  </Field>
+                )
+              )}
+            </div>
+
+            {isJa && (
+              <div className="grid grid-cols-2 gap-3">
+                <Field label={t.kanaLabel}>
+                  <input
+                    value={familyKana}
+                    onChange={(e) => setFamilyKana(e.target.value)}
+                    placeholder={t.familyKanaPlaceholder}
+                    className={inputClass}
+                    required
+                  />
+                </Field>
+                <Field label="　">
+                  <input
+                    value={givenKana}
+                    onChange={(e) => setGivenKana(e.target.value)}
+                    placeholder={t.givenKanaPlaceholder}
+                    className={inputClass}
+                    required
+                  />
+                </Field>
+              </div>
+            )}
+
+            <Field label={t.jobTitleLabel}>
+              <input
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                placeholder={t.jobTitlePlaceholder}
+                className={inputClass}
+                autoComplete="organization-title"
+                required
+              />
+            </Field>
+
+            {/* 入力したものがそのまま画面に出る、という確認。 */}
+            {captionLines.length > 0 && (
+              <div className="rounded-xl bg-gray-900 px-5 py-4">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                  {t.captionPreviewLabel}
+                </p>
+                <p className="mt-2 text-lg font-bold leading-tight text-white">
+                  {captionLines[0]}
+                </p>
+                {captionLines.slice(1).map((line, i) => (
+                  <p key={i} className="text-sm leading-snug text-gray-300">
+                    {line}
+                  </p>
+                ))}
+              </div>
+            )}
+
+            <Field label={t.phoneLabel} help={t.phoneHelp}>
+              <input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder={t.phonePlaceholder}
+                type="tel"
+                inputMode="tel"
+                className={inputClass}
+                autoComplete="tel"
+                required
+              />
+            </Field>
+          </div>
+
+          {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            className="mt-6 w-full rounded-xl bg-primary py-4 text-[16px] font-bold text-white transition disabled:cursor-not-allowed disabled:bg-gray-300"
+          >
+            {saving ? t.submitting : t.submit}
+          </button>
+          {!canSubmit && !saving && (
+            <p className="mt-3 text-center text-xs text-gray-500">{t.requiredNote}</p>
+          )}
+        </form>
+      )}
+
+      {/* 読む画面は止めない。押すこと自体が「読みました」の記録になる。 */}
+      {step !== 'contact' && (
+        <button
+          type="button"
+          onClick={goNext}
+          className="mt-10 w-full rounded-xl bg-primary py-4 text-[16px] font-bold text-white"
+        >
+          {t.next}
+        </button>
+      )}
+
+      {stepIndex > 0 && (
+        <button
+          type="button"
+          onClick={goBack}
+          className="mt-3 w-full py-2 text-center text-sm text-gray-500"
+        >
+          {t.back}
+        </button>
+      )}
 
       {contactBlock}
     </main>

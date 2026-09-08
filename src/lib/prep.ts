@@ -33,12 +33,14 @@
  *   kit_shipped_at timestamptz,
  *   kit_tracking text,
  *   first_opened_at timestamptz,
- *   scrolled_to_end_at timestamptz,
  *   submitted_at timestamptz,
- *   full_name text,
+ *   family_name text,
+ *   given_name text,
+ *   family_kana text,
+ *   given_kana text,
  *   job_title text,
  *   phone text,
- *   checks jsonb,
+ *   steps_seen jsonb not null default '{}'::jsonb,
  *   user_agent text,
  *   created_at timestamptz not null default now()
  * );
@@ -69,12 +71,15 @@ export type PrepRow = {
   kit_shipped_at: string | null
   kit_tracking: string | null
   first_opened_at: string | null
-  scrolled_to_end_at: string | null
   submitted_at: string | null
-  full_name: string | null
+  family_name: string | null
+  given_name: string | null
+  family_kana: string | null
+  given_kana: string | null
   job_title: string | null
   phone: string | null
-  checks: Record<string, boolean> | null
+  /** 画面IDごとに、そこへ進んだ時刻。 */
+  steps_seen: Record<string, string> | null
   user_agent: string | null
   created_at: string
 }
@@ -93,26 +98,23 @@ export function prepStatus(row: Pick<PrepRow, 'first_opened_at' | 'submitted_at'
   return 'unopened'
 }
 
-export const PREP_CHECK_KEYS = [
-  'kit_received',
-  'riverside_installed',
-  'no_virtual_background',
-  'no_earphones',
-  'eye_level',
-  'quiet_tidy_room',
-] as const
-
-export type PrepCheckKey = (typeof PREP_CHECK_KEYS)[number]
-
 /**
- * `critical` の3つが、実際に当日その場で直してもらうことになった項目。
- * ページ上でも赤く出して、他のチェックと同じ重さに見えないようにしている。
+ * 画面の並び。**進むこと自体が「読んだ」の記録** で、チェックボックスは置かない。
+ *
+ * チェックボックスは実際には機能していなかった。読んだかどうかではなく、箱に印を
+ * つける気があるかどうかしか測れない（Obar & Oeldorf-Hirsch の調査では、規約を
+ * 読み飛ばした人も含めて97%が同意している）。しかも「スタンドが届きました」の
+ * ようにこちらの発送待ちの項目が混ざると、まだ届いていない人は送信すらできず、
+ * 結局こちらには何も届かない。
+ *
+ * 目的は「守った証拠」ではなく「何が必要か分かってもらうこと」。だから止めない。
+ * 代わりに、どの画面まで進んだかを1つずつ記録する。送信がなくても「この人は
+ * 3枚目を見ていない」と分かるので、当日そこだけ口頭で補える。
  */
-export const PREP_CRITICAL_CHECKS: PrepCheckKey[] = [
-  'no_virtual_background',
-  'no_earphones',
-  'eye_level',
-]
+export const PREP_STEPS = ['intro', 'critical', 'app', 'contact'] as const
+
+export type PrepStep = (typeof PREP_STEPS)[number]
+
 
 // スタンドの説明はあえて置かない。指示や情報が増えるほど、結局誰も読まないし
 // やらない。伝えるのは「スタンドを使って目線の高さに」だけで、それはNGの3つめに
@@ -164,10 +166,16 @@ type Copy = {
 
   formTitle: string
   formLede: string
-  formGate: string
-  checks: Record<PrepCheckKey, string>
-  fullNameLabel: string
-  fullNamePlaceholder: string
+  /** 入力がそのままテロップになることを伝える。理由が分かると書き方が変わる。 */
+  captionNote: string
+  captionPreviewLabel: string
+  familyNameLabel: string
+  familyNamePlaceholder: string
+  givenNameLabel: string
+  givenNamePlaceholder: string
+  kanaLabel: string
+  familyKanaPlaceholder: string
+  givenKanaPlaceholder: string
   jobTitleLabel: string
   jobTitlePlaceholder: string
   phoneLabel: string
@@ -177,6 +185,10 @@ type Copy = {
   submitting: string
   submitError: string
   requiredNote: string
+  /** 進むボタン。押すことが「読みました」になる。 */
+  next: string
+  back: string
+  stepOf: (n: number, total: number) => string
 
   doneTitle: string
   doneBody: string
@@ -254,20 +266,18 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       'アプリから直接入る場合は「Join Session via Link」にリンクを貼り付け →「Join studio」→「I’m ready!」→「Join」',
     ],
 
-    formTitle: 'ご確認とご連絡先',
-    formLede:
-      'ここまでの内容をご確認のうえ、チェックを入れて送信してください。当日の連絡先もあわせてお願いします。',
-    formGate: '上の内容を最後までご確認ください',
-    checks: {
-      kit_received: 'スタンドとライトが届きました',
-      riverside_installed: 'Riverside アプリをインストールしました',
-      no_virtual_background: 'バーチャル背景・フィルターはオフにします',
-      no_earphones: 'イヤホン（有線・無線とも）は使いません',
-      eye_level: 'スマホはスタンドで、座ったときの目線の高さに固定します',
-      quiet_tidy_room: '静かで、背景がすっきりした場所を確保します',
-    },
-    fullNameLabel: 'お名前（フルネーム）',
-    fullNamePlaceholder: '山田 太郎',
+    formTitle: 'お名前とご連絡先',
+    formLede: '最後に、テロップに使うお名前と、当日つながる連絡先を教えてください。',
+    captionNote:
+      'いただいたお名前と役職は、動画のテロップにそのまま使います。お手数ですが、表示したい表記でご記入ください。',
+    captionPreviewLabel: 'テロップの表示イメージ',
+    familyNameLabel: '姓',
+    familyNamePlaceholder: '田中',
+    givenNameLabel: '名',
+    givenNamePlaceholder: '太郎',
+    kanaLabel: 'フリガナ',
+    familyKanaPlaceholder: 'タナカ',
+    givenKanaPlaceholder: 'タロウ',
     jobTitleLabel: '役職・肩書き',
     jobTitlePlaceholder: '営業部 マネージャー',
     phoneLabel: '携帯電話番号',
@@ -276,7 +286,10 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     submit: '確認しました・送信する',
     submitting: '送信中…',
     submitError: '送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。',
-    requiredNote: 'すべてのチェックとご連絡先の入力をお願いします。',
+    requiredNote: 'お名前・フリガナ・役職・電話番号のご記入をお願いします。',
+    next: '確認しました・次へ',
+    back: '前へ',
+    stepOf: (n, total) => `${n} / ${total}`,
 
     doneTitle: 'ありがとうございました。当日お会いしましょう。',
     doneBody:
@@ -359,20 +372,18 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       'Or from the app: “Join Session via Link”, paste the link → “Join studio” → “I’m ready!” → “Join”',
     ],
 
-    formTitle: 'Confirm and leave us a number',
-    formLede:
-      'Once you’ve read the above, tick everything through and send it over, along with a number we can reach you on.',
-    formGate: 'Please read to the end of the page first',
-    checks: {
-      kit_received: 'The stand and light have arrived',
-      riverside_installed: 'I’ve installed the Riverside app',
-      no_virtual_background: 'I’ll turn off virtual backgrounds and filters',
-      no_earphones: 'I won’t use earphones, wired or wireless',
-      eye_level: 'I’ll put the phone on the stand at seated eye level',
-      quiet_tidy_room: 'I’ll find a quiet spot with a tidy background',
-    },
-    fullNameLabel: 'Full name',
-    fullNamePlaceholder: 'Taro Yamada',
+    formTitle: 'Your name and a number',
+    formLede: 'Last thing: the name that goes on screen, and a number we can reach you on.',
+    captionNote:
+      'Your name and job title go on screen in the finished video exactly as you write them here, so please use the spelling you want shown.',
+    captionPreviewLabel: 'How it will appear on screen',
+    familyNameLabel: 'Family name',
+    familyNamePlaceholder: 'Chen',
+    givenNameLabel: 'First name',
+    givenNamePlaceholder: 'Sarah',
+    kanaLabel: '',
+    familyKanaPlaceholder: '',
+    givenKanaPlaceholder: '',
     jobTitleLabel: 'Job title',
     jobTitlePlaceholder: 'Sales Manager',
     phoneLabel: 'Mobile number',
@@ -381,7 +392,10 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     submit: 'Confirm and send',
     submitting: 'Sending…',
     submitError: 'That didn’t send. Check your connection and try once more.',
-    requiredNote: 'Please tick everything and fill in your contact details.',
+    requiredNote: 'Please fill in your name, job title and phone number.',
+    next: 'Got it — next',
+    back: 'Back',
+    stepOf: (n, total) => `${n} of ${total}`,
 
     doneTitle: 'Thanks — see you on the day.',
     doneBody:

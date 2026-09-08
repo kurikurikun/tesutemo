@@ -1,7 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { prepStatus, type PrepRow, type PrepStatus } from '@/lib/prep'
+import { PREP_STEPS, prepStatus, type PrepRow, type PrepStatus, type PrepStep } from '@/lib/prep'
+
+// どこまで読んだかが一目で分かるように。送信がなくても「3枚目を見ていない」が
+// 分かれば、当日そこだけ口頭で補える。
+const STEP_LABEL: Record<PrepStep, string> = {
+  intro: '撮影です',
+  critical: '3つ',
+  app: 'アプリ',
+  contact: '連絡先',
+}
 
 const STATUS_STYLE: Record<PrepStatus, { label: string; className: string }> = {
   unopened: { label: '未開封', className: 'bg-red-100 text-red-700' },
@@ -85,14 +94,10 @@ function Row({
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 text-xs">
+          <div className="grid grid-cols-2 gap-3 text-xs">
             <div>
               <p className="font-semibold text-gray-500">開封</p>
               <p className="text-gray-800">{stamp(row.first_opened_at)}</p>
-            </div>
-            <div>
-              <p className="font-semibold text-gray-500">最後まで表示</p>
-              <p className="text-gray-800">{stamp(row.scrolled_to_end_at)}</p>
             </div>
             <div>
               <p className="font-semibold text-gray-500">送信</p>
@@ -100,13 +105,38 @@ function Row({
             </div>
           </div>
 
+          <div>
+            <p className="text-xs font-semibold text-gray-500">読んだ画面</p>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {PREP_STEPS.map((s, i) => {
+                const at = row.steps_seen?.[s]
+                return (
+                  <span
+                    key={s}
+                    title={at ? stamp(at) : '未表示'}
+                    className={`rounded-full px-2.5 py-1 text-xs ${
+                      at ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-400'
+                    }`}
+                  >
+                    {i + 1}. {STEP_LABEL[s]}
+                  </span>
+                )
+              })}
+            </div>
+          </div>
+
           {row.submitted_at && (
             <div className="rounded-lg bg-gray-50 p-3">
-              <p className="text-xs font-semibold text-gray-500">ご本人の入力</p>
+              <p className="text-xs font-semibold text-gray-500">テロップに使う表記</p>
               <p className="mt-1 text-gray-900">
-                {row.full_name}（{row.job_title}）
+                {row.family_name} {row.given_name}（{row.job_title}）
               </p>
-              <p className="text-gray-900">{row.phone}</p>
+              {(row.family_kana || row.given_kana) && (
+                <p className="text-xs text-gray-500">
+                  {row.family_kana} {row.given_kana}
+                </p>
+              )}
+              <p className="mt-1 text-gray-900">{row.phone}</p>
             </div>
           )}
 
