@@ -1,10 +1,17 @@
 import { createClient } from '@supabase/supabase-js'
 import { SignJWT } from 'jose'
 import { createPrivateKey } from 'crypto'
+import { SUPABASE_URL } from './supabase'
 
+/**
+ * URLは環境変数がなければ定数にフォールバックする。秘密ではないうえ、
+ * NEXT_PUBLIC_SUPABASE_URL が入っていない環境（Preview など）では
+ * `supabaseUrl is required` で全ルートが500になるため。
+ * サービスキーは秘密なので、こちらは環境変数からしか取らない。
+ */
 export function getSupabaseAdmin() {
   return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL || SUPABASE_URL,
     process.env.SUPABASE_SERVICE_KEY!
   )
 }

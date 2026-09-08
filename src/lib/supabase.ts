@@ -1,6 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
-const SUPABASE_URL = 'https://zmbvcsowniyrtaleluoc.supabase.co'
+/**
+ * プロジェクトのURL。秘密ではない（anon キーと同じくブラウザに出る）ので、
+ * サーバ側からも定数として使ってよい。環境変数に頼ると、Preview のように
+ * 変数が入っていない環境で `supabaseUrl is required` で落ちる。
+ */
+export const SUPABASE_URL = 'https://zmbvcsowniyrtaleluoc.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptYnZjc293bml5cnRhbGVsdW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MDUyNzUsImV4cCI6MjA4OTQ4MTI3NX0.82NhpISN0nt9tL9NKsEC0Bnra0IWqI9QXuOk1UtL3BE'
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)

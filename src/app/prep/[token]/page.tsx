@@ -15,7 +15,7 @@ import {
 } from '@/lib/prep'
 import { readyPrepPhotos } from '@/lib/prep-photos'
 
-type Screen = 'loading' | 'error' | 'page' | 'done'
+type Screen = 'loading' | 'notfound' | 'failed' | 'page' | 'done'
 
 const BLANK_CHECKS = Object.fromEntries(PREP_CHECK_KEYS.map((k) => [k, false])) as Record<
   PrepCheckKey,
@@ -97,14 +97,16 @@ export default function PrepPage() {
   useEffect(() => {
     let live = true
     fetch(`/api/prep/${token}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error('not found'))))
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((data: PrepPublicRow) => {
         if (!live) return
         setRow(data)
         setScreen('page')
         ping('open')
       })
-      .catch(() => live && setScreen('error'))
+      // リンクが無いのか、こちら側が落ちているのかは分けて出す。同じ文面にすると、
+      // 設定ミスで落ちているときに本人が「リンクが違うのだろう」と思って連絡してこない。
+      .catch((e: Error) => live && setScreen(e.message === '404' ? 'notfound' : 'failed'))
     return () => {
       live = false
     }
@@ -172,13 +174,23 @@ export default function PrepPage() {
     return <div className="p-10 text-center text-sm text-gray-400">…</div>
   }
 
-  if (screen === 'error' || !row) {
+  if (screen === 'notfound' || screen === 'failed' || !row) {
     return (
       <div className="mx-auto max-w-md px-6 py-20 text-center">
         <p className="text-[15px] leading-relaxed text-gray-700">
-          このリンクは見つかりませんでした。お手数ですが、ご案内メールのリンクをもう一度お確かめください。
-          <br />
-          This link could not be found. Please check the link in your invitation email.
+          {screen === 'failed' ? (
+            <>
+              ただいまページを表示できません。お手数ですが、下記までご連絡ください。
+              <br />
+              We can’t load this page right now. Please get in touch below.
+            </>
+          ) : (
+            <>
+              このリンクは見つかりませんでした。お手数ですが、ご案内メールのリンクをもう一度お確かめください。
+              <br />
+              This link could not be found. Please check the link in your invitation email.
+            </>
+          )}
         </p>
         <p className="mt-6 text-sm text-gray-500">
           {PREP_CONTACT.person}　
