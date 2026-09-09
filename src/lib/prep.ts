@@ -47,6 +47,11 @@
  * create index prep_acknowledgements_interview_date_idx
  *   on public.prep_acknowledgements (interview_date);
  * alter table public.prep_acknowledgements enable row level security;
+ *
+ * -- これを忘れると本番のAPIが 42501 permission denied で落ちる。RLS の話とは別で、
+ * -- 表そのものの GRANT。マイグレーションで作った表には自動で付かなかった。
+ * grant select, insert, update, delete on public.prep_acknowledgements to service_role;
+ * revoke all on public.prep_acknowledgements from anon, authenticated;
  * ```
  *
  * 撮影が終わった行の `phone` は残しておく理由がないので、そのうち消す仕組みが
