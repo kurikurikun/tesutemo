@@ -166,11 +166,33 @@ export function cleanUrl(value: unknown): string | null {
  */
 export type PrepInterviewType = 'recruitment' | 'case_study'
 
-/** 完成した動画の見本。文章で説明するより、実物を1本見てもらうほうが早い。 */
+/** もっと見たい人のための行き先。埋め込みで足りる人はここを踏まない。 */
 export const SHOWCASE_URL: Record<PrepInterviewType, string> = {
   recruitment: 'https://www.tesutemo.co/recruitment',
   case_study: 'https://www.tesutemo.co/case-study',
 }
+
+/**
+ * 1枚目に置く完成例。文章で「こういう動画です」と書くより、30秒見てもらうほうが早い。
+ * サイト本体で出している縦型と同じもの（限定公開なので hash は必須）。
+ *
+ * インタビューの種類に合わせる。採用の人に導入事例を見せても参考にならない。
+ */
+export const PREP_EXAMPLES: Record<PrepInterviewType, { id: string; hash: string }[]> = {
+  // TECH CREW 採用インタビュー（/recruitment で公開中）
+  recruitment: [
+    { id: '1221072399', hash: 'e94079d935' }, // 野田さん S2
+    { id: '1222248180', hash: '709b280571' }, // 清水さん S3
+  ],
+  // Comas 導入事例（/case-study で公開中）
+  case_study: [
+    { id: '1211072475', hash: '8e9082a9da' }, // 手島さん S1
+    { id: '1211072453', hash: 'c96d4c9dc8' }, // 手島さん S2
+  ],
+}
+
+export const exampleEmbedUrl = ({ id, hash }: { id: string; hash: string }) =>
+  `https://player.vimeo.com/video/${id}?h=${hash}&badge=0&autopause=0&player_id=0&app_id=58479`
 
 export const RIVERSIDE_IOS = 'https://apps.apple.com/us/app/riverside-fm/id1554443872'
 export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=riverside.fm'
@@ -186,6 +208,7 @@ export const PREP_CONTACT = {
 type Copy = {
   metaTitle: string
   kicker: string
+  /** 改行は意図したところで入れる（whitespace-pre-line で保持される）。 */
   title: string
   /** 冒頭の一文。採用と導入事例で、ここだけ変わる。 */
   lede: Record<PrepInterviewType, string>
@@ -195,11 +218,9 @@ type Copy = {
   alreadyDone: string
   alreadyDoneBody: string
 
-  /** 完成イメージへのリンク。 */
+  /** 完成例。埋め込みの見出しと、もっと見たい人へのリンク。 */
+  examplesTitle: string
   showcaseLabel: string
-
-  /** 届くものは1行。以前は前置き・箇条書き・注記があったが、全部削った。 */
-  kitLine: string
 
   /** 当日の撮影環境。以前は赤いカード3枚＋場所の箇条書きだったが、1つの並びにした。 */
   envTitle: string
@@ -261,21 +282,20 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
   ja: {
     metaTitle: 'インタビュー前のご確認｜TesuTemo',
     kicker: '当日までにお読みください',
-    title: 'これは「撮影」です。オンライン会議ではありません。',
+    title: 'これは「撮影」です。\nオンライン会議ではありません。',
     lede: {
       recruitment: 'お送りするのは、御社のサイトや採用ページで長く使われる動画です。',
       case_study:
         'お送りするのは、導入事例として、ウェブサイトや資料で長く使われる動画です。',
     },
-    showcaseLabel: '完成した動画の例を見る',
+    examplesTitle: 'こんな動画になります',
+    showcaseLabel: 'ほかの例も見る',
     forWhom: (name) => `${name} 様へ`,
     onDate: (when) => `インタビュー：${when}`,
 
     alreadyDone: 'ご確認ありがとうございました。',
     alreadyDoneBody:
       '内容は受け付けています。当日までにもう一度読み返したいときは、このページをそのまま開いてください。',
-
-    kitLine: 'ライト付きのスマホスタンドをお届けします。',
 
     envTitle: '撮影環境',
     envLede: '撮影開始する前に一緒に確認して調整しますが、',
@@ -291,6 +311,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     beforeTitle: '当日までにやること',
     onDayTitle: '当日にやること',
     appBullets: [
+      'ライト付きのスマホスタンドをお届けします。お受け取りをお願いします。',
       'インタビューはパソコンではなく、ご自身のスマホで受けていただきます。無料アプリ「Riverside」を入れておいてください。',
     ],
     appWarning:
@@ -344,22 +365,21 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
   en: {
     metaTitle: 'Before your interview | TesuTemo',
     kicker: 'Please read before the day',
-    title: 'This is a shoot, not a video call.',
+    title: 'This is a shoot.\nNot a video call.',
     lede: {
       recruitment:
         'What we record will live on your company’s website and hiring pages for years.',
       case_study:
         'What we record becomes a customer story, used on the web and in sales material for years.',
     },
-    showcaseLabel: 'See a finished video',
+    examplesTitle: 'This is what we make',
+    showcaseLabel: 'See more examples',
     forWhom: (name) => `For ${name}`,
     onDate: (when) => `Interview: ${when}`,
 
     alreadyDone: 'Thanks — you’re all set.',
     alreadyDoneBody:
       'We’ve got your confirmation. This page stays open if you want to look anything up again before the day.',
-
-    kitLine: 'We’ll send you a phone stand with a light built in.',
 
     envTitle: 'Your setup',
     envLede: 'We’ll check all of this together before we start, but worth knowing in advance:',
@@ -375,6 +395,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     beforeTitle: 'Before the day',
     onDayTitle: 'On the day',
     appBullets: [
+      'A phone stand with a light built in arrives by post — please take it in when it does.',
       'The interview runs on your own phone, not a computer. Install the free Riverside app before the day.',
     ],
     appWarning: 'Don’t sign in with “Continue with Google” or similar. You don’t need an account.',

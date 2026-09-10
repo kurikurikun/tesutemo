@@ -8,7 +8,9 @@ import {
   PREP_STEPS,
   RIVERSIDE_ANDROID,
   RIVERSIDE_IOS,
+  PREP_EXAMPLES,
   SHOWCASE_URL,
+  exampleEmbedUrl,
   type PrepInterviewType,
   type PrepLang,
   type PrepPublicRow,
@@ -129,6 +131,34 @@ function StandPhotos({ captions }: { captions: Record<string, string> }) {
             {captions[p.key]}
           </figcaption>
         </figure>
+      ))}
+    </div>
+  )
+}
+
+/**
+ * 完成例の縦型を2本。読む前に「こういうものを撮ります」が伝わるのが狙い。
+ *
+ * 自動再生はしない。勝手に動くと通信量を食うし、音が出ると驚かせる。
+ * lazy にしてあるので、スクロールして見えるまで読み込まれない。
+ */
+function ExampleVideos({ type }: { type: PrepInterviewType }) {
+  return (
+    <div className="mt-4 grid grid-cols-2 gap-3">
+      {PREP_EXAMPLES[type].map((v) => (
+        <div
+          key={v.id}
+          className="aspect-[9/16] overflow-hidden rounded-xl bg-gray-900 ring-1 ring-gray-200"
+        >
+          <iframe
+            src={exampleEmbedUrl(v)}
+            className="h-full w-full"
+            loading="lazy"
+            allow="fullscreen; picture-in-picture"
+            allowFullScreen
+            title="TesuTemo の完成例"
+          />
+        </div>
       ))}
     </div>
   )
@@ -342,16 +372,23 @@ export default function PrepPage() {
 
       {step === 'before' && (
         <>
-          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.title}</h1>
+          <h1 className="mt-6 whitespace-pre-line text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
+            {t.title}
+          </h1>
           <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede[type]}</p>
-          <a
-            href={SHOWCASE_URL[type]}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-block text-[15px] font-semibold text-primary underline underline-offset-4"
-          >
-            {t.showcaseLabel} →
-          </a>
+
+          <section className="mt-6">
+            <h2 className="text-[15px] font-bold text-gray-900">{t.examplesTitle}</h2>
+            <ExampleVideos type={type} />
+            <a
+              href={SHOWCASE_URL[type]}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4"
+            >
+              {t.showcaseLabel} →
+            </a>
+          </section>
 
           <div className="mt-6 rounded-xl bg-white px-5 py-4 text-sm text-gray-700 ring-1 ring-gray-200">
             <p className="font-semibold text-gray-900">{t.forWhom(row.name)}</p>
@@ -389,9 +426,6 @@ export default function PrepPage() {
             </div>
           )}
 
-          <section className="mt-10">
-            <p className="text-[15px] leading-relaxed text-gray-700">{t.kitLine}</p>
-          </section>
 
           <section className="mt-12">
             <h2 className="text-lg font-bold text-gray-900">{t.beforeTitle}</h2>
