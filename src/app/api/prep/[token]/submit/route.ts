@@ -11,7 +11,7 @@ const STEP_LABEL: Record<PrepStep, string> = {
 
 
 /** 確認が入ったときに知らせる先。増やすならここに足す。 */
-const NOTIFY_TO = ['kinoshita@move-ment.co']
+const NOTIFY_TO = ['kinoshita@move-ment.co', 'chris@move-ment.co']
 
 export async function POST(req: NextRequest, { params }: { params: { token: string } }) {
   const body = await req.json().catch(() => null)
