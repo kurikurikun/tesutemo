@@ -203,6 +203,11 @@ export default function PrepPage() {
       .then((data: PrepPublicRow) => {
         if (!live) return
         setRow(data)
+        if (data.submitted_at) {
+          // すでに送信済みの人に、同じフォームをもう一度見せない（木下さんの指摘）。
+          setScreen('done')
+          return
+        }
         setScreen('steps')
         markSeen(PREP_STEPS[0])
       })
@@ -322,13 +327,26 @@ export default function PrepPage() {
 
   if (screen === 'done') {
     return (
-      <main className="mx-auto max-w-xl px-5 py-20">
-        <div className="rounded-2xl bg-white p-8 ring-1 ring-gray-200">
+      <main className="mx-auto max-w-xl px-5 py-14">
+        <div className="rounded-2xl bg-white p-6 ring-1 ring-gray-200">
           <h1 className="text-xl font-bold text-gray-900">{t.doneTitle}</h1>
           <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.doneBody}</p>
+          {row.interview_date && (
+            <p className="mt-4 text-[15px] font-semibold text-gray-900">
+              {t.onDate(
+                [
+                  formatDate(row.interview_date, lang),
+                  row.interview_time ? formatTime(row.interview_time, lang) : null,
+                ]
+                  .filter(Boolean)
+                  .join('　')
+              )}
+            </p>
+          )}
         </div>
+
         {row.riverside_url && (
-          <div className="mt-6">
+          <div className="mt-4">
             <JoinBox
               url={row.riverside_url}
               title={t.onDayTitle}
@@ -337,6 +355,20 @@ export default function PrepPage() {
             />
           </div>
         )}
+
+        {/* 読み返したい人のための戻り道。押すと案内の1枚目から辿れる。 */}
+        <button
+          type="button"
+          onClick={() => {
+            setStepIndex(0)
+            setScreen('steps')
+            window.scrollTo({ top: 0 })
+          }}
+          className="mt-6 w-full rounded-xl bg-white py-3.5 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
+        >
+          {t.reviewLabel}
+        </button>
+
         {contactBlock}
       </main>
     )

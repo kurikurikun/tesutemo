@@ -280,6 +280,8 @@ type Copy = {
 
   doneTitle: string
   doneBody: string
+  /** 送信済みの人が開き直したときに、内容へ戻るための入口。 */
+  reviewLabel: string
 
   helpTitle: string
   helpBody: string
@@ -357,8 +359,8 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     stepOf: (n, total) => `${n} / ${total}`,
 
     doneTitle: 'ありがとうございました。当日お会いしましょう。',
-    doneBody:
-      'ご確認を受け付けました。当日までに読み返したいときは、このページをそのまま開いてください。ご不明な点があれば、下の連絡先までお気軽にどうぞ。',
+    doneBody: 'ご確認を受け付けました。当日は、このページを開いてボタンを押してください。',
+    reviewLabel: '事前のご案内をもう一度見る',
 
     helpTitle: '困ったときは',
     helpBody: 'つながらないときはお電話ください。',
@@ -440,8 +442,8 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     stepOf: (n, total) => `${n} of ${total}`,
 
     doneTitle: 'Thanks — see you on the day.',
-    doneBody:
-      'We’ve got your confirmation. This page stays open if you want to look anything up again. Anything unclear, just get in touch below.',
+    doneBody: 'We’ve got your confirmation. On the day, open this page and tap the button.',
+    reviewLabel: 'Read the details again',
 
     helpTitle: 'If anything goes wrong',
     helpBody: 'If you can’t get through, call.',
