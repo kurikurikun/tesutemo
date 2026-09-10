@@ -372,7 +372,7 @@ export default function PrepPage() {
 
       {step === 'before' && (
         <>
-          <p className="mt-6 whitespace-pre-line text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
+          <p className="mt-6 whitespace-pre-line text-[18px] font-bold leading-snug text-gray-900 sm:text-[20px]">
             {t.title}
           </p>
           <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede[type]}</p>
