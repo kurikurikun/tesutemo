@@ -197,12 +197,21 @@ export const exampleEmbedUrl = ({ id, hash }: { id: string; hash: string }) =>
 export const RIVERSIDE_IOS = 'https://apps.apple.com/us/app/riverside-fm/id1554443872'
 export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=riverside.fm'
 
-export const PREP_CONTACT = {
-  company: '株式会社move-ment',
-  person: '木下',
-  personEn: 'Kinoshita',
-  tel: '090-2095-5234',
-  email: 'kinoshita@move-ment.co',
+/**
+ * 困ったときの連絡先。言語ごとに担当が違うので、名前も番号も丸ごと入れ替える。
+ * 英語のインタビュイーが日本語しか話せない番号にかけても意味がない。
+ */
+export const PREP_CONTACT: Record<PrepLang, { who: string; tel: string; email: string }> = {
+  ja: {
+    who: '株式会社move-ment　木下',
+    tel: '090-2095-5234',
+    email: 'kinoshita@move-ment.co',
+  },
+  en: {
+    who: 'Chris Moore, Move-ment Co. Ltd.',
+    tel: '090-3880-0895',
+    email: 'chris@move-ment.co',
+  },
 }
 
 type Copy = {

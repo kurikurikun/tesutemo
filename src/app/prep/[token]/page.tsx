@@ -285,12 +285,17 @@ export default function PrepPage() {
             </>
           )}
         </p>
-        <p className="mt-6 text-sm text-gray-500">
-          {PREP_CONTACT.person}
-          <a className="text-primary" href={`tel:${PREP_CONTACT.tel}`}>
-            {PREP_CONTACT.tel}
-          </a>
-        </p>
+        {/* この画面では行が引けていないので言語が分からない。両方の連絡先を出す。 */}
+        <div className="mt-6 space-y-1 text-sm text-gray-500">
+          {(['ja', 'en'] as const).map((l) => (
+            <p key={l}>
+              {PREP_CONTACT[l].who}　
+              <a className="text-primary" href={`tel:${PREP_CONTACT[l].tel}`}>
+                {PREP_CONTACT[l].tel}
+              </a>
+            </p>
+          ))}
+        </div>
       </div>
     )
   }
@@ -300,17 +305,15 @@ export default function PrepPage() {
       <h2 className="text-base font-bold text-gray-900">{t.helpTitle}</h2>
       <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{t.helpBody}</p>
       <div className="mt-4 space-y-1 text-[15px] text-gray-800">
+        <p>{PREP_CONTACT[lang].who}</p>
         <p>
-          {PREP_CONTACT.company}　{isJa ? PREP_CONTACT.person : PREP_CONTACT.personEn}
-        </p>
-        <p>
-          <a className="font-semibold text-primary" href={`tel:${PREP_CONTACT.tel}`}>
-            {PREP_CONTACT.tel}
+          <a className="font-semibold text-primary" href={`tel:${PREP_CONTACT[lang].tel}`}>
+            {PREP_CONTACT[lang].tel}
           </a>
         </p>
         <p>
-          <a className="text-primary" href={`mailto:${PREP_CONTACT.email}`}>
-            {PREP_CONTACT.email}
+          <a className="text-primary" href={`mailto:${PREP_CONTACT[lang].email}`}>
+            {PREP_CONTACT[lang].email}
           </a>
         </p>
       </div>
