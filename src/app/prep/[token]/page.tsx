@@ -378,12 +378,23 @@ export default function PrepPage() {
             {t.appWarning}
           </p>
 
-          <section className="mt-10">
-            <h2 className="text-lg font-bold text-gray-900">{t.dayTitle}</h2>
-            <div className="mt-4">
-              <Bullets items={t.dayBullets} />
+          {/*
+            当日の入り方は、事前に読んでも覚えていられない（木下さんの指摘）。
+            消すのではなく、たたんでおいて「当日ここを開けばよい」と先に言う。
+            事前に読む量は減るが、必要な瞬間には同じ場所にある。
+          */}
+          <details className="mt-10 rounded-2xl bg-white ring-1 ring-gray-200">
+            <summary className="cursor-pointer list-none px-5 py-4 text-[15px] font-bold text-gray-900 marker:hidden [&::-webkit-details-marker]:hidden">
+              {t.dayTitle}
+              <span className="ml-2 text-xs font-normal text-primary">＋</span>
+            </summary>
+            <div className="border-t border-gray-100 px-5 py-4">
+              <p className="text-sm leading-relaxed text-gray-500">{t.dayNote}</p>
+              <div className="mt-4">
+                <Bullets items={t.dayBullets} />
+              </div>
             </div>
-          </section>
+          </details>
         </>
       )}
 

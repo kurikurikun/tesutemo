@@ -167,6 +167,8 @@ type Copy = {
   appAndroid: string
 
   dayTitle: string
+  /** 覚えなくてよい、と先に言う。当日その場で開いてもらう前提。 */
+  dayNote: string
   dayBullets: string[]
 
   formTitle: string
@@ -210,7 +212,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     kicker: '当日までにお読みください',
     title: 'これは「撮影」です。オンライン会議ではありません。',
     lede:
-      'お送りするのは、御社のウェブサイトや採用ページで長く使われる動画です。画面越しの打ち合わせと違い、映り方と音がそのまま残ります。5分だけお時間をください。ここに書いてあることを押さえていただけると、当日は話すことだけに集中できます。',
+      'お送りするのは、御社のサイトや採用ページで長く使われる動画です。画面越しの打ち合わせと違い、映り方と音がそのまま残ります。',
     forWhom: (name) => `${name} 様へ`,
     onDate: (date) => `インタビュー日：${date}`,
 
@@ -220,51 +222,46 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     kitTitle: 'お届けするもの',
     kitLede:
-      'インタビューの1週間ほど前に、撮影用のスタンドをお送りします。ライトもリモコンもこのスタンドに付いていますので、ご自身で用意していただくものはありません。',
-    kitNote:
-      '前日までに届いていない場合は、下の連絡先までお知らせください。予備をお持ちします。',
-    kitItems: [
-      'スマホスタンド（LEDライト付き）。組み立ては不要です',
-      'ライトは充電式です。前日に充電だけお願いします',
-    ],
+      'インタビューの1週間ほど前に、撮影用のスタンドをお送りします。ご用意いただくものはありません。',
+    kitNote: '前日までに届かないときは、ご連絡ください。',
+    kitItems: ['スマホスタンド（LEDライト付き）。組み立ては不要です', '前日にライトの充電をお願いします'],
     ngTitle: 'この3つだけ、お願いします',
     ngLede: '過去に、当日その場で直していただくことになった3点です。',
     ng: [
       {
-        title: 'バーチャル背景・美肌フィルターはオフに',
-        body:
-          '背景を差し替えると、輪郭がにじんだり、手を動かしたときに指先が欠けたりします。編集で直せません。実際の部屋のまま撮らせてください。',
+        title: 'バーチャル背景・フィルターはオフに',
+        body: '輪郭がにじんでしまい、編集では直せません。お部屋はそのままで大丈夫です。',
       },
       {
         title: 'イヤホンは使わない（有線・無線とも）',
-        body:
-          'イヤホンのマイクは口元から遠く、音がこもります。スマホ本体のマイクのほうがきれいに録れます。ワイヤレスは途中で切れることもあるので、耳から外してお待ちください。',
+        body: 'スマホ本体のマイクのほうが、きれいに録れます。',
       },
       {
         title: 'スマホは目線の高さに',
         body:
-          '机に直接置いたり手で持ったりすると、カメラが下から見上げる画になります。同梱のスタンドに取り付けて、座ったときにレンズが目の高さにくるように合わせてください。床でも机の上でも構いません。細かい位置は当日お声がけします。',
+          '同梱のスタンドに取り付けて、座ったときにレンズが目の高さにくるように。細かい位置は当日お声がけします。',
       },
     ],
 
     roomTitle: '撮影する場所',
     roomBullets: [
-      'できるだけ静かな場所（空調やドアの音も入ります）',
-      '背景はできるだけスッキリと',
-      '窓を背にすると逆光になります。窓は正面か横に',
+      '静かな場所（空調やドアの音も入ります）',
+      '背景はスッキリと',
+      '窓は正面か横に（背にすると逆光になります）',
     ],
 
     appTitle: '当日までにアプリを入れる',
     appBullets: [
-      'App Store か Google Play から、無料アプリ「Riverside」をインストールしてください。',
-      'インタビューはパソコンではなく、ご自身のスマホで受けていただきます。',
+      'インタビューはパソコンではなく、ご自身のスマホで受けていただきます。無料アプリ「Riverside」を入れておいてください。',
     ],
     appWarning:
-      '「Continue with Google」「Continue with Apple」などをタップしてサインインしないでください。アカウントを作る必要はありません。',
+      '「Continue with Google」などでサインインしないでください。アカウントは不要です。',
     appIos: 'iPhone の方はこちら（App Store）',
     appAndroid: 'Android の方はこちら（Google Play）',
 
     dayTitle: '当日の入り方',
+    dayNote:
+      'ここは覚えなくて大丈夫です。当日このページを開けば同じ手順が出ますし、ご案内メールにも書いてあります。',
     dayBullets: [
       'ご案内メールで届いたリンクをスマホで開く',
       '「Join via App」→「I’m ready!」→「Join」の順にタップ',
@@ -316,7 +313,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     kicker: 'Please read before the day',
     title: 'This is a shoot, not a video call.',
     lede:
-      'What we record will live on your company’s website and hiring pages for years. Unlike a normal meeting, how you look and sound is what stays. Give us five minutes here and on the day you can think about nothing but what you want to say.',
+      'What we record will live on your company’s website and hiring pages for years. Unlike a normal meeting, how you look and sound is what stays.',
     forWhom: (name) => `For ${name}`,
     onDate: (date) => `Interview date: ${date}`,
 
@@ -326,51 +323,45 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     kitTitle: 'What we’re sending you',
     kitLede:
-      'About a week before your interview, a stand arrives by post. The light and the remote are both part of it, so there’s nothing you need to buy or borrow.',
-    kitNote:
-      'If it hasn’t arrived the day before, let us know at the number below and we’ll bring a spare.',
-    kitItems: [
-      'A phone stand with an LED light. Nothing to assemble',
-      'The light runs on a battery — just charge it the night before',
-    ],
+      'About a week before your interview, a stand arrives by post. There’s nothing you need to buy or borrow.',
+    kitNote: 'If it hasn’t arrived the day before, give us a call.',
+    kitItems: ['A phone stand with an LED light. Nothing to assemble', 'Charge the light the night before'],
     ngTitle: 'Three things that really matter',
     ngLede: 'These are the three we’ve had to fix on the day. If you remember nothing else, remember these.',
     ng: [
       {
-        title: 'Turn off virtual backgrounds and beauty filters',
-        body:
-          'A replaced background smears your outline and makes bits of you disappear when you move your hands. We can’t fix that in the edit. Your actual room is fine — that’s the point.',
+        title: 'Turn off virtual backgrounds and filters',
+        body: 'They smear your outline, and we can’t fix that in the edit. Your actual room is fine.',
       },
       {
         title: 'No earphones — wired or wireless',
-        body:
-          'An earphone mic sits far from your mouth and makes you sound boxed in. Your phone’s own mic is better. Wireless ones also drop out mid-sentence, so please take them out before we start.',
+        body: 'Your phone’s own mic sounds better than either.',
       },
       {
         title: 'Put the phone at eye level',
         body:
-          'Flat on a desk or held in your hand, the camera ends up looking up at you. Put it in the stand we send and set it so the lens meets your eyes while you’re sitting down — on the floor or on your desk, whichever is easier. We’ll help you fine-tune it on the day.',
+          'Use the stand we send, set so the lens meets your eyes while seated. We’ll fine-tune it on the day.',
       },
     ],
 
     roomTitle: 'Where to sit',
     roomBullets: [
-      'Somewhere quiet — air conditioning and doors both make it onto the recording',
+      'Somewhere quiet — air conditioning and doors both reach the mic',
       'A tidy background',
-      'Don’t sit with a window behind you. Put it in front of you or to one side',
+      'A window in front of you or to one side, never behind',
     ],
 
     appTitle: 'Install the app beforehand',
     appBullets: [
-      'Install the free Riverside app from the App Store or Google Play.',
-      'The interview runs on your own phone, not a computer.',
+      'The interview runs on your own phone, not a computer. Install the free Riverside app before the day.',
     ],
-    appWarning:
-      'Don’t tap “Continue with Google”, “Continue with Apple” or anything like it. You don’t need an account.',
+    appWarning: 'Don’t sign in with “Continue with Google” or similar. You don’t need an account.',
     appIos: 'iPhone — App Store',
     appAndroid: 'Android — Google Play',
 
     dayTitle: 'Joining on the day',
+    dayNote:
+      'Nothing to memorise. Open this page on the day and the steps are here, and they’re in your invitation email too.',
     dayBullets: [
       'Open the link from your invitation email on your phone',
       'Tap “Join via App” → “I’m ready!” → “Join”',
