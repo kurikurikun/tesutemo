@@ -284,9 +284,9 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     kicker: '当日までにお読みください',
     title: 'これは「撮影」です。\nオンライン会議ではありません。',
     lede: {
-      recruitment: 'お送りするのは、御社のサイトや採用ページで長く使われる動画です。',
+      recruitment: '今回作るのは、御社のサイトや採用ページで長く使われる動画です。',
       case_study:
-        'お送りするのは、導入事例として、ウェブサイトや資料で長く使われる動画です。',
+        '今回作るのは、導入事例として、ウェブサイトや資料で長く使われる動画です。',
     },
     examplesTitle: 'こんな動画になります',
     showcaseLabel: 'ほかの例も見る',
