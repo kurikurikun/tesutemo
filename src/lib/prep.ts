@@ -302,7 +302,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     envBullets: [
       'バーチャル背景・フィルターはオフに',
       'イヤホンは使わない（有線・無線とも）',
-      'スマホはスタンドを調整して目線の高さに',
+      'スマホは縦向きで、スタンドを調整して目線の高さに',
       '背景はなるべくスッキリに',
       '窓は正面か横に（背にすると逆光になります）',
       'なるべく静かなところで',
@@ -356,7 +356,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     photoCaptions: {
       'stand-1': 'スタンドを立てたところ',
-      'stand-2': 'スマホを取り付けたところ',
+      'stand-2': 'スマホを縦向きに取り付けたところ',
       'stand-3': '座って、目線の高さに合わせたところ',
       'stand-4': 'ライトをつけたところ',
     },
@@ -386,7 +386,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     envBullets: [
       'Virtual backgrounds and filters off',
       'No earphones, wired or wireless',
-      'Phone on the stand, at eye level',
+      'Phone upright (portrait) on the stand, at eye level',
       'A tidy background',
       'A window in front of you or to one side, never behind',
       'Somewhere quiet',
@@ -439,7 +439,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     photoCaptions: {
       'stand-1': 'The stand set up',
-      'stand-2': 'Phone mounted',
+      'stand-2': 'Phone mounted upright',
       'stand-3': 'Seated, adjusted to eye level',
       'stand-4': 'Light switched on',
     },
