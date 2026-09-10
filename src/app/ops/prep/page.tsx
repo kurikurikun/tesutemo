@@ -19,7 +19,6 @@ const TYPE_LABEL: Record<PrepInterviewType, string> = {
 // どこまで読んだかが一目で分かるように。送信がなくても「3枚目を見ていない」が
 // 分かれば、当日そこだけ口頭で補える。
 const STEP_LABEL: Record<PrepStep, string> = {
-  intro: 'はじめに',
   before: '当日まで',
   onday: '当日',
   contact: '連絡先',
@@ -189,7 +188,6 @@ function Row({
             <input
               defaultValue={row.riverside_url ?? ''}
               onBlur={(e) => onPatch(row.id, { riverside_url: e.target.value || null })}
-              placeholder="https://riverside.com/studio/..."
               className="mt-1 w-full rounded-lg border border-gray-200 px-2 py-1.5 text-xs text-gray-900"
             />
           </div>
@@ -312,7 +310,6 @@ export default function OpsPrepPage() {
               <input
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                placeholder="田中 太郎"
                 className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
                 required
               />
@@ -322,7 +319,6 @@ export default function OpsPrepPage() {
               <input
                 value={form.company}
                 onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
-                placeholder="TECH CREW"
                 className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
               />
             </div>
@@ -391,7 +387,7 @@ export default function OpsPrepPage() {
             <input
               value={form.riverside_url}
               onChange={(e) => setForm((f) => ({ ...f, riverside_url: e.target.value }))}
-              placeholder="https://riverside.com/studio/... （あとから入れてもOK）"
+              placeholder="あとから入れてもOK"
               className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
             />
           </div>

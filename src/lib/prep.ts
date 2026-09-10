@@ -135,7 +135,7 @@ export function prepStatus(row: Pick<PrepRow, 'first_opened_at' | 'submitted_at'
  * 代わりに、どの画面まで進んだかを1つずつ記録する。送信がなくても「この人は
  * 3枚目を見ていない」と分かるので、当日そこだけ口頭で補える。
  */
-export const PREP_STEPS = ['intro', 'before', 'onday', 'contact'] as const
+export const PREP_STEPS = ['before', 'onday', 'contact'] as const
 
 export type PrepStep = (typeof PREP_STEPS)[number]
 
@@ -207,8 +207,9 @@ type Copy = {
   envBullets: string[]
 
   /**
-   * 画面は「いつやるか」で割る。当日の話が2枚にまたがっていると、どこを見れば
-   * よいのか分からなくなる。2枚目＝当日まで、3枚目＝当日、と1枚に1つ。
+   * 画面は「いつやるか」で割る。1枚目＝当日まで、2枚目＝当日、3枚目＝連絡先。
+   * 導入の説明だけで1枚使うほどの中身がないので、当日までにやることと同じ枚に
+   * まとめている。枚数が増えるほど途中で離脱する場所も増える。
    */
   beforeTitle: string
   onDayTitle: string

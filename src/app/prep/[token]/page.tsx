@@ -340,7 +340,7 @@ export default function PrepPage() {
         ))}
       </div>
 
-      {step === 'intro' && (
+      {step === 'before' && (
         <>
           <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.title}</h1>
           <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede[type]}</p>
@@ -391,17 +391,11 @@ export default function PrepPage() {
 
           <section className="mt-10">
             <p className="text-[15px] leading-relaxed text-gray-700">{t.kitLine}</p>
-            <StandPhotos captions={t.photoCaptions} />
           </section>
-        </>
-      )}
 
-      {step === 'before' && (
-        <>
-          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">
-            {t.beforeTitle}
-          </h1>
-          <div className="mt-4">
+          <section className="mt-12">
+            <h2 className="text-lg font-bold text-gray-900">{t.beforeTitle}</h2>
+            <div className="mt-4">
             <Bullets items={t.appBullets} />
           </div>
           <div className="mt-4 space-y-2">
@@ -422,9 +416,10 @@ export default function PrepPage() {
               {t.appAndroid} →
             </a>
           </div>
-          <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
-            {t.appWarning}
-          </p>
+            <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
+              {t.appWarning}
+            </p>
+          </section>
         </>
       )}
 
@@ -441,6 +436,7 @@ export default function PrepPage() {
             <div className="mt-4">
               <Bullets items={t.envBullets} />
             </div>
+            <StandPhotos captions={t.photoCaptions} />
           </section>
 
           {/* スタジオURLが未設定の行では出さない（見出しだけ残さない）。 */}

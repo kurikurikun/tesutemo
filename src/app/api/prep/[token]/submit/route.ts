@@ -4,10 +4,9 @@ import { getSupabaseAdmin } from '@/lib/survey'
 import { PREP_STEPS, type PrepStep } from '@/lib/prep'
 
 const STEP_LABEL: Record<PrepStep, string> = {
-  intro: '1. これは撮影です／お届けするもの',
-  before: '2. 当日までにやること',
-  onday: '3. 当日にやること',
-  contact: '4. お名前とご連絡先',
+  before: '1. これは撮影です／当日までにやること',
+  onday: '2. 当日にやること',
+  contact: '3. お名前とご連絡先',
 }
 
 
