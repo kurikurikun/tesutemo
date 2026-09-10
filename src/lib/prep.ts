@@ -128,7 +128,7 @@ export function prepStatus(row: Pick<PrepRow, 'first_opened_at' | 'submitted_at'
  * 代わりに、どの画面まで進んだかを1つずつ記録する。送信がなくても「この人は
  * 3枚目を見ていない」と分かるので、当日そこだけ口頭で補える。
  */
-export const PREP_STEPS = ['intro', 'critical', 'app', 'contact'] as const
+export const PREP_STEPS = ['intro', 'before', 'onday', 'contact'] as const
 
 export type PrepStep = (typeof PREP_STEPS)[number]
 
@@ -199,7 +199,10 @@ type Copy = {
   envLede: string
   envBullets: string[]
 
-  /** 3枚目は「いつやるか」で割る。 */
+  /**
+   * 画面は「いつやるか」で割る。当日の話が2枚にまたがっていると、どこを見れば
+   * よいのか分からなくなる。2枚目＝当日まで、3枚目＝当日、と1枚に1つ。
+   */
   beforeTitle: string
   onDayTitle: string
 
@@ -266,7 +269,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     kitLine: 'ライト付きのスマホスタンドをお届けします。',
 
-    envTitle: '＜当日の撮影環境＞',
+    envTitle: '撮影環境',
     envLede: '撮影開始する前に一緒に確認して調整しますが、',
     envBullets: [
       'バーチャル背景・フィルターはオフに',
@@ -350,7 +353,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     kitLine: 'We’ll send you a phone stand with a light built in.',
 
-    envTitle: 'Your setup on the day',
+    envTitle: 'Your setup',
     envLede: 'We’ll check all of this together before we start, but worth knowing in advance:',
     envBullets: [
       'Virtual backgrounds and filters off',

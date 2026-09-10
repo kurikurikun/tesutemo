@@ -5,8 +5,8 @@ import { PREP_STEPS, type PrepStep } from '@/lib/prep'
 
 const STEP_LABEL: Record<PrepStep, string> = {
   intro: '1. これは撮影です／お届けするもの',
-  critical: '2. 気をつけていただきたい3つ／撮影する場所',
-  app: '3. アプリと当日の入り方',
+  before: '2. 当日までにやること',
+  onday: '3. 当日にやること',
   contact: '4. お名前とご連絡先',
 }
 

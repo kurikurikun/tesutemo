@@ -381,17 +381,7 @@ export default function PrepPage() {
         </>
       )}
 
-      {step === 'critical' && (
-        <>
-          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.envTitle}</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.envLede}</p>
-          <div className="mt-5">
-            <Bullets items={t.envBullets} />
-          </div>
-        </>
-      )}
-
-      {step === 'app' && (
+      {step === 'before' && (
         <>
           <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">
             {t.beforeTitle}
@@ -420,19 +410,29 @@ export default function PrepPage() {
           <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
             {t.appWarning}
           </p>
+        </>
+      )}
 
-          {/*
-            当日のやることはボタン1つだけ。手順の箇条書きは消した——事前に読んでも
-            覚えていられないうえ、リンクを貼り付ける操作そのものが無くなったため。
-            スタジオURLが未設定の行では、この節ごと出さない（見出しだけ残さない）。
-          */}
+      {step === 'onday' && (
+        <>
+          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">
+            {t.onDayTitle}
+          </h1>
+
+          {/* 当日やることの順番どおり。部屋を整えてから、時間になったら入る。 */}
+          <section className="mt-8">
+            <h2 className="text-lg font-bold text-gray-900">{t.envTitle}</h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-gray-600">{t.envLede}</p>
+            <div className="mt-4">
+              <Bullets items={t.envBullets} />
+            </div>
+          </section>
+
+          {/* スタジオURLが未設定の行では出さない（見出しだけ残さない）。 */}
           {row.riverside_url && (
-            <section className="mt-12">
-              <h2 className="text-[26px] font-bold leading-snug text-gray-900">{t.onDayTitle}</h2>
-              <div className="mt-4">
-                <JoinBox url={row.riverside_url} note={t.joinNote} button={t.joinButton} />
-              </div>
-            </section>
+            <div className="mt-10">
+              <JoinBox url={row.riverside_url} note={t.joinNote} button={t.joinButton} />
+            </div>
           )}
         </>
       )}

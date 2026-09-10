@@ -19,9 +19,9 @@ const TYPE_LABEL: Record<PrepInterviewType, string> = {
 // どこまで読んだかが一目で分かるように。送信がなくても「3枚目を見ていない」が
 // 分かれば、当日そこだけ口頭で補える。
 const STEP_LABEL: Record<PrepStep, string> = {
-  intro: '撮影です',
-  critical: '3つ',
-  app: 'アプリ',
+  intro: 'はじめに',
+  before: '当日まで',
+  onday: '当日',
   contact: '連絡先',
 }
 
