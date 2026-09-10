@@ -372,9 +372,9 @@ export default function PrepPage() {
 
       {step === 'before' && (
         <>
-          <h1 className="mt-6 whitespace-pre-line text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
+          <p className="mt-6 whitespace-pre-line text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
             {t.title}
-          </h1>
+          </p>
           <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede[type]}</p>
 
           <section className="mt-6">
@@ -428,28 +428,30 @@ export default function PrepPage() {
 
 
           <section className="mt-12">
-            <h2 className="text-lg font-bold text-gray-900">{t.beforeTitle}</h2>
+            <h1 className="text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
+              {t.beforeTitle}
+            </h1>
             <div className="mt-4">
-            <Bullets items={t.appBullets} />
-          </div>
-          <div className="mt-4 space-y-2">
-            <a
-              href={RIVERSIDE_IOS}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
-            >
-              {t.appIos} →
-            </a>
-            <a
-              href={RIVERSIDE_ANDROID}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
-            >
-              {t.appAndroid} →
-            </a>
-          </div>
+              <Bullets items={t.appBullets} />
+            </div>
+            <div className="mt-4 space-y-2">
+              <a
+                href={RIVERSIDE_IOS}
+                target="_blank"
+                rel="noreferrer"
+                className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
+              >
+                {t.appIos} →
+              </a>
+              <a
+                href={RIVERSIDE_ANDROID}
+                target="_blank"
+                rel="noreferrer"
+                className="block rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-primary ring-1 ring-gray-200"
+              >
+                {t.appAndroid} →
+              </a>
+            </div>
             <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
               {t.appWarning}
             </p>
@@ -459,7 +461,7 @@ export default function PrepPage() {
 
       {step === 'onday' && (
         <>
-          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">
+          <h1 className="mt-6 text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
             {t.onDayTitle}
           </h1>
 
@@ -484,7 +486,9 @@ export default function PrepPage() {
 
       {step === 'contact' && (
         <form onSubmit={handleSubmit} className="mt-6">
-          <h1 className="text-[26px] font-bold leading-snug text-gray-900">{t.formTitle}</h1>
+          <h1 className="text-[22px] font-bold leading-snug text-gray-900 sm:text-[26px]">
+            {t.formTitle}
+          </h1>
           <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.formLede}</p>
 
           <p className="mt-5 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
