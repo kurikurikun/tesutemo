@@ -1,67 +1,57 @@
 /**
- * /prep/<token> に出す作例写真のスロット。
+ * /prep/<token> の1枚目に出す、スタンド設置の作例写真。
  *
- * techcrew-videos.ts と同じ考え方で、`src` が空のスロットはページ側が黙って
- * 飛ばす。写真が1枚も入っていなくてもページは成立するので、キットが届いて
- * 撮影できてから、このファイルだけを直せばよい。
+ * ## いまは仮置き
+ *
+ * `src` が空のスロットは、灰色の枠とキャプションだけの **プレースホルダー** として
+ * 表示される。撮る前でもレイアウトが確認できるようにしてあるが、裏を返すと
+ * **本番のインタビュイーにもこの枠が見える**。実際に送る前に必ず写真を入れること。
  *
  * ## 撮り方
  *
- * 実際にお送りするスタンド（三脚とLEDライトが一体になったもの）で撮ること。
- * 製品は今後変わる可能性があるが「スタンドとライトが一体」という前提は変わらない。
- * 以前のPDFに載せていた「卓上スタンド」「本を積む」の写真は、もう送るものと
- * 違うので使わない。
- *
- * 良い例と悪い例を並べるのが目的なので、同じ部屋・同じ人で撮ると効く。
+ * 実際にお送りするスタンド（三脚とLEDライトが一体になったもの）で、順を追って4枚。
+ * 同じ場所・同じ人で撮ると、手順として読める。
  *
  * ## 入れ方
  *
- * 1. 画像を public/prep/ に置く（例: public/prep/setup.jpg）。
- * 2. 下のスロットの `src` に '/prep/setup.jpg' と書く。
+ * 1. 画像を public/prep/ に置く（例: public/prep/stand-1.jpg）。
+ * 2. 下のスロットの `src` のコメントを外す。
  * 3. キャプションは prep.ts の PREP_COPY[lang].photoCaptions に日英とも入っている。
- *    写真の内容を変えたらそちらも直すこと。
  *
  * 画像は横1200px程度、JPEGで十分。スマホで開かれるので重すぎないように。
  */
 
 export type PrepPhoto = {
   /** photoCaptions のキーと対応。並び順もこの配列のとおり。 */
-  key: 'setup' | 'frame-good' | 'frame-bad' | 'room-bad'
+  key: 'stand-1' | 'stand-2' | 'stand-3' | 'stand-4'
   /** 何を撮るかのメモ。表示されない。 */
   note: string
-  /** public/ からのパス。空 = まだ出さない。 */
+  /** public/ からのパス。空 = プレースホルダーのまま。 */
   src?: string
-  /** ○×どちらの例か。ページ側の枠の色に使う。 */
-  tone: 'good' | 'bad' | 'neutral'
 }
 
 export const PREP_PHOTOS: PrepPhoto[] = [
   {
-    key: 'setup',
-    tone: 'neutral',
-    note: 'スタンドを立てた全体像を横から。座った人の目線とレンズが同じ高さにあることが一目でわかること。床置きでも卓上でもよい。',
-    // src: '/prep/setup.jpg',
+    key: 'stand-1',
+    note: '箱から出して立てただけの状態。三脚の脚が開いていることが分かるように。',
+    // src: '/prep/stand-1.jpg',
   },
   {
-    key: 'frame-good',
-    tone: 'good',
-    note: '良い画角。カメラが実際に見ている絵（スマホ画面のスクショでよい）。目線の高さ、頭上の余白適度、背景すっきり。',
-    // src: '/prep/frame-good.jpg',
+    key: 'stand-2',
+    note: 'ホルダーにスマホを挟んだところ。挟み方が分かる寄りで。',
+    // src: '/prep/stand-2.jpg',
   },
   {
-    key: 'frame-bad',
-    tone: 'bad',
-    note: '悪い画角。スマホを机に直置きして下から見上げた絵。frame-good と同じ部屋・同じ人で撮ると差が出る。',
-    // src: '/prep/frame-bad.jpg',
+    key: 'stand-3',
+    note: '座った人とスタンドを横から。レンズと目線が同じ高さにあることが一目で分かる絵にする。ここが一番大事。',
+    // src: '/prep/stand-3.jpg',
   },
   {
-    key: 'room-bad',
-    tone: 'bad',
-    note: '悪い環境。窓を背にした逆光＋背景に物が写り込んでいる状態。できればイヤホンもつけておくと3点セットで伝わる。',
-    // src: '/prep/room-bad.jpg',
+    key: 'stand-4',
+    note: 'ライトを点けた状態。顔に光が当たっているところまで入れる。',
+    // src: '/prep/stand-4.jpg',
   },
 ]
 
-/** 用意できている写真だけ。1枚もなければ空配列。 */
-export const readyPrepPhotos = (): (PrepPhoto & { src: string })[] =>
-  PREP_PHOTOS.flatMap((p) => (p.src ? [{ ...p, src: p.src }] : []))
+/** 写真が1枚でも入っているか。全部空ならプレースホルダー表示になる。 */
+export const hasAnyPrepPhoto = (): boolean => PREP_PHOTOS.some((p) => p.src)

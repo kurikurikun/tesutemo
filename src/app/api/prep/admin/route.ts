@@ -29,7 +29,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   if (!checkAuth()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { name, company, interview_date, lang = 'ja', riverside_url } = await req.json()
+  const { name, company, interview_date, lang = 'ja', interview_type = 'recruitment', riverside_url } = await req.json()
   if (!name) return NextResponse.json({ error: 'name required' }, { status: 400 })
 
   const supabase = getSupabaseAdmin()
@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
       company: company || null,
       interview_date: interview_date || null,
       lang: lang === 'en' ? 'en' : 'ja',
+      interview_type: interview_type === 'case_study' ? 'case_study' : 'recruitment',
       riverside_url: cleanUrl(riverside_url),
     })
     .select()

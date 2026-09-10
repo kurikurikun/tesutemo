@@ -1,7 +1,20 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { PREP_STEPS, prepStatus, type PrepRow, type PrepStatus, type PrepStep } from '@/lib/prep'
+import {
+  PREP_STEPS,
+  prepStatus,
+  type PrepInterviewType,
+  type PrepRow,
+  type PrepStatus,
+  type PrepStep,
+} from '@/lib/prep'
+
+// 採用か導入事例か。変わるのは冒頭の一文と、完成イメージのリンク先だけ。
+const TYPE_LABEL: Record<PrepInterviewType, string> = {
+  recruitment: '採用',
+  case_study: '導入事例',
+}
 
 // どこまで読んだかが一目で分かるように。送信がなくても「3枚目を見ていない」が
 // 分かれば、当日そこだけ口頭で補える。
@@ -23,6 +36,7 @@ const BLANK = {
   company: '',
   interview_date: '',
   lang: 'ja' as 'ja' | 'en',
+  interview_type: 'recruitment' as PrepInterviewType,
   riverside_url: '',
 }
 
@@ -75,6 +89,7 @@ function Row({
             {row.lang === 'en' && <span className="ml-2 text-xs font-normal text-gray-400">EN</span>}
           </p>
           <p className="truncate text-xs text-gray-500">
+            {TYPE_LABEL[row.interview_type === 'case_study' ? 'case_study' : 'recruitment']}　
             {row.company || '会社名なし'}　撮影 {shortDate(row.interview_date)}
             {!row.riverside_url && <span className="ml-2 text-amber-600">スタジオURL未設定</span>}
           </p>
@@ -297,6 +312,25 @@ export default function OpsPrepPage() {
                 onChange={(e) => setForm((f) => ({ ...f, interview_date: e.target.value }))}
                 className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
               />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600">種類</label>
+              <div className="mt-1 flex gap-2">
+                {(['recruitment', 'case_study'] as const).map((k) => (
+                  <button
+                    key={k}
+                    type="button"
+                    onClick={() => setForm((f) => ({ ...f, interview_type: k }))}
+                    className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                      form.interview_type === k
+                        ? 'border-orange-500 bg-orange-500 text-white'
+                        : 'border-gray-300 bg-white text-gray-600 hover:border-orange-400'
+                    }`}
+                  >
+                    {TYPE_LABEL[k]}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600">言語</label>

@@ -17,6 +17,8 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   if ('kit_tracking' in body) patch.kit_tracking = body.kit_tracking || null
   // 事前確認リンクを先に作って、スタジオのURLはあとから入れる運用になる。
   if ('riverside_url' in body) patch.riverside_url = cleanUrl(body.riverside_url)
+  if ('interview_type' in body)
+    patch.interview_type = body.interview_type === 'case_study' ? 'case_study' : 'recruitment'
   if (!Object.keys(patch).length) {
     return NextResponse.json({ error: 'nothing to update' }, { status: 400 })
   }

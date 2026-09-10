@@ -8,11 +8,13 @@ import {
   PREP_STEPS,
   RIVERSIDE_ANDROID,
   RIVERSIDE_IOS,
+  SHOWCASE_URL,
+  type PrepInterviewType,
   type PrepLang,
   type PrepPublicRow,
   type PrepStep,
 } from '@/lib/prep'
-import { readyPrepPhotos } from '@/lib/prep-photos'
+import { PREP_PHOTOS } from '@/lib/prep-photos'
 
 type Screen = 'loading' | 'notfound' | 'failed' | 'steps' | 'done'
 
@@ -76,14 +78,14 @@ function JoinBox({
   button,
 }: {
   url: string
-  title: string
+  title?: string
   note: string
   button: string
 }) {
   return (
     <div className="rounded-2xl bg-white p-5 ring-1 ring-primary/30">
-      <h2 className="text-[15px] font-bold text-gray-900">{title}</h2>
-      <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{note}</p>
+      {title && <h2 className="text-[15px] font-bold text-gray-900">{title}</h2>}
+      <p className={`text-sm leading-relaxed text-gray-600 ${title ? 'mt-1.5' : ''}`}>{note}</p>
       <a
         href={url}
         target="_blank"
@@ -92,6 +94,36 @@ function JoinBox({
       >
         {button} →
       </a>
+    </div>
+  )
+}
+
+/**
+ * スタンド設置の作例。`src` が空のスロットは枠だけを出す。
+ * 撮影前でも並びが確認できる一方、**本番でも枠が見える** ので、送る前に写真を入れる。
+ */
+function StandPhotos({ captions }: { captions: Record<string, string> }) {
+  return (
+    <div className="mt-5 grid grid-cols-2 gap-3">
+      {PREP_PHOTOS.map((p) => (
+        <figure key={p.key} className="m-0">
+          {p.src ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={p.src}
+              alt={captions[p.key] ?? ''}
+              className="aspect-[4/3] w-full rounded-xl object-cover ring-1 ring-gray-200"
+            />
+          ) : (
+            <div className="flex aspect-[4/3] w-full items-center justify-center rounded-xl border border-dashed border-gray-300 bg-gray-100">
+              <span className="text-[11px] text-gray-400">写真を準備中</span>
+            </div>
+          )}
+          <figcaption className="mt-1.5 text-xs leading-snug text-gray-600">
+            {captions[p.key]}
+          </figcaption>
+        </figure>
+      ))}
     </div>
   )
 }
@@ -148,8 +180,9 @@ export default function PrepPage() {
 
   const lang: PrepLang = row?.lang === 'en' ? 'en' : 'ja'
   const t = PREP_COPY[lang]
-  const photos = readyPrepPhotos()
   const isJa = lang === 'ja'
+  // 採用か導入事例か。冒頭の一文と、完成イメージのリンク先だけが変わる。
+  const type: PrepInterviewType = row?.interview_type === 'case_study' ? 'case_study' : 'recruitment'
 
   function goNext() {
     const next = stepIndex + 1
@@ -259,7 +292,7 @@ export default function PrepPage() {
           <div className="mt-6">
             <JoinBox
               url={row.riverside_url}
-              title={t.joinTitle}
+              title={t.onDayTitle}
               note={t.joinNote}
               button={t.joinButton}
             />
@@ -304,7 +337,15 @@ export default function PrepPage() {
       {step === 'intro' && (
         <>
           <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.title}</h1>
-          <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede}</p>
+          <p className="mt-4 text-[15px] leading-relaxed text-gray-700">{t.lede[type]}</p>
+          <a
+            href={SHOWCASE_URL[type]}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block text-[15px] font-semibold text-primary underline underline-offset-4"
+          >
+            {t.showcaseLabel} →
+          </a>
 
           <div className="mt-6 rounded-xl bg-white px-5 py-4 text-sm text-gray-700 ring-1 ring-gray-200">
             <p className="font-semibold text-gray-900">{t.forWhom(row.name)}</p>
@@ -326,7 +367,7 @@ export default function PrepPage() {
             <div className="mt-4">
               <JoinBox
                 url={row.riverside_url}
-                title={t.joinTitle}
+                title={t.onDayTitle}
                 note={t.joinNote}
                 button={t.joinButton}
               />
@@ -334,81 +375,27 @@ export default function PrepPage() {
           )}
 
           <section className="mt-10">
-            <h2 className="text-lg font-bold text-gray-900">{t.kitTitle}</h2>
-            <p className="mt-2 text-[15px] leading-relaxed text-gray-600">{t.kitLede}</p>
-            <div className="mt-4">
-              <Bullets items={t.kitItems} />
-            </div>
-            <p className="mt-4 text-sm leading-relaxed text-gray-500">{t.kitNote}</p>
+            <p className="text-[15px] leading-relaxed text-gray-700">{t.kitLine}</p>
+            <StandPhotos captions={t.photoCaptions} />
           </section>
         </>
       )}
 
       {step === 'critical' && (
         <>
-          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.ngTitle}</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.ngLede}</p>
-
-          <div className="mt-6 space-y-3">
-            {t.ng.map((item, i) => (
-              <div key={i} className="rounded-2xl bg-white p-5 ring-1 ring-red-200">
-                <div className="flex gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h2 className="text-[15px] font-bold text-gray-900">{item.title}</h2>
-                    <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{item.body}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.envTitle}</h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.envLede}</p>
+          <div className="mt-5">
+            <Bullets items={t.envBullets} />
           </div>
-
-          {/* 写真は入っているものだけ出す。1枚もなくても画面は成立する。 */}
-          {photos.length > 0 && (
-            <div className="mt-8 space-y-4">
-              {photos.map((p) => (
-                <figure key={p.key}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.src}
-                    alt={t.photoCaptions[p.key]}
-                    className={`w-full rounded-2xl ring-1 ${
-                      p.tone === 'good'
-                        ? 'ring-emerald-300'
-                        : p.tone === 'bad'
-                          ? 'ring-red-300'
-                          : 'ring-gray-200'
-                    }`}
-                  />
-                  <figcaption className="mt-2 flex gap-2 text-sm leading-relaxed text-gray-600">
-                    {p.tone !== 'neutral' && (
-                      <span
-                        className={`font-bold ${p.tone === 'good' ? 'text-emerald-600' : 'text-red-500'}`}
-                      >
-                        {p.tone === 'good' ? '○' : '×'}
-                      </span>
-                    )}
-                    <span>{t.photoCaptions[p.key]}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          )}
-
-          <section className="mt-10">
-            <h2 className="text-lg font-bold text-gray-900">{t.roomTitle}</h2>
-            <div className="mt-4">
-              <Bullets items={t.roomBullets} />
-            </div>
-          </section>
         </>
       )}
 
       {step === 'app' && (
         <>
-          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">{t.appTitle}</h1>
+          <h1 className="mt-6 text-[26px] font-bold leading-snug text-gray-900">
+            {t.beforeTitle}
+          </h1>
           <div className="mt-4">
             <Bullets items={t.appBullets} />
           </div>
@@ -434,36 +421,19 @@ export default function PrepPage() {
             {t.appWarning}
           </p>
 
-          {row.riverside_url && (
-            <div className="mt-10">
-              <JoinBox
-                url={row.riverside_url}
-                title={t.joinTitle}
-                note={t.joinNote}
-                button={t.joinButton}
-              />
-            </div>
-          )}
-
           {/*
-            当日の入り方は、事前に読んでも覚えていられない（木下さんの指摘）。
-            消すのではなく、たたんでおいて「当日ここを開けばよい」と先に言う。
-            事前に読む量は減るが、必要な瞬間には同じ場所にある。
+            当日のやることはボタン1つだけ。手順の箇条書きは消した——事前に読んでも
+            覚えていられないうえ、リンクを貼り付ける操作そのものが無くなったため。
+            スタジオURLが未設定の行では、この節ごと出さない（見出しだけ残さない）。
           */}
-          <details className="mt-10 rounded-2xl bg-white ring-1 ring-gray-200">
-            <summary className="cursor-pointer list-none px-5 py-4 text-[15px] font-bold text-gray-900 marker:hidden [&::-webkit-details-marker]:hidden">
-              {t.dayTitle}
-              <span className="ml-2 text-xs font-normal text-primary">＋</span>
-            </summary>
-            <div className="border-t border-gray-100 px-5 py-4">
-              <p className="text-sm leading-relaxed text-gray-500">
-                {row.riverside_url ? t.joinFallback : t.dayNote}
-              </p>
+          {row.riverside_url && (
+            <section className="mt-12">
+              <h2 className="text-[26px] font-bold leading-snug text-gray-900">{t.onDayTitle}</h2>
               <div className="mt-4">
-                <Bullets items={t.dayBullets} />
+                <JoinBox url={row.riverside_url} note={t.joinNote} button={t.joinButton} />
               </div>
-            </div>
-          </details>
+            </section>
+          )}
         </>
       )}
 

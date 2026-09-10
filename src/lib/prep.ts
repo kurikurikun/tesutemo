@@ -30,6 +30,8 @@
  *   company text,
  *   interview_date date,
  *   lang text not null default 'ja' check (lang in ('ja', 'en')),
+ *   interview_type text not null default 'recruitment'
+ *     check (interview_type in ('recruitment', 'case_study')),
  *   riverside_url text,
  *   kit_shipped_at timestamptz,
  *   kit_tracking text,
@@ -74,6 +76,7 @@ export type PrepRow = {
   company: string | null
   interview_date: string | null
   lang: PrepLang
+  interview_type: PrepInterviewType
   /** 当日入るスタジオのURL。入っていればページに参加ボタンを出す。 */
   riverside_url: string | null
   kit_shipped_at: string | null
@@ -95,7 +98,13 @@ export type PrepRow = {
 /** ページが本人に見せてよい範囲だけ。電話番号などは返さない。 */
 export type PrepPublicRow = Pick<
   PrepRow,
-  'name' | 'company' | 'interview_date' | 'lang' | 'riverside_url' | 'submitted_at'
+  | 'name'
+  | 'company'
+  | 'interview_date'
+  | 'lang'
+  | 'interview_type'
+  | 'riverside_url'
+  | 'submitted_at'
 >
 
 export type PrepStatus = 'unopened' | 'opened' | 'acknowledged'
@@ -144,6 +153,18 @@ export function cleanUrl(value: unknown): string | null {
   }
 }
 
+/**
+ * インタビューの種類。採用と導入事例で、変わるのは冒頭の一文と、完成イメージとして
+ * 見せるページだけ。中身（撮影環境・アプリ・当日の入り方・フォーム）は共通。
+ */
+export type PrepInterviewType = 'recruitment' | 'case_study'
+
+/** 完成した動画の見本。文章で説明するより、実物を1本見てもらうほうが早い。 */
+export const SHOWCASE_URL: Record<PrepInterviewType, string> = {
+  recruitment: 'https://www.tesutemo.co/recruitment',
+  case_study: 'https://www.tesutemo.co/case-study',
+}
+
 export const RIVERSIDE_IOS = 'https://apps.apple.com/us/app/riverside-fm/id1554443872'
 export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=riverside.fm'
 
@@ -159,41 +180,36 @@ type Copy = {
   metaTitle: string
   kicker: string
   title: string
-  lede: string
+  /** 冒頭の一文。採用と導入事例で、ここだけ変わる。 */
+  lede: Record<PrepInterviewType, string>
   forWhom: (name: string) => string
   onDate: (date: string) => string
 
   alreadyDone: string
   alreadyDoneBody: string
 
-  kitTitle: string
-  kitLede: string
-  kitNote: string
-  kitItems: string[]
+  /** 完成イメージへのリンク。 */
+  showcaseLabel: string
 
-  ngTitle: string
-  ngLede: string
-  ng: { title: string; body: string }[]
+  /** 届くものは1行。以前は前置き・箇条書き・注記があったが、全部削った。 */
+  kitLine: string
 
-  roomTitle: string
-  roomBullets: string[]
+  /** 当日の撮影環境。以前は赤いカード3枚＋場所の箇条書きだったが、1つの並びにした。 */
+  envTitle: string
+  envLede: string
+  envBullets: string[]
 
-  appTitle: string
+  /** 3枚目は「いつやるか」で割る。 */
+  beforeTitle: string
+  onDayTitle: string
+
   appBullets: string[]
   appWarning: string
   appIos: string
   appAndroid: string
 
-  /** 当日入るためのボタン一式。URLが入っている行にだけ出る。 */
-  joinTitle: string
   joinButton: string
   joinNote: string
-  joinFallback: string
-
-  dayTitle: string
-  /** 覚えなくてよい、と先に言う。当日その場で開いてもらう前提。 */
-  dayNote: string
-  dayBullets: string[]
 
   formTitle: string
   formLede: string
@@ -235,8 +251,12 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     metaTitle: 'インタビュー前のご確認｜TesuTemo',
     kicker: '当日までにお読みください',
     title: 'これは「撮影」です。オンライン会議ではありません。',
-    lede:
-      'お送りするのは、御社のサイトや採用ページで長く使われる動画です。画面越しの打ち合わせと違い、映り方と音がそのまま残ります。',
+    lede: {
+      recruitment: 'お送りするのは、御社のサイトや採用ページで長く使われる動画です。',
+      case_study:
+        'お送りするのは、導入事例として、ウェブサイトや資料で長く使われる動画です。',
+    },
+    showcaseLabel: '完成した動画の例を見る',
     forWhom: (name) => `${name} 様へ`,
     onDate: (date) => `インタビュー日：${date}`,
 
@@ -244,37 +264,21 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     alreadyDoneBody:
       '内容は受け付けています。当日までにもう一度読み返したいときは、このページをそのまま開いてください。',
 
-    kitTitle: 'お届けするもの',
-    kitLede:
-      'インタビューの1週間ほど前に、撮影用のスタンドをお送りします。ご用意いただくものはありません。',
-    kitNote: '前日までに届かないときは、ご連絡ください。',
-    kitItems: ['スマホスタンド（LEDライト付き）。組み立ては不要です', '前日にライトの充電をお願いします'],
-    ngTitle: 'この3つだけ、お願いします',
-    ngLede: '過去に、当日その場で直していただくことになった3点です。',
-    ng: [
-      {
-        title: 'バーチャル背景・フィルターはオフに',
-        body: '輪郭がにじんでしまい、編集では直せません。お部屋はそのままで大丈夫です。',
-      },
-      {
-        title: 'イヤホンは使わない（有線・無線とも）',
-        body: 'スマホ本体のマイクのほうが、きれいに録れます。',
-      },
-      {
-        title: 'スマホは目線の高さに',
-        body:
-          '同梱のスタンドに取り付けて、座ったときにレンズが目の高さにくるように。細かい位置は当日お声がけします。',
-      },
-    ],
+    kitLine: 'ライト付きのスマホスタンドをお届けします。',
 
-    roomTitle: '撮影する場所',
-    roomBullets: [
-      '静かな場所（空調やドアの音も入ります）',
-      '背景はスッキリと',
+    envTitle: '＜当日の撮影環境＞',
+    envLede: '撮影開始する前に一緒に確認して調整しますが、',
+    envBullets: [
+      'バーチャル背景・フィルターはオフに',
+      'イヤホンは使わない（有線・無線とも）',
+      'スマホはスタンドを調整して目線の高さに',
+      '背景はなるべくスッキリに',
       '窓は正面か横に（背にすると逆光になります）',
+      'なるべく静かなところで',
     ],
 
-    appTitle: '当日までにアプリを入れる',
+    beforeTitle: '当日までにやること',
+    onDayTitle: '当日にやること',
     appBullets: [
       'インタビューはパソコンではなく、ご自身のスマホで受けていただきます。無料アプリ「Riverside」を入れておいてください。',
     ],
@@ -283,20 +287,8 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     appIos: 'iPhone の方はこちら（App Store）',
     appAndroid: 'Android の方はこちら（Google Play）',
 
-    joinTitle: '当日はこちらから',
     joinButton: 'インタビューに参加する',
-    joinNote:
-      'お約束の時間になったら、このページを開いてボタンを押してください。メールを探したり、リンクを貼り付けたりする必要はありません。',
-    joinFallback: 'うまく開かないときは、下の手順をお試しください。',
-
-    dayTitle: '当日の入り方',
-    dayNote:
-      'ここは覚えなくて大丈夫です。当日このページを開けば同じ手順が出ますし、ご案内メールにも書いてあります。',
-    dayBullets: [
-      'ご案内メールで届いたリンクをスマホで開く',
-      '「Join via App」→「I’m ready!」→「Join」の順にタップ',
-      'アプリから直接入る場合は「Join Session via Link」にリンクを貼り付け →「Join studio」→「I’m ready!」→「Join」',
-    ],
+    joinNote: 'お約束の時間になったら、このページを開いてボタンを押してください。',
 
     formTitle: 'お名前とご連絡先',
     formLede: '最後に、テロップに使うお名前と、当日つながる連絡先を教えてください。',
@@ -328,13 +320,13 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       'ご確認を受け付けました。当日までに読み返したいときは、このページをそのまま開いてください。ご不明な点があれば、下の連絡先までお気軽にどうぞ。',
 
     helpTitle: '困ったときは',
-    helpBody: '当日でも構いません。つながらないときはお電話ください。',
+    helpBody: 'つながらないときはお電話ください。',
 
     photoCaptions: {
-      setup: 'スタンドを立てた状態。座ってレンズが目の高さにきています。',
-      'frame-good': 'これが良い画角です。目線の高さ、頭の上の余白も適度。',
-      'frame-bad': 'これはNG。机に直置きすると、下から見上げる画になります。',
-      'room-bad': 'これもNG。窓を背にすると逆光に。背景の写り込みも整理してください。',
+      'stand-1': 'スタンドを立てたところ',
+      'stand-2': 'スマホを取り付けたところ',
+      'stand-3': '座って、目線の高さに合わせたところ',
+      'stand-4': 'ライトをつけたところ',
     },
   },
 
@@ -342,8 +334,13 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     metaTitle: 'Before your interview | TesuTemo',
     kicker: 'Please read before the day',
     title: 'This is a shoot, not a video call.',
-    lede:
-      'What we record will live on your company’s website and hiring pages for years. Unlike a normal meeting, how you look and sound is what stays.',
+    lede: {
+      recruitment:
+        'What we record will live on your company’s website and hiring pages for years.',
+      case_study:
+        'What we record becomes a customer story, used on the web and in sales material for years.',
+    },
+    showcaseLabel: 'See a finished video',
     forWhom: (name) => `For ${name}`,
     onDate: (date) => `Interview date: ${date}`,
 
@@ -351,37 +348,21 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     alreadyDoneBody:
       'We’ve got your confirmation. This page stays open if you want to look anything up again before the day.',
 
-    kitTitle: 'What we’re sending you',
-    kitLede:
-      'About a week before your interview, a stand arrives by post. There’s nothing you need to buy or borrow.',
-    kitNote: 'If it hasn’t arrived the day before, give us a call.',
-    kitItems: ['A phone stand with an LED light. Nothing to assemble', 'Charge the light the night before'],
-    ngTitle: 'Three things that really matter',
-    ngLede: 'These are the three we’ve had to fix on the day. If you remember nothing else, remember these.',
-    ng: [
-      {
-        title: 'Turn off virtual backgrounds and filters',
-        body: 'They smear your outline, and we can’t fix that in the edit. Your actual room is fine.',
-      },
-      {
-        title: 'No earphones — wired or wireless',
-        body: 'Your phone’s own mic sounds better than either.',
-      },
-      {
-        title: 'Put the phone at eye level',
-        body:
-          'Use the stand we send, set so the lens meets your eyes while seated. We’ll fine-tune it on the day.',
-      },
-    ],
+    kitLine: 'We’ll send you a phone stand with a light built in.',
 
-    roomTitle: 'Where to sit',
-    roomBullets: [
-      'Somewhere quiet — air conditioning and doors both reach the mic',
+    envTitle: 'Your setup on the day',
+    envLede: 'We’ll check all of this together before we start, but worth knowing in advance:',
+    envBullets: [
+      'Virtual backgrounds and filters off',
+      'No earphones, wired or wireless',
+      'Phone on the stand, at eye level',
       'A tidy background',
       'A window in front of you or to one side, never behind',
+      'Somewhere quiet',
     ],
 
-    appTitle: 'Install the app beforehand',
+    beforeTitle: 'Before the day',
+    onDayTitle: 'On the day',
     appBullets: [
       'The interview runs on your own phone, not a computer. Install the free Riverside app before the day.',
     ],
@@ -389,20 +370,8 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     appIos: 'iPhone — App Store',
     appAndroid: 'Android — Google Play',
 
-    joinTitle: 'Joining on the day',
     joinButton: 'Join the interview',
-    joinNote:
-      'At your interview time, open this page and tap the button. Nothing to find in your email, nothing to paste.',
-    joinFallback: 'If that doesn’t open, try the steps below.',
-
-    dayTitle: 'Joining on the day',
-    dayNote:
-      'Nothing to memorise. Open this page on the day and the steps are here, and they’re in your invitation email too.',
-    dayBullets: [
-      'Open the link from your invitation email on your phone',
-      'Tap “Join via App” → “I’m ready!” → “Join”',
-      'Or from the app: “Join Session via Link”, paste the link → “Join studio” → “I’m ready!” → “Join”',
-    ],
+    joinNote: 'At your interview time, open this page and tap the button.',
 
     formTitle: 'Your name and a number',
     formLede: 'Last thing: the name that goes on screen, and a number we can reach you on.',
@@ -434,13 +403,13 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       'We’ve got your confirmation. This page stays open if you want to look anything up again. Anything unclear, just get in touch below.',
 
     helpTitle: 'If anything goes wrong',
-    helpBody: 'Even on the day. If you can’t get through, call.',
+    helpBody: 'If you can’t get through, call.',
 
     photoCaptions: {
-      setup: 'The stand set up. Seated, the lens is level with the eyes.',
-      'frame-good': 'This is the framing we want — eye level, a sensible amount of headroom.',
-      'frame-bad': 'Not this. Flat on the desk, the camera ends up looking up at you.',
-      'room-bad': 'Not this either. A window behind you backlights your face, and the shelf is in shot.',
+      'stand-1': 'The stand set up',
+      'stand-2': 'Phone mounted',
+      'stand-3': 'Seated, adjusted to eye level',
+      'stand-4': 'Light switched on',
     },
   },
 }
