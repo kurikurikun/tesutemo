@@ -30,6 +30,7 @@
  *   company text,
  *   interview_date date,
  *   lang text not null default 'ja' check (lang in ('ja', 'en')),
+ *   riverside_url text,
  *   kit_shipped_at timestamptz,
  *   kit_tracking text,
  *   first_opened_at timestamptz,
@@ -73,6 +74,8 @@ export type PrepRow = {
   company: string | null
   interview_date: string | null
   lang: PrepLang
+  /** 当日入るスタジオのURL。入っていればページに参加ボタンを出す。 */
+  riverside_url: string | null
   kit_shipped_at: string | null
   kit_tracking: string | null
   first_opened_at: string | null
@@ -92,7 +95,7 @@ export type PrepRow = {
 /** ページが本人に見せてよい範囲だけ。電話番号などは返さない。 */
 export type PrepPublicRow = Pick<
   PrepRow,
-  'name' | 'company' | 'interview_date' | 'lang' | 'submitted_at'
+  'name' | 'company' | 'interview_date' | 'lang' | 'riverside_url' | 'submitted_at'
 >
 
 export type PrepStatus = 'unopened' | 'opened' | 'acknowledged'
@@ -125,6 +128,21 @@ export type PrepStep = (typeof PREP_STEPS)[number]
 // やらない。伝えるのは「スタンドを使って目線の高さに」だけで、それはNGの3つめに
 // 入っている。高さの数字・脚の開き方・床置きと卓上の違いは、当日こちらから声を
 // かけて直せる範囲なので、ページには書かない。
+
+/**
+ * ページに <a href> として出すURLなので、スキームを確かめてから保存する。
+ * /ops はパスワードで守られているとはいえ、javascript: のようなものを埋めない。
+ */
+export function cleanUrl(value: unknown): string | null {
+  const raw = String(value ?? '').trim()
+  if (!raw) return null
+  try {
+    const u = new URL(raw)
+    return u.protocol === 'https:' || u.protocol === 'http:' ? u.toString() : null
+  } catch {
+    return null
+  }
+}
 
 export const RIVERSIDE_IOS = 'https://apps.apple.com/us/app/riverside-fm/id1554443872'
 export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=riverside.fm'
@@ -165,6 +183,12 @@ type Copy = {
   appWarning: string
   appIos: string
   appAndroid: string
+
+  /** 当日入るためのボタン一式。URLが入っている行にだけ出る。 */
+  joinTitle: string
+  joinButton: string
+  joinNote: string
+  joinFallback: string
 
   dayTitle: string
   /** 覚えなくてよい、と先に言う。当日その場で開いてもらう前提。 */
@@ -258,6 +282,12 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       '「Continue with Google」などでサインインしないでください。アカウントは不要です。',
     appIos: 'iPhone の方はこちら（App Store）',
     appAndroid: 'Android の方はこちら（Google Play）',
+
+    joinTitle: '当日はこちらから',
+    joinButton: 'インタビューに参加する',
+    joinNote:
+      'お約束の時間になったら、このページを開いてボタンを押してください。メールを探したり、リンクを貼り付けたりする必要はありません。',
+    joinFallback: 'うまく開かないときは、下の手順をお試しください。',
 
     dayTitle: '当日の入り方',
     dayNote:
@@ -358,6 +388,12 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     appWarning: 'Don’t sign in with “Continue with Google” or similar. You don’t need an account.',
     appIos: 'iPhone — App Store',
     appAndroid: 'Android — Google Play',
+
+    joinTitle: 'Joining on the day',
+    joinButton: 'Join the interview',
+    joinNote:
+      'At your interview time, open this page and tap the button. Nothing to find in your email, nothing to paste.',
+    joinFallback: 'If that doesn’t open, try the steps below.',
 
     dayTitle: 'Joining on the day',
     dayNote:

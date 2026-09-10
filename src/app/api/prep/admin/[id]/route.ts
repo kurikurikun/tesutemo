@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getSupabaseAdmin } from '@/lib/survey'
+import { cleanUrl } from '@/lib/prep'
 
 function checkAuth() {
   return cookies().get('ops_auth')?.value === 'ok'
@@ -14,6 +15,8 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   const patch: Record<string, string | null> = {}
   if ('kit_shipped_at' in body) patch.kit_shipped_at = body.kit_shipped_at || null
   if ('kit_tracking' in body) patch.kit_tracking = body.kit_tracking || null
+  // 事前確認リンクを先に作って、スタジオのURLはあとから入れる運用になる。
+  if ('riverside_url' in body) patch.riverside_url = cleanUrl(body.riverside_url)
   if (!Object.keys(patch).length) {
     return NextResponse.json({ error: 'nothing to update' }, { status: 400 })
   }

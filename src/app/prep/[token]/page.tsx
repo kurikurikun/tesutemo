@@ -62,6 +62,40 @@ function Field({
   )
 }
 
+/**
+ * 当日の入り口。行に riverside_url が入っているときだけ出る。
+ *
+ * これがあると、当日は「このページを開いてボタンを押す」だけで済む。メールを
+ * 探してリンクを長押しコピーして、アプリに貼る……という一番つまずくところが
+ * まるごと無くなる。
+ */
+function JoinBox({
+  url,
+  title,
+  note,
+  button,
+}: {
+  url: string
+  title: string
+  note: string
+  button: string
+}) {
+  return (
+    <div className="rounded-2xl bg-white p-5 ring-1 ring-primary/30">
+      <h2 className="text-[15px] font-bold text-gray-900">{title}</h2>
+      <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{note}</p>
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-4 block rounded-xl bg-primary py-4 text-center text-[16px] font-bold text-white"
+      >
+        {button} →
+      </a>
+    </div>
+  )
+}
+
 const inputClass =
   'block w-full rounded-xl border border-gray-200 px-4 py-3 text-[16px] text-gray-900 focus:border-primary focus:outline-none'
 
@@ -221,6 +255,16 @@ export default function PrepPage() {
           <h1 className="text-xl font-bold text-gray-900">{t.doneTitle}</h1>
           <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.doneBody}</p>
         </div>
+        {row.riverside_url && (
+          <div className="mt-6">
+            <JoinBox
+              url={row.riverside_url}
+              title={t.joinTitle}
+              note={t.joinNote}
+              button={t.joinButton}
+            />
+          </div>
+        )}
         {contactBlock}
       </main>
     )
@@ -274,6 +318,18 @@ export default function PrepPage() {
             <div className="mt-4 rounded-xl bg-emerald-50 px-5 py-4 ring-1 ring-emerald-200">
               <p className="text-sm font-semibold text-emerald-900">{t.alreadyDone}</p>
               <p className="mt-1 text-sm leading-relaxed text-emerald-800">{t.alreadyDoneBody}</p>
+            </div>
+          )}
+
+          {/* 当日このページを開いた人が、すぐ入れるように最初の画面にも出す。 */}
+          {row.riverside_url && row.submitted_at && (
+            <div className="mt-4">
+              <JoinBox
+                url={row.riverside_url}
+                title={t.joinTitle}
+                note={t.joinNote}
+                button={t.joinButton}
+              />
             </div>
           )}
 
@@ -378,6 +434,17 @@ export default function PrepPage() {
             {t.appWarning}
           </p>
 
+          {row.riverside_url && (
+            <div className="mt-10">
+              <JoinBox
+                url={row.riverside_url}
+                title={t.joinTitle}
+                note={t.joinNote}
+                button={t.joinButton}
+              />
+            </div>
+          )}
+
           {/*
             当日の入り方は、事前に読んでも覚えていられない（木下さんの指摘）。
             消すのではなく、たたんでおいて「当日ここを開けばよい」と先に言う。
@@ -389,7 +456,9 @@ export default function PrepPage() {
               <span className="ml-2 text-xs font-normal text-primary">＋</span>
             </summary>
             <div className="border-t border-gray-100 px-5 py-4">
-              <p className="text-sm leading-relaxed text-gray-500">{t.dayNote}</p>
+              <p className="text-sm leading-relaxed text-gray-500">
+                {row.riverside_url ? t.joinFallback : t.dayNote}
+              </p>
               <div className="mt-4">
                 <Bullets items={t.dayBullets} />
               </div>

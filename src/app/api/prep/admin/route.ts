@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getSupabaseAdmin } from '@/lib/survey'
+import { cleanUrl } from '@/lib/prep'
 
 function checkAuth() {
   return cookies().get('ops_auth')?.value === 'ok'
@@ -28,7 +29,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   if (!checkAuth()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { name, company, interview_date, lang = 'ja' } = await req.json()
+  const { name, company, interview_date, lang = 'ja', riverside_url } = await req.json()
   if (!name) return NextResponse.json({ error: 'name required' }, { status: 400 })
 
   const supabase = getSupabaseAdmin()
@@ -39,6 +40,7 @@ export async function POST(req: NextRequest) {
       company: company || null,
       interview_date: interview_date || null,
       lang: lang === 'en' ? 'en' : 'ja',
+      riverside_url: cleanUrl(riverside_url),
     })
     .select()
     .single()

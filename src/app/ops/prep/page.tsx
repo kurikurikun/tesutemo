@@ -23,6 +23,7 @@ const BLANK = {
   company: '',
   interview_date: '',
   lang: 'ja' as 'ja' | 'en',
+  riverside_url: '',
 }
 
 function shortDate(iso: string | null) {
@@ -75,6 +76,7 @@ function Row({
           </p>
           <p className="truncate text-xs text-gray-500">
             {row.company || '会社名なし'}　撮影 {shortDate(row.interview_date)}
+            {!row.riverside_url && <span className="ml-2 text-amber-600">スタジオURL未設定</span>}
           </p>
         </div>
         <button onClick={copy} className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700">
@@ -139,6 +141,19 @@ function Row({
               <p className="mt-1 text-gray-900">{row.phone}</p>
             </div>
           )}
+
+          {/* 当日の入り口。ここが空だと、本人はページから直接入れない。 */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-500">
+              スタジオURL（Riverside）
+            </label>
+            <input
+              defaultValue={row.riverside_url ?? ''}
+              onBlur={(e) => onPatch(row.id, { riverside_url: e.target.value || null })}
+              placeholder="https://riverside.com/studio/..."
+              className="mt-1 w-full rounded-lg border border-gray-200 px-2 py-1.5 text-xs text-gray-900"
+            />
+          </div>
 
           {/* キットの発送。前日までに届いていないと当日詰むので、ここで見えるようにしておく。 */}
           <div className="flex flex-wrap items-end gap-3">
@@ -303,6 +318,18 @@ export default function OpsPrepPage() {
               </div>
             </div>
           </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600">
+              スタジオURL（Riverside）
+            </label>
+            <input
+              value={form.riverside_url}
+              onChange={(e) => setForm((f) => ({ ...f, riverside_url: e.target.value }))}
+              placeholder="https://riverside.com/studio/... （あとから入れてもOK）"
+              className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
+            />
+          </div>
+
           <div className="flex gap-2 pt-1">
             <button
               type="submit"
