@@ -187,7 +187,7 @@ export const PREP_EXAMPLES: Record<PrepInterviewType, { id: string; hash: string
   // Comas 導入事例（/case-study で公開中）
   case_study: [
     { id: '1211072475', hash: '8e9082a9da' }, // 手島さん S1
-    { id: '1211072453', hash: 'c96d4c9dc8' }, // 手島さん S2
+    { id: '1211072516', hash: '73c275066b' }, // Ariel さん hook
   ],
 }
 

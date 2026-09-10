@@ -12,7 +12,21 @@ import { SUPABASE_URL } from './supabase'
 export function getSupabaseAdmin() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL || SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY!
+    process.env.SUPABASE_SERVICE_KEY!,
+    {
+      /**
+       * Next.js は fetch を差し替えていて、既定でレスポンスを Data Cache に
+       * 貯める。supabase-js は内部で fetch を使うので、同じクエリが以後
+       * ずっと古い行を返し続ける（このキャッシュはデプロイをまたいで残るため、
+       * 再デプロイしても直らない）。事前確認ページで、送信済みの人が開き直すと
+       * 案内の1枚目に戻ってしまったのはこれが原因。
+       * ルート側の `dynamic = 'force-dynamic'` だけでは防げない。
+       */
+      global: {
+        fetch: (input: RequestInfo | URL, init?: RequestInit) =>
+          fetch(input, { ...init, cache: 'no-store' }),
+      },
+    }
   )
 }
 

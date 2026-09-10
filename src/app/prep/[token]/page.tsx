@@ -198,7 +198,7 @@ export default function PrepPage() {
 
   useEffect(() => {
     let live = true
-    fetch(`/api/prep/${token}`)
+    fetch(`/api/prep/${token}`, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((data: PrepPublicRow) => {
         if (!live) return

@@ -16,6 +16,8 @@ import type { PrepPublicRow } from '@/lib/prep'
  * 名前・日時・スタジオURLを /ops で直したときに反映されない問題も同じ原因。
  */
 export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+export const revalidate = 0
 
 /**
  * 本人向けの読み取り。トークンを知っている人だけが自分の行を引ける。
