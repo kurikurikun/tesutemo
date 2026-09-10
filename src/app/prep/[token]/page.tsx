@@ -33,6 +33,12 @@ function formatDate(iso: string, lang: PrepLang) {
     : new Intl.DateTimeFormat('en-GB', { dateStyle: 'full' }).format(d)
 }
 
+/** DBの time は "14:00:00" で返る。秒は落とす。英語版はJSTを明示する。 */
+function formatTime(value: string, lang: PrepLang) {
+  const hhmm = value.slice(0, 5)
+  return lang === 'ja' ? hhmm : `${hhmm} (JST)`
+}
+
 function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="space-y-2.5">
@@ -351,7 +357,16 @@ export default function PrepPage() {
             <p className="font-semibold text-gray-900">{t.forWhom(row.name)}</p>
             {row.company && <p className="mt-0.5 text-gray-500">{row.company}</p>}
             {row.interview_date && (
-              <p className="mt-1.5">{t.onDate(formatDate(row.interview_date, lang))}</p>
+              <p className="mt-1.5">
+                {t.onDate(
+                  [
+                    formatDate(row.interview_date, lang),
+                    row.interview_time ? formatTime(row.interview_time, lang) : null,
+                  ]
+                    .filter(Boolean)
+                    .join('　')
+                )}
+              </p>
             )}
           </div>
 

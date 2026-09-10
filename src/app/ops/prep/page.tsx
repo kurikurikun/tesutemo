@@ -35,6 +35,7 @@ const BLANK = {
   name: '',
   company: '',
   interview_date: '',
+  interview_time: '',
   lang: 'ja' as 'ja' | 'en',
   interview_type: 'recruitment' as PrepInterviewType,
   riverside_url: '',
@@ -44,6 +45,9 @@ function shortDate(iso: string | null) {
   if (!iso) return '—'
   return new Date(iso).toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' })
 }
+
+/** DBの time は "14:00:00" で返る。秒は落とす。 */
+const shortTime = (t: string | null) => (t ? ` ${t.slice(0, 5)}` : '')
 
 function stamp(iso: string | null) {
   if (!iso) return '—'
@@ -91,6 +95,7 @@ function Row({
           <p className="truncate text-xs text-gray-500">
             {TYPE_LABEL[row.interview_type === 'case_study' ? 'case_study' : 'recruitment']}　
             {row.company || '会社名なし'}　撮影 {shortDate(row.interview_date)}
+            {shortTime(row.interview_time)}
             {!row.riverside_url && <span className="ml-2 text-amber-600">スタジオURL未設定</span>}
           </p>
         </div>
@@ -156,6 +161,25 @@ function Row({
               <p className="mt-1 text-gray-900">{row.phone}</p>
             </div>
           )}
+
+          {/* 予定は動く。ページに出る日時なので、ここで直せるようにしておく。 */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-500">インタビュー日時</label>
+            <div className="mt-1 flex gap-2">
+              <input
+                type="date"
+                defaultValue={row.interview_date ?? ''}
+                onBlur={(e) => onPatch(row.id, { interview_date: e.target.value || null })}
+                className="rounded-lg border border-gray-200 px-2 py-1.5 text-xs text-gray-900"
+              />
+              <input
+                type="time"
+                defaultValue={row.interview_time ? row.interview_time.slice(0, 5) : ''}
+                onBlur={(e) => onPatch(row.id, { interview_time: e.target.value || null })}
+                className="rounded-lg border border-gray-200 px-2 py-1.5 text-xs text-gray-900"
+              />
+            </div>
+          </div>
 
           {/* 当日の入り口。ここが空だと、本人はページから直接入れない。 */}
           <div>
@@ -305,13 +329,21 @@ export default function OpsPrepPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600">インタビュー日</label>
-              <input
-                type="date"
-                value={form.interview_date}
-                onChange={(e) => setForm((f) => ({ ...f, interview_date: e.target.value }))}
-                className="mt-1 block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
-              />
+              <label className="block text-xs font-medium text-gray-600">インタビュー日時</label>
+              <div className="mt-1 flex gap-2">
+                <input
+                  type="date"
+                  value={form.interview_date}
+                  onChange={(e) => setForm((f) => ({ ...f, interview_date: e.target.value }))}
+                  className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
+                />
+                <input
+                  type="time"
+                  value={form.interview_time}
+                  onChange={(e) => setForm((f) => ({ ...f, interview_time: e.target.value }))}
+                  className="w-32 shrink-0 rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 focus:border-orange-400 focus:outline-none"
+                />
+              </div>
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600">種類</label>

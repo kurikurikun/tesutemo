@@ -16,6 +16,9 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   if ('kit_shipped_at' in body) patch.kit_shipped_at = body.kit_shipped_at || null
   if ('kit_tracking' in body) patch.kit_tracking = body.kit_tracking || null
   // 事前確認リンクを先に作って、スタジオのURLはあとから入れる運用になる。
+  // 予定は動く。日時はあとから直せるようにしておく。
+  if ('interview_date' in body) patch.interview_date = body.interview_date || null
+  if ('interview_time' in body) patch.interview_time = body.interview_time || null
   if ('riverside_url' in body) patch.riverside_url = cleanUrl(body.riverside_url)
   if ('interview_type' in body)
     patch.interview_type = body.interview_type === 'case_study' ? 'case_study' : 'recruitment'

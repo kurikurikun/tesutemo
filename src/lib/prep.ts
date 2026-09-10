@@ -29,6 +29,7 @@
  *   name text not null,
  *   company text,
  *   interview_date date,
+ *   interview_time time,
  *   lang text not null default 'ja' check (lang in ('ja', 'en')),
  *   interview_type text not null default 'recruitment'
  *     check (interview_type in ('recruitment', 'case_study')),
@@ -75,6 +76,11 @@ export type PrepRow = {
   name: string
   company: string | null
   interview_date: string | null
+  /**
+   * 開始時刻。日本時間の壁時計としてそのまま出す（timestamptz にすると端末の
+   * タイムゾーンでずれる）。英語版だけ (JST) を添える。
+   */
+  interview_time: string | null
   lang: PrepLang
   interview_type: PrepInterviewType
   /** 当日入るスタジオのURL。入っていればページに参加ボタンを出す。 */
@@ -101,6 +107,7 @@ export type PrepPublicRow = Pick<
   | 'name'
   | 'company'
   | 'interview_date'
+  | 'interview_time'
   | 'lang'
   | 'interview_type'
   | 'riverside_url'
@@ -183,7 +190,7 @@ type Copy = {
   /** 冒頭の一文。採用と導入事例で、ここだけ変わる。 */
   lede: Record<PrepInterviewType, string>
   forWhom: (name: string) => string
-  onDate: (date: string) => string
+  onDate: (when: string) => string
 
   alreadyDone: string
   alreadyDoneBody: string
@@ -261,7 +268,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     },
     showcaseLabel: '完成した動画の例を見る',
     forWhom: (name) => `${name} 様へ`,
-    onDate: (date) => `インタビュー日：${date}`,
+    onDate: (when) => `インタビュー：${when}`,
 
     alreadyDone: 'ご確認ありがとうございました。',
     alreadyDoneBody:
@@ -345,7 +352,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     },
     showcaseLabel: 'See a finished video',
     forWhom: (name) => `For ${name}`,
-    onDate: (date) => `Interview date: ${date}`,
+    onDate: (when) => `Interview: ${when}`,
 
     alreadyDone: 'Thanks — you’re all set.',
     alreadyDoneBody:

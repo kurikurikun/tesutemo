@@ -11,7 +11,7 @@ export async function GET(_req: Request, { params }: { params: { token: string }
 
   const { data, error } = await supabase
     .from('prep_acknowledgements')
-    .select('name, company, interview_date, lang, interview_type, riverside_url, submitted_at')
+    .select('name, company, interview_date, interview_time, lang, interview_type, riverside_url, submitted_at')
     .eq('id', params.token)
     .maybeSingle()
 

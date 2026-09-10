@@ -45,7 +45,7 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
       user_agent: req.headers.get('user-agent'),
     })
     .eq('id', params.token)
-    .select('name, company, interview_date, steps_seen')
+    .select('name, company, interview_date, interview_time, steps_seen')
     .maybeSingle()
 
   if (error) {
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
         family_kana || given_kana ? `フリガナ　：${family_kana ?? ''} ${given_kana ?? ''}` : null,
         `役職　　　：${job_title}`,
         `電話番号　：${phone}`,
-          `インタビュー日：${row.interview_date ?? '未設定'}`,
+          `インタビュー：${row.interview_date ?? '未設定'}${row.interview_time ? ` ${String(row.interview_time).slice(0, 5)}` : ''}`,
         '',
         '【どの画面まで読んだか】',
         stepLines,
