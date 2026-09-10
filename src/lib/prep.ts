@@ -298,7 +298,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       '内容は受け付けています。当日までにもう一度読み返したいときは、このページをそのまま開いてください。',
 
     envTitle: '撮影環境',
-    envLede: '撮影開始する前に一緒に確認して調整しますが、',
+    envLede: '撮影の前に一緒に確認して調整しますので、完璧でなくても大丈夫です。',
     envBullets: [
       'バーチャル背景・フィルターはオフに',
       'イヤホンは使わない（有線・無線とも）',
@@ -382,7 +382,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
       'We’ve got your confirmation. This page stays open if you want to look anything up again before the day.',
 
     envTitle: 'Your setup',
-    envLede: 'We’ll check all of this together before we start, but worth knowing in advance:',
+    envLede: 'We’ll set all of this up together before we start, so it doesn’t need to be perfect.',
     envBullets: [
       'Virtual backgrounds and filters off',
       'No earphones, wired or wireless',
