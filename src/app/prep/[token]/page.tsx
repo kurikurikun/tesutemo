@@ -176,8 +176,6 @@ export default function PrepPage() {
 
   const [familyName, setFamilyName] = useState('')
   const [givenName, setGivenName] = useState('')
-  const [familyKana, setFamilyKana] = useState('')
-  const [givenKana, setGivenKana] = useState('')
   const [jobTitle, setJobTitle] = useState('')
   const [phone, setPhone] = useState('')
 
@@ -238,8 +236,9 @@ export default function PrepPage() {
   }
 
   const nameFilled = familyName.trim() && givenName.trim()
-  const kanaFilled = !isJa || (familyKana.trim() && givenKana.trim())
-  const canSubmit = nameFilled && kanaFilled && jobTitle.trim() && phone.trim() && !saving
+  // 電話番号は任意。無くても送信できる（教えたくない人にここで止まられるより、
+  // 読んだことと表記が取れるほうが大事）。
+  const canSubmit = nameFilled && jobTitle.trim() && !saving
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -252,8 +251,6 @@ export default function PrepPage() {
       body: JSON.stringify({
         family_name: familyName.trim(),
         given_name: givenName.trim(),
-        family_kana: familyKana.trim(),
-        given_kana: givenKana.trim(),
         job_title: jobTitle.trim(),
         phone: phone.trim(),
       }),
@@ -560,29 +557,6 @@ export default function PrepPage() {
               )}
             </div>
 
-            {isJa && (
-              <div className="grid grid-cols-2 gap-3">
-                <Field label={t.kanaLabel}>
-                  <input
-                    value={familyKana}
-                    onChange={(e) => setFamilyKana(e.target.value)}
-                    placeholder={t.familyKanaPlaceholder}
-                    className={inputClass}
-                    required
-                  />
-                </Field>
-                <Field label="　">
-                  <input
-                    value={givenKana}
-                    onChange={(e) => setGivenKana(e.target.value)}
-                    placeholder={t.givenKanaPlaceholder}
-                    className={inputClass}
-                    required
-                  />
-                </Field>
-              </div>
-            )}
-
             <Field label={t.jobTitleLabel}>
               <input
                 value={jobTitle}
@@ -620,7 +594,6 @@ export default function PrepPage() {
                 inputMode="tel"
                 className={inputClass}
                 autoComplete="tel"
-                required
               />
             </Field>
           </div>

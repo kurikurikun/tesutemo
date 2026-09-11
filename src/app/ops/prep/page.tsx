@@ -157,7 +157,10 @@ function Row({
                   {row.family_kana} {row.given_kana}
                 </p>
               )}
-              <p className="mt-1 text-gray-900">{row.phone}</p>
+              {/* 電話番号は任意なので、空のまま送信されることがある。 */}
+              <p className="mt-1 text-gray-900">
+                {row.phone || <span className="text-gray-400">電話番号の記入なし</span>}
+              </p>
             </div>
           )}
 

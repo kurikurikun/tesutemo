@@ -40,8 +40,8 @@
  *   submitted_at timestamptz,
  *   family_name text,
  *   given_name text,
- *   family_kana text,
- *   given_kana text,
+ *   family_kana text,  -- 現在は未使用（フリガナは廃止。過去の行にだけ残る）
+ *   given_kana text,   -- 同上
  *   job_title text,
  *   phone text,
  *   steps_seen jsonb not null default '{}'::jsonb,
@@ -91,6 +91,7 @@ export type PrepRow = {
   submitted_at: string | null
   family_name: string | null
   given_name: string | null
+  /** フリガナは廃止。過去に送信された行にだけ値が残る。 */
   family_kana: string | null
   given_kana: string | null
   job_title: string | null
@@ -261,9 +262,6 @@ type Copy = {
   familyNamePlaceholder: string
   givenNameLabel: string
   givenNamePlaceholder: string
-  kanaLabel: string
-  familyKanaPlaceholder: string
-  givenKanaPlaceholder: string
   jobTitleLabel: string
   jobTitlePlaceholder: string
   phoneLabel: string
@@ -334,7 +332,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     joinNote: 'お約束の時間になったら、このページを開いてボタンを押してください。',
 
     formTitle: 'お名前とご連絡先',
-    formLede: '最後に、テロップに使うお名前と、当日つながる連絡先を教えてください。',
+    formLede: '最後に、テロップに使うお名前と役職を教えてください。',
     captionNote:
       'いただいたお名前と役職は、動画のテロップにそのまま使います。お手数ですが、表示したい表記でご記入ください。',
     captionPreviewLabel: 'テロップの表示イメージ',
@@ -342,18 +340,15 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     familyNamePlaceholder: '田中',
     givenNameLabel: '名',
     givenNamePlaceholder: '太郎',
-    kanaLabel: 'フリガナ',
-    familyKanaPlaceholder: 'タナカ',
-    givenKanaPlaceholder: 'タロウ',
     jobTitleLabel: '役職・肩書き',
     jobTitlePlaceholder: '営業部 マネージャー',
-    phoneLabel: '携帯電話番号',
-    phoneHelp: '当日、何かあったときにご連絡します。',
+    phoneLabel: '携帯電話番号（任意）',
+    phoneHelp: '当日、何かあったときにご連絡します。差し支えなければご記入ください。',
     phonePlaceholder: '090-1234-5678',
     submit: '確認しました・送信する',
     submitting: '送信中…',
     submitError: '送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。',
-    requiredNote: 'お名前・フリガナ・役職・電話番号のご記入をお願いします。',
+    requiredNote: 'お名前と役職のご記入をお願いします。',
     next: '確認しました・次へ',
     back: '前へ',
     stepOf: (n, total) => `${n} / ${total}`,
@@ -417,7 +412,7 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     joinNote: 'At your interview time, open this page and tap the button.',
 
     formTitle: 'Your name and a number',
-    formLede: 'Last thing: the name that goes on screen, and a number we can reach you on.',
+    formLede: 'Last thing: the name and job title that go on screen.',
     captionNote:
       'Your name and job title go on screen in the finished video exactly as you write them here, so please use the spelling you want shown.',
     captionPreviewLabel: 'How it will appear on screen',
@@ -425,18 +420,15 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
     familyNamePlaceholder: 'Chen',
     givenNameLabel: 'First name',
     givenNamePlaceholder: 'Sarah',
-    kanaLabel: '',
-    familyKanaPlaceholder: '',
-    givenKanaPlaceholder: '',
     jobTitleLabel: 'Job title',
     jobTitlePlaceholder: 'Sales Manager',
-    phoneLabel: 'Mobile number',
-    phoneHelp: 'In case we need to reach you on the day.',
+    phoneLabel: 'Mobile number (optional)',
+    phoneHelp: 'In case we need to reach you on the day — only if you’d rather we had it.',
     phonePlaceholder: '090-1234-5678',
     submit: 'Confirm and send',
     submitting: 'Sending…',
     submitError: 'That didn’t send. Check your connection and try once more.',
-    requiredNote: 'Please fill in your name, job title and phone number.',
+    requiredNote: 'Please fill in your name and job title.',
     next: 'Got it — next',
     back: 'Back',
     stepOf: (n, total) => `${n} of ${total}`,

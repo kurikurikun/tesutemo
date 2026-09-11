@@ -19,14 +19,13 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
 
   const family_name = String(body.family_name ?? '').trim()
   const given_name = String(body.given_name ?? '').trim()
-  const family_kana = String(body.family_kana ?? '').trim() || null
-  const given_kana = String(body.given_kana ?? '').trim() || null
   const job_title = String(body.job_title ?? '').trim()
-  const phone = String(body.phone ?? '').trim()
+  // 電話番号は任意。無ければ null で保存する。
+  const phone = String(body.phone ?? '').trim() || null
 
   // 姓と名は別々に必須。1欄だと姓だけで送られてテロップが作れない。
-  if (!family_name || !given_name || !job_title || !phone) {
-    return NextResponse.json({ error: 'name, title and phone required' }, { status: 400 })
+  if (!family_name || !given_name || !job_title) {
+    return NextResponse.json({ error: 'name and title required' }, { status: 400 })
   }
 
   const supabase = getSupabaseAdmin()
@@ -36,8 +35,6 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
     .update({
       family_name,
       given_name,
-      family_kana,
-      given_kana,
       job_title,
       phone,
       submitted_at: new Date().toISOString(),
@@ -70,9 +67,8 @@ export async function POST(req: NextRequest, { params }: { params: { token: stri
         '',
         '【テロップに使う表記】',
         `お名前　　：${family_name} ${given_name}`,
-        family_kana || given_kana ? `フリガナ　：${family_kana ?? ''} ${given_kana ?? ''}` : null,
         `役職　　　：${job_title}`,
-        `電話番号　：${phone}`,
+        `電話番号　：${phone ?? '（未記入）'}`,
           `インタビュー：${row.interview_date ?? '未設定'}${row.interview_time ? ` ${String(row.interview_time).slice(0, 5)}` : ''}`,
         '',
         '【どの画面まで読んだか】',
