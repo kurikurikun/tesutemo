@@ -185,7 +185,7 @@ function StandPhotos({ captions }: { captions: Record<string, string> }) {
   return (
     <div className="mt-5 grid grid-cols-2 gap-3">
       {PREP_PHOTOS.map((p) => (
-        <figure key={p.key} className="m-0">
+        <figure key={p.key} className={p.wide ? 'col-span-2 m-0' : 'm-0'}>
           {p.src ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img

@@ -411,7 +411,7 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     beforeTitle: '当日までにやること',
     onDayTitle: '当日にやること',
     appBullets: [
-      'ライト付きのスマホスタンドをお届けします。お受け取りをお願いします。',
+      'スマホスタンドをお届けします。お受け取りをお願いします。',
       'インタビューはパソコンではなく、ご自身のスマホで受けていただきます。無料アプリ「Riverside」を入れておいてください。',
     ],
     appWarning:
@@ -476,7 +476,6 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
       'stand-1': 'スタンドを立てたところ',
       'stand-2': 'スマホを縦向きに取り付けたところ',
       'stand-3': '座って、目線の高さに合わせたところ',
-      'stand-4': 'ライトをつけたところ',
     },
   },
 
@@ -513,7 +512,7 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     beforeTitle: 'Before the day',
     onDayTitle: 'On the day',
     appBullets: [
-      'A phone stand with a light built in arrives by post — please take it in when it does.',
+      'A phone stand arrives by post — please take it in when it does.',
       'The interview runs on your own phone, not a computer. Install the free Riverside app before the day.',
     ],
     appWarning: 'Don’t sign in with “Continue with Google” or similar. You don’t need an account.',
@@ -577,7 +576,6 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
       'stand-1': 'The stand set up',
       'stand-2': 'Phone mounted upright',
       'stand-3': 'Seated, adjusted to eye level',
-      'stand-4': 'Light switched on',
     },
   },
 }
