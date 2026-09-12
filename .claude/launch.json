@@ -6,6 +6,12 @@
       "runtimeExecutable": "/bin/bash",
       "runtimeArgs": ["-c", "export PATH=/usr/local/bin:$HOME/.local/node/bin:$PATH && npm run dev"],
       "port": 3000
+    },
+    {
+      "name": "Answer engine test",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "export PATH=/usr/local/bin:$HOME/.local/node/bin:$PATH && node answer_engine/test/server.mjs"],
+      "port": 4321
     }
   ]
 }
