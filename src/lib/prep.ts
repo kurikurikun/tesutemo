@@ -202,6 +202,72 @@ export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=
  * 困ったときの連絡先。言語ごとに担当が違うので、名前も番号も丸ごと入れ替える。
  * 英語のインタビュイーが日本語しか話せない番号にかけても意味がない。
  */
+/**
+ * 予定の長さ。インタビュー自体は30〜40分だが、部屋の用意と最初の調整が入るので
+ * カレンダーには1時間で入れる。行ごとに持つほどの違いは出ていない。
+ */
+export const INTERVIEW_MINUTES = 60
+
+/**
+ * インタビューの開始と終了。DBの日付と時刻はJSTのつもりで入っているので、
+ * ここでJSTとして解釈する。時刻が未設定の行は終日予定にする（日付だけでも
+ * カレンダーに入れば、当日そこから参加リンクに辿れる）。
+ */
+export function interviewWindow(date: string, time: string | null) {
+  if (!time) return { allDay: true as const, start: null, end: null }
+  const hms = time.length === 5 ? `${time}:00` : time.slice(0, 8)
+  const start = new Date(`${date}T${hms}+09:00`)
+  if (Number.isNaN(start.getTime())) return { allDay: true as const, start: null, end: null }
+  return {
+    allDay: false as const,
+    start,
+    end: new Date(start.getTime() + INTERVIEW_MINUTES * 60_000),
+  }
+}
+
+const pad2 = (n: number) => String(n).padStart(2, '0')
+
+/** iCalendar と Google カレンダーが共通で使う UTC の書式。 */
+export function calStamp(d: Date) {
+  return (
+    `${d.getUTCFullYear()}${pad2(d.getUTCMonth() + 1)}${pad2(d.getUTCDate())}` +
+    `T${pad2(d.getUTCHours())}${pad2(d.getUTCMinutes())}${pad2(d.getUTCSeconds())}Z`
+  )
+}
+
+/** 終日予定用。日付だけの書式で、UTC変換を挟まない（挟むと前日になる）。 */
+export function calDate(date: string, addDays = 0) {
+  const d = new Date(`${date}T00:00:00Z`)
+  d.setUTCDate(d.getUTCDate() + addDays)
+  return d.toISOString().slice(0, 10).replace(/-/g, '')
+}
+
+/**
+ * Google カレンダーの登録画面を開くURL。
+ * .ics は iPhone では素直に開くが、Android の Gmail 経由だと開けないことがある。
+ * 両方置いて、本人に選ばせるほうが確実。
+ */
+export function googleCalendarUrl({
+  date,
+  time,
+  title,
+  details,
+  location,
+}: {
+  date: string
+  time: string | null
+  title: string
+  details: string
+  location: string
+}) {
+  const w = interviewWindow(date, time)
+  const dates = w.allDay
+    ? `${calDate(date)}/${calDate(date, 1)}`
+    : `${calStamp(w.start)}/${calStamp(w.end)}`
+  const q = new URLSearchParams({ action: 'TEMPLATE', text: title, dates, details, location })
+  return `https://calendar.google.com/calendar/render?${q.toString()}`
+}
+
 export const PREP_CONTACT: Record<PrepLang, { who: string; tel: string; email: string }> = {
   ja: {
     who: '株式会社move-ment　木下',
@@ -215,7 +281,7 @@ export const PREP_CONTACT: Record<PrepLang, { who: string; tel: string; email: s
   },
 }
 
-type Copy = {
+export type PrepCopy = {
   metaTitle: string
   kicker: string
   /** 改行は意図したところで入れる（whitespace-pre-line で保持される）。 */
@@ -252,6 +318,16 @@ type Copy = {
 
   joinButton: string
   joinNote: string
+  /** 案内を読んでいる段階で押す「試す」ほうのボタン。当日の参加ボタンとは別物。 */
+  testTitle: string
+  testNote: string
+  testButton: string
+  calendarLabel: string
+  calendarGoogle: string
+  calendarNote: string
+  /** カレンダーに入る予定の中身。サーバ側（.ics）でも使う。 */
+  calEventTitle: string
+  calEventBody: (joinUrl: string | null, pageUrl: string) => string
 
   formTitle: string
   formLede: string
@@ -287,7 +363,7 @@ type Copy = {
   photoCaptions: Record<string, string>
 }
 
-export const PREP_COPY: Record<PrepLang, Copy> = {
+export const PREP_COPY: Record<PrepLang, PrepCopy> = {
   ja: {
     metaTitle: 'インタビュー前のご確認｜TesuTemo',
     kicker: '当日までにお読みください',
@@ -330,6 +406,25 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     joinButton: 'インタビューに参加する',
     joinNote: 'お約束の時間になったら、このページを開いてボタンを押してください。',
+    testTitle: 'リンクを試しておく',
+    testNote:
+      'アプリを入れたら、一度このリンクを開いてみてください。アプリが立ち上がって、カメラとマイクの許可を聞かれれば準備完了です。そのまま閉じていただいて大丈夫です。',
+    testButton: 'リンクが開くか試す',
+    calendarLabel: 'カレンダーに登録する',
+    calendarGoogle: 'Google カレンダーに登録する',
+    calendarNote:
+      '登録しておくと、1時間前と10分前に通知が出ます。通知から参加リンクを開けるので、当日このページを探さずに済みます。',
+    calEventTitle: 'インタビュー撮影（テステモ）',
+    calEventBody: (joinUrl, pageUrl) =>
+      [
+        '時間になったら、下のリンクをスマホで開いてください。',
+        joinUrl ? `参加リンク：${joinUrl}` : null,
+        `事前のご案内：${pageUrl}`,
+        '',
+        'スマホは縦向き、イヤホンは使わず、目線の高さに。',
+      ]
+        .filter((line): line is string => line !== null)
+        .join('\n'),
 
     formTitle: 'お名前とご連絡先',
     formLede: '最後に、テロップに使うお名前と役職を教えてください。',
@@ -410,6 +505,25 @@ export const PREP_COPY: Record<PrepLang, Copy> = {
 
     joinButton: 'Join the interview',
     joinNote: 'At your interview time, open this page and tap the button.',
+    testTitle: 'Try the link now',
+    testNote:
+      'Once the app is installed, open this link once. If the app launches and asks for camera and microphone access, you’re set — on the day it’s this one button. You can close it straight after.',
+    testButton: 'Check the link opens',
+    calendarLabel: 'Add to calendar',
+    calendarGoogle: 'Add to Google Calendar',
+    calendarNote:
+      'Add it and you’ll get a reminder an hour before and again ten minutes before, with the join link in it — so you won’t have to find this page on the day.',
+    calEventTitle: 'Interview filming — TesuTemo',
+    calEventBody: (joinUrl, pageUrl) =>
+      [
+        'At the start time, open the link below on your phone.',
+        joinUrl ? `Join link: ${joinUrl}` : null,
+        `What we sent beforehand: ${pageUrl}`,
+        '',
+        'Phone upright, no earphones, camera at eye level.',
+      ]
+        .filter((line): line is string => line !== null)
+        .join('\n'),
 
     formTitle: 'Your name and a number',
     formLede: 'Last thing: the name and job title that go on screen.',

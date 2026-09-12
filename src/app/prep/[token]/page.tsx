@@ -11,6 +11,8 @@ import {
   PREP_EXAMPLES,
   SHOWCASE_URL,
   exampleEmbedUrl,
+  googleCalendarUrl,
+  type PrepCopy,
   type PrepInterviewType,
   type PrepLang,
   type PrepPublicRow,
@@ -84,24 +86,87 @@ function JoinBox({
   title,
   note,
   button,
+  variant = 'join',
 }: {
   url: string
   title?: string
   note: string
   button: string
+  /** `test` は案内を読んでいる段階の下見用。塗りを外して、本番のボタンと見間違えないようにする。 */
+  variant?: 'join' | 'test'
 }) {
+  const test = variant === 'test'
   return (
-    <div className="rounded-2xl bg-white p-5 ring-1 ring-primary/30">
+    <div className={`rounded-2xl bg-white p-5 ring-1 ${test ? 'ring-gray-200' : 'ring-primary/30'}`}>
       {title && <h2 className="text-[15px] font-bold text-gray-900">{title}</h2>}
       <p className={`text-sm leading-relaxed text-gray-600 ${title ? 'mt-1.5' : ''}`}>{note}</p>
       <a
         href={url}
         target="_blank"
         rel="noreferrer"
-        className="mt-4 block rounded-xl bg-primary py-4 text-center text-[16px] font-bold text-white"
+        className={
+          test
+            ? 'mt-4 block rounded-xl bg-white py-3.5 text-center text-[15px] font-semibold text-primary ring-1 ring-primary/40'
+            : 'mt-4 block rounded-xl bg-primary py-4 text-center text-[16px] font-bold text-white'
+        }
       >
         {button} →
       </a>
+    </div>
+  )
+}
+
+/**
+ * 予定に入れてもらうための2つのリンク。
+ *
+ * 当日の入り口が見つからない問題は、ページの文面では解けない（そのとき本人は
+ * ページを見ていない）。予定に入っていれば、時間になると電話のほうから参加リンクを
+ * 出してくれる。.ics は iPhone では素直に開くが Android の Gmail 経由だと開けない
+ * ことがあるので、Google カレンダー版も並べる。
+ */
+function CalendarBox({
+  token,
+  date,
+  time,
+  joinUrl,
+  t,
+}: {
+  token: string
+  date: string
+  time: string | null
+  joinUrl: string | null
+  t: PrepCopy
+}) {
+  const [pageUrl, setPageUrl] = useState('')
+  useEffect(() => setPageUrl(window.location.href), [])
+
+  const google = googleCalendarUrl({
+    date,
+    time,
+    title: t.calEventTitle,
+    details: t.calEventBody(joinUrl, pageUrl),
+    location: joinUrl ?? pageUrl,
+  })
+
+  return (
+    <div className="rounded-2xl bg-white p-5 ring-1 ring-gray-200">
+      <p className="text-sm leading-relaxed text-gray-600">{t.calendarNote}</p>
+      <div className="mt-4 space-y-2">
+        <a
+          href={`/api/prep/${token}/calendar`}
+          className="block rounded-xl bg-white px-4 py-3.5 text-center text-[15px] font-semibold text-primary ring-1 ring-primary/40"
+        >
+          {t.calendarLabel} →
+        </a>
+        <a
+          href={google}
+          target="_blank"
+          rel="noreferrer"
+          className="block rounded-xl bg-white px-4 py-3 text-center text-[15px] font-semibold text-gray-600 ring-1 ring-gray-200"
+        >
+          {t.calendarGoogle} →
+        </a>
+      </div>
     </div>
   )
 }
@@ -353,6 +418,19 @@ export default function PrepPage() {
           </div>
         )}
 
+        {/* 日付が未設定の行では予定が作れないので出さない。 */}
+        {row.interview_date && (
+          <div className="mt-4">
+            <CalendarBox
+              token={token}
+              date={row.interview_date}
+              time={row.interview_time}
+              joinUrl={row.riverside_url}
+              t={t}
+            />
+          </div>
+        )}
+
         {/* 読み返したい人のための戻り道。押すと案内の1枚目から辿れる。 */}
         <button
           type="button"
@@ -487,6 +565,23 @@ export default function PrepPage() {
             <p className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
               {t.appWarning}
             </p>
+
+            {/*
+              アプリを入れた直後に一度開いてもらう。これが通れば、アプリが入っていて
+              カメラとマイクの許可も済んでいる——当日の最初の10分を食う3つのうち2つが
+              先に片づく。送信済みの人には上に本番のボタンが出ているので、ここは省く。
+            */}
+            {row.riverside_url && !row.submitted_at && (
+              <div className="mt-6">
+                <JoinBox
+                  url={row.riverside_url}
+                  variant="test"
+                  title={t.testTitle}
+                  note={t.testNote}
+                  button={t.testButton}
+                />
+              </div>
+            )}
           </section>
         </>
       )}
@@ -507,12 +602,6 @@ export default function PrepPage() {
             <StandPhotos captions={t.photoCaptions} />
           </section>
 
-          {/* スタジオURLが未設定の行では出さない（見出しだけ残さない）。 */}
-          {row.riverside_url && (
-            <div className="mt-10">
-              <JoinBox url={row.riverside_url} note={t.joinNote} button={t.joinButton} />
-            </div>
-          )}
         </>
       )}
 
