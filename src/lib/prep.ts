@@ -422,7 +422,7 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     joinButton: 'インタビューに参加する',
     joinNote: 'お約束の時間になったら、このページを開いてボタンを押してください。',
     todayEyebrow: '本日のインタビュー',
-    joinNoteToday: '時間になったら、このボタンを押してください。',
+    joinNoteToday: '時間になったらボタンを押してください。',
     testTitle: 'リンクを試しておく',
     testNote:
       'アプリを入れたら、一度このリンクを開いてみてください。アプリが立ち上がって、カメラとマイクの許可を聞かれれば準備完了です。そのまま閉じていただいて大丈夫です。',
@@ -430,7 +430,7 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     calendarLabel: 'カレンダーに登録する',
     calendarGoogle: 'Google カレンダーに登録する',
     calendarNote:
-      '登録しておくと、1時間前と10分前に通知が出ます。通知から参加リンクを開けるので、当日このページを探さずに済みます。',
+      '登録しておくと、1時間前と10分前に通知が出ます。通知から参加リンクを開けるので、このページを探さずに済みます。',
     calEventTitle: 'インタビュー撮影（テステモ）',
     calEventBody: (joinUrl, pageUrl) =>
       [
@@ -531,7 +531,7 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     calendarLabel: 'Add to calendar',
     calendarGoogle: 'Add to Google Calendar',
     calendarNote:
-      'Add it and you’ll get a reminder an hour before and again ten minutes before, with the join link in it — so you won’t have to find this page on the day.',
+      'Add it and you’ll get a reminder an hour before and again ten minutes before, with the join link in it — so you won’t have to come looking for this page.',
     calEventTitle: 'Interview filming — TesuTemo',
     calEventBody: (joinUrl, pageUrl) =>
       [
