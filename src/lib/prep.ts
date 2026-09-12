@@ -206,6 +206,18 @@ export const RIVERSIDE_ANDROID = 'https://play.google.com/store/apps/details?id=
  * 予定の長さ。インタビュー自体は30〜40分だが、部屋の用意と最初の調整が入るので
  * カレンダーには1時間で入れる。行ごとに持つほどの違いは出ていない。
  */
+/** JSTの今日（YYYY-MM-DD）。本人の端末のタイムゾーンに左右されないようにする。 */
+export function todayInJst(now = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(now)
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? ''
+  return `${get('year')}-${get('month')}-${get('day')}`
+}
+
 export const INTERVIEW_MINUTES = 60
 
 /**
@@ -318,6 +330,9 @@ export type PrepCopy = {
 
   joinButton: string
   joinNote: string
+  /** 当日に開いたときだけ出る見出しと注記。 */
+  todayEyebrow: string
+  joinNoteToday: string
   /** 案内を読んでいる段階で押す「試す」ほうのボタン。当日の参加ボタンとは別物。 */
   testTitle: string
   testNote: string
@@ -406,6 +421,8 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
 
     joinButton: 'インタビューに参加する',
     joinNote: 'お約束の時間になったら、このページを開いてボタンを押してください。',
+    todayEyebrow: '本日のインタビュー',
+    joinNoteToday: '時間になったら、このボタンを押してください。',
     testTitle: 'リンクを試しておく',
     testNote:
       'アプリを入れたら、一度このリンクを開いてみてください。アプリが立ち上がって、カメラとマイクの許可を聞かれれば準備完了です。そのまま閉じていただいて大丈夫です。',
@@ -505,6 +522,8 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
 
     joinButton: 'Join the interview',
     joinNote: 'At your interview time, open this page and tap the button.',
+    todayEyebrow: 'Your interview is today',
+    joinNoteToday: 'At your interview time, tap this button.',
     testTitle: 'Try the link now',
     testNote:
       'Once the app is installed, open this link once. If the app launches and asks for camera and microphone access, you’re set — on the day it’s this one button. You can close it straight after.',

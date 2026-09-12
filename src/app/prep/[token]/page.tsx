@@ -12,6 +12,7 @@ import {
   SHOWCASE_URL,
   exampleEmbedUrl,
   googleCalendarUrl,
+  todayInJst,
   type PrepCopy,
   type PrepInterviewType,
   type PrepLang,
@@ -87,6 +88,7 @@ function JoinBox({
   note,
   button,
   variant = 'join',
+  big = false,
 }: {
   url: string
   title?: string
@@ -94,6 +96,8 @@ function JoinBox({
   button: string
   /** `test` は案内を読んでいる段階の下見用。塗りを外して、本番のボタンと見間違えないようにする。 */
   variant?: 'join' | 'test'
+  /** 当日に開いたときだけ大きくする。 */
+  big?: boolean
 }) {
   const test = variant === 'test'
   return (
@@ -107,7 +111,9 @@ function JoinBox({
         className={
           test
             ? 'mt-4 block rounded-xl bg-white py-3.5 text-center text-[15px] font-semibold text-primary ring-1 ring-primary/40'
-            : 'mt-4 block rounded-xl bg-primary py-4 text-center text-[16px] font-bold text-white'
+            : big
+              ? 'mt-5 block rounded-2xl bg-primary py-6 text-center text-[19px] font-bold text-white'
+              : 'mt-4 block rounded-xl bg-primary py-4 text-center text-[16px] font-bold text-white'
         }
       >
         {button} →
@@ -388,47 +394,72 @@ export default function PrepPage() {
   )
 
   if (screen === 'done') {
+    // 当日に開いた人と、事前に開いた人で必要なものが違う。当日は入口だけが要る。
+    const isToday = row.interview_date === todayInJst()
+    const when = row.interview_date
+      ? [
+          formatDate(row.interview_date, lang),
+          row.interview_time ? formatTime(row.interview_time, lang) : null,
+        ]
+          .filter(Boolean)
+          .join('　')
+      : null
+
+    const calendarBox = row.interview_date ? (
+      <CalendarBox
+        token={token}
+        date={row.interview_date}
+        time={row.interview_time}
+        joinUrl={row.riverside_url}
+        t={t}
+      />
+    ) : null
+
     return (
       <main className="mx-auto max-w-xl px-5 py-14">
-        <div className="rounded-2xl bg-white p-6 ring-1 ring-gray-200">
-          <h1 className="text-xl font-bold text-gray-900">{t.doneTitle}</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.doneBody}</p>
-          {row.interview_date && (
-            <p className="mt-4 text-[15px] font-semibold text-gray-900">
-              {t.onDate(
-                [
-                  formatDate(row.interview_date, lang),
-                  row.interview_time ? formatTime(row.interview_time, lang) : null,
-                ]
-                  .filter(Boolean)
-                  .join('　')
+        {isToday ? (
+          <>
+            {/* 当日。時刻と参加ボタンだけを先に出し、残りは下に送る。 */}
+            <p className="text-[13px] font-bold tracking-widest text-primary">{t.todayEyebrow}</p>
+            {row.interview_time && (
+              <p className="mt-1 text-[32px] font-bold leading-none text-gray-900">
+                {formatTime(row.interview_time, lang)}
+              </p>
+            )}
+            {row.riverside_url && (
+              <JoinBox
+                url={row.riverside_url}
+                note={t.joinNoteToday}
+                button={t.joinButton}
+                big
+              />
+            )}
+            {calendarBox && <div className="mt-4">{calendarBox}</div>}
+          </>
+        ) : (
+          <>
+            <div className="rounded-2xl bg-white p-6 ring-1 ring-gray-200">
+              <h1 className="text-xl font-bold text-gray-900">{t.doneTitle}</h1>
+              <p className="mt-3 text-[15px] leading-relaxed text-gray-600">{t.doneBody}</p>
+              {when && (
+                <p className="mt-4 text-[15px] font-semibold text-gray-900">{t.onDate(when)}</p>
               )}
-            </p>
-          )}
-        </div>
+            </div>
 
-        {row.riverside_url && (
-          <div className="mt-4">
-            <JoinBox
-              url={row.riverside_url}
-              title={t.onDayTitle}
-              note={t.joinNote}
-              button={t.joinButton}
-            />
-          </div>
-        )}
+            {row.riverside_url && (
+              <div className="mt-4">
+                <JoinBox
+                  url={row.riverside_url}
+                  title={t.onDayTitle}
+                  note={t.joinNote}
+                  button={t.joinButton}
+                />
+              </div>
+            )}
 
-        {/* 日付が未設定の行では予定が作れないので出さない。 */}
-        {row.interview_date && (
-          <div className="mt-4">
-            <CalendarBox
-              token={token}
-              date={row.interview_date}
-              time={row.interview_time}
-              joinUrl={row.riverside_url}
-              t={t}
-            />
-          </div>
+            {/* 日付が未設定の行では予定が作れないので出さない。 */}
+            {calendarBox && <div className="mt-4">{calendarBox}</div>}
+          </>
         )}
 
         {/* 読み返したい人のための戻り道。押すと案内の1枚目から辿れる。 */}
