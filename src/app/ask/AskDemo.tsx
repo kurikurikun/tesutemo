@@ -16,6 +16,7 @@ type Clip = {
   end_sec: number
   play_start?: number
   play_from?: number
+  jump_text?: string | null
   answer_text: string
   display_label_ja: string
   speaker: Speaker
@@ -55,13 +56,21 @@ export default function AskDemo() {
   const [chips, setChips] = useState<Clip[]>([])
   const [q, setQ] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<{ clip: Clip | null; partial: boolean; capped?: boolean; judged?: Judged[]; ms?: AskResult['ms']; chip?: boolean; key: number } | null>(null)
+  const [result, setResult] = useState<{ clip: Clip | null; partial: boolean; capped?: boolean; judged?: Judged[]; ms?: AskResult['ms']; chip?: boolean; intro?: boolean; key: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [showJudge, setShowJudge] = useState(false)
 
   useEffect(() => {
     if (window.Vimeo) setVimeoReady(true)
-    fetch('/api/ask').then((r) => r.json()).then((d) => Array.isArray(d) && setChips(d))
+    fetch('/api/ask')
+      .then((r) => r.json())
+      .then((d) => {
+        if (!Array.isArray(d)) return
+        setChips(d)
+        // Open on the speaker's self-introduction (the first chip), cued behind ▶, so
+        // visitors see who they are asking before they type anything.
+        if (d[0]) setResult((cur) => cur ?? { clip: d[0], partial: false, chip: true, intro: true, key: Date.now() })
+      })
   }, [])
 
   function playChip(c: Clip) {
@@ -93,7 +102,7 @@ export default function AskDemo() {
   }
 
   return (
-    <main style={{ maxWidth: 680, margin: '0 auto', padding: '28px 18px 60px' }}>
+    <main style={{ maxWidth: 880, margin: '0 auto', padding: '28px 18px 60px' }}>
       <Script src="https://player.vimeo.com/api/player.js" strategy="afterInteractive" onLoad={() => setVimeoReady(true)} />
 
       <span style={{ display: 'inline-block', fontSize: 11, letterSpacing: '.08em', color: '#fff', background: '#1d1d1f', padding: '3px 8px', borderRadius: 4 }}>
@@ -126,6 +135,11 @@ export default function AskDemo() {
         ))}
       </div>
 
+      {result?.intro && result.clip && (
+        <p style={{ color: MUTE, fontSize: 14, margin: '0 0 10px' }}>
+          TECH CREW {result.clip.speaker.role_ja}の{result.clip.speaker.name_ja}が、あなたの質問に答えます。
+        </p>
+      )}
       {loading && <p style={{ color: MUTE, fontSize: 14 }}>インタビューの中から探しています…</p>}
       {error && <p style={{ color: ORANGE, fontSize: 14 }}>エラー: {error}</p>}
 
@@ -136,7 +150,7 @@ export default function AskDemo() {
             : 'この質問への回答はまだ収録されていません。次のインタビューで聞いてみますね。'}
         </div>
       )}
-      {result?.clip && vimeoReady && <ClipCard key={result.key} clip={result.clip} partial={result.partial} autoplay={!!result.chip} />}
+      {result?.clip && vimeoReady && <ClipCard key={result.key} clip={result.clip} partial={result.partial} autoplay={!!result.chip && !result.intro} />}
 
       {result && !result.chip && !!result.judged?.length && (
         <div style={{ marginTop: 20 }}>
@@ -164,7 +178,6 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
   const [needsTap, setNeedsTap] = useState(false)
   const [jumped, setJumped] = useState(false)
   const player = useRef<VimeoPlayer | null>(null)
-  const [showText, setShowText] = useState(false)
 
   // play_start / play_from already include the pre-roll (answer_engine/ask.mjs PRE_ROLL_SEC).
   const start = clip.play_start ?? clip.start_sec
@@ -234,12 +247,14 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
           ▶ 最初から見る（{Math.round(from - start)}秒戻る）
         </button>
       )}
+      {/* Video and transcript side by side; the transcript wraps below on narrow screens. */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start', padding: '0 14px 14px' }}>
       <div
         ref={holder}
         style={
           vertical
-            ? { position: 'relative', width: 'min(100%, calc(72vh * 9 / 16))', aspectRatio: '9 / 16', margin: '0 auto', background: '#000' }
-            : { position: 'relative', paddingTop: '56.25%', background: '#000' }
+            ? { position: 'relative', flex: '0 0 auto', width: 'min(100%, calc(72vh * 9 / 16))', aspectRatio: '9 / 16', background: '#000', borderRadius: 8, overflow: 'hidden' }
+            : { position: 'relative', flex: '1 1 100%', paddingTop: '56.25%', background: '#000', borderRadius: 8, overflow: 'hidden' }
         }
       >
         {needsTap && (
@@ -255,11 +270,61 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
           </button>
         )}
       </div>
-      <button onClick={() => setShowText((s) => !s)} style={{ display: 'block', padding: '12px 14px', border: 0, background: 'none', color: ORANGE, fontSize: 14, cursor: 'pointer' }}>
-        {showText ? '▾' : '▸'} 文字で読む
-      </button>
-      {/* Verbatim transcript (only mis-hearings corrected). */}
-      {showText && <p style={{ margin: 0, padding: '0 14px 16px', fontSize: 15, lineHeight: 1.9 }}>{clip.answer_text}</p>}
+      {/* Verbatim transcript (punctuation added, words unchanged) — always shown. */}
+      <div
+        data-transcript-panel
+        style={{
+          position: 'relative',
+          flex: '1 1 240px',
+          minWidth: 0,
+          maxHeight: vertical ? 'calc(72vh)' : undefined,
+          overflowY: 'auto',
+        }}
+      >
+        <div style={{ fontSize: 12, color: MUTE, letterSpacing: '.04em', marginBottom: 6 }}>話している内容</div>
+        <Transcript text={clip.answer_text} highlight={clip.jump_text ?? null} />
+      </div>
+      </div>
     </div>
+  )
+}
+
+// The answer's transcript, with the passage playback jumped to highlighted and scrolled
+// into view. The excerpt is unpunctuated subtitle text, so it is located by comparing
+// with punctuation ignored.
+function Transcript({ text, highlight }: { text: string; highlight: string | null }) {
+  const mark = useRef<HTMLElement>(null)
+  const range = (() => {
+    if (!highlight) return null
+    const isPunct = (ch: string) => /[、。？！\s]/.test(ch)
+    const bareIdx: number[] = []
+    let bare = ''
+    for (let i = 0; i < text.length; i++) if (!isPunct(text[i])) { bare += text[i]; bareIdx.push(i) }
+    const needle = highlight.replace(/[、。？！\s]/g, '')
+    const at = bare.indexOf(needle.slice(0, 12))
+    if (at < 0) return null
+    const endBare = Math.min(bare.length - 1, at + needle.length - 1)
+    let end = bareIdx[endBare] + 1
+    while (end < text.length && isPunct(text[end])) end++
+    return [bareIdx[at], end] as const
+  })()
+  useEffect(() => {
+    // Scroll only the transcript panel (not the page — that would push the video away on phones).
+    const m = mark.current
+    const panel = m?.closest('[data-transcript-panel]') as HTMLElement | null
+    if (m && panel && panel.scrollHeight > panel.clientHeight) {
+      panel.scrollTo({ top: m.offsetTop - 24, behavior: "smooth" }) // panel is position:relative, so offsetTop is panel-relative
+    }
+  }, [highlight])
+  const style = { margin: 0, fontSize: 15, lineHeight: 1.9 }
+  if (!range) return <p style={style}>{text}</p>
+  return (
+    <p style={style}>
+      {text.slice(0, range[0])}
+      <mark ref={mark} style={{ background: '#fde6dc', color: 'inherit', borderRadius: 3, padding: '0 2px' }}>
+        {text.slice(range[0], range[1])}
+      </mark>
+      {text.slice(range[1])}
+    </p>
   )
 }

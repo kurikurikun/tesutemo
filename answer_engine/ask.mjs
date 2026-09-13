@@ -107,13 +107,16 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
       best_unit_id: isMiss ? null : best.unit_id, is_miss: isMiss, verdict, judge_model: judgeModel,
     });
 
-    const playFrom = (c) => {
+    // Where to start: the exact moment for a passing mention inside a long answer, else
+    // the answer's start. Also returns the transcript excerpt jumped to, for highlighting.
+    const jumpOf = (c) => {
       const w = c.window;
-      if (!w || w.matched_start_sec == null) return preRolled(c.start_sec);
+      if (!w || w.matched_start_sec == null) return null;
       const strongEnough = w.score >= c.embed_score - JUMP_MARGIN;
       const wellIn = w.matched_start_sec - c.start_sec > 4;
-      return preRolled(strongEnough && wellIn ? w.matched_start_sec : c.start_sec);
+      return strongEnough && wellIn ? w : null;
     };
+    const playFrom = (c) => preRolled(jumpOf(c)?.matched_start_sec ?? c.start_sec);
 
     return {
       verdict,
@@ -122,7 +125,7 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
         ? null
         : {
             seq: best.id, start_sec: best.start_sec, end_sec: best.end_sec,
-            play_start: preRolled(best.start_sec), play_from: playFrom(best),
+            play_start: preRolled(best.start_sec), play_from: playFrom(best), jump_text: jumpOf(best)?.matched_content ?? null,
             answer_text: best.answer_text, display_label_ja: best.display_label_ja, speaker: best.speakerInfo, source: best.source,
           },
       judged: judged.map((j) => ({
