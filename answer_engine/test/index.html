@@ -30,6 +30,9 @@
   .player.vertical { padding-top:0; width:min(100%, calc(72vh * 9 / 16)); aspect-ratio:9/16; margin:0 auto; }
   .player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
   .fromstart { display:block; margin: -4px 14px 10px; padding:0; border:0; background:none; color:var(--orange); font-size:13px; cursor:pointer; }
+  .playover { position:absolute; inset:0; z-index:2; border:0; cursor:pointer; background:rgba(0,0,0,.25); display:grid; place-items:center; }
+  .playover span { width:76px; height:76px; border-radius:50%; background:var(--orange); box-shadow:0 4px 16px rgba(0,0,0,.3); position:relative; }
+  .playover span::after { content:''; position:absolute; left:30px; top:23px; border-top:15px solid transparent; border-bottom:15px solid transparent; border-left:24px solid #fff; }
   .unmute { position:absolute; left:12px; top:12px; z-index:2; font-size:14px; padding:8px 12px; border:0; border-radius:999px; background:var(--orange); color:#fff; font-weight:600; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.25); }
   /* answer_text is verbatim (only mis-hearings corrected) — the one place her real words appear as text. */
   .transcript summary { cursor:pointer; padding:12px 14px; font-size:14px; color:var(--orange); list-style:none; }
@@ -103,7 +106,7 @@ function card(u, autoplay, partial = false) {
     const b = document.createElement('button');
     b.className = 'fromstart';
     b.textContent = `▶ 最初から見る（${Math.round(from - start)}秒戻る）`;
-    b.onclick = async () => { await p.setCurrentTime(start); await p.play(); b.remove(); };
+    b.onclick = () => { p.setCurrentTime(start); p.play(); b.remove(); };
     el.querySelector('.label').after(b);
   }
   p.on('timeupdate', ({ seconds }) => { if (seconds >= end) { p.pause(); p.setCurrentTime(start); } });
@@ -116,19 +119,20 @@ function card(u, autoplay, partial = false) {
   // (no 'seeked' event), so don't let the autoplay step wait on it forever.
   const seek = (t) => Promise.race([p.setCurrentTime(t), new Promise((r) => setTimeout(r, 1500))]);
   p.ready().then(() => (from > 0.5 ? seek(from) : null)).then(async () => {
-    if (!autoplay) return;
-    // Vimeo's play() can resolve even when the browser blocks it, so check the
-    // player's actual state shortly afterwards instead of trusting the promise.
+    // Sound-on playback must start inside a tap: chips autoplay (same tap), typed answers
+    // arrive seconds later, so they wait behind a ▶ that plays with sound in one tap.
+    const showPlay = () => {
+      const b = document.createElement('button');
+      b.className = 'playover'; b.setAttribute('aria-label', '再生');
+      b.innerHTML = '<span></span>';
+      b.onclick = () => { p.play(); b.remove(); };
+      p.on('play', () => b.remove());
+      el.querySelector('.player').append(b);
+    };
+    if (!autoplay) return showPlay();
     p.play().catch(() => {});
     await new Promise((r) => setTimeout(r, 800));
-    if (await p.getPaused()) {
-      await p.setMuted(true);
-      await p.play().catch(() => {});
-      const b = document.createElement('button');
-      b.className = 'unmute'; b.textContent = '🔊 音声をオンにする';
-      b.onclick = async () => { await p.setMuted(false); await p.play(); b.remove(); };
-      el.querySelector('.player').append(b);
-    }
+    if (await p.getPaused()) showPlay();
   });
   return el;
 }
@@ -149,7 +153,7 @@ async function run(q, via) {
     // One question, one clip. "partial" = the judge says she talks about a closely
     // related aspect, not the exact thing asked: play it, but say so. It is still
     // logged (ae_miss_log) as something to ask properly next interview.
-    $('#out').append(card(r.clip, true, r.verdict === 'partial'));
+    $('#out').append(card(r.clip, false, r.verdict === 'partial'));
   }
   const d = $('#debug'); d.hidden = false;
   d.textContent = `${r.verdict.toUpperCase()}  ·  ${r.judge}  ·  ${r.ms.total}ms (embed ${r.ms.embed}, search ${r.ms.search}, judge ${r.ms.judge})` +

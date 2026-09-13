@@ -41,7 +41,6 @@ type VimeoPlayer = {
   play(): Promise<void>
   pause(): Promise<void>
   getPaused(): Promise<boolean>
-  setMuted(m: boolean): Promise<boolean>
 }
 declare global {
   interface Window { Vimeo?: { Player: new (el: HTMLIFrameElement) => VimeoPlayer } }
@@ -137,7 +136,7 @@ export default function AskDemo() {
             : 'この質問への回答はまだ収録されていません。次のインタビューで聞いてみますね。'}
         </div>
       )}
-      {result?.clip && vimeoReady && <ClipCard key={result.key} clip={result.clip} partial={result.partial} />}
+      {result?.clip && vimeoReady && <ClipCard key={result.key} clip={result.clip} partial={result.partial} autoplay={!!result.chip} />}
 
       {result && !result.chip && !!result.judged?.length && (
         <div style={{ marginTop: 20 }}>
@@ -160,9 +159,9 @@ export default function AskDemo() {
   )
 }
 
-function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
+function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; autoplay: boolean }) {
   const holder = useRef<HTMLDivElement>(null)
-  const [needsUnmute, setNeedsUnmute] = useState(false)
+  const [needsTap, setNeedsTap] = useState(false)
   const [jumped, setJumped] = useState(false)
   const player = useRef<VimeoPlayer | null>(null)
   const [showText, setShowText] = useState(false)
@@ -184,6 +183,7 @@ function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
 
     const p = new window.Vimeo.Player(iframe)
     player.current = p
+    p.on('play', () => setNeedsTap(false))
     p.on('timeupdate', ({ seconds }) => {
       if (seconds >= clip.end_sec) { p.pause(); p.setCurrentTime(start) }
     })
@@ -193,21 +193,20 @@ function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
     p.ready()
       .then(() => (from > 0.5 ? seek(from) : null))
       .then(async () => {
-        // Typed answers arrive seconds after the click, so browsers may block sound-on
-        // autoplay (and play() can resolve anyway). Check the real state; fall back to muted.
+        // Browsers only allow sound-on playback that starts inside a tap. A chip starts the
+        // clip within its tap, so it autoplays. A typed answer arrives ~5s after 聞く, too
+        // late — so it waits, cued at the right moment, behind a ▶ that plays it with sound
+        // in one tap. If a chip's autoplay is blocked anyway, show the same ▶.
+        if (!autoplay) { if (!cancelled) setNeedsTap(true); return }
         p.play().catch(() => {})
         await new Promise((r) => setTimeout(r, 800))
-        if (!cancelled && (await p.getPaused())) {
-          await p.setMuted(true)
-          await p.play().catch(() => {})
-          if (!cancelled) setNeedsUnmute(true)
-        }
+        if (!cancelled && (await p.getPaused())) setNeedsTap(true)
       })
     return () => {
       cancelled = true
       iframe.remove()
     }
-  }, [clip, from, start])
+  }, [clip, from, start, autoplay])
 
   return (
     <div style={{ background: '#fff', border: `1px solid ${LINE}`, borderRadius: 14, overflow: 'hidden' }}>
@@ -229,7 +228,7 @@ function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
       <div style={{ padding: '0 14px 12px', fontSize: 15, color: MUTE }}>{clip.display_label_ja}</div>
       {jumped && (
         <button
-          onClick={async () => { await player.current?.setCurrentTime(start); await player.current?.play(); setJumped(false) }}
+          onClick={() => { player.current?.setCurrentTime(start); player.current?.play(); setJumped(false) }}
           style={{ display: 'block', margin: '-4px 14px 10px', padding: 0, border: 0, background: 'none', color: ORANGE, fontSize: 13, cursor: 'pointer' }}
         >
           ▶ 最初から見る（{Math.round(from - start)}秒戻る）
@@ -243,12 +242,16 @@ function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
             : { position: 'relative', paddingTop: '56.25%', background: '#000' }
         }
       >
-        {needsUnmute && (
+        {needsTap && (
+          // play() must be called synchronously inside the tap, or the browser blocks sound.
           <button
-            onClick={async () => { await player.current?.setMuted(false); await player.current?.play(); setNeedsUnmute(false) }}
-            style={{ position: 'absolute', left: 12, top: 12, zIndex: 2, fontSize: 14, padding: '8px 12px', border: 0, borderRadius: 999, background: ORANGE, color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+            aria-label="再生"
+            onClick={() => { player.current?.play(); setNeedsTap(false) }}
+            style={{ position: 'absolute', inset: 0, zIndex: 2, border: 0, cursor: 'pointer', background: 'rgba(0,0,0,0.25)', display: 'grid', placeItems: 'center' }}
           >
-            🔊 音声をオンにする
+            <span style={{ width: 76, height: 76, borderRadius: '50%', background: ORANGE, display: 'grid', placeItems: 'center', boxShadow: '0 4px 16px rgba(0,0,0,.3)' }}>
+              <span style={{ width: 0, height: 0, marginLeft: 6, borderTop: '15px solid transparent', borderBottom: '15px solid transparent', borderLeft: '24px solid #fff' }} />
+            </span>
           </button>
         )}
       </div>
