@@ -117,13 +117,40 @@ function captionTimeline(vttPath) {
 }
 const timeline = corpus.cues ? captionTimeline(path.resolve(path.dirname(file), corpus.cues)) : null;
 
+// Windows straight from the caption cues: consecutive cues inside the unit, grown to
+// ~50+ characters, overlapping by half. Exact start times, and independent of
+// punctuation — hand-edited subtitles often have almost no 。 to split on.
+function cueWindows(unit, vttPath) {
+  const cues = [];
+  for (const block of readFileSync(vttPath, 'utf8').split(/\n\s*\n/)) {
+    const m = block.match(/(\d+):(\d+):(\d+)\.(\d+)\s*-->\s*(\d+):(\d+):(\d+)\.(\d+)\s*\n([\s\S]*)/);
+    if (!m) continue;
+    const t = (h, mi, s, ms) => +h * 3600 + +mi * 60 + +s + +ms / 1000;
+    const start = t(m[1], m[2], m[3], m[4]);
+    if (start >= unit.start_sec - 0.05 && start < unit.end_sec) cues.push({ start, text: squash(m[9]) });
+  }
+  const out = [];
+  for (let i = 0; i < cues.length; ) {
+    let j = i, text = '';
+    while (j < cues.length && text.length < 50) text += cues[j++].text;
+    out.push({ text, start_sec: Math.round(cues[i].start * 10) / 10 });
+    if (j >= cues.length) break;
+    i = Math.max(i + 1, Math.floor((i + j) / 2));
+  }
+  return out.length > 1 ? out : [];
+}
+
 // Everything that can be matched against, one row each, all pointing at a unit.
 const rows = corpus.units.flatMap((u) => [
   { seq: u.seq, kind: 'answer_text', lang: corpus.source.lang, content: u.answer_text },
-  ...windows(u.answer_text).map((w) => ({
-    seq: u.seq, kind: 'answer_window', lang: corpus.source.lang, content: w.text,
-    start_sec: timeline ? timeline(u, w.sentence) : null,
-  })),
+  ...(corpus.cue_windows
+    ? cueWindows(u, path.resolve(path.dirname(file), corpus.cues)).map((w) => ({
+        seq: u.seq, kind: 'answer_window', lang: corpus.source.lang, content: w.text, start_sec: w.start_sec,
+      }))
+    : windows(u.answer_text).map((w) => ({
+        seq: u.seq, kind: 'answer_window', lang: corpus.source.lang, content: w.text,
+        start_sec: timeline ? timeline(u, w.sentence) : null,
+      }))),
   { seq: u.seq, kind: 'display_label', lang: 'ja', content: u.display_label_ja },
   { seq: u.seq, kind: 'display_label', lang: 'en', content: u.display_label_en },
   ...u.synthetic_questions.map((q) => ({ seq: u.seq, kind: 'synthetic_question', lang: q.lang, content: q.text })),

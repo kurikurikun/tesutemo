@@ -8,12 +8,13 @@ import { useEffect, useRef, useState } from 'react'
 // is a GENERATED caption describing the clip — never presented as a verbatim quote.
 
 type Speaker = { name_ja: string; role_ja: string }
-type Source = { video_id: string; video_hash: string | null }
+type Source = { video_id: string; video_hash: string | null; pipeline_meta?: { aspect?: string } }
 type Clip = {
   id?: string
   seq?: string
   start_sec: number
   end_sec: number
+  play_start?: number
   play_from?: number
   answer_text: string
   display_label_ja: string
@@ -153,7 +154,7 @@ export default function AskDemo() {
       )}
 
       <footer style={{ marginTop: 36, fontSize: 12, color: MUTE }}>
-        TesuTemo · 聞いてみる demo — TECH CREW 清水さん（2本のインタビュー、10クリップ）
+        TesuTemo · 聞いてみる demo — TECH CREW 清水さん（フルインタビュー 約30分）
       </footer>
     </main>
   )
@@ -166,12 +167,14 @@ function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
   const player = useRef<VimeoPlayer | null>(null)
   const [showText, setShowText] = useState(false)
 
-  const start = clip.start_sec
+  // play_start / play_from already include the pre-roll (answer_engine/ask.mjs PRE_ROLL_SEC).
+  const start = clip.play_start ?? clip.start_sec
   const from = clip.play_from ?? start
+  const vertical = clip.source.pipeline_meta?.aspect === '9:16'
 
   useEffect(() => {
     if (!holder.current || !window.Vimeo) return
-    setJumped(from > start)
+    setJumped(from - start > 1)
     const iframe = document.createElement('iframe')
     const h = clip.source.video_hash ? `h=${clip.source.video_hash}&` : ''
     iframe.src = `https://player.vimeo.com/video/${clip.source.video_id}?${h}badge=0&title=0&byline=0&portrait=0&playsinline=1#t=${Math.floor(from)}s`
@@ -232,7 +235,14 @@ function ClipCard({ clip, partial }: { clip: Clip; partial: boolean }) {
           ▶ 最初から見る（{Math.round(from - start)}秒戻る）
         </button>
       )}
-      <div ref={holder} style={{ position: 'relative', paddingTop: '56.25%', background: '#000' }}>
+      <div
+        ref={holder}
+        style={
+          vertical
+            ? { position: 'relative', width: 'min(100%, calc(72vh * 9 / 16))', aspectRatio: '9 / 16', margin: '0 auto', background: '#000' }
+            : { position: 'relative', paddingTop: '56.25%', background: '#000' }
+        }
+      >
         {needsUnmute && (
           <button
             onClick={async () => { await player.current?.setMuted(false); await player.current?.play(); setNeedsUnmute(false) }}

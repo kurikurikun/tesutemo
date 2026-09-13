@@ -10,10 +10,16 @@ const TOP_K = 4;
 
 // If the chosen clip's best transcript window matches about as well as anything else
 // in the clip (within JUMP_MARGIN) and sits well into it — a passing mention, e.g. her
-// name at 0:19 — start there with a 1s pre-roll. When the whole clip is the answer, its
-// generated questions / full transcript score clearly higher than any single window,
-// so it plays from the start and keeps its context.
+// name at 0:19 — start there. When the whole clip is the answer, its generated
+// questions / full transcript score clearly higher than any single window, so it
+// plays from the start and keeps its context.
 const JUMP_MARGIN = 0.05;
+
+// Every playback starts this much before the answer (Chris, 2026-09-13: 1–2s of
+// leeway so the first word is never clipped). Applies to chips, typed answers,
+// jumps and "watch from the start". Clamped at the start of the video.
+export const PRE_ROLL_SEC = 1.5;
+const preRolled = (t) => Math.max(0, Math.round((t - PRE_ROLL_SEC) * 10) / 10);
 
 /**
  * @param {{ instance: string, company: string, judgeModel?: string, dailyTypedCap?: number | null }} opts
@@ -29,7 +35,7 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
         .select(
           'id, seq, start_sec, end_sec, answer_text, display_label_ja, display_label_en, chip_order,' +
             'speaker:ae_speakers(name_ja, name_en, role_ja, role_en),' +
-            'source:ae_sources(key, video_provider, video_id, video_hash)',
+            'source:ae_sources(key, video_provider, video_id, video_hash, pipeline_meta)',
         )
         .eq('instance', instance)
         .eq('status', 'approved'),
@@ -38,7 +44,10 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
   }
 
   async function chips() {
-    return (await units()).filter((u) => u.chip_order != null).sort((a, b) => a.chip_order - b.chip_order);
+    return (await units())
+      .filter((u) => u.chip_order != null)
+      .sort((a, b) => a.chip_order - b.chip_order)
+      .map((u) => ({ ...u, play_start: preRolled(u.start_sec), play_from: preRolled(u.start_sec) }));
   }
 
   async function logChip(unitId, label) {
@@ -100,10 +109,10 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
 
     const playFrom = (c) => {
       const w = c.window;
-      if (!w || w.matched_start_sec == null) return c.start_sec;
+      if (!w || w.matched_start_sec == null) return preRolled(c.start_sec);
       const strongEnough = w.score >= c.embed_score - JUMP_MARGIN;
       const wellIn = w.matched_start_sec - c.start_sec > 4;
-      return strongEnough && wellIn ? Math.max(c.start_sec, w.matched_start_sec - 1) : c.start_sec;
+      return preRolled(strongEnough && wellIn ? w.matched_start_sec : c.start_sec);
     };
 
     return {
@@ -112,7 +121,8 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
       clip: isMiss
         ? null
         : {
-            seq: best.id, start_sec: best.start_sec, end_sec: best.end_sec, play_from: playFrom(best),
+            seq: best.id, start_sec: best.start_sec, end_sec: best.end_sec,
+            play_start: preRolled(best.start_sec), play_from: playFrom(best),
             answer_text: best.answer_text, display_label_ja: best.display_label_ja, speaker: best.speakerInfo, source: best.source,
           },
       judged: judged.map((j) => ({

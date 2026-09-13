@@ -27,6 +27,7 @@
   .label { padding: 0 14px 12px; font-size:15px; color:var(--mute); }
   .partial { margin: 0 14px 8px; display:inline-block; font-size:12px; color:#7e91cf; background:#eef1fa; padding:3px 8px; border-radius:4px; }
   .player { position:relative; padding-top:56.25%; background:#000; }
+  .player.vertical { padding-top:0; width:min(100%, calc(72vh * 9 / 16)); aspect-ratio:9/16; margin:0 auto; }
   .player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
   .fromstart { display:block; margin: -4px 14px 10px; padding:0; border:0; background:none; color:var(--orange); font-size:13px; cursor:pointer; }
   .unmute { position:absolute; left:12px; top:12px; z-index:2; font-size:14px; padding:8px 12px; border:0; border-radius:999px; background:var(--orange); color:#fff; font-weight:600; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.25); }
@@ -51,7 +52,7 @@
   <div class="chips" id="chips"></div>
   <div id="out"></div>
   <div class="debug" id="debug" hidden></div>
-  <footer>TesuTemo · answer engine test (清水さん A + B, 10 clips)</footer>
+  <footer>TesuTemo · answer engine test (清水さん full interview)</footer>
 </main>
 <script>
 const $ = (s) => document.querySelector(s);
@@ -89,15 +90,16 @@ function card(u, autoplay, partial = false) {
     <div class="player"></div>
     <details class="transcript"><summary>文字で読む</summary><p></p></details>`;
   el.querySelector('.label').textContent = u.display_label_ja;
+  if (u.source.pipeline_meta?.aspect === '9:16') el.querySelector('.player').classList.add('vertical');
   el.querySelector('.transcript p').textContent = u.answer_text;
   const src = `https://player.vimeo.com/video/${u.source.video_id}?h=${u.source.video_hash}&badge=0&title=0&byline=0&portrait=0#t=${Math.floor(u.play_from ?? u.start_sec)}s`;
   const iframe = document.createElement('iframe');
   iframe.src = src; iframe.allow = 'autoplay; fullscreen; picture-in-picture';
   el.querySelector('.player').append(iframe);
   const p = new Vimeo.Player(iframe);
-  const start = u.start_sec, end = u.end_sec;
+  const start = u.play_start ?? u.start_sec, end = u.end_sec; // play_start includes the pre-roll
   const from = u.play_from ?? start; // may be later than start: jump to a passing mention
-  if (from > start) {
+  if (from - start > 1) {
     const b = document.createElement('button');
     b.className = 'fromstart';
     b.textContent = `▶ 最初から見る（${Math.round(from - start)}秒戻る）`;
