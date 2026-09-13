@@ -13,7 +13,7 @@ export function loadEnv() {
     const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
     if (m && !(m[1] in process.env)) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
   }
-  for (const k of ['VOYAGE_API_KEY', 'NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_KEY']) {
+  for (const k of ['VOYAGE_API_KEY', 'SUPABASE_SERVICE_KEY']) {
     if (!process.env[k]) throw new Error(`${k} missing from .env.local`);
   }
 }
@@ -70,8 +70,12 @@ export async function rerank(query, documents) {
   return scores;
 }
 
+// The URL isn't secret (see src/lib/supabase.ts); fall back so Preview deploys without
+// NEXT_PUBLIC_SUPABASE_URL still work. The service key must come from the environment.
+const SUPABASE_URL = 'https://zmbvcsowniyrtaleluoc.supabase.co';
+
 export const supabase = () =>
-  createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY, {
+  createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY, {
     auth: { persistSession: false },
   });
 
