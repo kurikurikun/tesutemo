@@ -177,6 +177,7 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
   const holder = useRef<HTMLDivElement>(null)
   const [needsTap, setNeedsTap] = useState(false)
   const [jumped, setJumped] = useState(false)
+  const [showText, setShowText] = useState(false)
   const player = useRef<VimeoPlayer | null>(null)
 
   // play_start / play_from already include the pre-roll (answer_engine/ask.mjs PRE_ROLL_SEC).
@@ -248,7 +249,7 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
         </button>
       )}
       {/* Video and transcript side by side; the transcript wraps below on narrow screens. */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start', padding: '0 14px 14px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start', justifyContent: showText ? 'flex-start' : 'center', padding: '0 14px 14px' }}>
       <div
         ref={holder}
         style={
@@ -270,21 +271,28 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
           </button>
         )}
       </div>
-      {/* Verbatim transcript (punctuation added, words unchanged) — always shown. */}
-      <div
-        data-transcript-panel
-        style={{
-          position: 'relative',
-          flex: '1 1 240px',
-          minWidth: 0,
-          maxHeight: vertical ? 'calc(72vh)' : undefined,
-          overflowY: 'auto',
-        }}
+      {/* Verbatim transcript (punctuation added, words unchanged) — opened with 文字で読む. */}
+      {showText && (
+        <div
+          data-transcript-panel
+          style={{
+            position: 'relative',
+            flex: '1 1 240px',
+            minWidth: 0,
+            maxHeight: vertical ? 'calc(72vh)' : undefined,
+            overflowY: 'auto',
+          }}
+        >
+          <Transcript text={clip.answer_text} highlight={clip.jump_text ?? null} />
+        </div>
+      )}
+      </div>
+      <button
+        onClick={() => setShowText((v) => !v)}
+        style={{ display: 'block', padding: '0 14px 14px', border: 0, background: 'none', color: ORANGE, fontSize: 14, cursor: 'pointer' }}
       >
-        <div style={{ fontSize: 12, color: MUTE, letterSpacing: '.04em', marginBottom: 6 }}>話している内容</div>
-        <Transcript text={clip.answer_text} highlight={clip.jump_text ?? null} />
-      </div>
-      </div>
+        {showText ? '▾ 文字を閉じる' : '▸ 文字で読む'}
+      </button>
     </div>
   )
 }
