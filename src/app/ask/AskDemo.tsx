@@ -175,7 +175,6 @@ export default function AskDemo() {
 
 function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; autoplay: boolean }) {
   const holder = useRef<HTMLDivElement>(null)
-  const [needsTap, setNeedsTap] = useState(false)
   const [jumped, setJumped] = useState(false)
   const [showText, setShowText] = useState(false)
   const player = useRef<VimeoPlayer | null>(null)
@@ -190,14 +189,13 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
     setJumped(from - start > 1)
     const iframe = document.createElement('iframe')
     const h = clip.source.video_hash ? `h=${clip.source.video_hash}&` : ''
-    iframe.src = `https://player.vimeo.com/video/${clip.source.video_id}?${h}badge=0&title=0&byline=0&portrait=0&playsinline=1#t=${Math.floor(from)}s`
+    iframe.src = `https://player.vimeo.com/video/${clip.source.video_id}?${h}badge=0&title=0&byline=0&portrait=0&playsinline=1&color=e95228#t=${Math.floor(from)}s`
     iframe.allow = 'autoplay; fullscreen; picture-in-picture'
     Object.assign(iframe.style, { position: 'absolute', inset: '0', width: '100%', height: '100%', border: '0' })
     holder.current.appendChild(iframe)
 
     const p = new window.Vimeo.Player(iframe)
     player.current = p
-    p.on('play', () => setNeedsTap(false))
     p.on('timeupdate', ({ seconds }) => {
       if (seconds >= clip.end_sec) { p.pause(); p.setCurrentTime(start) }
     })
@@ -206,15 +204,13 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
     let cancelled = false
     p.ready()
       .then(() => (from > 0.5 ? seek(from) : null))
-      .then(async () => {
-        // Browsers only allow sound-on playback that starts inside a tap. A chip starts the
-        // clip within its tap, so it autoplays. A typed answer arrives ~5s after 聞く, too
-        // late — so it waits, cued at the right moment, behind a ▶ that plays it with sound
-        // in one tap. If a chip's autoplay is blocked anyway, show the same ▶.
-        if (!autoplay) { if (!cancelled) setNeedsTap(true); return }
-        p.play().catch(() => {})
-        await new Promise((r) => setTimeout(r, 800))
-        if (!cancelled && (await p.getPaused())) setNeedsTap(true)
+      .then(() => {
+        // The only play control is Vimeo's own button (orange via color=e95228). A tap
+        // INSIDE the player always counts as a user gesture, so it always plays with sound.
+        // Starting playback from our page (postMessage play()) is not reliable on iOS —
+        // it can start silently or not at all — so we only do that for chips on non-iOS,
+        // where it runs within the chip tap. Otherwise the clip waits, cued, for one tap.
+        if (autoplay && !cancelled && !isIOS()) p.play().catch(() => {})
       })
     return () => {
       cancelled = true
@@ -242,7 +238,7 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
       <div style={{ padding: '0 14px 12px', fontSize: 15, color: MUTE }}>{clip.display_label_ja}</div>
       {jumped && (
         <button
-          onClick={() => { player.current?.setCurrentTime(start); player.current?.play(); setJumped(false) }}
+          onClick={() => { player.current?.setCurrentTime(start); if (!isIOS()) player.current?.play(); setJumped(false) }}
           style={{ display: 'block', margin: '-4px 14px 10px', padding: 0, border: 0, background: 'none', color: ORANGE, fontSize: 13, cursor: 'pointer' }}
         >
           ▶ 最初から見る（{Math.round(from - start)}秒戻る）
@@ -258,18 +254,6 @@ function ClipCard({ clip, partial, autoplay }: { clip: Clip; partial: boolean; a
             : { position: 'relative', flex: '1 1 100%', paddingTop: '56.25%', background: '#000', borderRadius: 8, overflow: 'hidden' }
         }
       >
-        {needsTap && (
-          // play() must be called synchronously inside the tap, or the browser blocks sound.
-          <button
-            aria-label="再生"
-            onClick={() => { player.current?.play(); setNeedsTap(false) }}
-            style={{ position: 'absolute', inset: 0, zIndex: 2, border: 0, cursor: 'pointer', background: 'rgba(0,0,0,0.25)', display: 'grid', placeItems: 'center' }}
-          >
-            <span style={{ width: 76, height: 76, borderRadius: '50%', background: ORANGE, display: 'grid', placeItems: 'center', boxShadow: '0 4px 16px rgba(0,0,0,.3)' }}>
-              <span style={{ width: 0, height: 0, marginLeft: 6, borderTop: '15px solid transparent', borderBottom: '15px solid transparent', borderLeft: '24px solid #fff' }} />
-            </span>
-          </button>
-        )}
       </div>
       {/* Verbatim transcript (punctuation added, words unchanged) — opened with 文字で読む. */}
       {showText && (
@@ -335,4 +319,10 @@ function Transcript({ text, highlight }: { text: string; highlight: string | nul
       {text.slice(range[1])}
     </p>
   )
+}
+
+// iPhone / iPad (iPadOS reports as Mac with touch).
+function isIOS() {
+  if (typeof navigator === 'undefined') return false
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 }
