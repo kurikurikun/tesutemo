@@ -60,13 +60,15 @@ export function createAsker({ instance, company, judgeModel = JUDGE_MODEL, daily
   async function overDailyCap() {
     if (!dailyTypedCap) return false;
     const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
-    const { count, error } = await db
+    // Plain GET with limit(1) rather than a HEAD request (HEAD count failed on Vercel).
+    const { count, error, status } = await db
       .from('ae_queries')
-      .select('id', { count: 'exact', head: true })
+      .select('id', { count: 'exact' })
       .eq('instance', instance)
       .eq('via', 'typed')
-      .gte('created_at', since);
-    if (error) throw new Error(`cap check: ${error.message}`);
+      .gte('created_at', since)
+      .limit(1);
+    if (error) throw new Error(`cap check: ${error.message || error.code || `HTTP ${status}`}`);
     return count >= dailyTypedCap;
   }
 

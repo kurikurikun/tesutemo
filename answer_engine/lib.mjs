@@ -74,9 +74,13 @@ export async function rerank(query, documents) {
 // NEXT_PUBLIC_SUPABASE_URL still work. The service key must come from the environment.
 const SUPABASE_URL = 'https://zmbvcsowniyrtaleluoc.supabase.co';
 
+// cache: 'no-store' — on Vercel, Next.js patches fetch with a Data Cache that survives
+// deploys; supabase-js uses fetch internally, so without this, queries return stale rows
+// (and the daily-cap count request failed outright). Same fix as src/lib/survey.ts.
 export const supabase = () =>
   createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY, {
     auth: { persistSession: false },
+    global: { fetch: (input, init) => fetch(input, { ...init, cache: 'no-store' }) },
   });
 
 // pgvector accepts the '[1,2,3]' text form over PostgREST.
@@ -109,7 +113,7 @@ export const pad = (s, n) => {
 
 export const readJson = (p) => JSON.parse(readFileSync(path.resolve(p), 'utf8'));
 
-export function must({ data, error }, what) {
-  if (error) throw new Error(`${what}: ${error.message}`);
+export function must({ data, error, status }, what) {
+  if (error) throw new Error(`${what}: ${error.message || error.code || error.hint || `HTTP ${status}`}`);
   return data;
 }
