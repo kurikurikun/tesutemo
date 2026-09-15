@@ -248,6 +248,8 @@ export default function PrepPage() {
   const [familyName, setFamilyName] = useState('')
   const [givenName, setGivenName] = useState('')
   const [jobTitle, setJobTitle] = useState('')
+  const [device, setDevice] = useState('')
+  const [place, setPlace] = useState('')
   const [phone, setPhone] = useState('')
 
   const [saving, setSaving] = useState(false)
@@ -309,7 +311,7 @@ export default function PrepPage() {
   const nameFilled = familyName.trim() && givenName.trim()
   // 電話番号は任意。無くても送信できる（教えたくない人にここで止まられるより、
   // 読んだことと表記が取れるほうが大事）。
-  const canSubmit = nameFilled && jobTitle.trim() && !saving
+  const canSubmit = nameFilled && jobTitle.trim() && device.trim() && place.trim() && !saving
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -323,6 +325,8 @@ export default function PrepPage() {
         family_name: familyName.trim(),
         given_name: givenName.trim(),
         job_title: jobTitle.trim(),
+        device: device.trim(),
+        recording_place: place.trim(),
         phone: phone.trim(),
       }),
     }).catch(() => null)
@@ -704,6 +708,27 @@ export default function PrepPage() {
                 ))}
               </div>
             )}
+
+            {/* 当日の段取りに効くのはこの2つ。テロップの話が終わってから聞く。 */}
+            <Field label={t.deviceLabel} help={t.setupNote}>
+              <input
+                value={device}
+                onChange={(e) => setDevice(e.target.value)}
+                placeholder={t.devicePlaceholder}
+                className={inputClass}
+                required
+              />
+            </Field>
+
+            <Field label={t.placeLabel}>
+              <input
+                value={place}
+                onChange={(e) => setPlace(e.target.value)}
+                placeholder={t.placePlaceholder}
+                className={inputClass}
+                required
+              />
+            </Field>
 
             <Field label={t.phoneLabel} help={t.phoneHelp}>
               <input

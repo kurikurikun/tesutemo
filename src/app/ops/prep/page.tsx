@@ -164,6 +164,15 @@ function Row({
             </div>
           )}
 
+          {/* 当日の段取りを立てるための2つ。古い行には入っていない。 */}
+          {row.submitted_at && (row.device || row.recording_place) && (
+            <div className="rounded-lg bg-gray-50 p-3">
+              <p className="text-xs font-semibold text-gray-500">当日の環境</p>
+              <p className="mt-1 text-gray-900">{row.device}</p>
+              <p className="text-gray-900">{row.recording_place}</p>
+            </div>
+          )}
+
           {/* 予定は動く。ページに出る日時なので、ここで直せるようにしておく。 */}
           <div>
             <label className="block text-xs font-semibold text-gray-500">インタビュー日時</label>

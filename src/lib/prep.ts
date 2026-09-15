@@ -44,6 +44,8 @@
  *   given_kana text,   -- 同上
  *   job_title text,
  *   phone text,
+ *   device text,
+ *   recording_place text,
  *   steps_seen jsonb not null default '{}'::jsonb,
  *   user_agent text,
  *   created_at timestamptz not null default now()
@@ -96,6 +98,9 @@ export type PrepRow = {
   given_kana: string | null
   job_title: string | null
   phone: string | null
+  /** 当日使うスマホと撮影場所。当日の段取りを事前に立てるために聞いている。 */
+  device: string | null
+  recording_place: string | null
   /** 画面IDごとに、そこへ進んだ時刻。 */
   steps_seen: Record<string, string> | null
   user_agent: string | null
@@ -355,6 +360,12 @@ export type PrepCopy = {
   givenNamePlaceholder: string
   jobTitleLabel: string
   jobTitlePlaceholder: string
+  deviceLabel: string
+  devicePlaceholder: string
+  placeLabel: string
+  placePlaceholder: string
+  /** スマホと場所をなぜ聞くのか。理由がないと適当に書かれる。 */
+  setupNote: string
   phoneLabel: string
   phoneHelp: string
   phonePlaceholder: string
@@ -454,13 +465,18 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     givenNamePlaceholder: '太郎',
     jobTitleLabel: '役職・肩書き',
     jobTitlePlaceholder: '営業部 マネージャー',
+    deviceLabel: '当日使うスマホ',
+    devicePlaceholder: '例：iPhone 15、Galaxy S24',
+    placeLabel: '撮影する場所',
+    placePlaceholder: '例：会社の会議室、自宅',
+    setupNote: '当日の光や音を、こちらで先に考えておくために伺っています。',
     phoneLabel: '携帯電話番号（任意）',
     phoneHelp: '当日、何かあったときにご連絡します。差し支えなければご記入ください。',
     phonePlaceholder: '090-1234-5678',
     submit: '確認しました・送信する',
     submitting: '送信中…',
     submitError: '送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。',
-    requiredNote: 'お名前と役職のご記入をお願いします。',
+    requiredNote: '未入力の項目があります。',
     next: '確認しました・次へ',
     back: '前へ',
     stepOf: (n, total) => `${n} / ${total}`,
@@ -554,13 +570,18 @@ export const PREP_COPY: Record<PrepLang, PrepCopy> = {
     givenNamePlaceholder: 'Sarah',
     jobTitleLabel: 'Job title',
     jobTitlePlaceholder: 'Sales Manager',
+    deviceLabel: 'Phone you’ll use',
+    devicePlaceholder: 'e.g. iPhone 15, Galaxy S24',
+    placeLabel: 'Where you’ll record',
+    placePlaceholder: 'e.g. meeting room at work, home',
+    setupNote: 'So we can think about the light and the sound before the day.',
     phoneLabel: 'Mobile number (optional)',
     phoneHelp: 'In case we need to reach you on the day — only if you’d rather we had it.',
     phonePlaceholder: '090-1234-5678',
     submit: 'Confirm and send',
     submitting: 'Sending…',
     submitError: 'That didn’t send. Check your connection and try once more.',
-    requiredNote: 'Please fill in your name and job title.',
+    requiredNote: 'Something above is still blank.',
     next: 'Got it — next',
     back: 'Back',
     stepOf: (n, total) => `${n} of ${total}`,
