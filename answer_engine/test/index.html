@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>先輩社員に聞いてみる — test</title>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<style>
+  :root { --orange:#e95228; --ink:#1d1d1f; --mute:#6e6e73; --line:#e5e5ea; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif; color:var(--ink); background:#fafafa; }
+  main { max-width: 680px; margin: 0 auto; padding: 28px 18px 60px; }
+  .tag { display:inline-block; font-size:11px; letter-spacing:.08em; color:#fff; background:var(--ink); padding:3px 8px; border-radius:4px; }
+  h1 { font-size: 24px; margin: 12px 0 4px; }
+  .sub { color: var(--mute); margin: 0 0 20px; font-size: 14px; }
+  form { display:flex; gap:8px; }
+  input { flex:1; font-size:16px; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+  button.go { font-size:16px; padding:0 18px; border:0; border-radius:10px; background:var(--orange); color:#fff; font-weight:600; cursor:pointer; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 24px; }
+  .chip { font-size:14px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; cursor:pointer; }
+  .chip:hover { border-color: var(--orange); color: var(--orange); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:16px; }
+  .who { display:flex; align-items:center; gap:10px; padding:12px 14px; }
+  .avatar { width:36px; height:36px; border-radius:50%; background:#f0e6e2; display:grid; place-items:center; font-weight:700; color:var(--orange); }
+  .name { font-weight:600; } .role { font-size:12px; color:var(--mute); }
+  /* display_label is a GENERATED caption describing the clip — never a quote. */
+  .label { padding: 0 14px 12px; font-size:15px; color:var(--mute); }
+  .partial { margin: 0 14px 8px; display:inline-block; font-size:12px; color:#7e91cf; background:#eef1fa; padding:3px 8px; border-radius:4px; }
+  .player { position:relative; padding-top:56.25%; background:#000; }
+  .player.vertical { padding-top:0; width:min(100%, calc(72vh * 9 / 16)); aspect-ratio:9/16; margin:0 auto; }
+  .player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .fromstart { display:block; margin: -4px 14px 10px; padding:0; border:0; background:none; color:var(--orange); font-size:13px; cursor:pointer; }
+  .playover { position:absolute; inset:0; z-index:2; border:0; cursor:pointer; background:rgba(0,0,0,.25); display:grid; place-items:center; }
+  .playover span { width:76px; height:76px; border-radius:50%; background:var(--orange); box-shadow:0 4px 16px rgba(0,0,0,.3); position:relative; }
+  .playover span::after { content:''; position:absolute; left:30px; top:23px; border-top:15px solid transparent; border-bottom:15px solid transparent; border-left:24px solid #fff; }
+  .unmute { position:absolute; left:12px; top:12px; z-index:2; font-size:14px; padding:8px 12px; border:0; border-radius:999px; background:var(--orange); color:#fff; font-weight:600; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.25); }
+  /* answer_text is verbatim (only mis-hearings corrected) — the one place her real words appear as text. */
+  .transcript summary { cursor:pointer; padding:12px 14px; font-size:14px; color:var(--orange); list-style:none; }
+  .transcript summary::before { content:'▸ '; }
+  .transcript[open] summary::before { content:'▾ '; }
+  .transcript p { margin:0; padding:0 14px 16px; font-size:15px; line-height:1.9; }
+  .miss { background:#fff; border:1px dashed var(--line); border-radius:14px; padding:18px; }
+  .related { font-size:13px; color:var(--mute); margin: 18px 0 8px; }
+  .debug { font: 12px ui-monospace, Menlo, monospace; color: var(--mute); background:#f2f2f4; border-radius:10px; padding:10px 12px; margin-top:20px; white-space:pre-wrap; }
+  footer { margin-top:32px; font-size:12px; color:var(--mute); }
+</style>
+</head>
+<body>
+<main>
+  <span class="tag">LOCAL TEST</span>
+  <h1>先輩社員に聞いてみる</h1>
+  <p class="sub">AIが探しますが、答えるのは本物の人間です。</p>
+
+  <form id="f"><input id="q" placeholder="気になることを聞いてみてください" autocomplete="off"><button class="go">聞く</button></form>
+  <div class="chips" id="chips"></div>
+  <div id="out"></div>
+  <div class="debug" id="debug" hidden></div>
+  <footer>TesuTemo · answer engine test (清水さん full interview)</footer>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+let player = null, stopAt = null;
+
+fetch('/api/chips').then(r => r.json()).then(units => {
+  $('#chips').innerHTML = '';
+  for (const u of units) {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.textContent = u.display_label_ja.replace(/^Q\.\s*/, '');
+    // A chip IS its clip: no search, no judge, instant (and free).
+    b.onclick = () => {
+      $('#q').value = b.textContent;
+      $('#out').innerHTML = '';
+      $('#out').append(card(u, true));
+      $('#debug').hidden = false;
+      $('#debug').textContent = 'CHIP  · played directly (no search, no judge)';
+      fetch(`/api/chip?unit=${u.id}&q=${encodeURIComponent(b.textContent)}`);
+    };
+    $('#chips').append(b);
+  }
+});
+
+$('#f').onsubmit = (e) => { e.preventDefault(); const q = $('#q').value.trim(); if (q) run(q, 'typed'); };
+
+function card(u, autoplay, partial = false) {
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.innerHTML = `
+    <div class="who"><div class="avatar">${u.speaker.name_ja[0]}</div>
+      <div><div class="name">${u.speaker.name_ja}</div><div class="role">${u.speaker.role_ja}</div></div></div>
+    ${partial ? '<div class="partial">関連する内容を話しています</div>' : ''}
+    <div class="label"></div>
+    <div class="player"></div>
+    <details class="transcript"><summary>文字で読む</summary><p></p></details>`;
+  el.querySelector('.label').textContent = u.display_label_ja;
+  if (u.source.pipeline_meta?.aspect === '9:16') el.querySelector('.player').classList.add('vertical');
+  el.querySelector('.transcript p').textContent = u.answer_text;
+  const src = `https://player.vimeo.com/video/${u.source.video_id}?h=${u.source.video_hash}&badge=0&title=0&byline=0&portrait=0#t=${Math.floor(u.play_from ?? u.start_sec)}s`;
+  const iframe = document.createElement('iframe');
+  iframe.src = src; iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+  el.querySelector('.player').append(iframe);
+  const p = new Vimeo.Player(iframe);
+  const start = u.play_start ?? u.start_sec, end = u.end_sec; // play_start includes the pre-roll
+  const from = u.play_from ?? start; // may be later than start: jump to a passing mention
+  if (from - start > 1) {
+    const b = document.createElement('button');
+    b.className = 'fromstart';
+    b.textContent = `▶ 最初から見る（${Math.round(from - start)}秒戻る）`;
+    b.onclick = () => { p.setCurrentTime(start); p.play(); b.remove(); };
+    el.querySelector('.label').after(b);
+  }
+  p.on('timeupdate', ({ seconds }) => { if (seconds >= end) { p.pause(); p.setCurrentTime(start); } });
+  p.on('play', () => { if (player && player !== p) player.pause(); player = p; });
+  // Typed questions reach here ~4s after the click, so browsers no longer treat it
+  // as a user gesture and block sound-on autoplay. A paused Vimeo player shows the
+  // video's thumbnail (often an unrelated frame), so fall back to muted autoplay
+  // plus an unmute button rather than leaving a misleading still.
+  // Vimeo's setCurrentTime() never resolves when the player is already at that time
+  // (no 'seeked' event), so don't let the autoplay step wait on it forever.
+  const seek = (t) => Promise.race([p.setCurrentTime(t), new Promise((r) => setTimeout(r, 1500))]);
+  p.ready().then(() => (from > 0.5 ? seek(from) : null)).then(async () => {
+    // Sound-on playback must start inside a tap: chips autoplay (same tap), typed answers
+    // arrive seconds later, so they wait behind a ▶ that plays with sound in one tap.
+    const showPlay = () => {
+      const b = document.createElement('button');
+      b.className = 'playover'; b.setAttribute('aria-label', '再生');
+      b.innerHTML = '<span></span>';
+      b.onclick = () => { p.play(); b.remove(); };
+      p.on('play', () => b.remove());
+      el.querySelector('.player').append(b);
+    };
+    if (!autoplay) return showPlay();
+    p.play().catch(() => {});
+    await new Promise((r) => setTimeout(r, 800));
+    if (await p.getPaused()) showPlay();
+  });
+  return el;
+}
+
+async function run(q, via) {
+  $('#out').innerHTML = '<p class="sub">探しています…</p>';
+  const r = await fetch(`/api/ask?via=${via}&q=${encodeURIComponent(q)}`).then(r => r.json());
+  if (r.error) { $('#out').innerHTML = `<p class="sub">error: ${r.error}</p>`; return; }
+  $('#out').innerHTML = '';
+  if (!r.clip) {
+    const m = document.createElement('div');
+    m.className = 'miss';
+    m.textContent = 'この質問への回答はまだ収録されていません。次のインタビューで聞いてみますね。';
+    // No "nearby" clip on a miss: an unrelated clip under a question it doesn't
+    // answer reads as a dodge. The miss is logged for the next interview instead.
+    $('#out').append(m);
+  } else {
+    // One question, one clip. "partial" = the judge says she talks about a closely
+    // related aspect, not the exact thing asked: play it, but say so. It is still
+    // logged (ae_miss_log) as something to ask properly next interview.
+    $('#out').append(card(r.clip, false, r.verdict === 'partial'));
+  }
+  const d = $('#debug'); d.hidden = false;
+  d.textContent = `${r.verdict.toUpperCase()}  ·  ${r.judge}  ·  ${r.ms.total}ms (embed ${r.ms.embed}, search ${r.ms.search}, judge ${r.ms.judge})` +
+    (r.clip ? `  ·  plays ${r.clip.seq} from ${r.clip.play_from}s (clip starts ${r.clip.start_sec}s)` : '') + '\n' +
+    r.judged.map(j => `${j.id} ${j.verdict.padEnd(7)} embed ${j.embed.toFixed(3)} via ${j.matched_kind}` +
+      (j.window_score != null ? ` · best window ${j.window_score.toFixed(3)} @${j.window_start}s` : '') +
+      `  ${j.label}\n     ${j.reason}`).join('\n');
+}
+</script>
+</body>
+</html>

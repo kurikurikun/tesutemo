@@ -42,3 +42,6 @@ CLAUDE_tesutemo_lite.md
 campus_voices/
 lite_for_surveys/
 eventflow-enquiry.html
+
+# Answer engine interview data (transcripts, QA notes, caption files) — lives in Supabase, never in this public repo
+answer_engine/corpus/
